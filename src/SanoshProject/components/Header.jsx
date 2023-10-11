@@ -19,7 +19,7 @@ const Header = () => {
     <div className="bg-black text-white p-4">
       <div className="flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <Link to="/">Cosmic Media Gadgets</Link>
+          <Link to="/shop01">Cosmic Media Gadgets</Link>
         </div>
         <div className="md:hidden">
           <button
@@ -52,7 +52,6 @@ const Header = () => {
           </button>
         </div>
         <div className="hidden md:block">
-          
           <ul className="flex space-x-5">
             <li>
               <Link
@@ -65,7 +64,7 @@ const Header = () => {
             <li className="cursor-pointer hover:underline">
               <Link to="/">Products</Link>
             </li>
-            
+
             <li
               className="cursor-pointer hover:underline"
               onClick={handleSignOut}
