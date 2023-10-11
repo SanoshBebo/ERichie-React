@@ -333,7 +333,10 @@ const App = () => {
           <Route path="/shop12/product/:id" element={<ProductFetch />} />
           {/* ================================================================SPRITYCODE====================================================================           */}
           <Route path="/shop10/com" element={<Ecom />} />
-          <Route path="/product/:productId" element={<SprityProductDetail />} />
+          <Route
+            path="/shop10/product/:productId"
+            element={<SprityProductDetail />}
+          />
           <Route path="/shop10/add" element={<SprityAddProducts />} />
           <Route path="/shop10/display" element={<SprityProductList />} />
           <Route path="/shop10/home" element={<Homee />} />
