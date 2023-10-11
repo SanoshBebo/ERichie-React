@@ -1,0 +1,78 @@
+.product-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .product-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .product-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .product-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Add this new style for the product boxes */
+/* Addproduct.css */
+
+/* Style for each product box */
+.product-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  display: inline-block;
+  width: 250px; /* Adjust the width as needed */
+  text-align: center;
+}
+
+/* Style for product image */
+.product-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Style for buttons */
+.product-button {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Style for edit and delete buttons */
+.edit-button {
+  background-color: #28a745; /* Green color for edit button */
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red color for delete button */
+}
+
+/* Style for input fields */
+.product-input {
+  width: 80%;
+  padding: 5px;
+  margin: 5px;
+}
+

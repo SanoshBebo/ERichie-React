@@ -1,0 +1,43 @@
+/* vcustomerhomepage.css */
+
+/* Style the navbar */
+.navbar {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the search input */
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the product cards */
+  .product-card {
+    border: 1px solid #e1e1e1;
+    transition: transform 0.2s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-card .card-body {
+    padding: 1rem;
+  }
+  
+  .product-card .btn {
+    width: 100%;
+  }
+  
+  /* Style the dashboard */
+  .dashboard {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  

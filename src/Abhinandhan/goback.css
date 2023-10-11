@@ -1,0 +1,15 @@
+/* AdminPage.css */
+
+.goback-button {
+    background-color:  rgb(17, 159, 187);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .goback-button:hover {
+    background-color: #0056b3;
+  }

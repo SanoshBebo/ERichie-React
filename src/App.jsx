@@ -88,6 +88,21 @@ import ShopProductDetails from "./Shop-04/components/shopProductDetail";
 
 //=========================================================Dhanushiyas imports============================================================================//
 
+//=========================================================GaminggTeam imports============================================================================//
+import RethuUserPage from "./rethu/src/components/UserPage";
+import ProductDisplay1 from "./ERichie/ProductDisplay";
+import ShoppingPage from "./thillai/pages/ShoppingPage";
+import ProductDescPage from "./rethu/src/components/ProductDescPage";
+import ProductDescriptionPage from "./thillai/pages/ProductDescription";
+import ThillaiAdminPage from "./thillai/pages/AdminPage";
+import ProductList1 from "./thillai/components/admin-page/products/ProductList";
+import LasyaProductList from "./lasya/my-react-vite-app/src/components/productlist/productlist";
+import AddProduct1 from "./lasya/my-react-vite-app/src/components/addproduct/addproduct";
+import RethuAddProduct from "./rethu/src/components/AdminPage";
+import ProductDetail from "./lasya/my-react-vite-app/src/components/productlist/productdetail";
+
+//=========================================================GaminggTeam imports============================================================================//
+
 import MediaCategory from "./ERichie/MediaCategory";
 import MainHomePage from "./ERichie/MainHomePage";
 import ERichieLayout from "./ERichie/components/ERichieLayout";
@@ -235,6 +250,31 @@ const App = () => {
           <Route path="/shop13/*" element={<AbhiramApp />} />
           <Route path="/shop13/abhiramadmin" element={<AdminApp />} />
           {/* =========================================team computer============================================= */}
+          {/* =========================================gaming computer============================================= */}
+          <Route path="/gaming" element={<ProductDisplay1 />} />
+          <Route path="/shop05" element={<RethuUserPage />} />
+          <Route path="/shop05/admin" element={<RethuAddProduct />} />
+          <Route path="/shop07" element={<ShoppingPage />} />
+          <Route path="/shop07/admin" element={<ThillaiAdminPage />} />
+          <Route
+            path="/shop07/admin-page/products"
+            element={<ProductList1 />}
+          />
+          <Route
+            path="/shop07/product/:productId"
+            element={<ProductDescriptionPage />}
+          />
+          <Route path="/shop06" element={<LasyaProductList />} />
+          <Route
+            path="/shop06/product/:productId"
+            element={<ProductDetail />}
+          />
+          <Route path="/shop06/admin" element={<AddProduct1 />} />
+          <Route
+            path="/shop05/product/:productId"
+            element={<ProductDescPage />}
+          />
+          {/* =========================================gaming computer============================================= */}
         </Routes>
         <ToastContainer />
       </Router>

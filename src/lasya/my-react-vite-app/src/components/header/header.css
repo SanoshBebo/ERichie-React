@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+}
+
+.header-left h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.header-right a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+.header-right a:hover {
+  text-decoration: underline;
+}

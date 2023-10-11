@@ -1,0 +1,22 @@
+/* theme.css */
+
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 16px;
+  }
+  
+  .theme-toggle-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .theme-toggle-button.dark-theme {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  

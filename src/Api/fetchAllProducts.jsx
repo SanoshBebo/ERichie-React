@@ -3,6 +3,7 @@ import { fetchShopOneProducts } from "./fetchShopOneProducts";
 import { fetchShopThreeProducts } from "./fetchShopThreeProducts";
 import { fetchShopTwoProducts } from "./fetchShopTwoProducts";
 import { fetchShopThirteenProducts } from "./fetchShopThirteenProducts";
+import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
 
 export const fetchAllProducts = async () => {
   try {
@@ -19,7 +20,10 @@ export const fetchAllProducts = async () => {
 
     // gaming team
 
+    const shopFiveResponse = await fetchShopFiveProducts();
+
     // mobile team
+
     // Combine all products into a single array
     const allProducts = [
       ...shopOneResponse,
@@ -27,6 +31,7 @@ export const fetchAllProducts = async () => {
       ...shopThreeResponse,
       ...shopFourResponse,
       ...shopThirteenResponse,
+      ...shopFiveResponse,
     ];
 
     // Update the state with the combined products

@@ -1,0 +1,118 @@
+/* ProductDescriptionPage.css (You can create a separate CSS file) */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .quantity-control button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .quantity-control button:hover {
+    background-color: #0056b3;
+  }
+  
+  .quantity-control span {
+    margin: 0 10px;
+    font-size: 18px;
+  }
+  
+  .quantity-control button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Modal styles (customize as needed) */
+  .modal {
+    text-align: center;
+  }
+  
+  .modal-dialog {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+  }
+  
+  .modal-body p {
+    font-size: 18px;
+  }
+  
+  .modal-footer {
+    justify-content: center;
+  }
+  /* CSS for the popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay background */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  cursor: pointer;
+}
