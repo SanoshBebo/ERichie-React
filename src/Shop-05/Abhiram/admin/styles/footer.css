@@ -1,0 +1,114 @@
+.abiramfooter 
+{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+.abiramfooter
+{
+    width: 100%;
+    padding: 30px 40px;
+    background: #f6f6f6;
+}
+.abiramfooter .container
+{
+    display: flex;
+    max-width: 100%;
+}
+.abiramfooter .container .left-box
+{
+    width: 30%;
+    padding: 20px 20px;
+    border-right: 2px solid #b8b7b7;
+}
+.abiramfooter .container .left-box .box
+{
+    display: flex;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+.abiramfooter .container .left-box .box .icon_box
+{
+    font-size: 26px;
+    color: #cd1e76;
+}
+.abiramfooter .container .left-box .box .detail
+{
+    margin-left: 10px;
+}
+.abiramfooter .container .left-box .box .detail h3
+{
+    text-transform: uppercase;
+    font-size: 16px;
+    color: #cd1e76;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.abiramfooter .container .left-box .box .detail p
+{
+    font-size: 14px;
+    color: #232323;
+}
+.abiramfooter .container .right_box
+{
+    padding: 10px 20px;
+    width: 69%;
+}
+.abiramfooter .container .right_box .header
+{
+    max-width: 100%;
+    align-items: center;
+}
+.abiramfooter .container .right_box .header img
+{
+    margin-left: 40%;
+    width: 300px;
+}
+.abiramfooter .container .right_box .header p
+{
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+    color: #8a8a8a;
+}
+.abiramfooter .container .right_box .bottom
+{
+    padding: 20px 20px;
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.abiramfooter .container .right_box .bottom .box
+{
+    padding: 10px 20px;
+}
+.abiramfooter .container .right_box .bottom .box h3
+{
+    text-transform: uppercase;
+    color: #232323;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+.abiramfooter .container .right_box .bottom .box ul
+{
+    margin-top: 10px;
+}
+.abiramfooter .container .right_box .bottom .box ul li
+{
+    list-style: none;
+    margin-top: 5px;
+    color: #8a8a8a;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.abiramfooter .container .right_box .bottom .box ul li:hover
+{
+    color: #cd1e76;
+}

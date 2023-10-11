@@ -1,0 +1,18 @@
+/* AboutUs.css */
+.about-us-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .about-us-container .about-us-heading {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-us-container .about-us-description {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  

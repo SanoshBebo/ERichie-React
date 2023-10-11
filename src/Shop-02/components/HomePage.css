@@ -1,0 +1,41 @@
+
+
+
+/* HomePage.css */
+
+/* Slideshow container */
+.headershop15 {
+    margin-top: 100px;
+}
+.headershop15 .slideshow-container {
+    max-width: 100%;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  /* Images in the slideshow */
+  .headershop15 .slideshow-image {
+    display: none;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  /* About Us section */
+  .headershop15 .about-us {
+    margin: 20px 0;
+    font-size: 20px;
+    padding: 20px;
+    background-color: #f3f3f3; /* Background color for the section */
+  }
+  
+  /* Contact Us section */
+  .headershop15 .contact-us {
+    margin: 20px 0;
+    font-size: 20px;
+    padding: 20px;
+    background-color: #f3f3f3; /* Background color for the section */
+  }
+  
+  /* CSS for the "About Us" and "Contact Us" text can be added here */
+  

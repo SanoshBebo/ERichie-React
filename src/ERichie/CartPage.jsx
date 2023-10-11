@@ -20,6 +20,8 @@ import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchAllProducts } from "../Api/fetchAllProducts";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const CartComponent = () => {
   const cartItems = useSelector((state) => state.shoponecart.items);
@@ -177,7 +179,9 @@ const CartComponent = () => {
             )}
           </ul>
         ) : (
-          <p>Loading data...</p>
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
         )}
       </div>
       {cartItems.length > 0 && (

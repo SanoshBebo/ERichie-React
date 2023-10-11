@@ -1,0 +1,197 @@
+/* AdminPage.css */
+/* Global Styles */
+.sundarishop14 body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0e0d0d;
+}
+
+.sundarishop14 .container {
+  max-width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+.sundarishop14 .header {
+  background-color: #6a0dad;
+  color: black;
+  text-align: left;
+  padding: 20px 0;
+}
+
+.sundarishop14 .header h1 {
+  margin: 0;
+}
+
+/* Add Product Form Styles */
+.sundarishop14 .add-product-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.sundarishop14 .add-product-container h2 {
+  color: #6a0dad;
+  margin: 0;
+}
+
+.sundarishop14 .add-product-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.sundarishop14 .add-product-form label {
+  width: 100%;
+  font-weight: bold;
+}
+
+.sundarishop14 .add-product-form input[type="text"],
+.sundarishop14 .add-product-form input[type="number"],
+.sundarishop14 .add-product-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.sundarishop14 .add-product-form input[type="text"]:disabled,
+.sundarishop14 .add-product-form input[type="text"]:disabled {
+  background-color: #f0f0f0;
+}
+
+.sundarishop14 .add-product-form button {
+  background-color: #6a0dad;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+
+.sundarishop14 .add-product-form button:hover {
+  background-color: #4c0774;
+}
+
+/* Product List Styles */
+.sundarishop14 .product-list {
+  margin-top: 20px;
+}
+
+.sundarishop14 .product-list h2 {
+  color: #6a0dad;
+  margin: 0;
+}
+
+.sundarishop14 .product-search {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.sundarishop14 .product-search input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.sundarishop14 .product-search button {
+  background-color: #6a0dad;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sundarishop14 .product-search button:hover {
+  background-color: #4c0774;
+}
+
+.sundarishop14 .product-images img {
+  max-width: 100px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+}
+
+.sundarishop14 .product-details-1 {
+  flex-grow: 2;
+}
+
+.sundarishop14 .product-details-1 strong {
+  font-size: 1.2em;
+  color: #6a0dad;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.sundarishop14 .product-details-2 {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.sundarishop14 .product-details-2 p {
+  margin: 5px 0;
+}
+
+.sundarishop14 .product-buttons-2 {
+  margin-top: 10px;
+  text-align: right;
+  
+}
+
+.sundarishop14 .product-buttons-2 button {
+  background-color: #6a0dad;
+  color: #fff;
+  margin-right: 10px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sundarishop14 .product-buttons-2 button:hover {
+  background-color: #4c0774;
+}
+
+.sundarishop14 .product-images img {
+  max-width: 200px;
+  /* Set the maximum width to 400px */
+  max-height: 200px;
+  /* Set the maximum height to 400px */
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+}
+
+.sundarishop14 .product-items {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+  /* Align products to the left */
+}
+
+.sundarishop14 .product-cards {
+  flex: 0 1 calc(25% - 10px);
+  /* 25% width for each product card with 10px gap */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-grow: 1;
+}

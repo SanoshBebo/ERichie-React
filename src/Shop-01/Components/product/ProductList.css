@@ -1,0 +1,194 @@
+/* .product-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+    max-width: 300px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .product-card h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 12px;
+  }
+  
+  .product-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .product-form label {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .product-form input {
+    margin-bottom: 12px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .product-form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  
+  .product-h1{
+    color: black;
+    text-align:  center;
+    margin-top: 15px;
+  } */
+
+  /* ProductList.css */
+  .container .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns for three products per row */
+    gap: 20px; /* Adjust the gap between cards as needed */
+  }
+  
+  
+  .container .product-card {
+    width: 500px; /* Adjust the width as needed */
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    position: relative; /* Add this for positioning buttons */
+    height: 550px;
+  }
+  
+  /* .product-card h2 {
+   
+  }
+  
+  .product-card p {
+    margin: 5px 0;
+  } */
+
+  
+  
+  .container .product-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .container .product-buttons {
+    position: absolute;
+    bottom: 2px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    
+    
+  }
+  
+  .container .product-buttons button {
+    padding: 15px ;
+    background-color: #007bff;
+    margin-right: 15px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .container .product-buttons button:hover {
+    background-color: #0056b3;
+  }
+  .container .product-h1{
+    color: black;
+    text-align:  center;
+    margin-top: 15px;
+  } 
+
+  /* Add to Cart button styles */
+  .container .add-to-cart button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Add a smooth hover effect */
+}
+
+.container .add-to-cart button:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+
+/* Styles for buttons inside the product-buttons div */
+.container .product-buttons button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Add a smooth hover effect */
+}
+
+.container .product-buttons button:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+
+/* Style for the 'product-h1' heading */
+.container .product-h1 {
+  font-size: 5rem;
+  background-color: #333; /* Background color for the block */
+  color: #fff; /* Text color */
+  text-align: center; /* Center align the text */
+  padding: 20px ; /* Add padding to the top and bottom */
+  text-transform: uppercase; /* Convert text to uppercase */
+  letter-spacing: 2px; /* Add letter spacing for a stylish look */
+  font-weight: bold; /* Make the text bold */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Add a shadow effect */
+  border-radius: 25%;
+
+}
+
+.container .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.container .pagination button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.container .pagination button.active {
+  background-color: #28a745; /* Change the color for the active button */
+}

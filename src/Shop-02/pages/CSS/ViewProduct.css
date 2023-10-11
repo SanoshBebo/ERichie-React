@@ -1,0 +1,149 @@
+/* ProductDetail.css */
+
+/* Base styles for the product detail */
+.Product .product-detail {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Styles for the product title */
+  .Product .product-title {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  /* Styles for the product description */
+  .Product .product-description {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  /* Styles for the product price */
+  .Product .product-price {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  /* Styles for the product image */
+  .Product .product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  
+  /* Styles for the product stock */
+  .Product .product-stock {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  /* Styles for the edit form when editing */
+  .Product .edit-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Styles for form inputs */
+  .Product .form-input {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Styles for the update and cancel buttons when editing */
+  .Product .update-button,
+  .Product .cancel-button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Product .update-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styles for the edit and delete buttons */
+  .Product .buttons {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .Product .edit-button,
+  .Product .delete-button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Product .edit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .Product.delete-button:hover {
+    background-color: #ff0000;
+  }
+
+  /* ProductForm.css */
+
+/* Styles for the container */
+.productcheckoutlist .container {
+    width: 500px;
+    margin-bottom: 500px; /* Add some bottom margin for spacing */
+    margin-left: 450px;
+    padding-top: 50px; /* Add some top padding for centering */
+  }
+  
+  /* Styles for the "View Products" heading */
+  .productcheckoutlist h2.text-center {
+    font-size: 28px; /* Increase font size */
+  }
+  
+  /* Styles for the search input */
+  .productcheckoutlist .search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Styles for the product list */
+  .productcheckoutlist  .product-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Styles for individual product items */
+  .productcheckoutlist  .product-item {
+    margin: 10px 0;
+  }
+  
+  /* Styles for product links */
+  .productcheckoutlist .product-link {
+    text-decoration: none;
+    font-size: 18px;
+    color: #007bff;
+    transition: color 0.3s ease;
+  }
+  
+  .productcheckoutlist .product-link:hover {
+    color: #0056b3;
+  }
+  
+  

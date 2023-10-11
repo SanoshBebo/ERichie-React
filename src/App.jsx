@@ -45,6 +45,49 @@ import Allproducts from "./SuryaProject/pages/allproducts/Allproducts";
 
 //=========================================================Suryas imports============================================================================//
 
+import ComputerTeamHomePage from "./pages/home";
+
+//=========================================================Sanjays imports============================================================================//
+
+import UserOperations from "./Shop-02/components/UserOperator";
+import AdminOperations from "./Shop-02/components/AdminOperator";
+import HomePage from "./Shop-02/components/HomePage";
+import ProductList from "./Shop-02/components/ProductList";
+import CheckoutPage from "./Shop-02/components/CheckOut";
+import PaymentPage from "./Shop-02/components/Payment";
+import SanjayAddProduct from "./Shop-02/pages/AddProduct";
+import ViewProducts from "./Shop-02/pages/ProductList";
+
+import StockReport from "./Shop-02/pages/Report";
+import LiveReport from "./Shop-02/pages/LiveReport";
+//=========================================================Sanjays imports============================================================================//
+
+//=========================================================Sundaris imports============================================================================//
+import ProductDetailPage from "./Shop-03/components/ProductDetail";
+import AddProductShop03 from "./Shop-03/components/adminpage";
+import UserPageShop03 from "./Shop-03/components/UserPage";
+//=========================================================Sundaris imports============================================================================//
+
+//=========================================================Abhirams imports============================================================================//
+import AbhiramApp from "./Shop-05/Abhiram/src/App";
+import AdminApp from "./Shop-05/Abhiram/admin/adminapp";
+//=========================================================Abhirams imports============================================================================//
+
+//=========================================================Harinis imports============================================================================//
+import Shop01Home from "./Shop-01/pages/home/Home";
+import Shop01Admin from "./Shop-01/pages/admin/Admin";
+import Shop01AboutUs from "./Shop-01/pages/About/About";
+import Shop01ProductDetail from "./Shop-01/Components/product/ProductDetail";
+
+//=========================================================Harinis imports============================================================================//
+
+//=========================================================Dhanushiyas imports============================================================================//
+import UserPage from "./Shop-04/components/UserPage";
+import DhanushiyaAdminPage from "./Shop-04/components/AdminPage";
+import ShopProductDetails from "./Shop-04/components/shopProductDetail";
+
+//=========================================================Dhanushiyas imports============================================================================//
+
 import MediaCategory from "./ERichie/MediaCategory";
 import MainHomePage from "./ERichie/MainHomePage";
 import ERichieLayout from "./ERichie/components/ERichieLayout";
@@ -144,18 +187,13 @@ const App = () => {
           />
           <Route path="/shop03/admin" element={<AddProductForm />} />
           <Route path="/shop03/tablepage" element={<TablePage />} />
-
           {/* // =========================================================askshayas code============================================================================// */}
-
           <Route path="/shop02/*" element={<AkshayaUserPage />} />
           <Route path="/shop02/admin/*" element={<AkshayaAdminPage />} />
-
           <Route path="/*" element={<NoPage />} />
-
           {/* // =========================================================Suryas code============================================================================// */}
           <Route path="/shop04" element={<Home />} />
           <Route path="/shop04/allproducts" element={<Allproducts />} />
-
           <Route path="/shop04/admin/dashboard" element={<Dashboard />} />
           <Route path="shop04/product/:id" element={<ProductInfo />} />
           <Route path="/shop04/admin/addproduct" element={<AddProduct />} />
@@ -163,6 +201,40 @@ const App = () => {
             path="/shop04/admin/updateproduct"
             element={<UpdateProduct />}
           />
+          {/* =========================================team computer============================================= */}
+          <Route path="/computer" element={<ComputerTeamHomePage />} />
+          <Route path="/shop15" element={<UserOperations />} />
+          <Route path="/AdminAction" element={<AdminOperations />} />
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/products/*" element={<ProductList />} />
+          <Route path="/checkout/:productId" element={<CheckoutPage />} />
+          <Route path="/AdminAction/add" element={<SanjayAddProduct />} />
+          <Route path="/AdminAction/view" element={<ViewProducts />} />
+          <Route path="/AdminAction/report" element={<StockReport />} />
+          <Route path="/AdminAction/livereport" element={<LiveReport />} />
+          <Route path="/shop14/admin" element={<AddProductShop03 />} />
+          <Route path="/shop14" element={<UserPageShop03 />} />
+          <Route
+            path="/shop14/products/:productId"
+            element={<ProductDetailPage />}
+          />{" "}
+          {/* Add this route */}
+          <Route path="/shop17/*" element={<Shop01Home />} />
+          <Route path="/admin" element={<Shop01Admin />} />
+          <Route
+            path="/products/:documentId"
+            element={<Shop01ProductDetail />}
+          />
+          <Route path="/admin/report" element={<Shop01AboutUs />} />
+          <Route path="/Shop16/User" element={<UserPage />}></Route>
+          <Route path="/Shop16/Admin" element={<DhanushiyaAdminPage />} />
+          <Route
+            path="/shop4products/:productId"
+            element={<ShopProductDetails />}
+          />
+          <Route path="/shop13/*" element={<AbhiramApp />} />
+          <Route path="/shop13/abhiramadmin" element={<AdminApp />} />
+          {/* =========================================team computer============================================= */}
         </Routes>
         <ToastContainer />
       </Router>

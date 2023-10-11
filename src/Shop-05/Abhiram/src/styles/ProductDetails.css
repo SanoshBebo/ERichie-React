@@ -1,0 +1,19 @@
+/* Add this CSS in your component's CSS file or a global stylesheet */
+.quantity-input {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity-input label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .quantity-input input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  

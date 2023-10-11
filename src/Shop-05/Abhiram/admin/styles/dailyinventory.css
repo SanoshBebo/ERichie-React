@@ -1,0 +1,33 @@
+/* Style for the Daily Inventory Report container */
+.daily .container {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  /* Style for the table header */
+  .daily table th {
+    background-color: rgb(87, 118, 133);
+    padding: 10px; /* Add padding for spacing between header cells */
+  }
+  
+  /* Style for table cells (both header and data cells) */
+  .daily  table th, table td {
+    padding: 10px; /* Add padding for spacing between cells */
+    text-align: center;
+    border: 1px solid #595b5f;
+  }
+  
+  /* Style for the table rows */
+  .daily table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style for the table rows on hover (optional) */
+  .daily table tbody tr:hover {
+    background-color: #eafbff;
+  }
+  

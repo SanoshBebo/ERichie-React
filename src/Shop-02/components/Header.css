@@ -1,0 +1,55 @@
+/* Header.css */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Use 100% to ensure the full width */
+    background-color: #e6a9a9;
+    color: #3caf2d;
+    padding: 15px;
+    display: flex;
+    justify-content: space-evenly; /* Use space-between for even spacing */
+    align-items: center;
+}
+
+.fixed-header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+.fixed-header .logo:hover {
+    /* No need to repeat text-decoration and color properties */
+    text-decoration: none;
+}
+
+.fixed-header .search input {
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #0c51e6;
+    width: 100%; /* Set it to 100% for full width */
+}
+
+.fixed-header .product-list,
+.fixed-header .contact-us {
+    margin-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+
+.fixed-header .product-list:hover,
+.fixed-header .contact-us:hover {
+    text-decoration: underline;
+}
+
+.fixed-header .product-list {
+    font-weight: bold;
+}
+
+.fixed-header .contact-us {
+    font-weight: normal; /* Add a semicolon at the end for consistency */
+}

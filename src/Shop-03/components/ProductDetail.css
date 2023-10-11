@@ -1,0 +1,53 @@
+
+.shop_14 .product-detail-page {
+
+    padding: 20px;
+
+    font-family: Arial, sans-serif;
+
+    text-align: left;
+
+  }
+
+ 
+
+  .shop_14  .product-details {
+
+    width: 100%;
+
+    max-width: 800px;
+
+  }
+
+ 
+
+  .shop_14  .product-image {
+
+    width: 250px;
+
+    height: 250px;
+
+  }
+
+ 
+
+  .shop_14 .product-details strong {
+
+    font-size: 24px;
+
+  }
+
+ 
+
+  .shop_14 .product-details p {
+
+    font-size: 18px;
+
+    margin: 10px 0;
+
+  }
+
+ .shop_14 .spaced-buttons
+ {
+  margin-right:10px;
+ }

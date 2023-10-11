@@ -1,0 +1,75 @@
+
+
+.product-grid {
+  display: grid;
+  margin-top: 100px;
+  margin: 80px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.product-grid .product-card {
+  border: 1px solid #a77c7c;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(95, 88, 88, 0.1);
+  height: auto; /* Allow the card height to adjust to content */
+  display: grid;
+}
+
+.product-grid .image-container {
+  max-height: 300px; /* Set a fixed maximum height for the image container */
+  overflow: hidden; /* Hide any overflow from the image */
+  border-radius: 5px 5px 0 0; /* Rounded corners for the top of the image */
+}
+
+
+.product-grid .product-card img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain; /* Maintain the image's aspect ratio and fit it within the container */
+  display: block; /* Remove any space around the image */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+.product-grid .product-details {
+  padding: 10px;
+  background-color: #a04343; /* Background color for the text section */
+  border-radius: 0 0 5px 5px; /* Rounded corners for the bottom of the card */
+  display: grid;
+  justify-content: center;
+  font-size: 20px;
+  grid-column: auto;
+}
+
+.product-grid .product-details h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.product-grid .product-details p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.buttonmine{
+  background-color: #007bff; /* Background color for the button */
+  color: #fff; /* Text color for the button */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Add rounded corners */
+  padding: 10px 20px; /* Adjust padding to fit your design */
+  font-size: 16px; /* Adjust the font size to your preference */
+  cursor: pointer; /* Show a pointer cursor on hover */
+justify-content: center;}
+
+.buttonmine:hover {
+  background-color: #0056b3; /* Change background color on hover */
+  /* You can also add other styles for hover state */
+}
+
+
+
+
+
+
