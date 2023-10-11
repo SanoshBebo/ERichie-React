@@ -102,6 +102,44 @@ import RethuAddProduct from "./rethu/src/components/AdminPage";
 import ProductDetail from "./lasya/my-react-vite-app/src/components/productlist/productdetail";
 
 //=========================================================GaminggTeam imports============================================================================//
+// ===================================================================SASHAANKIMPORT================================================================
+
+// import SashaankHome from "./SashaankProject/pages/home/Home";
+// import SashaankDashboard from "./SashaankProject/pages/admin/dashboard/Dashboard";
+// import SashaankMyState from "./SashaankProject/context/data/myState";
+// import SashaankProductInfo from "./SashaankProject/pages/productInfo/ProductInfo";
+// import SashaankAddProduct from "./SashaankProject/pages/admin/page/AddProduct";
+// import SashaankUpdateProduct from "./SashaankProject/pages/admin/page/UpdateProduct";
+// import SashaankAllproducts from "./SashaankProject/pages/allproducts/Allproducts";
+
+//================================================================SASHAANKIMPORT================================================================
+
+//===============================================================MAHAIMPORTS===================================================================
+import MahaAdminLayout from "./MahaProject/Adminlayout";
+import CustomerApp from "./MahaProject/components/CustomerApp";
+import DailyInventoryReport from "./MahaProject/DailyInventory"; // Import the DailyInventoryReport component
+import DailySalesReport from "./MahaProject/DailySalesReport"; // Import the DailySalesReport component
+import ProductFetch from "./MahaProject/components/ProductFetch";
+//==============================================================MAHAIMPORTS====================================================================
+
+//==============================================================SPRITYIMPORTS====================================================================
+import SprityAddProducts from "./SprityProject/Add";
+import SprityProductList from "./SprityProject/Display";
+import Ecom from "./SprityProject/Commerce";
+import Homee from "./SprityProject/home";
+import SprityAdminDashboard from "./SprityProject/Table";
+import SprityAdminHome from "./SprityProject/Adminhome";
+import SprityProductDetail from "./SprityProject/ProductDetail";
+//==============================================================SPRITYIMPORTS====================================================================
+//==============================================================CHETNAIMPORTS====================================================================
+
+import ChetnaHomePage from "./ChetnaProject//Pages/HomePage/HomePage";
+import ChetnaAdminpage from "./ChetnaProject/Pages/HomePage/Admin-page";
+import ChetnaProductDetailsPage from "./ChetnaProject/component/layout/productlisting/Productdetailspopup";
+import TrandingPages from "./ChetnaProject/component/layout/productlisting/TrandingPages";
+import MobileCategory from "./ERichie/MobileCategory";
+
+//==============================================================CHETNAIMPORTS====================================================================
 
 import MediaCategory from "./ERichie/MediaCategory";
 import MainHomePage from "./ERichie/MainHomePage";
@@ -275,6 +313,51 @@ const App = () => {
             element={<ProductDescPage />}
           />
           {/* =========================================gaming computer============================================= */}
+          <Route path="/mobiles" element={<MobileCategory />} />
+          {/* =================================================================CHETNACODE========================================================== */}
+          <Route path="/shop11" element={<ChetnaHomePage />} />
+          <Route path="/shop11/Adminpage" element={<ChetnaAdminpage />} />
+          <Route
+            path="/shop11/product/:id"
+            element={<ChetnaProductDetailsPage />}
+          />
+          <Route path="/shop11/protectlist" element={<TrandingPages />} />
+          {/* ===============================================================MAHACODE===================================================================           */}
+          <Route path="/shop12/admin" element={<MahaAdminLayout />} />
+          <Route path="/shop12/customer" element={<CustomerApp />} />
+          <Route
+            path="/shop12/daily-inventory"
+            element={<DailyInventoryReport />}
+          />
+          <Route path="/shop12/daily-sales" element={<DailySalesReport />} />
+          <Route path="/shop12/product/:id" element={<ProductFetch />} />
+          {/* ================================================================SPRITYCODE====================================================================           */}
+          <Route path="/shop10/com" element={<Ecom />} />
+          <Route path="/product/:productId" element={<SprityProductDetail />} />
+          <Route path="/shop10/add" element={<SprityAddProducts />} />
+          <Route path="/shop10/display" element={<SprityProductList />} />
+          <Route path="/shop10/home" element={<Homee />} />
+          <Route path="/shop10/table" element={<SprityAdminDashboard />} />
+          <Route path="/shop10/adminhome" element={<SprityAdminHome />} />
+          {/*================================================================SASHAANKCODE================================================================*/}
+          {/* <Route path="/shop09" element={<SashaankHome />} />
+          <Route path="/shop09/allproducts" element={<SashaankAllproducts />} />
+          <Route
+            path="/shop09/admin/dashboard"
+            element={<SashaankDashboard />}
+          />
+          <Route
+            path="/shop09/productinfo/:id"
+            element={<SashaankProductInfo />}
+          />
+          <Route
+            path="/shop09/admin/addproduct"
+            element={<SashaankAddProduct />}
+          />
+          <Route
+            path="/shop09/admin/updateproduct"
+            element={<SashaankUpdateProduct />}
+          /> */}
         </Routes>
         <ToastContainer />
       </Router>
