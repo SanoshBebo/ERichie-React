@@ -149,7 +149,6 @@ const App = () => {
 
           <Route path="/shop02/*" element={<AkshayaUserPage />} />
           <Route path="/shop02/admin/*" element={<AkshayaAdminPage />} />
-          <Route path="/shop02/product/:id" element={<AkshayaAdminPage />} />
 
           <Route path="/*" element={<NoPage />} />
 
