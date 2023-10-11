@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartToFirestore, fetchProducts } from "../api/ApiCalls";
+import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
+
+import { fetchProducts } from "../api/ApiCalls";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { addItemToCart } from "../redux/shopOneCartSlice";
-import { setUser } from "../redux/shopOneUserSlice";
-import { setShopOneProducts } from "../redux/shopOneProductSlice";
+import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
+import { setShopOneProducts } from "../../SanoshProject/redux/shopOneProductSlice";
 
 const ProductDetailsPage = () => {
   const dispatch = useDispatch();
@@ -81,7 +83,7 @@ const ProductDetailsPage = () => {
         quantity: count,
       };
       dispatch(addItemToCart(cartItem));
-      addCartToFirestore(cartItem, userData.useruid);
+      addCartToFirestore(cartItem, userData.email);
 
       toast.success("added to cart", {
         position: "top-right",

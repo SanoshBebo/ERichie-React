@@ -1,9 +1,12 @@
 import axios from "axios";
-import { fetchProducts } from "./ApiCalls";
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/cosmicmediastore-438f7/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/e-richie-application/databases/(default)/documents";
 
-export const storePurchaseInFirestore = async (Products, loggedinEmail) => {
+export const storePurchaseInFirestore = async (
+  allProducts,
+  cartItems,
+  loggedinEmail
+) => {
   const ordersApiUrl = `${baseUrl}/Orders`;
 
   try {
@@ -14,7 +17,8 @@ export const storePurchaseInFirestore = async (Products, loggedinEmail) => {
 
     // Use Promise.all to make multiple async requests concurrently
     await Promise.all(
-      Products.map(async (product) => {
+      cartItems.map(async (product) => {
+        console.log(product);
         const totalprice =
           parseInt(product.quantity, 10) * parseInt(product.price, 10);
         const payload = {
@@ -22,18 +26,19 @@ export const storePurchaseInFirestore = async (Products, loggedinEmail) => {
           shopid: { stringValue: product.shopid },
           totalprice: { integerValue: totalprice },
           email: { stringValue: loggedinEmail },
-          purchaseDate: { timestampValue: new Date().toISOString() },
+          purchasedate: { timestampValue: new Date().toISOString() },
           productid: { stringValue: product.productid },
         };
-
+        console.log(payload);
         await axios.post(`${ordersApiUrl}/${orderid}/OrderedProducts`, {
           fields: payload,
         });
-
+        console.log(productData);
         // Find the corresponding product in productData
-        const productDocument = productData.find((document) => {
+        const productDocument = allProducts.find((document) => {
           return document.productid === product.productid;
         });
+        console.log(productDocument);
 
         if (productDocument) {
           const existingStock = parseInt(productDocument.stock, 10);
@@ -41,7 +46,6 @@ export const storePurchaseInFirestore = async (Products, loggedinEmail) => {
           const updatedStock = existingStock - parseInt(product.quantity, 10);
           console.log("updatedStock stock: ", updatedStock);
 
-          // Create a payload to update the product's stock
           // Create a payload to update the product's stock
           const updateStockPayload = {
             fields: {

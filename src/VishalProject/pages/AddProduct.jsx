@@ -307,6 +307,10 @@ const AddProductForm = () => {
       console.error("Error fetching products:", error);
     }
   };
+  const handleBack = () => {
+    // Use the navigate function to go back to the previous page
+    navigate(-1); // -1 takes you back one step in the navigation history
+  };
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg">
@@ -416,6 +420,13 @@ const AddProductForm = () => {
                 Delete Product
               </button>
             )}
+         <button
+              type="button"
+              className="bg-gray-500 text-white p-2 mt-2 rounded-full hover:bg-gray-600 transition w-full"
+              onClick={handleBack}
+            >
+              Back
+            </button>
           </div>
         </form>
       </div>

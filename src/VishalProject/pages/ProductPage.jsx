@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setShopThreeProducts } from "../../SanoshProject/redux/shopThreeProductSlice"; // Updated import
+import axios from "axios";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -9,6 +11,60 @@ const ProductPage = () => {
   const products = useSelector((state) => state.shopthreeproduct.shopthreeproducts);
   const product = products.find((product) => product.productid === id);
   const [manualQuantity, setManualQuantity] = useState("1"); // For manual quantity input
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const baseUrl =
+          "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
+        const collectionName = "Products";
+        const apiUrl = `${baseUrl}/${collectionName}`;
+        const response = await axios.get(apiUrl);
+
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok");
+        }
+
+        const responseData = response.data; // Use response.data to access the JSON data
+
+        if (responseData.documents) {
+          const productDocuments = responseData.documents;
+          const productsData = productDocuments.map((document) => {
+            const documentNameParts = document.name.split("/");
+            const documentId =
+              documentNameParts[documentNameParts.length - 1];
+            const { description, stock, price, productname } =
+              document.fields;
+            return {
+              description: description.stringValue,
+              stock: stock.integerValue,
+              price: price.integerValue,
+              productname: productname.stringValue,
+              productid: documentId,
+              imageurl: document.fields.imageurl.stringValue,
+            };
+          });
+
+          // Dispatch the action to set products in the Redux store
+          dispatch(setShopThreeProducts(productsData));
+
+          // Data is loaded, set loading to false
+          setLoading(false);
+        } else {
+          console.log("No documents found in the collection.");
+          // Data is not loaded, set loading to false
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Data is not loaded, set loading to false
+        setLoading(false);
+      }
+    }
+
+    // Call the fetchProducts function when the component mounts
+    fetchProducts();
+  }, [dispatch]);
 
   const addQuantity = () => {
     if (count < product.stock) {

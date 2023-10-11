@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { auth, googleProvider } from "../config/firebase";
+import { auth, googleProvider } from "./config/firebase";
+
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { checkUserRole, storeUserInFirestore } from "../api/auth";
-import { setUser } from "../redux/shopOneUserSlice";
+import { checkUserRole, storeUserInFirestore } from "./auth";
 
-const AdminLoginRegister = () => {
+import { useDispatch } from "react-redux";
+import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
+
+const CustomerLoginRegister = () => {
   const navigate = useNavigate();
   const [isRegistering, setIsRegistering] = useState(false);
   const [name, setName] = useState("");
@@ -32,20 +34,16 @@ const AdminLoginRegister = () => {
           email: response.user.email,
         };
         const userRole = await checkUserRole(user);
-
         user = {
           useruid: response.user.uid,
           email: response.user.email,
           role: userRole,
         };
 
-        dispatch(setUser(user));
-
-        if (userRole == "shopkeeper") {
+        if (userRole == "customer") {
+          dispatch(setUser(user));
           localStorage.setItem("user", JSON.stringify(user));
-          navigate("/admin");
-        } else {
-          console.log("invalid login credentials");
+          navigate("/erichie");
         }
       }
     } catch (err) {
@@ -69,12 +67,12 @@ const AdminLoginRegister = () => {
           name: name,
           useruid: response.user.uid,
           email: response.user.email,
-          role: "shopkeeper",
+          role: "customer",
         };
-        await storeUserInFirestore(user);
+        storeUserInFirestore(user);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(setUser(user));
-        navigate("/admin");
+        navigate("/erichie");
       }
     } catch (err) {
       console.error(err);
@@ -92,9 +90,9 @@ const AdminLoginRegister = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
-      <div className="bg-white p-8 rounded shadow-md w-96">
+      <div className="bg-white p-8 rounded shadow-md w-96 transition-transform transform hover:scale-105">
         <h2 className="text-2xl font-semibold mb-4 text-center ">
-          {isRegistering ? "Admin Register" : "Admin Login"}
+          {isRegistering ? "Customer Register" : "Customer Login"}
         </h2>
         {isRegistering && (
           <div className="mb-4">
@@ -104,7 +102,7 @@ const AdminLoginRegister = () => {
             <input
               type="text"
               id="name"
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
               placeholder="Your full name"
               onChange={(e) => setName(e.target.value)}
             />
@@ -117,7 +115,7 @@ const AdminLoginRegister = () => {
           <input
             type="email"
             id="email"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
             placeholder="Your email"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -129,23 +127,23 @@ const AdminLoginRegister = () => {
           <input
             type="password"
             id="password"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
             placeholder="Your password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="flex space-x-8">
+        <div className="flex gap-4 p-2">
           <button
             onClick={() => {
               isRegistering ? signUp() : signIn();
             }}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-2"
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-2 focus:outline-none focus:bg-blue-600"
           >
             {isRegistering ? "Register" : "Login"}
           </button>
           <button
             onClick={signInWithGoogle}
-            className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 mb-2"
+            className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600  mb-2 focus:outline-none focus:bg-red-600"
           >
             Sign in with Google
           </button>
@@ -156,7 +154,7 @@ const AdminLoginRegister = () => {
             : "Don't have an account?"}{" "}
           <a
             href="#"
-            className="text-blue-500 hover:underline"
+            className="text-blue-500 hover:underline transition-colors duration-300 ease-in-out"
             onClick={toggleRegistration}
           >
             {isRegistering ? "Login" : "Sign up"}
@@ -167,4 +165,4 @@ const AdminLoginRegister = () => {
   );
 };
 
-export default AdminLoginRegister;
+export default CustomerLoginRegister;
