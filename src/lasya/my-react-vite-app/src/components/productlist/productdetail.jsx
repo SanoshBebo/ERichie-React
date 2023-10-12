@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
 import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
 import { setUser } from '../../../../../SanoshProject/redux/shopOneUserSlice';
 
 import { useDispatch, useSelector } from "react-redux";
+=======
+import { setUser } from "../../../../../SanoshProject/redux/shopOneProductSlice";
+import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
+>>>>>>> 4d3cc134fa1d395811c2b606e2d38e943c80b86c
 function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
