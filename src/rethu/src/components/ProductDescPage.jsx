@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
-import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+
 import { useDispatch, useSelector } from "react-redux";
+import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
 
 function ProductDescPage() {
   const { productId } = useParams();
@@ -110,19 +111,8 @@ function ProductDescPage() {
           }}
           className="quantity-input"
         />
-      <button
-        onClick={() => {
-          addToCart();
-        }}
-      >
-        Buy Now
-      </button>
      
-      <button onClick={() => {
-  history.push('/shop05/'); // Replace '/' with the actual URL of your home page
-}}>
-  Back to Home
-</button>
+      
 
 
         <p>Total Price: ${totalPrice}</p>
@@ -135,7 +125,11 @@ function ProductDescPage() {
         >
           Add to Cart
         </button>
-
+        <button onClick={() => {
+  history.push('/shop05/'); // Replace '/' with the actual URL of your home page
+}}>
+  Back to Home
+</button>
         {orderPlaced && (
           <div>
             <div className="overlay" />

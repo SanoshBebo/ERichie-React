@@ -6,10 +6,10 @@ import './ShoppingPage.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
-const history = useHistory();
+//const history = useHistory();
 class ShoppingPage extends Component {
   constructor(props) {
     

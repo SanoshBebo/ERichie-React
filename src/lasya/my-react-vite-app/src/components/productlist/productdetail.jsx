@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
-import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
+import { setUser } from '../../../../../SanoshProject/redux/shopOneUserSlice';
+
+import { useDispatch, useSelector } from "react-redux";
 function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -14,6 +16,7 @@ function ProductDescPage() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.shoponeuser.user);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const apiUrl = `https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products/${productId}`;
@@ -111,10 +114,10 @@ function ProductDescPage() {
 
        
       <button onClick={() => {
-  history.push('/shop06/'); // Replace '/' with the actual URL of your home page
-}}>
+      history.push('/shop06/'); // Replace '/' with the actual URL of your home page
+     }}>
   Back to Home
-</button>
+   </button>
 
 
       {orderPlaced && (

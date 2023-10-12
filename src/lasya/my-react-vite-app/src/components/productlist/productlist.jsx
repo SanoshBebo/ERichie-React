@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-js-pagination';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
 function ProductList({ isAdmin }) {
@@ -33,7 +33,7 @@ function ProductList({ isAdmin }) {
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const displayedProducts = products.slice(startIndex, endIndex);
-  const history = useHistory();
+  //const history = useHistory();
 
   // Handle page change
   const handlePageChange = (pageNumber) => {
