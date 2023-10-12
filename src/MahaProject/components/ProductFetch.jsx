@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
+import { addItemToCart } from '../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../Api/CartOperationsFirestore';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
@@ -8,7 +12,10 @@ const ProductFetch = ({ cart, setCart }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
-
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(
@@ -37,23 +44,34 @@ const ProductFetch = ({ cart, setCart }) => {
       });
   }, [id]);
 
-  const addToCart = () => {
-    const existingProduct = cart.find((cartProduct) => cartProduct.id === id);
-
-    if (existingProduct) {
-      const updatedCart = cart.map((cartProduct) => {
-        if (cartProduct.id === id) {
-          return { ...cartProduct, quantity: cartProduct.quantity + quantity };
-        }
-        return cartProduct;
-      });
-      setCart(updatedCart);
-    } else {
-      const updatedCart = [...cart, { id, productname: product.productname, quantity, price }];
-      setCart(updatedCart);
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
     }
+  }, [isLoadingUser, user, navigate]);
 
-    alert(`Added ${quantity} ${product.productname} to the cart.`);
+  const addToCart = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role == "customer") {
+      dispatch(setUser(userData));
+      console.log(product)
+      const cartItem = {
+        id: product.productid,
+        name: product.productname,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
+        imageurl: product.imageurl,
+        quantity: quantity,
+      };
+      dispatch(addItemToCart(cartItem));
+      addCartToFirestore(cartItem, userData.email);
+    } else {
+      navigate("/customer/login");
+    }
+    setIsLoadingUser(false);
+
+    // Create an object with the product details and count
   };
 
   const increaseQuantity = () => {
@@ -72,7 +90,7 @@ const ProductFetch = ({ cart, setCart }) => {
 
   return (
     <div className="container mx-auto p-6">
-      <Link to="/customer" className="bg-purple-500 text-white py-2 px-4 rounded-lg mb-4">
+      <Link to="/shop12/customer" className="bg-purple-500 text-white py-2 px-4 rounded-lg mb-4">
         Back to Home
       </Link>
       <h2 className="text-3xl font-semibold mb-2">{product.productname}</h2>

@@ -47,7 +47,7 @@ const ProductList = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <Link to="/" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 inline-block">
+      <Link to='/shop12/customer' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 inline-block">
         Back to Home
       </Link>
       <div className="bg-white shadow-md rounded p-4 mb-4">
@@ -64,7 +64,7 @@ const ProductList = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {currentProducts.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id}>
+            <Link to={`/shop12/product/${product.id}`} key={product.id}>
               <div className="bg-white shadow-md rounded p-6 cursor-pointer">
                 <h3 className="text-xl font-semibold mb-2">{product.productname}</h3>
                 <p className="text-gray-700">Price: ${product.price}</p>

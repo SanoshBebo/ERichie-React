@@ -8,31 +8,31 @@ function AdminHome() {
       <p className="text-base text-gray-600 mb-8 text-center">Let's keep a check on everything.</p>
       <div className="flex flex-col space-y-4">
         <Link
-          to="/add"
+          to="/shop10/add"
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
         >
           Add Product
         </Link>
         <Link
-          to="/display"
+          to="/shop10/display"
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
         >
           Display Products
         </Link>
         <Link
-          to="/display"
+          to="/shop10/display"
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
         >
           Edit Product
         </Link>
         <Link
-          to="/display"
+          to="/shop10/display"
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
         >
           Delete Product
         </Link>
         <Link
-          to="/reports"
+          to="/shop10/reports"
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
         >
           View Reports

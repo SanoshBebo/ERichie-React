@@ -50,13 +50,13 @@ const ProductDetailsPage = () => {
           >
             Add to Cart
           </button>
-          <Link to="/protectlist">
+          <Link to="/shop11/protectlist">
             <button
               className="bg-gray-300 text-gray-600 font-semibold py-2 px-4 rounded-lg"
             >
               Back to Product List
             </button>
-          </Link>
+          </Link >
         </div>
       </div>
     </div>

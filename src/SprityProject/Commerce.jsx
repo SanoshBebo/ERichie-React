@@ -45,7 +45,7 @@ function ProductList() {
   const renderProductDescription = (product) => (
     <div className="product-popup">
       <p>{product.productname}</p>
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/shop10/product/${product.id}`}>
         <button>View Details</button>
       </Link>
     </div>
