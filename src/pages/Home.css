@@ -60,6 +60,25 @@
   }
 
  
+  .computer-button {
+
+    background-color: #688ebb;
+display: inline;
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }
   .computer-button1 {
 
     background-color: #688ebb;

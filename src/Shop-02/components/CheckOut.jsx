@@ -118,14 +118,15 @@ const CheckoutPage = () => {
 
   return (
     <>
+    <section className='shop15style'>
       <Header />
-      <div className="checkout">
+      <div className="shop15checkout">
         <h1>Checkout</h1>
         {product && (
-          <div className="product-details">
+          <div className="shop15productsdetails">
             <img src={product.imageurl} alt={`Image for ${product.productname}`} />
             <strong>Product Name:</strong> {product.productname}<br />
-            <strong>Price:</strong> ${product.price}<br />
+            <strong>Price:</strong> Rs. {product.price}<br />
             <p>{product.description}</p>
             <strong>Quantity:</strong> 
             <button onClick={handleDecreaseQuantity}>-</button>
@@ -142,6 +143,7 @@ const CheckoutPage = () => {
         
         
       </div>
+      </section>
       <ToastContainer position="top-right" />
     </>
   );

@@ -68,6 +68,41 @@ justify-content: center;}
   /* You can also add other styles for hover state */
 }
 
+.pagination {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin-top: 20px;
+
+}
+
+ 
+
+.pagination span {
+
+  padding: 10px;
+
+  margin: 5px;
+
+  border: 1px solid #333;
+
+  cursor: pointer;
+
+}
+
+ 
+
+.pagination span.active {
+
+  background-color: #333;
+
+  color: #fff;
+
+}
 
 
 
