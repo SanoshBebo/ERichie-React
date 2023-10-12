@@ -62,6 +62,8 @@ function ProductDescPage() {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+      
+      toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
     } else {
       navigate("/customer/login");
     }
@@ -109,8 +111,30 @@ function ProductDescPage() {
           className="quantity-input"
         />
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <button
+        onClick={() => {
+          addToCart();
+        }}
+      >
+        Buy Now
+      </button>
+     
+      <button onClick={() => {
+  history.push('/shop05/'); // Replace '/' with the actual URL of your home page
+}}>
+  Back to Home
+</button>
+
+=======
+        <p>Total Price: ${totalPrice}</p>
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+
+=======
         <p>Total Price: ${totalPrice}</p>
 
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
         <button
           onClick={() => {
             addToCart();

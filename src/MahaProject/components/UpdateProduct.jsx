@@ -14,6 +14,8 @@ const ProductUpdateForm = () => {
 
   const [imageFile, setImageFile] = useState(null);
   const [productList, setProductList] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); // State for search results
+  // const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     axios
@@ -34,7 +36,7 @@ const ProductUpdateForm = () => {
   }, []);
 
   const handleProductChange = async (e) => {
-    const selectedProductId = e.target.value;
+    // const selectedProductId = e.target.value;
     setProductId(selectedProductId);
 
     try {
@@ -64,6 +66,19 @@ const ProductUpdateForm = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
+  };
+  const handleSearch = () => {
+
+    // Filter the productList based on the searchText
+
+    const results = productList.filter((productItem) =>
+
+      productItem.productname.toLowerCase().includes(searchText.toLowerCase())
+
+    );
+
+    setSearchResults(results);
+
   };
 
   const handleUpdate = async (e) => {
@@ -128,99 +143,174 @@ const ProductUpdateForm = () => {
   };
 
   return (
-    <div className="bg-gray-100 p-4">
-      <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4">Update Product</h2>
-        <form onSubmit={handleUpdate}>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block font-semibold">Select a Product:</label>
-              <select
-                onChange={handleProductChange}
-                className="block w-full bg-gray-200 rounded-md p-2"
-              >
-                <option value="">Select a product</option>
-                {productList.map((productItem) => (
-                  <option key={productItem.id} value={productItem.id}>
-                    {productItem.productname}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block font-semibold">Product Name:</label>
-              <input
-                type="text"
-                name="productname"
-                value={product.productname}
-                onChange={handleChange}
-                className="w-full bg-gray-200 rounded-md p-2"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold">Description:</label>
-              <textarea
-                name="description"
-                value={product.description}
-                onChange={handleChange}
-                className="w-full bg-gray-200 rounded-md p-2"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold">Price:</label>
-              <input
-                type="number"
-                name="price"
-                value={product.price}
-                onChange={handleChange}
-                className="w-full bg-gray-200 rounded-md p-2"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold">Stock:</label>
-              <input
-                type="number"
-                name="stock"
-                value={product.stock}
-                onChange={handleChange}
-                className="w-full bg-gray-200 rounded-md p-2"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold">Category:</label>
-              <input
-                type="text"
-                name="category"
-                value={product.category}
-                onChange={handleChange}
-                className="w-full bg-gray-200 rounded-md p-2"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold">Upload Image:</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-full p-2"
-              />
-            </div>
-          </div>
-          {product.imageUrl && (
-            <div className="mt-4">
-              <img src={product.imageUrl} alt="Product Preview" className="max-w-full h-auto" />
-            </div>
-          )}
-          <button
-            type="submit"
-            className="bg-blue-500 text-white font-semibold rounded-md p-2 mt-4 hover:bg-blue-700"
-          >
-            Update Product
+<div className="product-update-form-container">
+
+<h2>Update Product</h2>
+
+<form onSubmit={handleUpdate}>
+
+  <div className="form-fields">
+
+    <label>
+
+      Search for a Product:
+
+      <input
+
+        type="text"
+
+        value={searchText}
+
+        onChange={(e) => setSearchText(e.target.value)}
+
+        placeholder="Search by product name"
+
+      />
+
+      <button type="button" onClick={handleSearch}>
+
+        Search
+
+      </button>
+
+    </label>
+
+    <ul>
+
+      {searchResults.map((productItem) => (
+
+        <li key={productItem.id}>
+
+          <button type="button" onClick={() => handleProductChange(productItem.id)}>
+
+            {productItem.productname}
+
           </button>
-        </form>
-      </div>
+
+        </li>
+
+      ))}
+
+    </ul>
+
+    <label>
+
+      Product Name:
+
+      <input
+
+        type="text"
+
+        name="productname"
+
+        value={product.productname}
+
+        onChange={handleChange}
+
+      />
+
+    </label>
+
+    <label>
+
+      Description:
+
+      <textarea
+
+        name="description"
+
+        value={product.description}
+
+        onChange={handleChange}
+
+      />
+
+    </label>
+
+    <label>
+
+      Price:
+
+      <input
+
+        type="number"
+
+        name="price"
+
+        value={product.price}
+
+        onChange={handleChange}
+
+      />
+
+    </label>
+
+    <label>
+
+      Stock:
+
+      <input
+
+        type="number"
+
+        name="stock"
+
+        value={product.stock}
+
+        onChange={handleChange}
+
+      />
+
+    </label>
+
+    <label>
+
+      Category:
+
+      <input
+
+        type="text"
+
+        name="category"
+
+        value={product.category}
+
+        onChange={handleChange}
+
+      />
+
+    </label>
+
+    <label>
+
+      Upload Image:
+
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+
+    </label>
+
+  </div>
+
+  {product.imageUrl && (
+
+    <div className="product-image-preview">
+
+      <img src={product.imageUrl} alt="Product Preview" />
+
     </div>
-  );
+
+  )}
+
+  <button type="submit">Update Product</button>
+
+</form>
+
+</div>
+
+);
+
 };
+
+
 
 export default ProductUpdateForm;

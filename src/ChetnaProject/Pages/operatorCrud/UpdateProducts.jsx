@@ -7,10 +7,10 @@ const UpdateProducts = () => {
   const [updatedProduct, setUpdatedProduct] = useState({
     category: "",
     description: "",
-    price: 0,
+    price: "",
     productname: "",
     shopid: "",
-    stock: 0,
+    stock: "",
     imageurl: "",
   });
   const [searchTerm, setSearchTerm] = useState("");
@@ -166,6 +166,7 @@ const UpdateProducts = () => {
             <input
               type="number"
               value={updatedProduct.price}
+              min="1"
               onChange={(e) => handleInputChange("price", e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-color"
             />
@@ -186,6 +187,7 @@ const UpdateProducts = () => {
             <label className="block font-semibold mb-2">Stock:</label>
             <input
               type="number"
+              min="1"
               value={updatedProduct.stock}
               onChange={(e) => handleInputChange("stock", e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-color"

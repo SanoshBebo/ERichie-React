@@ -3,7 +3,7 @@ import DeleteProducts from '../operatorCrud/DeleteProducts'
 import OperatorAdding from '../operatorCrud/OperatorAdding';
 import UpdateProducts from '../operatorCrud/UpdateProducts';
 import ViewProducts from '../operatorCrud/ViewProducts';
-
+import { Link } from "react-router-dom";
 const AdminPage = () => {
     const [selectedOperation, setSelectedOperation] = useState(null);
 
@@ -27,6 +27,7 @@ const AdminPage = () => {
         <div className="bg-cover bg-fixed h-screen">
             <div className='container mx-auto py-20 text-black'>
                 <a href="#" className="text-4xl font-bold text-primary">E-<span className="text-primary">Mobile</span></a>
+
                 <h1 className="text-3xl font-semibold text-center mb-8">Admin Page</h1>
                 <div className='flex justify-center mb-8'>
                     <button onClick={() => setSelectedOperation('view')} className="btn-primary mx-2">View Products</button>

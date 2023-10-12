@@ -48,7 +48,10 @@ const ProductList = () => {
   return (
     <div className="container mx-auto p-6">
       <Link to='/shop12/customer' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 inline-block">
-        Back to Home
+        Back to MobileWorld
+      </Link>
+      <Link to='/erichie' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 inline-block">
+        Back to Erichie
       </Link>
       <div className="bg-white shadow-md rounded p-4 mb-4">
         <div className="mb-4 flex items-center">
