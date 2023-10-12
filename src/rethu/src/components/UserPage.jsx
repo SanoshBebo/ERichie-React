@@ -15,8 +15,6 @@ function UserPage() {
   const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   const handleSignOut = () => {
     localStorage.removeItem("user");
@@ -26,16 +24,15 @@ function UserPage() {
   const handleBuyNow = (product) => {
     // You can add any additional functionality here, e.g., adding the product to the cart
     navigate(`/product/${product.id}`);
-=======
+
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
-=======
+
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+
   };
 
 
@@ -231,5 +228,6 @@ const addOrderToFirestore = () => {
   </div>
   );
 }
-
+  }
+}
 export default UserPage;

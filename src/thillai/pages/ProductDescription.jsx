@@ -50,10 +50,8 @@ function ProductDescriptionPage() {
   const handlePurchase = async () => {
     if (!productData || isOutOfStock) {
       console.error('No product selected for purchase or out of stock.');
-<<<<<<< HEAD
       return;
     }
-<<<<<<< HEAD
   
     // Calculate the new quantity
     const currentQuantity = productData.fields.quantity.integerValue;
@@ -64,14 +62,7 @@ function ProductDescriptionPage() {
       return;
     }
   
-=======
 
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
-=======
-      return;
-    }
-
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
     // Calculate the total price
     const totalPrice = productData.fields.price.integerValue * quantity;
 
@@ -84,8 +75,7 @@ function ProductDescriptionPage() {
       TotalPrice: { doubleValue: totalPrice },
       UserID: { stringValue: 'yourUserID' },
     };
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   
     // Create an object with the updated product data
     const updatedProductData = {
@@ -96,18 +86,13 @@ function ProductDescriptionPage() {
       },
     };
   
-=======
 
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
-=======
-
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
     try {
       // Make an Axios POST request to add orderData to your order database
       await axios.post('https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Orders', {
         fields: orderData,
       });
-<<<<<<< HEAD
+
   
       // Make an Axios PUT or PATCH request to update the product quantity in your product database
       await axios.patch(`https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${productId}`, {
@@ -115,18 +100,13 @@ function ProductDescriptionPage() {
       });
   
       setShowOrderModal(true); // Show the order confirmation modal
-=======
-      setShowOrderModal(true);  // Show the order confirmation modal
-<<<<<<< HEAD
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
-=======
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+
+
     } catch (error) {
       console.error('Error sending order or updating product:', error);
     }
   };
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   
   useEffect(() => {
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
@@ -158,10 +138,7 @@ function ProductDescriptionPage() {
 
     // Create an object with the product details and count
   };
-=======
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
-=======
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+
 
   const handleCloseOrderModal = () => {
     setShowOrderModal(false);
@@ -192,8 +169,7 @@ function ProductDescriptionPage() {
         <span>{quantity}</span>
         <button onClick={() => handleQuantityChange(quantity + 1)}>+</button>
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
       <p>Total Price: ${productData.fields.price.integerValue * quantity}</p>
       <button onClick={() => {
   handlePurchase();
@@ -208,15 +184,10 @@ function ProductDescriptionPage() {
 }}>
   Back to Home
 </button>
-
-
-=======
-=======
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
       {isOutOfStock ? <p className="text-danger">Out of Stock</p> : null}
       <p>Total Price: ${price * quantity}</p>
       <button onClick={handlePurchase}>Purchase</button>
->>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+
 
       {/* Order Confirmation Modal */}
       <Modal show={showOrderModal} onHide={handleCloseOrderModal}>
