@@ -2,9 +2,12 @@ import { fetchShopFourProducts } from "./fetchShopFourProducts";
 import { fetchShopOneProducts } from "./fetchShopOneProducts";
 import { fetchShopThreeProducts } from "./fetchShopThreeProducts";
 import { fetchShopTwoProducts } from "./fetchShopTwoProducts";
-import { fetchShopThirteenProducts } from "./fetchShopThirteenProducts";
 import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
-
+import { fetchShopThirteenProducts } from "./fetchShopThirteenProducts";
+import { fetchShopSeventeenProducts } from "./fetchShopSeventeenProducts";
+import { fetchShopFourteenProducts } from "./fetchShopFourteenProducts";
+import {fetchShopFifteenProducts} from "./fetchShopFifteenProducts";
+import {fetchShopSixteenProducts} from "./fetchShopSixteenProducts";
 export const fetchAllProducts = async () => {
   try {
     // Make API calls to fetch products from different endpoints
@@ -16,7 +19,12 @@ export const fetchAllProducts = async () => {
     const shopFourResponse = await fetchShopFourProducts();
 
     // computerTeam
-    const shopThirteenResponse = await fetchShopThirteenProducts();
+     // computerTeam
+     const shopThirteenResponse = await fetchShopThirteenProducts();
+     const shopSeventeenResponse = await fetchShopSeventeenProducts();
+     const shopFourteenResponse = await fetchShopFourteenProducts();
+     const shopFifteenProducts= await fetchShopFifteenProducts();
+     const shopSixteenProducts = await fetchShopSixteenProducts();
 
     // gaming team
 
@@ -32,6 +40,13 @@ export const fetchAllProducts = async () => {
       ...shopFourResponse,
       ...shopThirteenResponse,
       ...shopFiveResponse,
+      ...shopThirteenResponse,
+      ...shopSeventeenResponse,
+      ...shopFourteenResponse,
+      ...shopFifteenProducts,
+      ...shopSixteenProducts,
+
+
     ];
 
     // Update the state with the combined products

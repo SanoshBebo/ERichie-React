@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import './ProductDetail.css'; // Import the CSS file
@@ -15,6 +15,15 @@ const firebaseConfig = {
   measurementId: "G-Y7TFJ7XBQ1"
 };
 
+
+import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
+import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+import { useDispatch, useSelector } from "react-redux";
+
+
+
+
 // Check if Firebase is not already initialized
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -22,7 +31,6 @@ if (!firebase.apps.length) {
 function ProductDetail() {
   const { documentId } = useParams(); // Get the documentId from the URL parameter
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     // Function to fetch product details based on the documentId
@@ -139,6 +147,44 @@ function ProductDetail() {
   //       console.error('Error updating stock:', error);
   //     });
   // };
+  const user = useSelector((state) => state.shoponeuser.user);
+
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch(); // You can use useDispatch here
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  const addToCart = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role == "customer") {
+      dispatch(setUser(userData));
+      console.log(product);
+      const cartItem = {
+        id: product.id,
+        name: product.productname,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
+        imageurl: product.imageurl,
+        quantity: quantity,
+      };
+      dispatch(addItemToCart(cartItem));
+      addCartToFirestore(cartItem, userData.email);
+    } else {
+      navigate("/customer/login");
+    }
+    setIsLoadingUser(false);
+
+    // Create an object with the product details and count
+  };
+
+
 
   return (
     <div className="product-detail-container">
@@ -179,7 +225,7 @@ function ProductDetail() {
               <button className="purchase-button" >
                 Purchase now
               </button>
-              <button className="purchase-button">
+              <button className="purchase-button" onClick={() => {addToCart();}}>
                 Add to Cart
               </button>
               </div>

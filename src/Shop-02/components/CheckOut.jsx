@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Routes, Route, Link } from 'react-router-dom';
+import { useParams, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CheckOut.css';
 import Header from './Header';
 import PaymentPage from './Payment';
 
+
+import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
+import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
+import { useDispatch, useSelector } from "react-redux";
+
+
 const CheckoutPage = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
+  const user = useSelector((state) => state.shoponeuser.user);
+
 
   useEffect(() => {
     fetchProduct(productId);
@@ -56,6 +65,43 @@ const CheckoutPage = () => {
     setQuantity(quantity + 1);
   };
 
+
+  const dispatch = useDispatch(); // You can use useDispatch here
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  const addToCart = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role == "customer") {
+      dispatch(setUser(userData));
+      console.log(product);
+      const cartItem = {
+        id: product.id,
+        name: product.productname,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
+        imageurl: product.imageurl,
+        quantity: quantity,
+      };
+      dispatch(addItemToCart(cartItem));
+      addCartToFirestore(cartItem, userData.email);
+    } else {
+      navigate("/customer/login");
+    }
+    setIsLoadingUser(false);
+
+    // Create an object with the product details and count
+  };
+
+
+
   return (
     <>
       <Header />
@@ -70,9 +116,11 @@ const CheckoutPage = () => {
             <label>Quantity:</label>
             <button onClick={increaseQuantity}>+</button>
             <span>{quantity}</span>
-            <button onClick={handleBuyNowClick}>Buy Now</button><br>
+            <button >Buy Now</button><br>
             </br>
-            <button onClick={handleBuyNowClick}>Addtocart</button>
+            <button onClick={() => {
+              addToCart();
+            }}>Addtocart</button>
           </div>
         )}
         
