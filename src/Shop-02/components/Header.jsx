@@ -26,7 +26,7 @@ const Header = ({ onSearchChange }) => {
         <Link to="/products">
           <div className="shop15productlist">Shop</div>
         </Link>
-        <Link>
+        <Link to="/erichie/cart">
           <ShoppingCart size={32} />
         </Link>
         <Link to='/homepage'><div>Contact-Us</div></Link>

@@ -13,9 +13,8 @@ const Header = () => {
           <ul>    
           <div>
           <h1 style={{ color: "white", marginLeft: '25px', fontSize: '3.5rem' , margin:'0', display:'inline-block',marginBottom:'25px'}}><span style={{color:'orangered'}}>Mr.Computer</span>Wizz</h1>
-          <h2 style={{display:'inline', marginLeft:'40%', marginTop:'1.5rem'}}><Link className="shop17-custom-link">Cart</Link><Link to='/computer' className='link'>ComputerHome</Link> </h2>
+          <h2 style={{display:'inline', marginLeft:'40%', marginTop:'1.5rem'}}><Link to ="/erichie/cart" className="shop17-custom-link">Cart</Link><Link to='/computer' className='link' style={{marginLeft:'10px'}}>ComputerHome</Link> </h2>
           </div> 
-              
           </ul>
          
              

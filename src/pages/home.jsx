@@ -269,7 +269,7 @@ const ComputerTeamHomePage = () => {
           <div className="computer-button2"><button>Digital Genie </button>
             </div>
         </Link>
-        <Link to ="/shop15">
+        <Link to ="/homepage">
           <div className="computer-button3"><button>Sanjay Computers </button>
             </div>
         </Link>
