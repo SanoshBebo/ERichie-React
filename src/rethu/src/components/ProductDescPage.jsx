@@ -112,6 +112,7 @@ function ProductDescPage() {
         />
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <button
         onClick={() => {
           addToCart();
@@ -130,6 +131,10 @@ function ProductDescPage() {
         <p>Total Price: ${totalPrice}</p>
 >>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
 
+=======
+        <p>Total Price: ${totalPrice}</p>
+
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
         <button
           onClick={() => {
             addToCart();

@@ -50,6 +50,7 @@ function ProductDescriptionPage() {
   const handlePurchase = async () => {
     if (!productData || isOutOfStock) {
       console.error('No product selected for purchase or out of stock.');
+<<<<<<< HEAD
       return;
     }
 <<<<<<< HEAD
@@ -66,6 +67,11 @@ function ProductDescriptionPage() {
 =======
 
 >>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+=======
+      return;
+    }
+
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
     // Calculate the total price
     const totalPrice = productData.fields.price.integerValue * quantity;
 
@@ -79,6 +85,7 @@ function ProductDescriptionPage() {
       UserID: { stringValue: 'yourUserID' },
     };
 <<<<<<< HEAD
+<<<<<<< HEAD
   
     // Create an object with the updated product data
     const updatedProductData = {
@@ -89,6 +96,9 @@ function ProductDescriptionPage() {
       },
     };
   
+=======
+
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
 =======
 
 >>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
@@ -107,11 +117,15 @@ function ProductDescriptionPage() {
       setShowOrderModal(true); // Show the order confirmation modal
 =======
       setShowOrderModal(true);  // Show the order confirmation modal
+<<<<<<< HEAD
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+=======
 >>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
     } catch (error) {
       console.error('Error sending order or updating product:', error);
     }
   };
+<<<<<<< HEAD
 <<<<<<< HEAD
   
   useEffect(() => {
@@ -146,6 +160,8 @@ function ProductDescriptionPage() {
   };
 =======
 >>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
+=======
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
 
   const handleCloseOrderModal = () => {
     setShowOrderModal(false);
@@ -177,6 +193,7 @@ function ProductDescriptionPage() {
         <button onClick={() => handleQuantityChange(quantity + 1)}>+</button>
       </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <p>Total Price: ${productData.fields.price.integerValue * quantity}</p>
       <button onClick={() => {
   handlePurchase();
@@ -194,6 +211,8 @@ function ProductDescriptionPage() {
 
 
 =======
+=======
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
       {isOutOfStock ? <p className="text-danger">Out of Stock</p> : null}
       <p>Total Price: ${price * quantity}</p>
       <button onClick={handlePurchase}>Purchase</button>
