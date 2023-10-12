@@ -4,9 +4,9 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
-import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
+import { addItemToCart } from '../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../Api/CartOperationsFirestore';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import './App.css';
-
- 
 
 const DeleteProduct = () => {
 
@@ -20,7 +17,7 @@ const DeleteProduct = () => {
 
   const [searchResults, setSearchResults] = useState([]); // State for search results
 
- 
+
 
   useEffect(() => {
 
@@ -72,7 +69,7 @@ const DeleteProduct = () => {
 
   }, []);
 
- 
+
 
   const handleSearch = () => {
 
@@ -88,7 +85,7 @@ const DeleteProduct = () => {
 
   };
 
- 
+
 
   const handleDelete = async () => {
 
@@ -100,7 +97,7 @@ const DeleteProduct = () => {
 
     }
 
- 
+
 
     try {
 
@@ -110,7 +107,7 @@ const DeleteProduct = () => {
 
       );
 
- 
+
 
       alert('Product deleted successfully');
 
@@ -126,7 +123,7 @@ const DeleteProduct = () => {
 
   };
 
- 
+
 
   return (
 
@@ -274,6 +271,6 @@ const DeleteProduct = () => {
 
 };
 
- 
+
 
 export default DeleteProduct;

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
-import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+import { setUser } from "../../../../../SanoshProject/redux/shopOneProductSlice";
+import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
 function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
