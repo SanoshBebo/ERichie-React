@@ -17,7 +17,6 @@ const UserOperations = () => {
     return (
         <div>
             <Header/>
-            <h1>Welcome to the Sanjay Computer</h1>
             <Routes>
                 <Route path="/homepage" element={<HomePage />} />
                 <Route path="/products" element={<ProductList />} />

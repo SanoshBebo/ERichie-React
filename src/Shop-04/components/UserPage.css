@@ -1,17 +1,32 @@
-/* UserPage.css */
 
-/* Navbar styles */
-.user-page {
+.dhanu{
+  background-color: #95A5A6;
+  
+ 
+}
+.dhanu .product-details{
+  /* justify-content: inherit; */
+  display: flex;
+  width: 500px;
+  font-size: large;
+  align-items: center;
+  margin-left: 400px;
+  flex-direction: column;
+
+}
+
+.dhanu .user-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f0f0f0; /* Change the background color to your preference */
+  background-color: #95A5A6;
+  /* Change the background color to your preference */
 }
-.navbar {
+.dhanu .navbar {
   background-color: #333;
-  color: white;
+  color: #2C3E50;
   padding: 10px;
   position: fixed;
   top: 0;
@@ -19,7 +34,7 @@
   right: 0;
   z-index: 1000;
 }
-.navbar nav {
+.dhanu .navbar nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +42,7 @@
   margin: 0 auto;
   padding: 0 20px;
 }
-.list-elements {
+.dhanu .list-elements {
   display: flex;
   align-items: center;
   list-style: none;
@@ -35,33 +50,32 @@
   margin: 0;
 }
 
-.list-elements li {
+.dhanu .list-elements li {
   margin-right: 20px;
-  color: #f296e1;
+  color: #2C3E50;
 }
-.navbar ul li {
+.dhanu .navbar ul li {
   margin: 10px 20px; /* Adjust margin as needed */
 }
 
-
-.logo {
+.dhanu .logo {
   width: 50px; /* Adjust the logo width as needed */
 }
-.navbar button {
-  background-color: rgb(246, 108, 189);
+.dhanu .navbar button {
+  background-color: #2C3E50;
   color: white;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
 }
 
-.cart {
+.dhanu .cart {
   position: relative;
   cursor: pointer;
   font-size: 30px;
 }
 
-.cart-count {
+.dhanu .cart-count {
   position: absolute;
   top: -10px;
   right: -10px;
@@ -73,38 +87,43 @@
 }
 
 /* Product list styles */
-.product-list {
+.dhanu .product-list {
+
   display: flex;
   flex-wrap: wrap; /* Allow products to wrap to the next line */
   justify-content: space-between; /* Distribute space between products */
-  min-width: 300px; /* Set a minimum width for the product list container */
-  min-height: 500px;
+  min-width: 100px; /* Set a minimum width for the product list container */
+  min-height: 100px;
+
 }
 
-.product-item {
-  width: 50%; /* Set a fixed width for product items (adjust as needed) */
+.dhanu .product-item {
+  width: 20%; /* Set a fixed width for product items (adjust as needed) */
   margin-bottom: 20px;
-  background-color: #f296e1;
+  background-color: #D6DBDF;
   padding: 10px;
+  border-radius: 32px 64px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
   flex-direction: column; /* Stack children elements vertically */
   justify-content: space-between; /* Push children elements to the top and bottom */
 }
-.product-image {
-  width: 100%; /* Ensure that the image takes up 100% of the width */
-  height: 100%; /* Ensure that the image takes up 100% of the height */
-  max-width: 100%;
-  max-height: 100%;
+.dhanu .product-image {
+  width: 50%; /* Ensure that the image takes up 100% of the width */
+  height: 50%; /* Ensure that the image takes up 100% of the height */
+  max-width: 50%;
+  max-height: 50%;
   object-fit: cover; /* Maintain aspect ratio and cover the entire container */
 }
-
-.product-item h4 {
+.dhanu h5{
+  align-items: right;
+}
+.dhanu .product-item h4 {
   margin: 10px 0;
 }
 
-.product-item button {
+.dhanu .product-item button {
   background-color: #f296e1;
   color: white;
   border: none;
@@ -114,30 +133,30 @@
 }
 
 /* Product Modal styles */
-.product-modal-overlay {
+.dhanu .product-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 50%;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.product-modal {
+.dhanu .product-modal {
   background-color: white;
   padding: 20px;
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 50%;
+  max-height: 50%;
   overflow: auto;
   position: relative;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.close-modal {
+.dhanu .close-modal {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -145,19 +164,19 @@
   cursor: pointer;
 }
 
-.product-modal-image {
-  max-width: 100%;
+.dhanu .product-modal-image {
+  max-width: 50%;
 }
 
-.product-modal h2 {
+.dhanu .product-modal h2 {
   margin: 10px 0;
 }
 
-.product-modal p {
+.dhanu .product-modal p {
   margin: 10px 0;
 }
 
-.product-modal button {
+.dhanu .product-modal button {
   background-color: #f296e1;
   color: white;
   border: none;
@@ -166,7 +185,7 @@
 }
 
 /* Order Confirmation Popup styles */
-.order-confirmation-popup {
+.dhanu .order-confirmation-popup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -177,13 +196,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.order-confirmation-popup p {
+.dhanu .order-confirmation-popup p {
   margin: 10px 0;
 }
 /* UserPage.css */
 
 /* Product card container */
-.product-card {
+.dhanu .product-card {
   max-width: 540px;
   margin: 20px; /* Add margin between product cards */
   background-color: #fff; /* Background color for the card */
@@ -192,7 +211,7 @@
 }
 
 /* Product card image */
-.product-card-img {
+.dhanu .product-card-img {
   max-width: 100%;
   height: auto;
   border-top-left-radius: 10px; /* Rounded corners for the image */
@@ -200,23 +219,25 @@
 }
 
 /* Product card body */
-.product-card-body {
+.dhanu .product-card-body {
   padding: 20px;
 }
 
-.product-card-title {
+.dhanu .product-card-title {
   font-size: 1.25rem; /* Adjust the title font size */
   font-weight: bold;
 }
 
-.product-card-text {
+.dhanu .product-card-text {
   font-size: 1rem; /* Adjust the text font size */
 }
 
-.product-card-meta {
+.dhanu .product-card-meta {
   font-size: 0.875rem; /* Adjust the meta text font size */
   color: #888; /* Meta text color */
 }
-.store-name{
+.dhanu .store-name{
   padding-top:80px
 }
+
+

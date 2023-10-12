@@ -98,6 +98,7 @@ const Shop = ({shop, Filter,allcatefilter, addtocart, defaultshop}) => {
                                 {
                                     return(
                                         <>
+                                        <Link to={`${curElm.id}`}>
                                         <div className='box' key={curElm.id}>
                                             <div className='img_box'>
                                             <img src={curElm.imageurl} alt='shopimage' />
@@ -109,10 +110,12 @@ const Shop = ({shop, Filter,allcatefilter, addtocart, defaultshop}) => {
                                             </div>
                                             <div className='detail'>
                                                 <h3>{curElm.productname}</h3>
-                                                <p>{curElm.price}</p>
+                                                <p>Rs. {curElm.price}</p>
                                                 {/* <button onClick={()=> checkauth(curElm)}>Add to cart</button> */}
                                             </div>
                                         </div>
+                                        </Link>
+                                        
                                         </>
                                     )
                                 })

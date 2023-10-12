@@ -1,6 +1,6 @@
 
 /* src/components/Header.css */
-.header {
+.computer-header {
     position: static;
     top: 0;
     left: 0;
@@ -8,7 +8,7 @@
     z-index: 100;
     padding: 20px 0;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(118, 17, 200, 0.3);
     border-bottom: 2px solid #fff;
   }
   
@@ -19,7 +19,7 @@
     color: #fff;
   }
   
-  .header h1 {
+  .computer-header h1 {
     margin: 0;
     color: white;
     font-size: 3rem;

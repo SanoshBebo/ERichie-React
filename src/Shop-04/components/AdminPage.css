@@ -1,6 +1,38 @@
-/* CSS for the AdminPage component */
+.dhanushiya {
+  background-color:#95A5A6;
+  font-style: normal;
+}
+.dhanushiya .h3{
+  padding-right: 20%;
+  border-radius: 10%;
+}
 
+.dhanushiya p{
+  font-size: large;
+  color: #2C3E50;
+}
+.dhanushiya h1{
+  color: #2C3E50;
+}
+.dhanushiya .stats{
+ color:#2C3E50;
+ display: flex;
+ margin-left: 20%;
+ padding: 20px 20px;
+}
+.stats button {
+  background-color: #95A5A6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
+.stats button:hover {
+  background-color: #95A5A6;
+}
 .dhanushiya .add-product-pages {
     display: flex;
     flex-direction: column; /* Change to column layout */
@@ -9,10 +41,10 @@
   }
   
   .dhanushiya .add-product-containers {
-    background-color: #c9c7c7;
+    background-color: #95A5A6;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     width: 80%;
     max-width: 1200px;
     display: flex;
@@ -32,7 +64,7 @@
   }
   
   .dhanushiya .product-items {
-    background-color: #c9c7c7;
+    background-color: #F2F4F6;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -46,7 +78,10 @@
   
   .dhanushiya  .product-details-1 {
     text-align: left; /* Align text to the left */
+    color: #2C3E50;
+    font-size: large;
   }
+
   
   .dhanushiya .product-cards {
    display: flex;
@@ -90,6 +125,7 @@
     padding-bottom: 20px;
     padding-top: 100px;
     margin-left: 20%;
+    color:#2C3E50;
    
   }
   .dhanushiya .product-searches{
@@ -158,6 +194,6 @@
   }
   
   .dhanushiya  .add-product-form button:hover {
-    background-color: #0056b3;
+    background-color: #96999d;
   }
   

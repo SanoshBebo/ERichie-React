@@ -4,7 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import './ProductDetail.css'; // Import the CSS file
-import '../../harinistyles.css'
+import Header from "../../components/header/Header";
+import { Link } from "react-router-dom";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBV81LLXLpCtn-8rGdcrLyrIg4mwhCvkZA",
   authDomain: "crud-550f3.firebaseapp.com",
@@ -67,86 +69,8 @@ function ProductDetail() {
     }
   };
 
-  // const addToCart = () => {
-  //   if (quantity === 0) {
-  //     // Quantity is 0, show an alert
-  //     alert('Please select a quantity before adding to cart.');
-  //     return;
-  //   }
   
-  //   // Create a cart item object
-  //   const cartItem = {
-  //     product: product,
-  //     quantity: quantity,
-  //   };
-  
-  //   // Add the cart item to the Firestore "carts" collection
-  //   firebase.firestore().collection('carts').add(cartItem)
-  //     .then(() => {
-  //       alert('Product added to cart successfully.');
-  //       // Optionally, you can reset the quantity here
-  //       setQuantity(0);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error adding product to cart:', error);
-  //     });
-  // };
 
-  // const purchaseNow = () => {
-  //   if (quantity === 0) {
-  //     // Quantity is 0, show an alert
-  //     alert('Please select a quantity before making a purchase.');
-  //     return; // Stop further execution
-  //   }
-
-  //   // Fetch the current stock of the product
-  //   const currentStock = product.stock;
-
-  //   if (currentStock < quantity) {
-  //     alert('Not enough stock available.');
-  //     return; // Stop further execution
-  //   }
-
-  //   // Calculate the new stock value
-  //   const newStock = currentStock - quantity;
-
-  //   // Prepare the order data
-  //   const orderData = {
-  //     productid: documentId,
-  //     date: new Date().toISOString(),
-  //     quantity: quantity,
-  //     shopid: 'shop17',
-  //     totalprice: quantity * product.price,
-  //   };
-
-  //   // Update the stock in the 'products' collection
-  //   firebase
-  //     .firestore()
-  //     .collection('Products')
-  //     .doc(documentId)
-  //     .update({
-  //       stock: newStock,
-  //     })
-  //     .then(() => {
-  //       // Stock updated successfully, now add the order data to the 'orders' collection
-  //       firebase
-  //         .firestore()
-  //         .collection('Orders')
-  //         .add(orderData)
-  //         .then(() => {
-  //           alert('Order placed successfully');
-  //           console.log('Order placed successfully');
-  //           // Optionally, you can reset the quantity here
-  //           setQuantity(0);
-  //         })
-  //         .catch((error) => {
-  //           console.error('Error placing the order:', error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error updating stock:', error);
-  //     });
-  // };
   const user = useSelector((state) => state.shoponeuser.user);
 
   const [quantity, setQuantity] = useState(1);
@@ -175,6 +99,7 @@ function ProductDetail() {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+      alert("Added to Cart");
     } else {
       navigate("/customer/login");
     }
@@ -186,6 +111,8 @@ function ProductDetail() {
 
 
   return (
+    <div>
+    <Header/>
     <div className="product-detail-container">
       <div className="product-detail-content">
         {product ? (
@@ -221,19 +148,21 @@ function ProductDetail() {
                 </button>
               </div>
               
-              <button className="purchase-button" >
-                Purchase now
-              </button>
               <button className="purchase-button" onClick={() => {addToCart();}}>
                 Add to Cart
+              </button>
+              <button className="purchase-button" >
+              <Link to="/shop17/home" className="shop17-custom-link"> Back to home</Link>
+              
               </button>
               </div>
             </div>
           </>
         ) : (
-          <p>Product not found</p>
+          <p>Loading...</p>
         )}
       </div>
+    </div>
     </div>
   );
         }

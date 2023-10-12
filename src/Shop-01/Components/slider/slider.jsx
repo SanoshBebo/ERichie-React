@@ -49,7 +49,7 @@ const Slider =() =>{
                    <>
                     <img src={image} alt ="slide" />
                      <div className="content">
-                         <h2>{heading}</h2>
+                         <h2 style={{fontSize:'2.5rem'}}>{heading}</h2>
                          <p>{desc}</p>
                          <hr/>
                          

@@ -6,39 +6,39 @@ footer.css
     font-family: sans-serif;
     box-sizing: border-box;
 }
-.afooterdiv .footer
+.afooterdiv .abfooter
 {
     width: 100%;
     padding: 30px 40px;
     background: #f6f6f6;
 }
-.afooterdiv .footer .container
+.afooterdiv .abfooter .abcontainer
 {
     display: flex;
     max-width: 100%;
 }
-.afooterdiv .footer .container .left-box
+.afooterdiv .abfooter .abcontainer .left-boxab
 {
     width: 30%;
     padding: 20px 20px;
     border-right: 2px solid #b8b7b7;
 }
-.afooterdiv .footer .container .left-box .box
+.afooterdiv .abfooter .abcontainer .left-boxab .boxab
 {
     display: flex;
     padding: 10px 20px;
     margin-top: 15px;
 }
-.afooterdiv .footer .container .left-box .box .icon_box
+.afooterdiv .abfooter .abcontainer .left-boxab .boxab .icon_boxab
 {
     font-size: 26px;
     color: #cd1e76;
 }
-.afooterdiv .footer .container .left-box .box .detail
+.afooterdiv .abfooter .abcontainer .left-boxab .boxab .detailsab
 {
     margin-left: 10px;
 }
-.afooterdiv .footer .container .left-box .box .detail h3
+.afooterdiv .abfooter .abcontainer .left-boxab .boxab .detailsab h3
 {
     text-transform: uppercase;
     font-size: 16px;
@@ -46,27 +46,27 @@ footer.css
     font-weight: 600;
     letter-spacing: 1px;
 }
-.afooterdiv .footer .container .left-box .box .detail p
+.afooterdiv .abfooter .abcontainer .left-boxab .boxab .detailsab p
 {
     font-size: 14px;
     color: #232323;
 }
-.afooterdiv .footer .container .right_box
+.afooterdiv .abfooter .abcontainer .right_boxab
 {
     padding: 10px 20px;
     width: 69%;
 }
-.afooterdiv .footer .container .right_box .header
+.afooterdiv .abfooter .abcontainer .right_boxab .header
 {
     max-width: 100%;
     align-items: center;
 }
-.afooterdiv .footer .container .right_box .header img
+.afooterdiv .abfooter .abcontainer .right_boxab .header img
 {
     margin-left: 40%;
     width: 300px;
 }
-.afooterdiv .footer .container .right_box .header p
+.afooterdiv .abfooter .abcontainer .right_boxab .header p
 {
     margin-top: 15px;
     font-size: 14px;
@@ -74,7 +74,7 @@ footer.css
     font-weight: 600;
     color: #8a8a8a;
 }
-.afooterdiv .footer .container .right_box .bottom
+.afooterdiv .abfooter .abcontainer .right_boxab .bottom
 {
     padding: 20px 20px;
     margin-top: 30px;
@@ -82,22 +82,22 @@ footer.css
     display: flex;
     justify-content: space-between;
 }
-.afooterdiv .footer .container .right_box .bottom .box
+.afooterdiv .abfooter .abcontainer .right_boxab .bottom .boxab
 {
     padding: 10px 20px;
 }
-.afooterdiv .footer .container .right_box .bottom .box h3
+.afooterdiv .abfooter .abcontainer .right_boxab .bottom .boxab h3
 {
     text-transform: uppercase;
     color: #232323;
     font-size: 14px;
     letter-spacing: 1px;
 }
-.afooterdiv .footer .container .right_box .bottom .box ul
+.afooterdiv .abfooter .abcontainer .right_boxab .bottom .boxab ul
 {
     margin-top: 10px;
 }
-.afooterdiv .footer .container .right_box .bottom .box ul li
+.afooterdiv .abfooter .abcontainer .right_boxab .bottom .boxab ul li
 {
     list-style: none;
     margin-top: 5px;
@@ -109,7 +109,7 @@ footer.css
     cursor: pointer;
     transition: 0.5s;
 }
-.afooterdiv .footer .container .right_box .bottom .box ul li:hover
+.afooterdiv .abfooter .abcontainer .right_boxab .bottom .boxab ul li:hover
 {
     color: #cd1e76;
 }

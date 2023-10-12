@@ -15,9 +15,9 @@ const ProductDetail = () => {
 
   const apiUrl = `https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products/${productId}`;
 
-  const user = useSelector((state) => state.shoponeuser.user);
+const user = useSelector((state) => state.shoponeuser.user);
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch(); // You can use useDispatch here
+ const dispatch = useDispatch(); // You can use useDispatch here
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
 
@@ -73,14 +73,19 @@ const ProductDetail = () => {
 
   return (
     <section className="shop_14">
-      <div className="product-detail-page">
-        <h1>Product Details</h1>
-
-        <div className="product-details">
+       {/* Add a Back button to navigate back to the user page */}
+       <button className="back-button" onClick={() => navigate("/shop14/")}>
+          Back
+        </button>
+      <div className="product-detail-page_shop14">
+        <h1>Digital Genie</h1>
+         
+        <div className="product-details_shop14">
+          <h2>Product Details</h2>
           <img
             src={product.imageurl?.stringValue}
             alt={product.productname?.stringValue}
-            className="product-image"
+            className="product-image_shop14"
           />
           <br></br>
 
@@ -92,7 +97,7 @@ const ProductDetail = () => {
 
           <p>Stock: {product.stock?.integerValue}</p>
 
-          <div className="spaced-buttons">
+          <div className="spaced-buttons_shop14">
             <button
               onClick={() => {
                 addToCart();
@@ -101,7 +106,7 @@ const ProductDetail = () => {
               Add to Cart
             </button>
 
-            <button className="spaced-buttons" onClick={buyNow}>
+            <button className="spaced-buttons_shop14" onClick={buyNow}>
               Buy Now
             </button>
           </div>

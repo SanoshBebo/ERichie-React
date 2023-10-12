@@ -4,41 +4,41 @@
     font-family: sans-serif;
     box-sizing: border-box;
 }
-.header
+.headerab
 {
     width: 100%;
 }
-.header .top_header
+.headerab .top_headerab
 {
     max-width: 100%;
     display: flex;
     padding: 10px 10px;
     background: #006992;
 }
-.header .top_header .icon
+.headerab .top_headerab .icon
 {
     margin-left: 20px;
     color: #001B2E;
     font-size: 19px;
 }
-.header .top_header .info p
+.headerab .top_headerab .info p
 {
     margin-left: 10px;
     color: #580000;
 }
-.header .mid_header
+.headerab .mid_headerab
 {
     display: flex;
     padding: 20px 40px;
     max-width: 100%;
     justify-content: space-between;
 }
-.header .mid_header .logo img
+.headerab .mid_headerab .logoab img
 {
     cursor: pointer;
     object-fit: cover;
 }
-.header .mid_header .search_box input
+.headerab .mid_headerab .search_box input
 {
     padding: 10px 10px;
     outline: none;
@@ -49,7 +49,7 @@
     border: 1px;
     background: #f6f7f8;
 }
-.header .mid_header .search_box button
+.headerab .mid_headerab .search_box button
 {
     padding: 10px 10px;
     border-top-right-radius: 5px;
@@ -64,21 +64,21 @@
     transition: 0.5s;
     font-weight: 600;
 }
-.header .mid_header .search_box button:hover
+.headerab .mid_headerab .search_box button:hover
 {
     background: #fed700;
     color: #cd1e76;
 }
-.header .mid_header .user
+.headerab .mid_headerab .user
 {
     display: flex;
     margin-right: 30px;
 }
-.header .mid_header .user .icon
+.headerab .mid_headerab .user .icon
 {
     margin-right: 10px;
 }
-.header .mid_header .user .btn button
+.headerab .mid_headerab .user .btn button
 {
     border: none;
     outline: none;
@@ -86,7 +86,7 @@
     background: none;
     cursor: pointer;
 }
-.header .last_header
+.headerab .last_headerab
 {
     width: 100%;
     padding: 10px 10px;
@@ -94,44 +94,44 @@
     background: #27476E;
     justify-content: space-between;
 }
-.header .last_header .user_profile
+.headerab .last_headerab .user_profile
 {
     display: flex;
     margin-top: 10px;
 }
-.header .last_header .user_profile .icon
+.headerab .last_headerab .user_profile .icon
 {
     padding: 10px 10px;
     background: #fff;
     border-radius: 10px;
 }
-.header .last_header .user_profile .info
+.headerab .last_headerab .user_profile .info
 {
     margin-left: 10px;
 }
-.header .last_header .user_profile .info h2
+.headerab .last_headerab .user_profile .info h2
 {
     color: #fff;
     font-size: 18px;
 }
-.header .last_header .user_profile .info p
+.headerab .last_headerab .user_profile .info p
 {
     color: #ababab;
     font-size: 14px;
 }
-.header .last_header .nav
+.headerab .last_headerab .nav
 {
     margin-top: 15px;
 }
-.header .last_header .nav ul
+.headerab .last_headerab .nav ul
 {
     display: flex;
 }
-.header .last_header .nav ul li
+.headerab .last_headerab .nav ul li
 {
     list-style: none;
 }
-.header .last_header .nav ul li .link
+.headerab .last_headerab .nav ul li .link
 {
     margin-right: 20px;
     text-decoration: none;
@@ -139,18 +139,18 @@
     font-weight: 600;
     transition: 0.5s;
 }
-.header .last_header .nav ul li .link:hover
+.headerab .last_headerab .nav ul li .link:hover
 {
     color: #fed700;
 }
-.header .last_header .offer
+.headerab .last_headerab .offer
 {
     margin-right: 20px;
     padding: 10px 20px;
     background: #fed700;
     border-radius: 10px;
 }
-.header .last_header .offer p
+.headerab .last_headerab .offer p
 {
     margin-top: 5px;
     text-transform: uppercase;

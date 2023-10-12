@@ -1,13 +1,14 @@
 /* AdminPage.css */
 /* Global Styles */
-.sundarishop14 body {
+.sundarishop14 .add-product-pages_shop14 {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #0e0d0d;
 }
+  
 
-.sundarishop14 .container {
+.sundarishop14 .add-product-container_shop14 {
   max-width: 1200px;
   height: auto;
   margin: 0 auto;
@@ -15,9 +16,9 @@
 }
 
 /* Header Styles */
-.sundarishop14 .header {
+.sundarishop14 .header_shop14 {
   background-color: #6a0dad;
-  color: black;
+  color: white;
   text-align: left;
   padding: 20px 0;
 }
@@ -27,7 +28,7 @@
 }
 
 /* Add Product Form Styles */
-.sundarishop14 .add-product-container {
+.sundarishop14 .add-product-container_shop14 {
   background-color: #fff;
   border: 1px solid #ddd;
   padding: 20px;
@@ -35,38 +36,40 @@
   border-radius: 5px;
 }
 
-.sundarishop14 .add-product-container h2 {
+.sundarishop14 .add-product-container_shop14 h2 {
   color: #6a0dad;
   margin: 0;
 }
 
-.sundarishop14 .add-product-form {
+.sundarishop14 .add-product-form_shop14 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
+  color:white;
 }
 
-.sundarishop14 .add-product-form label {
+.sundarishop14 .add-product-form_shop14 label {
   width: 100%;
   font-weight: bold;
+  color:white;
 }
 
-.sundarishop14 .add-product-form input[type="text"],
-.sundarishop14 .add-product-form input[type="number"],
-.sundarishop14 .add-product-form input[type="file"] {
+.sundarishop14 .add-product-form_shop14 input[type="text"],
+.sundarishop14 .add-product-form_shop14 input[type="number"],
+.sundarishop14 .add-product-form_shop14 input[type="file"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.sundarishop14 .add-product-form input[type="text"]:disabled,
-.sundarishop14 .add-product-form input[type="text"]:disabled {
+.sundarishop14 .add-product-form_shop14 input[type="text"]:disabled,
+.sundarishop14 .add-product-form_shop14 input[type="text"]:disabled {
   background-color: #f0f0f0;
 }
 
-.sundarishop14 .add-product-form button {
+.sundarishop14 .add-product-form_shop14 button {
   background-color: #6a0dad;
   color: #fff;
   border: none;
@@ -76,34 +79,34 @@
   
 }
 
-.sundarishop14 .add-product-form button:hover {
+.sundarishop14 .add-product-form_shop14 button:hover {
   background-color: #4c0774;
 }
 
 /* Product List Styles */
-.sundarishop14 .product-list {
+.sundarishop14 .product-list_shop14 {
   margin-top: 20px;
 }
 
-.sundarishop14 .product-list h2 {
+.sundarishop14 .product-list_shop14 h2 {
   color: #6a0dad;
   margin: 0;
 }
 
-.sundarishop14 .product-search {
+.sundarishop14 .product-search_shop14 {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.sundarishop14 .product-search input[type="text"] {
+.sundarishop14 .product-search_shop14 input[type="text"] {
   flex-grow: 1;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.sundarishop14 .product-search button {
+.sundarishop14 .product-search_shop14 button {
   background-color: #6a0dad;
   color: #fff;
   border: none;
@@ -112,11 +115,11 @@
   cursor: pointer;
 }
 
-.sundarishop14 .product-search button:hover {
+.sundarishop14 .product-search_shop14 button:hover {
   background-color: #4c0774;
 }
 
-.sundarishop14 .product-images img {
+.sundarishop14 .product-images_shop14 img {
   max-width: 100px;
   max-height: 100px;
   width: auto;
@@ -124,33 +127,33 @@
   border-radius: 5px;
 }
 
-.sundarishop14 .product-details-1 {
+.sundarishop14 .product-details-1_shop14 {
   flex-grow: 2;
 }
 
-.sundarishop14 .product-details-1 strong {
+.sundarishop14 .product-details-1_shop14 strong {
   font-size: 1.2em;
   color: #6a0dad;
   margin-bottom: 10px;
   text-align: left;
 }
 
-.sundarishop14 .product-details-2 {
+.sundarishop14 .product-details-2_shop14 {
   flex-grow: 1;
   text-align: left;
 }
 
-.sundarishop14 .product-details-2 p {
+.sundarishop14 .product-details-2_shop14 p {
   margin: 5px 0;
 }
 
-.sundarishop14 .product-buttons-2 {
+.sundarishop14 .product-buttons-2_shop14 {
   margin-top: 10px;
   text-align: right;
   
 }
 
-.sundarishop14 .product-buttons-2 button {
+.sundarishop14 .product-buttons-2_shop14 button {
   background-color: #6a0dad;
   color: #fff;
   margin-right: 10px;
@@ -160,11 +163,11 @@
   cursor: pointer;
 }
 
-.sundarishop14 .product-buttons-2 button:hover {
+.sundarishop14 .product-buttons-2_shop14 button:hover {
   background-color: #4c0774;
 }
 
-.sundarishop14 .product-images img {
+.sundarishop14 .product-images_shop14 img {
   max-width: 200px;
   /* Set the maximum width to 400px */
   max-height: 200px;
@@ -174,7 +177,7 @@
   border-radius: 5px;
 }
 
-.sundarishop14 .product-items {
+.sundarishop14 .product-items_shop14 {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -187,11 +190,19 @@
   /* Align products to the left */
 }
 
-.sundarishop14 .product-cards {
+.sundarishop14 .product-cards_shop14 {
   flex: 0 1 calc(25% - 10px);
   /* 25% width for each product card with 10px gap */
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   flex-grow: 1;
+}
+
+.sundarishop14 .product-forms_shop14{
+  color:white;
+}
+
+.sundarishop14 .statistics-button{
+  margin-left:1200px;
 }

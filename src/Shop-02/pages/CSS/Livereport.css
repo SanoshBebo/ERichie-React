@@ -1,0 +1,44 @@
+/* DailyInventory.css */
+
+.shop15livereport {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .shop15livereport h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .shop15livereport p {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+  }
+  
+  .shop15livereport table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .shop15livereport th, .shop15livereport td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .shop15livereport th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .shop15livereport td {
+    background-color: #fff;
+  }
+  
+  .shop15livereport tfoot {
+    font-weight: bold;
+  }
+  

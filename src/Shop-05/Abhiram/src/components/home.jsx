@@ -26,9 +26,9 @@ const Home = (addtocart) => {
 
 
   return (
-    <div className='ahome'>
-    <div className='home'>
-        <div className='top_banner'>
+    <div className='ahomeab'>
+    <div className='homeab'>
+        <div className='top_bannerab'>
           <div className='contant'>
             <h3></h3>
             <h2></h2>
@@ -38,10 +38,10 @@ const Home = (addtocart) => {
         </div>
         
         <div className='trending'>
-          <div className='container'>
+          <div className='containerab'>
             <div className='left_box'>
-              <div className='header'>
-                <div className='heading'>
+              <div className='headerab'>
+                <div className='headingab'>
                   <h2>TRENDING</h2>
                 </div>
                 <div className='cate'>
@@ -53,7 +53,7 @@ const Home = (addtocart) => {
           </div>
         </div>
         <div className='banners'>
-          <div className='container'>
+          <div className='containerab'>
             <div className='left_box'>
               <div className='box'>
               <Link to='/shop13/shop' className='link' ><img src='https://firebasestorage.googleapis.com/v0/b/abhiram-store.appspot.com/o/Multi-Banner-1.avif?alt=media&token=bf63ba5b-fd11-472b-b3ff-68733ea5f2a5&_gl=1*p8m4p6*_ga*MzEwMDU5MjE4LjE2OTUwOTk4MjQ.*_ga_CW55HF8NVT*MTY5NjUxODc4OS43Ni4xLjE2OTY1MjkwOTEuMjguMC4w' alt='banner'></img>

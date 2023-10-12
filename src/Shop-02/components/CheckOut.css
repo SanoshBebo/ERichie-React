@@ -1,53 +1,57 @@
 /* CheckoutPage.css */
 
 /* Page Container */
-.checkout {
+.shop15style .checkout {
     max-width: 800px;
     background-color: #ffffff;
-    margin: 100px auto 0;
-    padding: 20px;
+    margin: 0px auto 0;
     font-family: 'Arial', sans-serif;
 }
 
 /* Heading */
-.checkout h1 {
+.shop15style .checkout h1 {
     font-size: 42px; /* Increased font size */
     margin-bottom: 20px;
+align-content: center;
     font-weight: bold;
     color: #3a9cdb; /* Blue color for the heading */
 }
 
 /* Product Details Container */
-.checkout .product-details {
+.shop15style .checkout .product-details {
     display: flex;
+    font-size: 15px;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
 }
 
 /* Product Image */
+.shop15style 
 .checkout .product-details img {
-    max-width: 100%;
-    height: auto;
+    max-width: 350px;
+    height: 350px;
     margin-bottom: 10px;
     border: 2px solid #d93f3f; /* Red border for the image */
     border-radius: 8px;
 }
 
 /* Product Name */
-.checkout .product-details strong {
+.shop15style .checkout .product-details strong {
     font-weight: bold;
+    font-size: 15px;
     font-style: italic;
     color: #2baf4b; /* Green color for the product name */
 }
 
 /* Quantity Selector */
-.checkout label {
+.shop15style .checkout label {
     font-weight: bold;
+    font-size: 15px;
     margin-bottom: 10px;
 }
 
-.checkout button {
+.shop15style .checkout button {
     background-color: #3a9cdb; /* Blue background color for buttons */
     color: #ffffff; /* White text color for buttons */
     border: none;
@@ -58,28 +62,16 @@
     font-size: 24px; /* Increased font size */
 }
 
-.checkout span {
+.shop15style .checkout span {
     font-weight: bold;
     font-size: 24px; /* Increased font size */
     margin: 0 10px;
 }
 
 /* Confirmation Modal */
-.checkout .confirmation-modal {
-    border: 2px solid #a2a2a2; /* Red border for the modal */
-    padding: 20px;
-    background-color: #ffce52; /* Yellow background for the modal */
-    text-align: center;
-    margin-top: 20px;
-    font-size: 28px; /* Increased font size for the modal */
-    color: #333; /* Dark text color for the modal */
-}
 
-.checkout .confirmation-modal p {
-    margin-bottom: 20px;
-}
 
-.checkout .confirmation-modal button {
+.shop15style .checkout .confirmation-modal button {
     background-color: #3a9cdb; /* Blue background color for buttons */
     color: #ffffff; /* White text color for buttons */
     border: none;
@@ -87,13 +79,17 @@
     padding: 16px 32px; /* Increased padding and font size for buttons */
     cursor: pointer;
     margin: 0 10px;
-    font-size: 28px; /* Increased font size for buttons */
+    font-size: 20px; /* Increased font size for buttons */
 }
 
 /* Success Message */
-.checkout .confirmation-modal a {
+.shop15style .checkout .confirmation-modal a {
     text-decoration: none;
     color: #3a9cdb; /* Blue color for links */
     font-weight: bold;
     font-size: 28px; /* Increased font size for links */
+}
+
+.shop15style h1{
+        margin-left: 270px;
 }

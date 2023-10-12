@@ -163,12 +163,24 @@
  /* styles.css */
 
 /* Styling for the product form */
+.shop17-container .shop17-product-h1 {
+  font-size: 3rem;
+  background-color: #333; /* Background color for the block */
+  color: #fff; /* Text color */
+  text-align: center; /* Center align the text */
+  padding: 20px ; /* Add padding to the top and bottom */
+  text-transform: uppercase; /* Convert text to uppercase */
+  letter-spacing: 2px; /* Add letter spacing for a stylish look */
+  font-weight: bold; /* Make the text bold */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Add a shadow effect */
+  margin: 0;
+  margin-right: 20%;
+}
 
-.admin .product-form {
+.shop17-admin .shop17-product-form {
   margin: auto;
   margin-top: 60px;
   max-width: 400px;
-  
   padding: 20px;
   background-color: #f5f5f5;
   border: 1px solid #ddd;
@@ -176,21 +188,21 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.admin .product-form h2 {
+.shop17-admin .shop17-product-form h2 {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.admin .product-form label {
+.shop17-admin .shop17-product-form label {
   font-weight: bold;
   font-size: 17px;
   display: block;
   margin-bottom: 5px;
 }
 
-.admin .product-form input[type="text"],
-.admin .product-form input[type="number"],
-.admin .product-form input[type="file"] {
+.shop17-admin .shop17-product-form input[type="text"],
+.shop17-admin .shop17-product-form input[type="number"],
+.shop17-admin .shop17-product-form input[type="file"] {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -198,7 +210,7 @@
   border-radius: 4px;
 }
 
-.admin .product-form button[type="submit"] {
+.shop17-admin .shop17-product-form button[type="submit"] {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -208,7 +220,7 @@
   font-weight: bold;
 }
 
-.admin .container{
+.shop17-admin .shop17-container {
   margin-left: 15%;
   flex-direction: column;
   display: flex;
@@ -216,8 +228,8 @@
   justify-content: center;
 }
 
-.admin .input-bar{
-  width: 100%;
+.shop17-admin .shop17-input-bar {
+  width: 500px;
   height: 50px;
   padding: 10px;
   background-color: #fff;
@@ -225,19 +237,19 @@
   border-radius: 4px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 50px;
+  margin-right: 20%;
 }
 
-
 /* Styling for the product list */
-.admin body {
+.shop17-admin body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-.admin .product-card {
+.shop17-admin .shop17-product-card {
   max-width: 350px;
-   margin-left: 50px;
+  margin-left: 30px;
   padding: 10px;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -246,60 +258,59 @@
   overflow: hidden;
   position: relative;
   height: auto;
-} 
+}
+
 /* Styling for the product list */
-.admin .product-list {
+.shop17-admin .shop17-product-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns for three products per row */
   gap: 20px; /* Adjust the gap between cards as needed */
+  margin-right: 15%;
 }
-
 
 /* Responsive layout adjustments */
 @media (max-width: 768px) {
-  .admin .product-list {
+  .shop17-admin .shop17-product-list {
     grid-template-columns: repeat(2, 1fr); /* Adjust for two columns on smaller screens */
   }
 }
 
-
-.admin .product-details {
+.shop17-admin .shop17-product-details {
   padding: 10px;
-  
 }
 
-.admin .product-details label {
+.shop17-admin .shop17-product-details label {
   font-weight: bold;
   font-size: 17px;
 }
 
-.admin .product-details span {
+.shop17-admin .shop17-product-details span {
   display: block;
   margin-bottom: 10px;
   font-size: 13px;
 }
 
-.admin .product-details img {
- max-width: 100%; /* Adjust the width as needed */
+.shop17-admin .shop17-product-details img {
+  max-width: 100%; /* Adjust the width as needed */
   height: auto; /* Adjust the height as needed */
   object-fit: cover; /* Maintain aspect ratio and cover container */
 }
 
-.admin .editable-fields {
+.shop17-admin .shop17-editable-fields {
   display: flex;
   flex-direction: column;
 }
 
-.admin .editable-fields .field {
+.shop17-admin .shop17-editable-fields .shop17-field {
   margin-bottom: 10px;
 }
 
-.admin .editable-fields .field input {
+.shop17-admin .shop17-editable-fields .shop17-field input {
   width: 100%;
   padding: 6px;
 }
 
-.admin .editable-fields button {
+.shop17-admin .shop17-editable-fields button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -309,9 +320,7 @@
   font-weight: bold;
 }
 
-
-
-.admin .product-details button.edit-button {
+.shop17-admin .shop17-product-details button.shop17-edit-button {
   background-color: #28a745; /* Green color for Edit button */
   color: #fff;
   border: none;
@@ -322,7 +331,7 @@
   margin-right: 5px; /* Add spacing between buttons */
 }
 
-.admin .product-details button.delete-button {
+.shop17-admin .shop17-product-details button.shop17-delete-button {
   background-color: #dc3545; /* Red color for Delete button */
   color: #fff;
   border: none;
@@ -334,36 +343,36 @@
 
 /* Responsive layout adjustments */
 @media (max-width: 768px) {
-  .admin .product-card {
+  .shop17-admin .shop17-product-card {
     max-width: 100%;
   }
 }
 
-.admin .header {
+.shop17-admin .shop17-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #007bff;
+  background-color: #0a1930;
   color: #fff;
   padding: 10px 20px;
 }
 
-.admin .left {
+.shop17-admin .shop17-left {
   flex: 1;
 }
 
-.admin .center {
+.shop17-admin .shop17-center {
   flex: 2;
   text-align: center;
 }
 
-.admin.right {
+.shop17-admin .shop17-right {
   flex: 1;
   text-align: right;
 }
 
 /* Button styles */
-.admin .header-button {
+.shop17-admin .shop17-header-button {
   background-color: #fff;
   color: #007bff;
   border: none;
@@ -373,10 +382,64 @@
   font-weight: bold;
   margin-right: 10px;
 }
-.admin 
-.header-button:hover {
-  background-color:#fff;
-  color: #007bff ;
+
+.shop17-admin .shop17-header-button:hover {
+  background-color: #fff;
+  color: #007bff;
 }
 
+
+/* Global Styles */
+.shop17-title {
+  font-size: 24px;
+  text-align: center;
+}
+
+.shop17-date {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.shop17-subtitle {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+/* Table Styles */
+.shop17-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+.shop17-table-head {
+  background-color: #f2f2f2;
+}
+
+.shop17-table-header {
+  padding: 10px;
+  text-align: left;
+}
+
+.shop17-table-data {
+  padding: 10px;
+  text-align: left;
+  border-top: 1px solid #ddd;
+}
+
+.shop17-table-footer {
+  font-weight: bold;
+  padding: 10px;
+  text-align: right;
+}
+
+.shop17-sales-table {
+  margin-bottom: 40px;
+}
+
+/* Optional: Add additional styles for the inventory table */
+.shop17-inventory-table {
+  /* Add styles for the inventory table if needed */
+}
 

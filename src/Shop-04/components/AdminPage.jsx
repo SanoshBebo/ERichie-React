@@ -1,36 +1,53 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminPage.css';
+import { Link } from 'react-router-dom';
 
-const AddProduct =() =>{
+
+function AddProduct() {
   const [product, setProduct] = useState({
     category: 'computer',
     description: '',
     modelNo: '',
     price: '',
     productname: '',
-    shopid: 'shop16', // Pre-defined shopid
+    shopid: 'shop16',
     stock: '',
   });
 
-  const [Products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editProductId, setEditProductId] = useState(null);
-  const [showAddProductForm, setShowAddProductForm] = useState(false); // Control the visibility of the "Add Product" form
-
-  const apiUrl =
-    'https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products';
+  const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const apiUrl ='https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products';
 
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const firebaseStorageUrl =
-    'https://firebasestorage.googleapis.com/v0/b/d-richie-computers.appspot.com';
+  const firebaseStorageUrl ='https://firebasestorage.googleapis.com/v0/b/d-richie-computers.appspot.com/o';
 
-  useEffect(() => {
-    axios
-      .get(apiUrl)
-      .then((response) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const productsPerPage = 2;
+
+ const indexOfLastProduct = currentPage * productsPerPage;
+
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+ 
+
+  const paginate = (pageNumber) => {
+
+    setCurrentPage(pageNumber);
+
+  };
+
+ 
+
+  useEffect(() => {axios.get(apiUrl).then((response) => {
         const productList = response.data.documents.map((doc) => ({
           id: doc.name.split('/').pop(),
           fields: doc.fields,
@@ -45,56 +62,54 @@ const AddProduct =() =>{
 
   useEffect(() => {
     const searchTerm = searchInput.toLowerCase();
-    const filtered = Products.filter((product) =>
+    const filtered = products.filter((product) =>
       product.fields.productname.stringValue.toLowerCase().includes(searchTerm)
     );
     setFilteredProducts(filtered);
-  }, [searchInput, Products]);
+  }, [searchInput, products]);
 
   const handleSearch = () => {
     const searchTerm = searchInput.toLowerCase();
-    const filtered = Products.filter((product) =>
+    const filtered = products.filter((product) =>
       product.fields.productname.stringValue.toLowerCase().includes(searchTerm)
     );
     setFilteredProducts(filtered);
   };
-
+  
   const handleAddProduct = async () => {
     const imageFile = product.imageurl;
     const imageName = imageFile.name;
     const imageRef =
       firebaseStorageUrl + '/' + encodeURIComponent(imageName) + '?alt=media';
-
+  
     const payload = {
       fields: {
         category: { stringValue: product.category },
         description: { stringValue: product.description },
         modelNo: { stringValue: product.modelNo },
-        price: { IntegerValue: parseFloat(product.price) },
+        price: { integerValue: parseFloat(product.price) },
         productname: { stringValue: product.productname },
         shopid: { stringValue: product.shopid },
         stock: { integerValue: parseInt(product.stock, 10) },
         imageurl: { stringValue: imageRef },
       },
     };
-
+  
     try {
-      // Upload the image to Firebase Storage
       const imageUploadResponse = await axios.post(imageRef, imageFile, {
         headers: {
           'Content-Type': imageFile.type,
         },
       });
-
+  
       if (imageUploadResponse.status === 200) {
-        // Image uploaded successfully, now add the product
         const productAddResponse = await axios.post(apiUrl, payload);
         if (productAddResponse.status === 200) {
           const newProduct = {
             id: productAddResponse.data.name.split('/').pop(),
             fields: payload.fields,
           };
-          const updatedProducts = [...Products, newProduct];
+          const updatedProducts = [...products, newProduct];
           setProducts(updatedProducts);
           setFilteredProducts(updatedProducts);
           setProduct({
@@ -107,7 +122,7 @@ const AddProduct =() =>{
             stock: '',
             imageurl: '',
           });
-          setShowAddProductForm(false); // Close the form after adding a product
+          setShowAddProductForm(false);
         } else {
           console.log('Error: Product addition failed');
         }
@@ -118,16 +133,14 @@ const AddProduct =() =>{
       console.error('Error: ', error);
     }
   };
-
+  
   const handleDeleteProduct = async (id) => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this product?'
-    );
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
     if (confirmDelete) {
       try {
         const response = await axios.delete(`${apiUrl}/${id}`);
         if (response.status === 200) {
-          const updatedProducts = Products.filter((product) => product.id !== id);
+          const updatedProducts = products.filter((product) => product.id !== id);
           setProducts(updatedProducts);
           setFilteredProducts(updatedProducts);
         } else {
@@ -138,9 +151,10 @@ const AddProduct =() =>{
       }
     }
   };
-
+  
   const handleEditProduct = (id) => {
-    const editedProduct = Products.find((product) => product.id === id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const editedProduct = products.find((product) => product.id === id);
     setProduct({
       category: 'computer',
       description: editedProduct.fields.description.stringValue,
@@ -153,90 +167,97 @@ const AddProduct =() =>{
     });
     setEditProductId(id);
     setIsEditing(true);
-    setShowAddProductForm(true); // Show the "Add Product" form when editing
+    setShowAddProductForm(true);
+};
+
+const handleSaveEdit = async () => {
+  const imageFile = product.imageurl;
+  const imageName = imageFile.name;
+  const imageRef = firebaseStorageUrl + '/' + encodeURIComponent(imageName) + '?alt=media';
+
+  const payload = {
+    fields: {
+      category: { stringValue: 'computer' },
+      description: { stringValue: product.description },
+      modelNo: { stringValue: product.modelNo },
+      price: { IntegerValue: parseFloat(product.price) },
+      productname: { stringValue: product.productname },
+      shopid: { stringValue: 'Shop16' }, // Pre-defined shopid
+      stock: { integerValue: parseInt(product.stock, 10) },
+      imageurl: { stringValue: imageRef },
+    },
   };
 
-  const handleSaveEdit = async () => {
-    const imageFile = product.imageurl;
-    const imageName = imageFile.name;
-    const imageRef =
-      firebaseStorageUrl + '/' + encodeURIComponent(imageName) + '?alt=media';
-
-    const payload = {
-      fields: {
-        category: { stringValue: 'computer' },
-        description: { stringValue: product.description },
-        modelNo: { stringValue: product.modelNo },
-        price: { IntegerValue: parseFloat(product.price) },
-        productname: { stringValue: product.productname },
-        shopid: { stringValue: 'Shop16' }, // Pre-defined shopid
-        stock: { integerValue: parseInt(product.stock, 10) },
-        imageurl: { stringValue: imageRef },
+  try {
+    // Upload the new image to Firebase Storage
+    const imageUploadResponse = await axios.post(imageRef, imageFile, {
+      headers: {
+        'Content-Type': imageFile.type,
       },
-    };
-
-    try {
-      // Upload the new image to Firebase Storage
-      const imageUploadResponse = await axios.post(imageRef, imageFile, {
-        headers: {
-          'Content-Type': imageFile.type,
-        },
-      });
-
-      if (imageUploadResponse.status === 200) {
-        // Image uploaded successfully, now update the product
-        const productUpdateResponse = await axios.patch(
-          `${apiUrl}/${editProductId}`,
-          payload
-        );
-        if (productUpdateResponse.status === 200) {
-          const updatedProducts = Products.map((p) =>
-            p.id === editProductId ? { ...p, fields: payload.fields } : p
-          );
-          setProducts(updatedProducts);
-          setFilteredProducts(updatedProducts);
-          setIsEditing(false);
-          setEditProductId(null);
-          setProduct({
-            category: 'computer',
-            description: '',
-            modelNo: '',
-            price: '',
-            productname: '',
-            shopid: 'shop16',
-            stock: '',
-            imageurl: '',
-          });
-          setShowAddProductForm(false); // Close the form after saving edit
-        } else {
-          console.log('Error: Product editing failed');
-        }
-      } else {
-        console.log('Error: Image upload failed');
-      }
-    } catch (error) {
-      console.error('Error: ', error);
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setEditProductId(null);
-    setProduct({
-      category: 'computer',
-      description: '',
-      modelNo: '',
-      price: '',
-      productname: '',
-      shopid: 'shop16',
-      stock: '',
-      imageurl: '',
     });
-    setShowAddProductForm(false); // Close the form when canceling edit
-  };
+
+    if (imageUploadResponse.status === 200) {
+      // Image uploaded successfully, now update the product
+      const productUpdateResponse = await axios.patch(`${apiUrl}/${editProductId}`, payload);
+      if (productUpdateResponse.status === 200) {
+        const updatedProducts = products.map((p) =>
+          p.id === editProductId ? { ...p, fields: payload.fields } : p
+        );
+        setProducts(updatedProducts);
+        setFilteredProducts(updatedProducts);
+        setIsEditing(false);
+        setEditProductId(null);
+        setProduct({
+          category: 'computer',
+          description: '',
+          modelNo: '',
+          price: '',
+          productname: '',
+          shopid: 'shop16',
+          stock: '',
+          imageurl: '',
+        });
+        setShowAddProductForm(false); 
+      } else {
+        console.log('Error: Product editing failed');
+      }
+    } else {
+      console.log('Error: Image upload failed');
+    }
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
+const handleCancelEdit = () => {
+  setIsEditing(false);
+  setEditProductId(null);
+  setProduct({
+    category: 'computer',
+    description: '',
+    modelNo: '',
+    price: '',
+    productname: '',
+    shopid: 'shop16',
+    stock: '',
+    imageurl: '',
+  });
+  setShowAddProductForm(false); 
+};
 
   return (
     <section className='dhanushiya'>
+      <div className='stats'>
+      {/* <button type="button" class="btn btn-outline-dark">Back</button> */}
+      <Link to="/Shop16/User"><strong>Back</strong></Link>
+      
+
+        {/* <button onClick={()}><h3>Daily Sales Report</h3></button> */}
+        <h1>Welcome to Dhanu Computers !</h1>
+       
+        {/* <button type="button" class="btn btn-outline-dark">Back to main menu</button> */}
+        <Link to="/Shop16/User"><strong>Daily Sales</strong></Link>
+      </div>
     <div className="add-product-pages">
       <div className="add-product-containers">
         <h1>{isEditing ? 'Edit Product' : 'Add Product'}</h1>
@@ -337,7 +358,7 @@ const AddProduct =() =>{
 )}
       </div>
       <div className="product-lists">
-        <h1 className="ProductListName">Product List</h1>
+        <h1 className="ProductListName">Edit, Delete Product</h1>
         <div className="product-searches">
           <input
             type="text"
@@ -360,21 +381,35 @@ const AddProduct =() =>{
         
         <div className="product-details-1">
           <strong>{product.fields.productname?.stringValue}</strong>
-          <p><strong>Description:</strong></p>
+          {/* <p><strong>Description:</strong></p> */}
           <p>{product.fields.description?.stringValue}</p>
         </div>
         <div className="product-details-2">
-          <p><strong>Price:</strong> ${product.fields.price?.integerValue}</p>
+          <p><strong>Price:</strong> Rs.{product.fields.price?.integerValue}</p>
           <p><strong>Stock:</strong> {product.fields.stock?.integerValue}</p>
           <div className="product-buttons-2">
             <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
             <button onClick={() => handleEditProduct(product.id)}>Edit</button>
           </div>
-        </div>
+          
+        </div><hr/>
       </div>
     </div>
   ))}
 </ul>
+<div className="pagination">
+
+        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
+
+          <button key={i} onClick={() => paginate(i + 1)}>
+
+            {i + 1}
+
+          </button>
+
+        ))}
+
+      </div>
       </div>
     </div>
     </section>

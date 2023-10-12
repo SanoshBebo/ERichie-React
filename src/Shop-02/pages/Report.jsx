@@ -3,7 +3,7 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Import jspdf-autotable
 import Nav from '../navigation/navbar';
-
+import './CSS/report.css'
 const StockReport = () => {
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,32 +66,38 @@ const StockReport = () => {
 
   return (
     <>
-        <Nav/>
-    <div>
-      <h2>Stock Report</h2>
-      <button onClick={handleDownloadPdfClick}>Download PDF</button>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
+  <Nav />
+  <div className="shop15sanjay-container">
+    <h2 className="shop15sanjay-heading">Stock Report</h2>
+    <button
+      className="shop15sanjay-button"
+      onClick={handleDownloadPdfClick}
+    >
+      Download PDF
+    </button>
+    <table className="shop15sanjay-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {stockData.map((item) => (
+          <tr key={item.id}>
+            <td>{item.id}</td>
+            <td>{item.productName}</td>
+            <td>{item.stock}</td>
+            <td>${item.price.toFixed(2)}</td>
           </tr>
-        </thead>
-        <tbody>
-          {stockData.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.productName}</td>
-              <td>{item.stock}</td>
-              <td>${item.price.toFixed(2)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    </>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</>
+
   );
 };
 
