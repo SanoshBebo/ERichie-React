@@ -35,6 +35,7 @@ function ProductDetail() {
 
   const productname = product.fields.productname.stringValue;
   const description = product.fields.description.stringValue;
+  const imageUrl = product.fields.imageurl ? product.fields.imageurl.stringValue : '';
 
   const handleQuantityChange = (newQuantity) => {
     if (newQuantity < 0) {
@@ -64,7 +65,10 @@ function ProductDetail() {
           Back
         </button>
         <h1 className="text-3xl font-semibold mt-4">{productname}</h1>
-        <p className="text-gray-700">{description}</p>
+        <div className="flex items-center mt-4">
+          <img src={imageUrl} alt={productname} className="w-100 h-500  mr-4" />
+          <p className="text-gray-700 justify-center">{description}</p>
+        </div>
         <div className="flex items-center mt-4">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full mr-2"
@@ -84,9 +88,7 @@ function ProductDetail() {
           </button>
         </div>
         <div className="mt-4">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
-          >
+          <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
             Add to cart
           </button>
         </div>
