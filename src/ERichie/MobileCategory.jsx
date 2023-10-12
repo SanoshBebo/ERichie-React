@@ -97,13 +97,14 @@ const MobileCategory = () => {
                     )}
 
                     {product.stock == 0 && (
-                      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white bg-black bg-opacity-50">
+                      <div className="absolute top-0 left-0 w-full h-full flex items-center text-2xl font-bold justify-center text-white bg-black bg-opacity-50">
                         Out of Stock
                       </div>
                     )}
                   </div>
-                  <h1 className="text-center">{product.productname}</h1>
-                  <p className="text-center">Price: {product.price}</p>
+                  <h1 className="text-center text-lg font-bold ">{product.productname || product.title}</h1>
+                  <p className="text-center text-m font-serif">Price: {product.price}</p>
+                  <p className="text-center text-m italic">Store: {product.shopid}</p>
                 </Link>
               </li>
             )
