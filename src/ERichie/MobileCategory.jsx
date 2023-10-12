@@ -46,7 +46,7 @@ const MobileCategory = () => {
     setSearchQuery(query);
 
     // Filter products based on the search query
-    const filtered = products.filter((product) =>
+    const filtered = mobileProducts.filter((product) =>
       product.productname.toLowerCase().includes(query.toLowerCase())
     );
 

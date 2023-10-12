@@ -31,6 +31,9 @@ export const fetchCart = async (loggedInEmail, allproducts) => {
               (product) => product.productid === productid.stringValue
             );
 
+            console.log(document);
+
+
             return {
               email: email.stringValue,
               quantity: quantity.integerValue,
@@ -45,6 +48,8 @@ export const fetchCart = async (loggedInEmail, allproducts) => {
               cartid: documentId,
             };
           });
+          console.log(cartData);
+
         return cartData;
       } else {
         console.log("No cart documents found in the collection.");

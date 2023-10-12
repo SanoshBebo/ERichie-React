@@ -1,66 +1,177 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+
+import { useParams, Link, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
+import './ProductDetailspopup.css';
+import { addItemToCart } from "../../../../SanoshProject/redux/shopOneCartSlice";
+import { addCartToFirestore } from "../../../../Api/CartOperationsFirestore";
+import { setUser } from "../../../../SanoshProject/redux/shopOneUserSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+ 
+
 const ProductDetailsPage = () => {
+
   const { id } = useParams();
+
   const [product, setProduct] = useState(null);
 
+  const [quantity, setQuantity] = useState(1); // Initial quantity is 1
+
+  const [isAvailable, setIsAvailable] = useState(true); // State to track product availability
+
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+
   useEffect(() => {
+
     // Fetch product details based on the id parameter
+
     axios
+
       .get(`https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products/${id}`)
+
       .then((response) => {
+
         const data = response.data.fields;
+
         const productData = {
+
           id: id,
+
           productname: data.productname.stringValue,
+
           description: data.description.stringValue,
+
           price: data.price.integerValue,
+
+          stock: data.stock.integerValue, // Added stock property
+
           imageurl: data.imageurl.stringValue,
+
         };
+
         // Set product state with the retrieved data
+
         setProduct(productData);
+
       })
+
       .catch((error) => {
+
         console.error("Error fetching product details:", error);
+
       });
+
   }, [id]);
 
+ 
+
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
   const addToCart = () => {
-    // Implement logic to add the product to the cart
-    console.log("Product added to cart:", product);
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role == "customer") {
+      dispatch(setUser(userData));
+      const cartItem = {
+        id: product.id,
+        name: product.productname,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
+        imageurl: product.imageurl,
+        quantity: quantity,
+      };
+      dispatch(addItemToCart(cartItem));
+      addCartToFirestore(cartItem, userData.email);
+
+    } else {
+      navigate("/customer/login");
+    }
+    setIsLoadingUser(false);
+
+    // Create an object with the product details and count
   };
 
+
+ 
+
+  const handleQuantityChange = (event) => {
+
+    setQuantity(parseInt(event.target.value, 10));
+
+    setIsAvailable(true); // Reset product availability state when quantity changes
+
+  };
+
+ 
+
   if (!product) {
+
     return <div>Loading...</div>;
+
   }
 
+ 
+
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-md p-4 sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
-        <h1 className="text-2xl font-semibold mb-4">{product.productname}</h1>
-        <p className="text-xl font-medium mb-4">Price: ${product.price}</p>
-        <p className="text-gray-600 mb-4">Description: {product.description}</p>
-        <img src={product.imageurl} alt={product.productname} className="w-full max-w-md mx-auto mb-4" />
-        <div className="flex justify-center space-x-4">
-          <button
-            onClick={addToCart}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
-          >
-            Add to Cart
-          </button>
-          <Link to="/shop11/protectlist">
-            <button
-              className="bg-gray-300 text-gray-600 font-semibold py-2 px-4 rounded-lg"
-            >
-              Back to Product List
-            </button>
-          </Link >
-        </div>
+
+    <div className="product-details-container-details">
+
+      <h1>{product.productname}</h1>
+
+      <p>Price: ${product.price}</p>
+
+      <p>Description: {product.description}</p>
+
+      <img src={product.imageurl} alt={product.productname} />
+
+      <label>
+
+        Quantity:
+
+        <input
+
+          type="number"
+
+          min="1"
+
+          value={quantity}
+
+          onChange={handleQuantityChange}
+
+        />
+
+      </label>
+
+      {!isAvailable && <p>Product not available in the desired quantity.</p>}
+
+      <div className="bars">
+
+        <button onClick={addToCart}>Add to Cart</button>
+
+        <Link to="/shop11/protectlist">
+
+          <button>Back to Product List</button>
+
+        </Link>
+
       </div>
+
     </div>
+
   );
+
 };
+
+ 
 
 export default ProductDetailsPage;

@@ -122,7 +122,7 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
           const orderData = orderDocuments
             .filter((document) => {
               const purchaseDate = new Date(
-                document.fields.purchaseDate.timestampValue
+                document.fields.purchasedate.timestampValue
               );
               // Set the time part of startDateCopy to the beginning of the day
               startDateCopy.setHours(0, 0, 0, 0);
@@ -140,7 +140,7 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
                 documentNameParts[documentNameParts.length - 1];
               const {
                 productid,
-                purchaseDate,
+                purchasedate,
                 quantity,
                 totalprice,
                 shopid,
@@ -155,15 +155,18 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
 
               const userInfo = user.fields;
 
+              console.log(userInfo)
               const productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
-
+              console.log(productInfo)
+              
+              console.log(document)
               return {
                 name: userInfo.name.stringValue,
                 productname: productInfo.productname,
                 productid: productid.stringValue,
-                purchaseDate: purchaseDate.timestampValue,
+                purchaseDate: purchasedate.timestampValue,
                 quantity: quantity.integerValue,
                 totalprice: totalprice.integerValue,
                 shopid: shopid.stringValue,

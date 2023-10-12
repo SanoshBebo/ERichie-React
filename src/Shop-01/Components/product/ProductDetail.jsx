@@ -164,9 +164,8 @@ function ProductDetail() {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
-      console.log(product);
       const cartItem = {
-        id: product.id,
+        id: documentId,
         name: product.productname,
         description: product.description,
         stock: product.stock,

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const user = useSelector((state) => state.shoponeuser.user);
 
   const apiUrl = `https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products/${productId}`;
 
@@ -45,12 +46,12 @@ function ProductDetails() {
       dispatch(setUser(userData));
       console.log(product);
       const cartItem = {
-        id: product.id,
-        name: product.productname,
-        description: product.description,
-        stock: product.stock,
-        price: product.price,
-        imageurl: product.imageurl,
+        id: productId,
+        name: product.productname.stringValue,
+        description: product.description.stringValue,
+        stock: product.stock.integerValue,
+        price: product.price.integerValue,
+        imageurl: product.imageurl.stringValue,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));

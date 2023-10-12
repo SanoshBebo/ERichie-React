@@ -26,9 +26,13 @@ const ProductFetch = ({ cart, setCart }) => {
         const productData = firestoreData && firestoreData.fields;
 
         if (productData) {
+          console.log(productData)
           setProduct({
             productname: productData.productname.stringValue || '',
             description: productData.description.stringValue || '',
+            price: productData.price.integerValue|| '',
+            stock: productData.stock.integerValue|| '',
+            imageurl: productData.imageUrl.stringValue || '',
           });
 
           if (productData.imageUrl) {
@@ -54,9 +58,8 @@ const ProductFetch = ({ cart, setCart }) => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
-      console.log(product)
       const cartItem = {
-        id: product.productid,
+        id: id,
         name: product.productname,
         description: product.description,
         stock: product.stock,
@@ -64,6 +67,7 @@ const ProductFetch = ({ cart, setCart }) => {
         imageurl: product.imageurl,
         quantity: quantity,
       };
+      console.log(cartItem)
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {

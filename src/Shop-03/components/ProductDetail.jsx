@@ -1,68 +1,19 @@
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import './ProductDetail.css';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import "./ProductDetail.css";
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 
-
-
-
-function ProductDetail() {
-
+const ProductDetail = () => {
   const { productId } = useParams();
 
   const [product, setProduct] = useState(null);
 
   const apiUrl = `https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products/${productId}`;
-
- 
-  useEffect(() => {
-
-    axios
-
-      .get(apiUrl)
-
-      .then((response) => {
-
-        const productData = response.data.fields;
-
-        setProduct(productData);
-
-      })
-
-      .catch((error) => {
-
-        console.error('Error fetching product details: ', error);
-
-      });
-
-  }, [apiUrl, productId]);
-
- 
-
-  if (!product) {
-
-    return <div>Loading...</div>;
-
-  }
-
- 
-
-  const buyNow = () => {
-
-    // Implement your logic for buying the product here
-
-    console.log('Buy Now clicked for:', product);
-
-  };
-
-
 
   const user = useSelector((state) => state.shoponeuser.user);
   const [quantity, setQuantity] = useState(1);
@@ -70,11 +21,12 @@ function ProductDetail() {
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
-      navigate("/customer/login");
-    }
-  }, [isLoadingUser, user, navigate]);
+
+  const buyNow = () => {
+    // Implement your logic for buying the product here
+
+    console.log("Buy Now clicked for:", product);
+  };
 
   const addToCart = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -82,7 +34,7 @@ function ProductDetail() {
       dispatch(setUser(userData));
       console.log(product);
       const cartItem = {
-        id: product.id,
+        id: productId,
         name: product.productname,
         description: product.description,
         stock: product.stock,
@@ -100,57 +52,63 @@ function ProductDetail() {
     // Create an object with the product details and count
   };
 
+  useEffect(() => {
+    axios.get(apiUrl).then((response) => {
+        const productData = response.data.fields;
+        setProduct(productData);
+      }).catch((error) => {
+        console.error("Error fetching product details: ", error);
+      });
+  }, [apiUrl, productId]);
 
-
- 
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+  
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <section className='shop_14'>
-    <div className="product-detail-page">
+    <section className="shop_14">
+      <div className="product-detail-page">
+        <h1>Product Details</h1>
 
-      <h1>Product Details</h1>
+        <div className="product-details">
+          <img
+            src={product.imageurl?.stringValue}
+            alt={product.productname?.stringValue}
+            className="product-image"
+          />
+          <br></br>
 
-      <div className="product-details">
+          <strong>{product.productname?.stringValue}</strong>
 
-        <img
+          <p>Description: {product.description?.stringValue}</p>
 
-          src={product.imageurl?.stringValue}
+          <p>Price: ₹{product.price?.integerValue}</p>
 
-          alt={product.productname?.stringValue}
+          <p>Stock: {product.stock?.integerValue}</p>
 
-          className="product-image"
+          <div className="spaced-buttons">
+            <button
+              onClick={() => {
+                addToCart();
+              }}
+            >
+              Add to Cart
+            </button>
 
-        /><br></br>
-
-        <strong>{product.productname?.stringValue}</strong>
-
-        <p>Description: {product.description?.stringValue}</p>
-
-        <p>Price: ₹{product.price?.integerValue}</p>
-
-        <p>Stock: {product.stock?.integerValue}</p>
-
-        <div className="spaced-buttons">
-
-          <button onClick={() => {
-              addToCart();
-            }}>Add to Cart</button>
-
-          <button className="spaced-buttons" onClick={buyNow}>Buy Now</button>
-
+            <button className="spaced-buttons" onClick={buyNow}>
+              Buy Now
+            </button>
+          </div>
         </div>
-
       </div>
-
-    </div>
     </section>
-
   );
-
 }
 
- 
-
 export default ProductDetail;
-
- 

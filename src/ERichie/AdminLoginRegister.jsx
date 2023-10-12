@@ -43,7 +43,9 @@ const AdminLoginRegister = () => {
 
         if (userRole == "shopkeeper") {
           localStorage.setItem("user", JSON.stringify(user));
-          navigate("/admin");
+          if(user.email == "sanoshadmin@gmail.com"){
+            navigate("/shop01/admin");
+          }
         } else {
           console.log("invalid login credentials");
         }
@@ -74,7 +76,9 @@ const AdminLoginRegister = () => {
         await storeUserInFirestore(user);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(setUser(user));
-        navigate("/admin");
+        if(user.email == "sanoshadmin@gmail.com"){
+          navigate("/shop01/admin");
+        }
       }
     } catch (err) {
       console.error(err);

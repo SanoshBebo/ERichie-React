@@ -38,6 +38,7 @@ export const fetchShopSixteenProducts = async () => {
             productid: documentId,
           };
         });
+        console.log(productData);
         return productData;
       } else {
         console.log("No documents found in the collection.");
