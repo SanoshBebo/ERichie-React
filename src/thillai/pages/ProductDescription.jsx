@@ -4,6 +4,11 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, NavLink, Outlet, useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
+import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ProductDescriptionPage() {
   const navigate = useNavigate()
@@ -45,31 +50,84 @@ function ProductDescriptionPage() {
       return;
     }
   
+    // Calculate the new quantity
+    const currentQuantity = productData.fields.quantity.integerValue;
+    const newQuantity = currentQuantity - quantity;
+  
+    if (newQuantity < 0) {
+      console.error('Not enough stock available.');
+      return;
+    }
+  
     // Calculate the total price
     const totalPrice = productData.fields.price.integerValue * quantity;
   
     // Create an object with the order data
     const orderData = {
       Date: { stringValue: new Date().toISOString() },
-      ProductID: { stringValue: productId }, // You might need to get the product ID from the URL or another source
+      ProductID: { stringValue: productId },
       Quantity: { integerValue: quantity },
       ShopID: { stringValue: 'shop07' },
       TotalPrice: { doubleValue: totalPrice },
       UserID: { stringValue: 'yourUserID' },
     };
   
+    // Create an object with the updated product data
+    const updatedProductData = {
+      ...productData,
+      fields: {
+        ...productData.fields,
+        quantity: { integerValue: newQuantity },
+      },
+    };
+  
     try {
-      // Make an Axios POST request to add orderData to your database
+      // Make an Axios POST request to add orderData to your order database
       await axios.post('https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Orders', {
         fields: orderData,
       });
-      setShowOrderModal(true);  // Show the order confirmation modal
-       // Redirect to the home page
+  
+      // Make an Axios PUT or PATCH request to update the product quantity in your product database
+      await axios.patch(`https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${productId}`, {
+        fields: updatedProductData.fields,
+      });
+  
+      setShowOrderModal(true); // Show the order confirmation modal
     } catch (error) {
-      console.error('Error sending order:', error);
+      console.error('Error sending order or updating product:', error);
     }
   };
   
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  const addToCart = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role == "customer") {
+      dispatch(setUser(userData));
+      console.log(product);
+      const cartItem = {
+        id: productId,
+        name: product.productname,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
+        imageurl: product.imageUrl,
+        quantity: quantity,
+      };
+      dispatch(addItemToCart(cartItem));
+      addCartToFirestore(cartItem, userData.email);
+      toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
+    } else {
+      navigate("/customer/login");
+    }
+    setIsLoadingUser(false);
+
+    // Create an object with the product details and count
+  };
 
   const handleCloseOrderModal = () => {
     setShowOrderModal(false);
@@ -92,7 +150,21 @@ function ProductDescriptionPage() {
         <button onClick={() => handleQuantityChange(quantity + 1)}>+</button>
       </div>
       <p>Total Price: ${productData.fields.price.integerValue * quantity}</p>
-      <button onClick={handlePurchase}>Purchase</button>
+      <button onClick={() => {
+  handlePurchase();
+  addToCart();
+}}>
+  Buy Now 
+</button>
+
+ 
+<button onClick={() => {
+  history.push('/shop07/'); // Replace '/' with the actual URL of your home page
+}}>
+  Back to Home
+</button>
+
+
 
       {/* Order Confirmation Modal */}
       <Modal show={showOrderModal} onHide={handleCloseOrderModal}>

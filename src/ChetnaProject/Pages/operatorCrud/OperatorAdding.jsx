@@ -69,6 +69,7 @@ const OperatorAdding = () => {
                     <input
                         type="number"
                         placeholder="Price"
+                        min="1"
                         value={newMobile.price}
                         onChange={(e) => setNewMobile({ ...newMobile, price: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-color"
@@ -76,6 +77,7 @@ const OperatorAdding = () => {
                     <input
                         type="number"
                         placeholder="Stock"
+                        min="1"
                         value={newMobile.stock}
                         onChange={(e) => setNewMobile({ ...newMobile, stock: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-color"

@@ -13,6 +13,11 @@ import {fetchShop09} from "./fetchShop09";
 import {fetchShop10} from "./fetchShop10";
 import {fetchShop11} from "./fetchShop11";
 import {fetchShop12} from "./fetchShop12";
+import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
+
+import { fetchShopSixProducts } from "./fetchShopSixProducts";
+
+import { fetchShopSevenProducts } from "./fetchShopSevenProducts";
 
 
 
@@ -41,6 +46,11 @@ export const fetchAllProducts = async () => {
      const shopTwelveProducts = await fetchShop12();
 
     // gaming team
+    const shopFiveResponse = await fetchShopFiveProducts();
+
+    const shopSixResponse = await fetchShopSixProducts();
+
+    const shopSevenResponse = await fetchShopSevenProducts();
 
     // const shopFiveResponse = await fetchShopFiveProducts();
 
@@ -62,7 +72,12 @@ export const fetchAllProducts = async () => {
       ...shopTwelveProducts,
       ...shopelevenProducts,
       ...shopTenProducts,
-      ...shopNineProducts
+      ...shopNineProducts,
+      ...shopFiveResponse,
+
+      ...shopSixResponse,
+
+      ...shopSevenResponse,
 
     ];
 

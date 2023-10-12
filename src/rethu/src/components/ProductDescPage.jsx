@@ -62,6 +62,8 @@ function ProductDescPage() {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+      
+      toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
     } else {
       navigate("/customer/login");
     }
@@ -115,6 +117,13 @@ function ProductDescPage() {
       >
         Buy Now
       </button>
+     
+      <button onClick={() => {
+  history.push('/shop05/'); // Replace '/' with the actual URL of your home page
+}}>
+  Back to Home
+</button>
+
 
       {orderPlaced && (
         <div>

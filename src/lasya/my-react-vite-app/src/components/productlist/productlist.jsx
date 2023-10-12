@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-js-pagination';
+import { useHistory } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
 function ProductList({ isAdmin }) {
   const [products, setProducts] = useState([]);
@@ -31,6 +33,7 @@ function ProductList({ isAdmin }) {
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const displayedProducts = products.slice(startIndex, endIndex);
+  const history = useHistory();
 
   // Handle page change
   const handlePageChange = (pageNumber) => {
@@ -39,6 +42,13 @@ function ProductList({ isAdmin }) {
 
   return (
     <div>
+       <div className="navbar">
+      <Link to="/gaming">Gaming</Link>
+      <Link to="/erichie">HomePage</Link>
+      <div className="cart-icon" onClick={() => history.push('/cart')}>
+        <FaShoppingCart />
+      </div>
+    </div>
       <h2>Product List</h2>
       <div className="product-list-container">
         {error ? (

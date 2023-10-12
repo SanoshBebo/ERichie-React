@@ -6,7 +6,10 @@ import './ShoppingPage.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
+const history = useHistory();
 class ShoppingPage extends Component {
   constructor(props) {
     
@@ -26,7 +29,7 @@ class ShoppingPage extends Component {
   categories = ['All', 'Electronics'];
 
   handleCloseProductModal = () => this.setState({ showProductModal: false });
-
+  
   openProductPage = (product) => (
     <Link
       to={{
@@ -160,6 +163,16 @@ class ShoppingPage extends Component {
 
     return (
       <div>
+         
+         <div className="navbar">
+      <Link to="/gaming">Gaming</Link>
+      <Link to="/erichie">HomePage</Link>
+      <div className="cart-icon" onClick={() => history.push('/cart')}>
+        <FaShoppingCart />
+      </div>
+    </div>
+
+
         <div className='container d-flex justify-content-between border rounded p-2 shadow-sm align-items-center'>
           <small className='text-muted d-none d-md-block'></small>
           <div className='d-flex justify-content-between'>

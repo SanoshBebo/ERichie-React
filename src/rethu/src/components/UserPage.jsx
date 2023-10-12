@@ -3,6 +3,7 @@ import axios from 'axios';
 import './UserPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 
+const history = useHistory();
 function UserPage() {
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
@@ -14,6 +15,11 @@ function UserPage() {
   const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
   const navigate = useNavigate();
 
+
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/customer/login");
+  };
 
   const handleBuyNow = (product) => {
     // You can add any additional functionality here, e.g., adding the product to the cart
@@ -143,13 +149,23 @@ const addOrderToFirestore = () => {
                 <button onClick={handleSearch}>Search</button>
               </div>
             </li>
-            <li>
-              <button>Login</button>
+            <li
+              className="cursor-pointer hover:underline"
+              onClick={handleSignOut}
+            >
+              Sign Out
             </li>
           </ul>
         </nav>
       </header>
-      
+      <div className="navbar">
+      <Link to="/gaming">Gaming</Link>
+      <Link to="/erichie">HomePage</Link>
+      <div className="cart-icon" onClick={() => history.push('/cart')}>
+        <FaShoppingCart />
+      </div>
+    </div>
+
       <div>
         <h1 className="store-name">Welcome to the Dead Eye Game Store!</h1>
       </div>

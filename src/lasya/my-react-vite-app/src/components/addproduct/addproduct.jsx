@@ -1,8 +1,10 @@
 import './addproduct.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function AddProduct1() {
+function AddProduct() {
   const [product, setProduct] = useState({
     productname: '',
     price: '',
@@ -30,7 +32,7 @@ function AddProduct1() {
     const imageFile = product.imageFile;
 
     if (!imageFile) {
-      console.error('Please select an image');
+      toast.error('Please select an image', { position: toast.POSITION.TOP_RIGHT });
       return;
     }
 
@@ -57,8 +59,8 @@ function AddProduct1() {
             price: { doubleValue: parseFloat(product.price) },
             description: { stringValue: product.description },
             stock: { integerValue: parseInt(product.stock, 10) },
-            shopid: { stringValue: "shop06" }, // Modify this as needed
-            category: { stringValue: "gaming" }, // Modify this as needed
+            shopid: { stringValue: 'shop06' }, // Modify this as needed
+            category: { stringValue: 'gaming' }, // Modify this as needed
             imageUrl: { stringValue: imageUrl },
           },
         };
@@ -66,7 +68,9 @@ function AddProduct1() {
         const firestoreResponse = await axios.post(apiUrl, payload);
 
         if (firestoreResponse.status === 200) {
-          console.log('Product added successfully');
+          toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
+
+          // Reset the form and reload the product list
           setProduct({
             productname: '',
             price: '',
@@ -74,16 +78,16 @@ function AddProduct1() {
             stock: '',
             imageFile: null,
           });
-          // Reload the product list after adding a new product
           loadProducts();
         } else {
-          console.log('Error: Product addition failed');
+          toast.error('Error: Product addition failed', { position: toast.POSITION.TOP_RIGHT });
         }
       } else {
-        console.log('Error: Image upload failed');
+        toast.error('Error: Image upload failed', { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
       console.error('Error: ', error);
+      toast.error('Error: Product addition failed', { position: toast.POSITION.TOP_RIGHT });
     }
   };
 
@@ -109,14 +113,16 @@ function AddProduct1() {
       try {
         const response = await axios.delete(`${apiUrl}/${id}`);
         if (response.status === 200) {
-          console.log('Product deleted successfully');
+          toast.success('Product deleted successfully', { position: toast.POSITION.TOP_RIGHT });
+
           // Reload the product list after deleting a product
           loadProducts();
         } else {
-          console.log('Error: Product deletion failed');
+          toast.error('Error: Product deletion failed', { position: toast.POSITION.TOP_RIGHT });
         }
       } catch (error) {
         console.error('Error: ', error);
+        toast.error('Error: Product deletion failed', { position: toast.POSITION.TOP_RIGHT });
       }
     }
   };
@@ -143,7 +149,7 @@ function AddProduct1() {
         stock: { integerValue: parseInt(product.stock, 10) },
       },
     };
-  
+
     // Check if a new image file is selected
     if (product.imageFile) {
       try {
@@ -157,27 +163,32 @@ function AddProduct1() {
             },
           }
         );
-  
+
         if (imageResponse.status === 200) {
           // Construct the new image URL
-          const newImageUrl = `${storageUrl}/images%2F${encodeURIComponent(product.imageFile.name)}?alt=media`;
-  
+          const newImageUrl = `${storageUrl}/images%2F${encodeURIComponent(
+            product.imageFile.name
+          )}?alt=media`;
+
           // Update the product's imageUrl field with the new image URL
           payload.fields.imageUrl = { stringValue: newImageUrl };
         } else {
-          console.log('Error: Image upload failed');
+          toast.error('Error: Image upload failed', { position: toast.POSITION.TOP_RIGHT });
           return;
         }
       } catch (error) {
         console.error('Error uploading image: ', error);
+        toast.error('Error: Image upload failed', { position: toast.POSITION.TOP_RIGHT });
         return;
       }
     }
-  
+
     try {
       const response = await axios.patch(`${apiUrl}/${editProductId}`, payload);
       if (response.status === 200) {
-        console.log('Product edited successfully');
+        toast.success('Product edited successfully', { position: toast.POSITION.TOP_RIGHT });
+
+        // Reset the form and editing state, and reload the product list
         setIsEditing(false);
         setEditProductId(null);
         setProduct({
@@ -187,17 +198,15 @@ function AddProduct1() {
           stock: '',
           imageFile: null,
         });
-        // Reload the product list after editing a product
         loadProducts();
       } else {
-        console.log('Error: Product editing failed');
+        toast.error('Error: Product editing failed', { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
       console.error('Error: ', error);
+      toast.error('Error: Product editing failed', { position: toast.POSITION.TOP_RIGHT });
     }
   };
-  
-  
 
   const handleCancelEdit = () => {
     setIsEditing(false);
@@ -295,8 +304,9 @@ function AddProduct1() {
           ))}
         </ul>
       </div>
+      <ToastContainer />
     </div>
   );
 }
 
-export default AddProduct1;
+export default AddProduct;
