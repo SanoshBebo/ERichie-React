@@ -43,7 +43,18 @@ function ProductList({ isAdmin }) {
   return (
     <div>
 
+<<<<<<< HEAD
 
+=======
+       <div className="navbar">
+      <Link to="/gaming">Gaming</Link>
+      <Link to="/erichie">HomePage</Link>
+      <div className="cart-icon" onClick={() => history.push('/cart')}>
+        <FaShoppingCart />
+      </div>
+    </div>
+      <h2>Product List</h2>
+>>>>>>> af581dc285e50c3e0c3a61b68a15fc53fffb2ffb
 
       <div className="product-list-container">
         {error ? (
