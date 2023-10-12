@@ -30,7 +30,7 @@ class ShoppingPage extends Component {
   openProductPage = (product) => (
     <Link
       to={{
-        pathname: `/product/${product.id}`,
+        pathname: `/shop07/product/${product.id}`,
         state: { product },
       }}
     >

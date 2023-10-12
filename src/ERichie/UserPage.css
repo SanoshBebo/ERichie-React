@@ -123,3 +123,95 @@
 .pagination a.active {
   background-color: #0056b3;
 }
+.product-display-container {
+
+  background-color: #f0f0f0;
+
+  padding: 20px;
+
+}
+
+ 
+
+.product-list {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 20px;
+
+}
+
+ 
+
+.product-card {
+
+  background-color: #fff;
+
+  padding: 10px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 5px;
+
+  transition: transform 0.2s;
+
+}
+
+ 
+
+.product-card:hover {
+
+  transform: scale(1.05);
+
+}
+
+ 
+
+.pagination {
+
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 20px;
+
+}
+
+ 
+
+.pagination button {
+
+  background-color: black;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 10px 15px;
+
+  margin: 0 5px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+}
+
+ 
+
+.pagination button.active {
+
+  background-color: #e74c3c;
+
+}
+
+ 
+
+.pagination button:hover {
+
+  background-color: #2980b9;
+
+}
+

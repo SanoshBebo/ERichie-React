@@ -6,7 +6,7 @@ export const AkshayaAdminPage = () => {
   return (
     <div className="adminbutton">
       <button>
-        <Link to="/admin">View Products</Link>
+        <Link to="/">View Products</Link>
       </button>
 
       <button>

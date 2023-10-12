@@ -49,7 +49,6 @@ function ProductDescPage() {
   return (
     <div className="product-description">
       <h1>{product.productname.stringValue}</h1>
-      <p>Product ID: {productId}</p>
       <img src={product.imageUrl.stringValue} alt={product.productname.stringValue} />
       <p>Description: {product.description.stringValue}</p>
       <p>Price: ${product.price.doubleValue}</p>

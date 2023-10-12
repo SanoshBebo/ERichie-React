@@ -39,14 +39,13 @@ function ProductList({ isAdmin }) {
 
   return (
     <div>
-      <h2>Product List</h2>
       <div className="product-list-container">
         {error ? (
           <p>{error}</p>
         ) : (
           displayedProducts.map((product) => (
             <div className="product-box" key={product.id}>
-              <Link to={`/product/${product.id}`}>
+              <Link to={`product/${product.id}`}>
                 <strong>{product.fields.productname?.stringValue}</strong> - ${product.fields.price?.doubleValue}
                 <p>{product.fields.description?.stringValue}</p>
                 {isAdmin ? <p>Stock: {product.fields.stock?.integerValue}</p> : null}

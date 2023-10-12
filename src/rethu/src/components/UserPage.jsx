@@ -15,10 +15,6 @@ function UserPage() {
   const navigate = useNavigate();
 
 
-  const handleBuyNow = (product) => {
-    // You can add any additional functionality here, e.g., adding the product to the cart
-    navigate(`/product/${product.id}`);
-  };
 
   const apiUrl =
     'https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products';
@@ -80,6 +76,7 @@ function UserPage() {
       setShowOrderConfirmation(true);
     }
   };
+  
 const addOrderToFirestore = () => {
     if (selectedProduct) {
       const firestoreOrdersUrl =
@@ -122,9 +119,6 @@ const addOrderToFirestore = () => {
               <a href="/">Home</a>
             </li>
             <li>
-              <a href="/about">About Us</a>
-            </li>
-            <li>
               <a href="/contact">Contact</a>
             </li>
             <li>
@@ -144,7 +138,7 @@ const addOrderToFirestore = () => {
               </div>
             </li>
             <li>
-              <button>Login</button>
+              <button>SignOut</button>
             </li>
           </ul>
         </nav>
@@ -160,11 +154,14 @@ const addOrderToFirestore = () => {
             <img
               src={product.fields.imageUrl?.stringValue || ''}
               alt={product.fields.productname?.stringValue || ''}
-              className="product-image"
+              className="product-image2"
             />
             <h4>{product.fields.productname?.stringValue || ''}</h4>
             <p>Price: ${product.fields.price?.doubleValue || 0}</p>
-            <button onClick={() => handleBuyNow(product)}>Buy Now</button>
+           
+          <Link to={`/shop05/product/${product.id}`}>
+          <button >Add to Cart</button>
+          </Link>
            
           </div>
         ))}
@@ -185,9 +182,10 @@ const addOrderToFirestore = () => {
           <h2>{selectedProduct.fields.productname?.stringValue || ''}</h2>
           <p>{selectedProduct.fields.description?.stringValue || ''}</p>
           <p>Price: ${selectedProduct.fields.price?.doubleValue || 0}</p>
-          <button onClick={() => { addToCart(); setShowOrderConfirmation(true); }}>Buy Now</button>
-
-          <button onClick={addToCart}>Add to Cart</button>
+         
+          <Link to={`/shop05/product/${products.productid}`}>
+          <button >Add to Cart</button>
+          </Link>
         </div>
       </div>
     )}

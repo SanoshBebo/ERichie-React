@@ -63,7 +63,6 @@ export const getOrderByDateFromFireStore = async () => {
                 return prod.productid == productid.stringValue;
               });
 
-              console.log(productInfo)
               console.log(productInfo);
               return {
                 name: userInfo.name.stringValue,
@@ -75,6 +74,8 @@ export const getOrderByDateFromFireStore = async () => {
                 shopid: shopid.stringValue,
                 email: email.stringValue,
                 orderid: documentId,
+                currentstock: productInfo.stock,
+
               };
             });
 
