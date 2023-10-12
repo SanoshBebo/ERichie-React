@@ -1,7 +1,7 @@
 import axios from "axios";
 import { fetchProducts } from "./ApiCalls";
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/cosmicmediastore-438f7/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/e-richie-application/databases/(default)/documents";
 
 export const getOrderByDateFromFireStore = async () => {
   const allproducts = await fetchProducts();
@@ -30,10 +30,10 @@ export const getOrderByDateFromFireStore = async () => {
 
           const orderData = orderDocuments
             .filter((document) => {
-              const purchaseDate = document.fields.purchaseDate.timestampValue;
+              const purchaseDate = document.fields.purchasedate.timestampValue;
               const purchaseDateStr = purchaseDate.split("T")[0]; // Extract the date part
               const todayDate = new Date().toISOString().split("T")[0];
-              return purchaseDateStr === todayDate; // Compare with today's date
+              return purchaseDateStr === todayDate && document.fields.shopid.stringValue == "shop01"; // Compare with today's date
             })
             .map((document) => {
               const documentNameParts = document.name.split("/");
@@ -41,34 +41,39 @@ export const getOrderByDateFromFireStore = async () => {
                 documentNameParts[documentNameParts.length - 1];
               const {
                 productid,
-                purchaseDate,
+                purchasedate,
                 quantity,
                 totalprice,
                 shopid,
-                useruid,
+                email,
               } = document.fields;
 
+
               const user = userDocuments.find((document) => {
+                console.log(document.fields.email.stringValue,email.stringValue)
                 return (
-                  document.fields.useruid.stringValue == useruid.stringValue
+                  document.fields.email.stringValue == email.stringValue
                 );
               });
 
+              console.log(user)
               const userInfo = user.fields;
 
               const productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
+
+              console.log(productInfo)
               console.log(productInfo);
               return {
                 name: userInfo.name.stringValue,
                 productname: productInfo.productname,
                 productid: productid.stringValue,
-                purchaseDate: purchaseDate.timestampValue,
+                purchaseDate: purchasedate.timestampValue,
                 quantity: quantity.integerValue,
                 totalprice: totalprice.integerValue,
                 shopid: shopid.stringValue,
-                useruid: useruid.stringValue,
+                email: email.stringValue,
                 orderid: documentId,
               };
             });
@@ -126,7 +131,7 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
               endDateCopy.setHours(23, 59, 59, 999);
               // Compare purchaseDate with the specified date range
               return (
-                purchaseDate >= startDateCopy && purchaseDate <= endDateCopy
+                purchaseDate >= startDateCopy && purchaseDate <= endDateCopy && document.fields.shopid.stringValue == "shop01"
               );
             })
             .map((document) => {
@@ -139,12 +144,12 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
                 quantity,
                 totalprice,
                 shopid,
-                useruid,
+                email,
               } = document.fields;
 
               const user = userDocuments.find((document) => {
                 return (
-                  document.fields.useruid.stringValue == useruid.stringValue
+                  document.fields.email.stringValue == email.stringValue
                 );
               });
 
@@ -162,7 +167,7 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
                 quantity: quantity.integerValue,
                 totalprice: totalprice.integerValue,
                 shopid: shopid.stringValue,
-                useruid: useruid.stringValue,
+                email: email.stringValue,
                 orderid: documentId,
               };
             });
