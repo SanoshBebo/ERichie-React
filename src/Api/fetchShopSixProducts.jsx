@@ -8,7 +8,7 @@ const baseUrl =
 
  
 
-export const fetchShopFourProducts = async () => {
+export const fetchShopSixProducts = async () => {
 
   const apiUrl = `${baseUrl}/Products`;
 
