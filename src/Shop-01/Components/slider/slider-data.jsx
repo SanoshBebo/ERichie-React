@@ -1,6 +1,7 @@
 export const sliderData = [
     {
-        image: "https://nerdtechy.com/wp-content/uploads/2021/01/Best-Nintendo-Switch-Keyboard-Mouse-Adapter.jpg",
+      
+        image: "https://photos5.appleinsider.com/gallery/52333-104260-B49F7CF2-A60F-4F92-A972-167A4549581D-xl.jpg",
         heading: "Hola !!!",
        
       },
@@ -16,7 +17,7 @@ export const sliderData = [
         
       },
     {
-      image: "https://photos5.appleinsider.com/gallery/52333-104260-B49F7CF2-A60F-4F92-A972-167A4549581D-xl.jpg",
+      image: "https://nerdtechy.com/wp-content/uploads/2021/01/Best-Nintendo-Switch-Keyboard-Mouse-Adapter.jpg",
       heading: "Awesome Gadgets",
       
     },

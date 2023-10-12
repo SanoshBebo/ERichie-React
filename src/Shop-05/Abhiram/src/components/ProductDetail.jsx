@@ -79,7 +79,7 @@ const ProductDetail = ({}) => {
           <h4># {product.category}</h4>
           <h2>{product.productname}</h2>
           <p>{product.description}</p>
-          <h3>${product.price}</h3>
+          <h3>Rs. {product.price}</h3>
           <div className="quantity-input">
             <label htmlFor="quantity">Quantity:</label>
             <input
@@ -99,8 +99,7 @@ const ProductDetail = ({}) => {
           >
             Add To Cart
           </button>
-          <button>Buy Now</button>
-          {/* <button onClick={onClose}>Close</button> */}
+          
         </div>
       </div>
     </div>

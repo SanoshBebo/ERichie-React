@@ -1,11 +1,11 @@
 //Admin Dashboard
 import React, { useContext } from 'react'
-import myContext from '../../../context/data/myContext';
+import MyShankContext from '../../../../SuryaProject/context/data/MyShankContext';
 import Layout from '../../../components/layout/Layout';
 import DashboardTab from './DashboardTab';
 
 function Dashboard() {
-    const context = useContext(myContext)
+    const context = useContext(MyShankContext)
     const { mode} = context
   return (
     <Layout>

@@ -13,32 +13,32 @@ const Footer = () => {
 
   return (
     <div className='afooterdiv'>
-        <div className='footer'>
-            <div className='container'>
-                <div className='left-box'>
-                    <div className='box'>
-                        <div className='icon_box'>
+        <div className='abfooter'>
+            <div className='abcontainer'>
+                <div className='left-boxab'>
+                    <div className='boxab'>
+                        <div className='icon_boxab'>
                             <FaPiggyBank/>
                         </div>
-                        <div className='detail   '>
+                        <div className='detailsab   '>
                             <h3>Great saving</h3>
                             <p>Great offers and deals to help your budget </p>
                         </div>
                     </div>
-                    <div className='box'>
-                        <div className='icon_box'>
+                    <div className='boxab'>
+                        <div className='icon_boxab'>
                             <FaShippingFast/>
                         </div>
-                        <div className='detail   '>
+                        <div className='detailsab   '>
                             <h3>Free delivery</h3>
                             <p>Doorstep delivery with great packaging and delivery partnerships </p>
                         </div>
                     </div>
-                    <div className='box'>
-                        <div className='icon_box'>
+                    <div className='boxab'>
+                        <div className='icon_boxab'>
                             <FaHeadset/>
                         </div>
-                        <div className='detail   '>
+                        <div className='detailsab   '>
                             <h3>24/7 support</h3>
                             <p>Connect with customer support for all your doubts and clarifications </p>
                         </div>
@@ -46,20 +46,20 @@ const Footer = () => {
 
 
                 </div>
-                <div className='right_box'>
+                <div className='right_boxab'>
                     <div className='header'>
                         <img src="../../public/images/logo.png" alt="" />
                         <p>Your one-stop tech paradise: Shop the latest gadgets, computers, and accessories at our e-commerce computer store for unbeatable deals and top-notch service!</p>
                     </div>
                     <div className='bottom'>
-                    <div className='box'>
+                    <div className='boxab'>
                         <h3>Company</h3>
                         <ul>
                             <li>About us</li>
                             <li>Feedback</li>
                         </ul>
                     </div>
-                    <div className='box'>
+                    <div className='boxab'>
                         <h3>Address</h3>
                         <ul>
                             <li>123, Street, OMR Road </li>

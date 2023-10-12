@@ -10,11 +10,13 @@ import axios from "axios";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
+import { toast } from "react-toastify";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   const { id } = useParams();
 
@@ -196,7 +198,7 @@ const ProductPage = () => {
               value={manualQuantity}
               onChange={handleManualQuantityChange}
               className="w-12 text-center border border-gray-300 rounded"
-            />
+            />  
 
             <button
               className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition"
@@ -216,12 +218,7 @@ const ProductPage = () => {
               Add To Cart
             </button>
 
-            <button
-              className="bg-black text-white p-2 mt-4 rounded-lg hover:bg-gray-900 transition"
-              disabled={count > product.stock || count < 1}
-            >
-              Buy Now
-            </button>
+            
           </div>
         </div>
       </div>

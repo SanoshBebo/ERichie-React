@@ -1,7 +1,7 @@
-.shop14 .user-page {
+.shop14 .user-page_shop14 {
   display: flex;
   flex-direction: column;
-  
+  background-color: black;
   padding: 20px;
   font-family: Arial, sans-serif;
   position: relative;
@@ -9,59 +9,39 @@
 }
 
 
-.shop14 .cart-icon-container {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-.shop14 .cart-count {
-  background-color: #007bff; /* Customize the background color */
-  color: #fff; /* Customize the text color */
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 14px; /* Customize the font size */
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  margin-left: 5px;
-}
-
-.shop14 .h1 {
+.shop14 .h1_shop14 {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: left;
 }
 
-.shop14 .header h1 {
+.shop14 .header_shop14 h1 {
   margin: 0;
 }
-.shop14 .product-list {
+.shop14 .product-list_shop14 {
   width: 100%;
-  max-width: 800px;
+  max-width: 400px;
 }
 
-.shop14 .product-item {
+.shop14 .product-item_shop14 {
   border: 1px solid #ccc;
   margin-bottom: 10px;
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  color:white;
 }
 
-.shop14 .product-details {
+.shop14 .product-details_shop14 {
   flex: 4;
 }
 
-.shop14 .product-image {
-  width: 300px; /* Set the width to 250px */
-  height: 300px; /* Set the height to 250px */
+.shop14 .product-image_shop14 {
+  width: 300px; /* Set the width to 300px */
+  height: 300px; /* Set the height to 300px */
 }
 
-.shop14 .product-buttons button {
+.shop14 .product-buttons_shop14 button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -70,51 +50,6 @@
   margin-right:10px;
 }
 
-.shop14 .product-buttons button:hover {
+.shop14 .product-buttons_shop14 button:hover {
   background-color: #0056b3;
-}
-
-.shop14 .cart {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 800px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 5px;
-}
-
-
-.shop14 .cart ul {
-  list-style: none;
-  padding: 0;
-  color: black;
-}
-
-.shop14 .cart li {
-  margin-bottom: 10px; /* Increase margin for better spacing */
-}
-
-.shop14 .cart .cart-item {
-  display: flex;
-  align-items: center;
-}
-
-
-.shop14 .cart .cart-product-name {
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Show ellipsis for long text */
-  flex: 1; /* Allow the name to take available space */
-}
-.shop14 .cart button {
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.shop14 .cart button:hover {
-  background-color: #1e7e34;
 }

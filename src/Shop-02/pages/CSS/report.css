@@ -1,0 +1,46 @@
+/* styles.css */
+.shop15sanjay-container {
+    max-width: 800px;
+    margin: 15px auto;
+    padding: 20px;
+  }
+  
+  .shop15sanjay-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .shop15sanjay-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .shop15sanjay-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .shop15sanjay-table th, .shop15sanjay-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .shop15sanjay-table th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .shop15sanjay-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .shop15sanjay-table tr:hover {
+    background-color: #ddd;
+  }
+  

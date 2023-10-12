@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import myContext from '../../context/data/myContext'
+import MyShankContext from '../../../SuryaProject/context/data/MyShankContext'
 import { Link } from 'react-router-dom';
 
 //Page footer
 function Footer() {
-  const context = useContext(myContext);
+  const context = useContext(MyShankContext);
   const { mode } = context;
   return (
     <div>

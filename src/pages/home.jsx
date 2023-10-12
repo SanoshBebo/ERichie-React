@@ -208,20 +208,24 @@ const ComputerTeamHomePage = () => {
   };
 
   return (
-    <div className="home">
+    <div className="computer-home">
       <Header />
-      <div className="search_bar">
+      <div className="computer-search_bar">
         <input
           type="text"
           value={search}
           placeholder="search"
-          className="search-input"
+          className="computer-search-input"
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={searchproduct} className="search-button">
-          {/* <AiOutlineSearch/> */}
+        <button onClick={searchproduct} className="computer-search-button">
           search
-        </button>
+        </button>    
+        
+        <Link to ="/erichie">
+          <div className="computer-button"><button>E-Richie </button>
+            </div>
+        </Link>
       </div>
 
       <div className="productpage">
@@ -242,7 +246,7 @@ const ComputerTeamHomePage = () => {
                             </div>
                             <div className="detail">
                               <h3>{curElm.productname}</h3>
-                              <p>${curElm.price}</p>
+                              <p>Rs. {curElm.price}</p>
                               <p>stock:{curElm.stock}</p>
                             </div>
                           </div>
@@ -255,6 +259,28 @@ const ComputerTeamHomePage = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+      <Link to ="/shop13">
+          <div className="computer-button1"><button>Abhiram-Store </button>
+            </div>
+        </Link>
+        <Link to ="/shop14">
+          <div className="computer-button2"><button>Digital Genie </button>
+            </div>
+        </Link>
+        <Link to ="/shop15">
+          <div className="computer-button3"><button>Sanjay Computers </button>
+            </div>
+        </Link>
+        <Link to ="/shop16/user">
+          <div className="computer-button4"><button>Dhanu Computers </button>
+            </div>
+        </Link>
+        <Link to ="/shop17">
+          <div className="computer-button5"><button>Mr.Computer Wizz  </button>
+            </div>
+        </Link>
       </div>
     </div>
   );

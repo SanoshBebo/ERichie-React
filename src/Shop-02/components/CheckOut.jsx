@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CheckOut.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from './Header';
-import PaymentPage from './Payment';
 
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
@@ -17,6 +18,7 @@ const CheckoutPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
   const user = useSelector((state) => state.shoponeuser.user);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
 
   useEffect(() => {
@@ -57,13 +59,20 @@ const CheckoutPage = () => {
     }
   };
 
-  const handleBuyNowClick = () => {
-    window.location.href = `#`;
+ 
+
+  const handleIncreaseQuantity = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
   };
+
+
+ 
 
 
   const dispatch = useDispatch(); // You can use useDispatch here
@@ -92,6 +101,11 @@ const CheckoutPage = () => {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+      setIsAddedToCart(true);
+
+    // For example, you can use the useContext hook or a Redux store to manage the cart state.
+      toast.success('Product added to the cart', { autoClose: 2000 });
+
     } else {
       navigate("/customer/login");
     }
@@ -113,19 +127,22 @@ const CheckoutPage = () => {
             <strong>Product Name:</strong> {product.productname}<br />
             <strong>Price:</strong> ${product.price}<br />
             <p>{product.description}</p>
-            <label>Quantity:</label>
-            <button onClick={increaseQuantity}>+</button>
-            <span>{quantity}</span>
-            <button >Buy Now</button><br>
+            <strong>Quantity:</strong> 
+            <button onClick={handleDecreaseQuantity}>-</button>
+            {quantity}
+            <button onClick={handleIncreaseQuantity}>+</button><br />
+            <br>
             </br>
             <button onClick={() => {
               addToCart();
-            }}>Addtocart</button>
+            }}disabled={isAddedToCart}
+            >{isAddedToCart ? 'Added' : 'Add to Cart'}</button>
           </div>
         )}
         
         
       </div>
+      <ToastContainer position="top-right" />
     </>
   );
 };

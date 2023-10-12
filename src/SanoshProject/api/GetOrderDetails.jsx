@@ -1,7 +1,7 @@
 import axios from "axios";
 import { fetchProducts } from "./ApiCalls";
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/e-richie-application/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const getOrderByDateFromFireStore = async () => {
   const allproducts = await fetchProducts();
@@ -63,7 +63,6 @@ export const getOrderByDateFromFireStore = async () => {
                 return prod.productid == productid.stringValue;
               });
 
-              console.log(productInfo)
               console.log(productInfo);
               return {
                 name: userInfo.name.stringValue,
@@ -75,6 +74,8 @@ export const getOrderByDateFromFireStore = async () => {
                 shopid: shopid.stringValue,
                 email: email.stringValue,
                 orderid: documentId,
+                currentstock: productInfo.stock,
+
               };
             });
 

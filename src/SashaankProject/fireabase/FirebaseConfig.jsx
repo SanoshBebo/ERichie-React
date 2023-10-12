@@ -15,9 +15,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const shankapp = initializeApp(firebaseConfig, "shashankdb");
 
-const fireDB = getFirestore(app);
-const auth = getAuth(app);
+const shankfire = getFirestore(shankapp);
+const auth = getAuth(shankapp);
 
-export {fireDB, auth}
+export {shankfire, auth}

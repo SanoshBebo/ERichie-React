@@ -5,7 +5,7 @@ import './Header.css';
 function Header() {
   return (
     <>
-      <header className="header">
+      <header className="computer-header">
       <h1>COMPUTERS</h1>
     </header>
     

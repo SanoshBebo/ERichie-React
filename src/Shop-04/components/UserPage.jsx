@@ -1,11 +1,33 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './UserPage.css';
+import './shopProductDetail';
+import './DeleteProduct';
 
 function UserPage() {
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const productsPerPage = 3;
+
+ const indexOfLastProduct = currentPage * productsPerPage;
+
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+ 
+
+  const paginate = (pageNumber) => {
+
+    setCurrentPage(pageNumber);
+
+  };
 
   const apiUrl =
     'https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products';
@@ -35,9 +57,19 @@ function UserPage() {
   }, [searchInput, products]);
 
   return (
+    <section className="dhanu">
     <div className="user-page">
-      <h1>Welcome to D-Richie Computers!</h1>
+    <h1>Welcome to Dhanu Computers!</h1>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    {/* <li><a href="index.html">Cart</a></li> */}
+    <li><Link to='/computer' className='link'>ComputerHome</Link></li>
+
+   
       <div className="product-list">
+        {/* <h2 id="avail_text">Available Products</h2> */}
         {filteredProducts.map((product) => (
           <div key={product.id} className="product-item">
             <img
@@ -45,12 +77,29 @@ function UserPage() {
               alt={product.fields.productname?.stringValue || ''}
             />
             <h4>{product.fields.productname?.stringValue || ''}</h4>
-            <p>Price: ${product.fields.price?.integerValue || 0}</p>
-            <Link to={`/shop4products/${product.id}`}>View Details</Link>
+            <h4>Price: Rs.{product.fields.price?.integerValue || 0}</h4>
+            <Link to={`/shop4products/${product.id}`}><strong>View Details</strong></Link>
           </div>
         ))}
       </div>
     </div>
+    <div className="pagination">
+
+        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
+
+          <button key={i} onClick={() => paginate(i + 1)}>
+
+            {i + 1}
+
+          </button>
+
+        ))}
+
+      </div>
+    <div>
+      <h5>© 1996-2023, dhanu.com, Inc. or its affiliates</h5>
+    </div>
+    </section>
   );
 }
 

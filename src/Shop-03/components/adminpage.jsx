@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminPage.css';
+import { Navigate } from 'react-router-dom';
 function AddProduct() {
   const [product, setProduct] = useState({
     category: 'computer',
@@ -216,18 +217,29 @@ function AddProduct() {
     });
     setShowAddProductForm(false); // Close the form when canceling edit
   };
+  const handleShowStatistics = () => {
+    // Implement the logic to show statistics, e.g., display a modal or navigate to a statistics page.
+    // You can use state to control the visibility of the statistics component.
+    // Example:
+    // setStatisticsVisible(true);
+  };
   return (
     <section className='sundarishop14'>
-    <div className="add-product-pages">
-      <div className="add-product-containers">
+    <div className="add-product-pages_shop14">
+      <div className="add-product-containers_shop14">
         <h1>{'Digital Genie'}</h1>
+        
         {/* Button to toggle the "Add Product" form */}
         <button onClick={() => setShowAddProductForm(!showAddProductForm)}>
           {showAddProductForm ? 'Close Form' : 'Add Product'}
         </button>
+        {/* Add the "Statistics" button */}
+        <button className="statistics-button" onClick={()=>Navigate('/')}>
+            Statistics
+          </button>
         {/* "Add Product" form */}
         {showAddProductForm && (
-          <div className="product-forms">
+          <div className="product-forms_shop14">
             <div>
               <label>Category</label>
               <input
@@ -304,9 +316,9 @@ function AddProduct() {
           </div>
         )}
       </div>
-      <div className="product-lists">
+      <div className="product-lists_shop14">
         <h2 className="ProductListName">Product List</h2>
-        <div className="product-searches">
+        <div className="product-search_shop14">
           <input
             type="text"
             placeholder="Search by product name"
@@ -317,21 +329,21 @@ function AddProduct() {
         </div>
         <ul>
           {filteredProducts.map((product) => (
-            <div className="product-items" key={product.id}>
-              <div className="product-cards">
-                <div className="product-images">
+            <div className="product-items_shop14" key={product.id}>
+              <div className="product-cards_shop14">
+                <div className="product-images_shop14">
                   <img
                     src={product.fields.imageurl?.stringValue}
                     alt={product.fields.productname?.stringValue}
                   />
                 </div>
-                <div className="product-details-1">
+                <div className="product-details-1_shop14">
                   <strong>{product.fields.productname?.stringValue}</strong>
                   <p><strong>Description:</strong></p>
                   <p><strong>{product.fields.description?.stringValue}</strong></p>
                   <p><strong>Price: ₹{product.fields.price?.integerValue}</strong></p>
                   <p><strong>Stock: {product.fields.stock?.integerValue}</strong></p>
-                  <div className="product-buttons-2">
+                  <div className="product-buttons-2_shop14">
                     <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
                     <button onClick={() => handleEditProduct(product.id)}>Edit</button>
                   </div>

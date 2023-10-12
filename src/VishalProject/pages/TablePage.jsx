@@ -9,7 +9,7 @@ const baseUrl =
 
 const productsEndpoint = `${baseUrl}/Products`;
 
-const ordersEndpoint = `${baseUrl}/Orders`;
+const ordersEndpoint = `https://firestore.googleapis.com/v1/projects/e-richie-application/databases/(default)/documentsx/Orders`;
 
 const TablePage = () => {
   const [dailyInventoryData, setDailyInventoryData] = useState([]);
@@ -26,11 +26,9 @@ const TablePage = () => {
 
   const [todaysDate, setTodaysDate] = useState(new Date().toLocaleDateString());
 
-  const recordsPerPage = 10;
+  const recordsPerPage = 5;
 
   useEffect(() => {
-    // Fetch daily inventory data
-
     async function fetchDailyInventoryData() {
       try {
         const response = await axios.get(productsEndpoint);
@@ -38,29 +36,25 @@ const TablePage = () => {
         if (response.status === 200) {
           const productsData = response.data.documents || [];
 
-          // Assuming your Firestore structure for daily inventory data is like this:
-
           const formattedInventoryData = productsData.map((doc) => {
             const productId = doc.name.split("/").pop();
 
-            const openingStock = doc.fields.stock?.integerValue || 0;
+            const currentStock = doc.fields.stock?.integerValue || 0;
 
             const todaysSale = dailySalesData
 
               .filter(
                 (item) =>
-                  item.date === selectedSalesDate &&
-                  item.productId === productId
+                  item.date === todaysDate && item.productId === productId
               )
 
               .reduce((total, item) => total + item.quantity, 0);
 
-            const productInfo = productsData.find(
-              (product) => product.name.split("/").pop() === productId
-            );
+            const productName = doc.fields.productname?.stringValue || "";
 
-            const productName =
-              productInfo?.fields.productname?.stringValue || "";
+            // Calculate today's sales, opening stock, and current stock
+
+            const openingStock = parseInt(doc.fields.stock?.integerValue) || 0;
 
             return {
               productId,
@@ -71,7 +65,7 @@ const TablePage = () => {
 
               todaysSale,
 
-              currentStock: openingStock - todaysSale,
+              currentStock,
             };
           });
 
@@ -87,10 +81,6 @@ const TablePage = () => {
       }
     }
 
-    // Fetch daily sales data
-
-    // Fetch daily sales data
-
     async function fetchDailySalesData() {
       try {
         const response = await axios.get(ordersEndpoint);
@@ -98,68 +88,44 @@ const TablePage = () => {
         if (response.status === 200) {
           const salesData = response.data.documents || [];
 
-          // Convert selectedSalesDate to "yyyy-MM-dd" format
-
-          const formattedSelectedDate = format(
-            new Date(selectedSalesDate),
-            "yyyy-MM-dd"
-          );
-
-          // Filter and format the sales data for the selected date and shopid "shop03"
-
           const formattedSalesData = salesData
 
-            .map((doc) => {
-              const orderId = doc.name.split("/").pop();
-
+            .filter((doc) => {
               const orderDate = doc.fields.purchasedate?.timestampValue;
 
               const shopId = doc.fields.shopid?.stringValue;
 
-              // Check if orderDate, shopId, and the selected date are defined
-
-              if (
+              return (
                 orderDate &&
                 shopId === "shop03" &&
-                formattedSelectedDate ===
-                  orderDate.toDate().toLocaleDateString()
-              ) {
-                const orderedProducts =
-                  doc.fields.orderedproducts?.arrayValue.values || [];
-
-                const productDetails = orderedProducts.map((product) => {
-                  const productId =
-                    product.mapValue.fields.productid.stringValue;
-
-                  const quantity =
-                    product.mapValue.fields.quantity.integerValue;
-
-                  const productInfo = dailyInventoryData.find(
-                    (item) => item.productId === productId
-                  );
-
-                  return {
-                    productId,
-
-                    productName: productInfo.productName,
-
-                    quantity,
-
-                    totalPrice: productInfo.price * quantity,
-                  };
-                });
-
-                return {
-                  orderId,
-
-                  products: productDetails,
-                };
-              }
-
-              return null; // Filter out entries that don't match the criteria
+                orderDate.toDate().toLocaleDateString() === todaysDate
+              );
             })
 
-            .filter((data) => data !== null); // Remove the filtered out entries
+            .map((doc) => {
+              const orderId = doc.name.split("/").pop();
+
+              const orderedProducts =
+                doc.fields.orderedproducts?.arrayValue.values || [];
+
+              const productDetails = orderedProducts.map((product) => {
+                const productId = product.mapValue.fields.productid.stringValue;
+
+                const quantity = product.mapValue.fields.quantity.integerValue;
+
+                return {
+                  productId,
+
+                  quantity,
+                };
+              });
+
+              return {
+                orderId,
+
+                products: productDetails,
+              };
+            });
 
           setDailySalesData(formattedSalesData);
         } else {
@@ -177,8 +143,8 @@ const TablePage = () => {
 
     fetchDailySalesData();
 
-    setTodaysDate(new Date().toLocaleDateString()); // Set today's date
-  }, [selectedSalesDate]);
+    setTodaysDate(new Date().toLocaleDateString());
+  }, [todaysDate]);
 
   const indexOfLastInventoryRecord = inventoryPage * recordsPerPage;
 
@@ -195,11 +161,10 @@ const TablePage = () => {
 
   const indexOfFirstSalesRecord = indexOfLastSalesRecord - recordsPerPage;
 
-  const currentSalesRecords = dailySalesData
-
-    .filter((item) => item.date === selectedSalesDate)
-
-    .slice(indexOfFirstSalesRecord, indexOfLastSalesRecord);
+  const currentSalesRecords = dailySalesData.slice(
+    indexOfFirstSalesRecord,
+    indexOfLastSalesRecord
+  );
 
   const paginateSales = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -278,8 +243,8 @@ const TablePage = () => {
       <input
         type="date"
         id="salesDatePicker"
-        value={selectedSalesDate}
-        onChange={(e) => setSelectedSalesDate(e.target.value)}
+        value={todaysDate}
+        onChange={(e) => setTodaysDate(e.target.value)}
       />
 
       <table className="w-full">
@@ -302,18 +267,26 @@ const TablePage = () => {
 
               <td>
                 {order.products
+
                   .map((product) => product.productName)
+
                   .join(", ")}
               </td>
 
               <td>
                 {order.products
 
-                  .map(
-                    (product) => `${product.quantity} ${product.productName}`
-                  )
+                  .map(product)
 
                   .join(", ")}
+              </td>
+
+              <td>
+                {order.products
+
+                  .map((product) => product.quantity)
+
+                  .reduce((total, quantity) => total + quantity, 0)}
               </td>
 
               <td>

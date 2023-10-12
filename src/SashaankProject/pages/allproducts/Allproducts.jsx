@@ -1,10 +1,10 @@
 //Display all products window
 import React, { useContext, useEffect } from 'react'
 import Layout from '../../components/layout/Layout'
-import myContext from '../../context/data/myContext'
+import MyShankContext from '../../../SuryaProject/context/data/MyShankContext'
 
 function Allproducts() {
-  const context = useContext(myContext)
+  const context = useContext(MyShankContext)
   const { mode, product ,searchkey, setSearchkey,filterType,setFilterType,
       filterPrice,setFilterPrice} = context
 

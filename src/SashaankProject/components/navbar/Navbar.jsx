@@ -1,6 +1,6 @@
 //Navigation bar
 import React, { Fragment, useContext, useState } from 'react'
-import myContext from '../../context/data/myContext';
+import MyShankContext from '../../../SuryaProject/context/data/MyShankContext'
 import { BsFillCloudSunFill } from 'react-icons/bs'
 import { FiSun } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { RxCross2 } from 'react-icons/rx'
 
 
 function Navbar() {
-  const context = useContext(myContext);
+  const context = useContext(MyShankContext);
   const {mode, toggleMode} = context;
 
   const [open, setOpen] = useState(false)

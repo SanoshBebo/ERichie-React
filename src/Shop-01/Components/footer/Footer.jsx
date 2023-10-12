@@ -7,7 +7,7 @@ const year = date.getFullYear();
 const Footer = () => {
   
   return (
-    <div className={styles.footer}>
+    <div className={styles["shop17-footer"]}>
       &copy;{year} Harini Selvamani
       
     </div>

@@ -1,0 +1,28 @@
+/* Header.css */
+
+.shop17-header {
+    background-color: #0a1930;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 9rem;
+  }
+  
+  .shop17-logo a h2 {
+    width: 20%;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .shop17-cart a {
+    display: flex;
+    color: #fff;
+    position: relative;
+  }
+  
+  .shop17-header-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

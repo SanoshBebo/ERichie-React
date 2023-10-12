@@ -1,15 +1,15 @@
-.ahome
+.ahomeab
 {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     box-sizing: border-box;
 }
-.ahome .home
+.ahomeab .homeab
 {
     width: 100%;
 }
-.ahome .home .top_banner {
+.ahomeab .homeab .top_bannerab {
     max-width: 1550px;
     height: 550px;
     background: url('https://firebasestorage.googleapis.com/v0/b/abhiram-store.appspot.com/o/banner2.jpg?alt=media&token=9ae9d67a-f275-4146-bc08-09e9a261610c&_gl=1*177soqs*_ga*MzEwMDU5MjE4LjE2OTUwOTk4MjQ.*_ga_CW55HF8NVT*MTY5NjUxODc4OS43Ni4xLjE2OTY1MjgzMTMuNDguMC4w');
@@ -19,21 +19,21 @@
     padding: 150px 60px;
   }
   
-  .ahome .home .top_banner .contant
+  .ahomeab .homeab .top_bannerab .contant
 {
     width: 100%;
     position: relative;
     top: 20%;
     padding: 10px 50px;
 }
-.ahome .home .top_banner .contant h3
+.ahomeab .homeab .top_bannerab .contant h3
 {
     text-transform: capitalize;
     color: #cd1e76;
     font-weight: 300;
     letter-spacing: 1px;
 }
-.ahome .home .top_banner .contant h2
+.ahomeab .homeab .top_bannerab .contant h2
 {
     text-transform: uppercase;
     color: #232323;
@@ -41,14 +41,14 @@
     font-size: 42px;
     margin-top: 10px;
 }
-.ahome .home .top_banner .contant p
+.ahomeab .homeab .top_bannerab .contant p
 {
     color: #232323;
     letter-spacing: 1px;
     margin-top: 10px;
     margin-bottom: 30px;
 }
-.ahome .home .top_banner .contant .link
+.ahomeab .homeab .top_bannerab .contant .link
 {
     padding: 10px 30px;
     background: #fed700;
@@ -57,28 +57,28 @@
     border-radius: 5px;
     transition: 0.5s;
 }
-.ahome .home .top_banner .contant .link:hover
+.ahomeab .homeab .top_bannerab .contant .link:hover
 {
     color: #fed700;
     background: #cd1e76;
 }
-.ahome .home .trending
+.ahomeab .homeab .trending
 {
     padding: 5px 5px;
     width: 100%;
 }
-.ahome .home .trending .container
+.ahomeab .homeab .trending .containerab
 {
     max-width: 100%;
     display: flex;
     background-color: #c7d8e3;
 }
-.ahome .home .trending .container .left_box
+.ahomeab .homeab .trending .containerab .left_box
 {
     padding: 10px 20px;
     width: 75%;
 }
-.ahome .home .trending .container .left_box .header
+.ahomeab .homeab .trending .containerab .left_box .headerab
 {
     display: flex;
     max-width: 100%;
@@ -86,7 +86,7 @@
     /* background: #a3b5cd; */
     justify-content: space-between;
 }
-.ahome .home .trending .container .left_box .header .heading h2
+.ahomeab .homeab .trending .containerab .left_box .headerab .headingab h2
 {
     text-transform: uppercase;
     font-size: 30px;
@@ -94,12 +94,12 @@
     margin-top: 5px;
     cursor: pointer;
 }
-.ahome .home .trending .container .left_box .header .cate
+.ahomeab .homeab .trending .containerab .left_box .headerab .cate
 {
     display: flex;
     margin-top: 5px;
 }
-.ahome .home .trending .container .left_box .header .cate h3
+.ahomeab .homeab .trending .containerab .left_box .headerab .cate h3
 {
     text-transform: capitalize;
     margin-right: 10px;
@@ -108,21 +108,21 @@
     cursor: pointer;
     transition: 0.5s;
 }
-.ahome .home .trending .container .left_box .header .cate h3:hover
+.ahomeab .homeab .trending .containerab .left_box .headerab .cate h3:hover
 {
     color: #cd1e76;
 }
-.ahome .home .trending .container .left_box .products
+.ahomeab .homeab .trending .containerab .left_box .products
 {
     max-width: 100%;
 }
-.ahome .home .trending .container .left_box .products .container
+.ahomeab .homeab .trending .containerab .left_box .products .containerab
 {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
-.ahome .home .trending .container .left_box .products button
+.ahomeab .homeab .trending .containerab .left_box .products button
 {
     margin-top: 20px;
     margin-left: 45%;
@@ -135,7 +135,7 @@
     background: #cd1e76;
     cursor: pointer;
 }
-.ahome .home .trending .container .left_box .products .container .box
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box
 {
     width: 195px;
     height: 315px;
@@ -146,17 +146,17 @@
     overflow: hidden;
     border-radius: 5px;
 }
-.ahome .home .trending .container .left_box .products .container .box .img_box
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .img_box
 {
     display: flex;
 }
-.ahome .home .trending .container .left_box .products .container .box .img_box img
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .img_box img
 {
     width: 190px;
     height: 190px;
     object-fit: cover;
 }
-.ahome .home .trending .container .left_box .products .container .box .img_box .icon
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .img_box .icon
 {
     display: flex;
     flex-direction: column;
@@ -164,11 +164,11 @@
     margin-top: 10px;
     transition: 0.5s;
 }
-.ahome .home .trending .container .left_box .products .container .box:hover .img_box .icon
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box:hover .img_box .icon
 {
     margin-left: -32%;
 }
-.ahome .home .trending .container .left_box .products .container .box .img_box .icon .icon_box
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .img_box .icon .icon_box
 {
     padding: 10px 10px;
     margin-top: 10px;
@@ -179,17 +179,17 @@
     transition: 0.5s;
     cursor: pointer;
 }
-.ahome .home .trending .container .left_box .products .container .box .img_box .icon .icon_box:hover
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .img_box .icon .icon_box:hover
 {
     color: #fff;
     background: #cd1e76;
 }
-.ahome .home .trending .container .left_box .products .container .box .info
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .info
 {
     padding: 10px 10px;
     margin-left: 10px;
 }
-.ahome .home .trending .container .left_box .products .container .box .info h3
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .info h3
 {
     text-transform: uppercase;
     font-size: 14px;
@@ -197,14 +197,14 @@
     font-weight: 300;
     letter-spacing: 1px;
 }
-.ahome .home .trending .container .left_box .products .container .box .info p
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .info p
 {
     color: #cd1e76;
     margin-top: 5px;
     font-size: 14px;
     letter-spacing: 1px;
 }
-.ahome .home .trending .container .left_box .products .container .box .info .btn
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .info .btn
 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -221,34 +221,34 @@
     cursor: pointer;
     transition: 0.5s;
 }
-.ahome .home .trending .container .left_box .products .container .box .info .btn:hover
+.ahomeab .homeab .trending .containerab .left_box .products .containerab .box .info .btn:hover
 {
     background: #cd1e76;
     color: #f6f7f8;
 }
-.ahome .home .trending .container .right_box
+.ahomeab .homeab .trending .containerab .right_box
 {
     padding: 10px 20px;
     width: 24%;
     display: flex;
     flex-direction: column;
 }
-.ahome .home .trending .container .right_box .right_container
+.ahomeab .homeab .trending .containerab .right_box .right_containerab
 {
     max-width: 100%;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial
 {
     width: 100%;
     border: 4px solid #f6f7f8;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .head
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .head
 {
     padding: 10px 10px;
     width: 100%;
     background: #f6f7f8;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .head h3
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .head h3
 {
     text-align: center;
     color: #232323;
@@ -257,27 +257,27 @@
     margin-top: 10px;
     letter-spacing: 1px;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .detail
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .detail
 {
     padding: 10px 20px;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .detail .img_box img
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .detail .img_box img
 {
     margin-top: 40px;
     margin-left: 50px;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .detail .info
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .detail .info
 {
     margin-top: 10px;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .detail .info h3
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .detail .info h3
 {
     text-align: center;
     text-transform: uppercase;
     font-size: 14px;
     color: #232323;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .detail .info h4
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .detail .info h4
 {
     text-align: center;
     font-size: 12px;
@@ -286,7 +286,7 @@
     font-weight: 300;
     text-transform: uppercase;
 }
-.ahome .home .trending .container .right_box .right_container .testimonial .detail .info p
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .testimonial .detail .info p
 {
     margin-top: 10px;
     text-align: center;
@@ -295,19 +295,19 @@
     font-size: 14px;
     margin-bottom: 20px;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter
 {
     width: 100%;
     background: #f6f7f8;
     margin-top: 20px;
     padding: 10px 10px;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .head
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .head
 {
     margin-top: 10px;
     width: 100%;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .head h3
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .head h3
 {
     text-align: center;
     color: #232323;
@@ -315,18 +315,18 @@
     font-size: 16px;
     letter-spacing: 1px;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form
 {
     margin-top: 10px;
     width: 100%;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form p
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form p
 {
     text-align: center;
     text-transform: capitalize;
     color: #8a8a8a;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form input
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form input
 {
     margin-top: 10px;
     width: 100%;
@@ -337,7 +337,7 @@
     border: 1px solid #8a8a8a;
     color: #232323;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form button
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form button
 {
     margin-top: 10px;
     margin-left: 60px;
@@ -350,14 +350,14 @@
     font-weight: 600;
     cursor: pointer;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form .icon_box
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form .icon_box
 {
     margin-top: 20px;
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form .icon_box .icon
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form .icon_box .icon
 {
     padding: 10px 10px;
     border-radius: 50%;
@@ -367,83 +367,83 @@
     cursor: pointer;
     transition: 0.5s;
 }
-.ahome .home .trending .container .right_box .right_container .newsletter .form .icon_box .icon:hover
+.ahomeab .homeab .trending .containerab .right_box .right_containerab .newsletter .form .icon_box .icon:hover
 {
     color: #fff;
     background: #cd1e76;
 }
-.ahome .home .banners
+.ahomeab .homeab .banners
 {
     padding: 2px 30px;
     width: 100%;
 }
-.ahome .home .banners .container
+.ahomeab .homeab .banners .containerab
 {
     max-width: 100%;
     display: flex;
 }
-.ahome .home .banners .container .left_box
+.ahomeab .homeab .banners .containerab .left_box
 {
     width: 24%;
 }
-.ahome .home .banners .container .left_box .box
+.ahomeab .homeab .banners .containerab .left_box .box
 {
     margin-top: 10px;
 }
-.ahome .home .banners .container .right_box
+.ahomeab .homeab .banners .containerab .right_box
 {
     width: 75%;
 }
-.ahome .home .banners .container .right_box .top
+.ahomeab .homeab .banners .containerab .right_box .top
 {
     max-width: 100%;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
-.ahome .home .banners .container .right_box .bottom
+.ahomeab .homeab .banners .containerab .right_box .bottom
 {
     max-width: 100%;
     margin-top: 10px;
 }
-.ahome .home .banners .container .right_box .bottom img
+.ahomeab .homeab .banners .containerab .right_box .bottom img
 {
     width: 100%;
     object-fit: cover;
 }
-.ahome .home .product_type
+.ahomeab .homeab .product_type
 {
     padding: 20px 30px;
     width: 100%;
 }
-.ahome .home .product_type .container
+.ahomeab .homeab .product_type .containerab
 {
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
-.ahome .home .product_type .container .box
+.ahomeab .homeab .product_type .containerab .box
 {
     width: 360px;
     height: 490px;
     border: 3px solid #f6f7f8;
     overflow: hidden;
 }
-.ahome .home .product_type .container .box .header
+.ahomeab .homeab .product_type .containerab .box .headerab
 {
     width: 100%;
     height: 50px;
     background: #f6f6f6;
     padding: 10px 10px;
 }
-.ahome .home .product_type .container .box .header h2
+.ahomeab .homeab .product_type .containerab .box .headerab h2
 {
     color: #232323;
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 600;
 }
-.ahome .home .product_type .container .box .productbox
+.ahomeab .homeab .product_type .containerab .box .productbox
 {
     width: 100%;
     height: 110px;
@@ -451,24 +451,24 @@
     border: 1px solid #f6f7f8;
     display: flex;
 }
-.ahome .home .product_type .container .box .productbox .img-box img
+.ahomeab .homeab .product_type .containerab .box .productbox .img-box img
 {
     width: 100px;
     height: 100px;
     object-fit: cover;
 }
-.ahome .home .product_type .container .box .productbox .detail
+.ahomeab .homeab .product_type .containerab .box .productbox .detail
 {
     margin-left: 30px;
 }
-.ahome .home .product_type .container .box .productbox .detail h3
+.ahomeab .homeab .product_type .containerab .box .productbox .detail h3
 {
     font-size: 14px;
     color: #8a8a8a;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-.ahome .home .product_type .container .box .productbox .detail p
+.ahomeab .homeab .product_type .containerab .box .productbox .detail p
 {
     margin-top: 5px;
     color: #cd1e76;
@@ -476,12 +476,12 @@
     font-weight: 600;
     font-size: 14px;
 }
-.ahome .home .product_type .container .box .productbox .detail .icon
+.ahomeab .homeab .product_type .containerab .box .productbox .detail .icon
 {
     margin-top: 10px;
     display: flex;
 }
-.ahome .home .product_type .container .box .productbox .detail .icon button
+.ahomeab .homeab .product_type .containerab .box .productbox .detail .icon button
 {
     background: none;
     outline: none;
@@ -494,7 +494,7 @@
     cursor: pointer;
     transition: 0.5s;
 }
-.ahome .home .product_type .container .box .productbox .detail .icon button:hover
+.ahomeab .homeab .product_type .containerab .box .productbox .detail .icon button:hover
 {
     background: #f6f6f6;
     color: #232323;
@@ -503,12 +503,12 @@
 @media (max-width: 768px) {
     /* Adjust styles for screens up to 768px wide */
   
-    .ahome .home .top_banner {
+    .ahomeab .homeab .top_bannerab {
       height: 400px;
       padding: 100px 30px;
     }
   
-    .ahome .home .top_banner .contant h2 {
+    .ahomeab .homeab .top_bannerab .contant h2 {
       font-size: 32px;
     }
   
@@ -518,12 +518,12 @@
   @media (max-width: 480px) {
     /* Adjust styles for screens up to 480px wide */
   
-    .ahome .home .top_banner {
+    .ahomeab .homeab .top_bannerab {
       height: 300px;
       padding: 80px 20px;
     }
   
-    .ahome .home .top_banner .contant h2 {
+    .ahomeab .homeab .top_bannerab .contant h2 {
       font-size: 24px;
     }
   

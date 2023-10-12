@@ -26,7 +26,7 @@ function ProductDescPage() {
       .get(apiUrl)
       .then((response) => {
         const productData = response.data.fields;
-        console.log(productData);
+        
         setProduct(productData);
         calculateTotalPrice(productData.price.doubleValue, quantity);
       })
@@ -88,28 +88,30 @@ function ProductDescPage() {
   }
 
   return (
-    <div className="product-description">
-      <h1>{product.productname.stringValue}</h1>
-      <p>Product ID: {productId}</p>
-      <img
-        src={product.imageUrl.stringValue}
-        alt={product.productname.stringValue}
-      />
-      <p>Description: {product.description.stringValue}</p>
-      <p>Price: ${product.price.doubleValue}</p>
+    <div className="product-description-container">
+      <div className="product-description">
+        <h1>{product.productname.stringValue}</h1>
 
-      <label>Quantity: </label>
-      <input
-        type="number"
-        value={quantity}
-        onChange={(e) => {
-          const newQuantity = parseInt(e.target.value, 10) || 1;
-          setQuantity(newQuantity);
-        }}
-      />
+        <img
+          src={product.imageUrl.stringValue}
+          alt={product.productname.stringValue}
+          className="product-image1"
+        />
+        <p>Description: {product.description.stringValue}</p>
+        <p>Price: Rs.{product.price.doubleValue}</p>
 
-      <p>Total Price: ${totalPrice}</p>
+        <label>Quantity: </label>
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => {
+            const newQuantity = parseInt(e.target.value, 10) || 1;
+            setQuantity(newQuantity);
+          }}
+          className="quantity-input"
+        />
 
+<<<<<<< HEAD
       <button
         onClick={() => {
           addToCart();
@@ -124,19 +126,31 @@ function ProductDescPage() {
   Back to Home
 </button>
 
+=======
+        <p>Total Price: ${totalPrice}</p>
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
 
-      {orderPlaced && (
-        <div>
-          <div className="overlay" />
-          <div className="popup">
-            <p>Order Successfully Placed</p>
-            <button onClick={handleClose}>Close</button>
-            {/* You can add additional information or actions here */}
+        <button
+          onClick={() => {
+            addToCart();
+          }}
+          className="buy-button"
+        >
+          Add to Cart
+        </button>
+
+        {orderPlaced && (
+          <div>
+            <div className="overlay" />
+            <div className="popup">
+              <p>Order Successfully Placed</p>
+              <button onClick={handleClose}>Close</button>
+              {/* You can add additional information or actions here */}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
-
 export default ProductDescPage;

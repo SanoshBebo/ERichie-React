@@ -59,8 +59,8 @@ const nav = () => {
 
   return (
     <div className="aadminnav">
-    <div className='header'>
-      <div className='top_header'>
+    <div className='headerab'>
+      <div className='top_headerab'>
         <div className='icon'>
           <MdOutlineLocalShipping/>
         </div>
@@ -68,8 +68,8 @@ const nav = () => {
             <p>The e-commerce platform that cares</p>
 
           </div>
-          <div className='mid_header'>
-            <div className='logo'>
+          <div className='mid_headerab'>
+            <div className='logoab'>
             <img src="https://firebasestorage.googleapis.com/v0/b/abhiram-store.appspot.com/o/image-removebg-preview.png?alt=media&token=f49c4294-e279-4b1b-8c72-34d129babaab&_gl=1*13qb6vb*_ga*MzEwMDU5MjE4LjE2OTUwOTk4MjQ.*_ga_CW55HF8NVT*MTY5NjUxODc4OS43Ni4xLjE2OTY1MjY0NjAuNjAuMC4w" alt="logo" />
             </div>
             <div className='search_box'>
@@ -86,7 +86,7 @@ const nav = () => {
           </div>
           
       </div>
-      <div className='last_header'>
+      <div className='last_headerab'>
               <div className='nav'>
               <ul className="nav">
 

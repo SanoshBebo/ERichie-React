@@ -1,74 +1,98 @@
-import React, { useState, useEffect } from 'react';
-import { Pie } from 'react-chartjs-2';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import Nav from '../navigation/navbar';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { format } from 'date-fns';
+import { getOrderByDateFromFireStore } from './getorderdetails';
 
+const Dailyinventory = () => {
+  const [productdata, setProductData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [todayDate, setTodayDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const [inventoryData, setInventoryData] = useState([]);
 
-function ReportGenerator() {
-  // Simulated data for available stock and sold products
-  const availableStockData = [
-    { productName: 'Product A', stock: 50 },
-    { productName: 'Product B', stock: 30 },
-  ];
-  const soldTodayData = [
-    { productName: 'Product A', sold: 10 },
-    { productName: 'Product B', sold: 5 },
-  ];
+  useEffect(() => {
+    // Fetch product data
+    axios
+      .get('https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products')
+      .then((productResponse) => {
+        const products = productResponse.data.documents.map((doc) => {
+          const fields = doc.fields;
+          return {
+            id: doc.name.split('/').pop(),
+            productName: fields.productname.stringValue,
+            currentStock: fields.stock.integerValue,
+          };
+        });
+        setProductData(products);
+      })
+      .catch((error) => {
+        console.error('Error fetching product data:', error);
+        setLoading(false);
+      });
 
-  // Extract stock values from availableStockData
-  const availableStockValues = availableStockData.map((product) => product.stock);
+    // Fetch today's orders and calculate inventory data
+    getOrderByDateFromFireStore()
+      .then((todaysOrders) => {
+        const todaySalesMap = {};
 
-  // Extract sold values from soldTodayData
-  const soldTodayValues = soldTodayData.map((product) => product.sold);
+        todaysOrders.forEach((sale) => {
+          if (!todaySalesMap[sale.productid]) {
+            todaySalesMap[sale.productid] = 0;
+          }
+          todaySalesMap[sale.productid] += sale.quantity;
+        });
 
-  // Calculate remaining stock
-  const remainingStock = availableStockValues.reduce((acc, stock) => acc + stock, 0) - soldTodayValues.reduce((acc, sold) => acc + sold, 0);
+        const inventoryData = productdata.map((product) => {
+          const todaysSales = todaySalesMap[product.id] || 0;
+          const openingStock = parseInt(product.currentStock) + parseInt(todaysSales);
+          const currentStock = openingStock - todaysSales;
+          return {
+            ...product,
+            todaysSales,
+            openingStock,
+            currentStock,
+          };
+        });
 
-  // Create chart data
-  const chartData = {
-    labels: ['Available Stock', 'Remaining Stock', 'Sold Today'],
-    datasets: [
-      {
-        data: [availableStockValues.reduce((acc, stock) => acc + stock, 0), remainingStock, soldTodayValues.reduce((acc, sold) => acc + sold, 0)],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-      },
-    ],
-  };
-
-  // Function to download the report as a PDF
-  const downloadPDF = () => {
-    const input = document.getElementById('pdf-content');
-
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF();
-      const pdfWidth = 210;
-      const pdfHeight = 297;
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('report.pdf');
-    });
-  };
+        setInventoryData(inventoryData);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching product data:', error);
+      });
+  }, [productdata]);
 
   return (
-    <>
-        <Nav/>
-    <div>
-      <div id="pdf-content">
-        {/* Render Pie Charts */}
-        <div>
-          <h2>Available Stock vs. Remaining Stock vs. Sold Today</h2>
-          <Pie data={chartData} />
-        </div>
-        {/* Add more content if needed */}
+    <section className="daily">
+      <div className="container mt-5">
+        <h2 className="text-center mb-4">Daily Inventory Report</h2>
+        <p className="text-center">Date: {todayDate}</p>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th className="text-center">Product Name</th>
+                <th className="text-center">Opening Stock</th>
+                <th className="text-center">Today's Sales</th>
+                <th className="text-center">Current Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inventoryData.map((product) => (
+                <tr key={product.id}>
+                  <td className="text-center">{product.productName}</td>
+                  <td className="text-center">{product.openingStock}</td>
+                  <td className="text-center">{product.todaysSales}</td>
+                  <td className="text-center">{product.currentStock}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
-
-      {/* Add PDF download button */}
-      <button onClick={downloadPDF}>Download Report as PDF</button>
-    </div>
-    </>
+    </section>
   );
-}
+};
 
-export default ReportGenerator;
+export default Dailyinventory;

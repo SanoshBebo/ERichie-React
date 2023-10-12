@@ -1,6 +1,6 @@
 
 
-.product-grid {
+.shop15productgrid {
   display: grid;
   margin-top: 100px;
   margin: 80px;
@@ -8,8 +8,8 @@
   gap: 20px;
 }
 
-.product-grid .product-card {
-  border: 1px solid #a77c7c;
+.shop15productsgrids .shop15productscards {
+  border: 1px solid #b7b372;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(95, 88, 88, 0.1);
@@ -17,14 +17,14 @@
   display: grid;
 }
 
-.product-grid .image-container {
+.shop15productsgrids .image-container {
   max-height: 300px; /* Set a fixed maximum height for the image container */
   overflow: hidden; /* Hide any overflow from the image */
   border-radius: 5px 5px 0 0; /* Rounded corners for the top of the image */
 }
 
 
-.product-grid .product-card img {
+.shop15productsgrids .shop15productscards img {
   width: 250px;
   height: 250px;
   object-fit: contain; /* Maintain the image's aspect ratio and fit it within the container */
@@ -32,9 +32,9 @@
   margin: 0 auto; /* Center the image horizontally */
 }
 
-.product-grid .product-details {
+.shop15productsgrids .shop15productsdetails {
   padding: 10px;
-  background-color: #a04343; /* Background color for the text section */
+  background-color: #a0942795; /* Background color for the text section */
   border-radius: 0 0 5px 5px; /* Rounded corners for the bottom of the card */
   display: grid;
   justify-content: center;
@@ -42,18 +42,18 @@
   grid-column: auto;
 }
 
-.product-grid .product-details h3 {
+.shop15productsgrids .shop15productsdetails h3 {
   margin: 0;
   font-size: 14px;
   font-weight: bold;
 }
 
-.product-grid .product-details p {
+.shop15productsgrids .shop15productsdetails p {
   margin: 0;
   font-size: 14px;
 }
 
-.buttonmine{
+.shop15productsgrids .buttonmine{
   background-color: #007bff; /* Background color for the button */
   color: #fff; /* Text color for the button */
   border: none; /* Remove button border */
@@ -63,7 +63,7 @@
   cursor: pointer; /* Show a pointer cursor on hover */
 justify-content: center;}
 
-.buttonmine:hover {
+.shop15productsgrids .buttonmine:hover {
   background-color: #0056b3; /* Change background color on hover */
   /* You can also add other styles for hover state */
 }

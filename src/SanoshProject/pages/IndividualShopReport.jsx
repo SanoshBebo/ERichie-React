@@ -71,6 +71,7 @@ const IndividualShopReport = () => {
                   Product Name
                 </th>
                 <th className="border-b border-gray-300 px-4 py-2">Quantity</th>
+                <th className="border-b border-gray-300 px-4 py-2">Current Stock</th>
                 <th className="border-b border-gray-300 px-4 py-2">
                   Total Price
                 </th>
@@ -93,6 +94,9 @@ const IndividualShopReport = () => {
                   </td>
                   <td className="border-b border-gray-300 px-4 py-2">
                     {order.quantity}
+                  </td>
+                  <td className="border-b border-gray-300 px-4 py-2">
+                    {order.currentstock}
                   </td>
                   <td className="border-b border-gray-300 px-4 py-2">
                     {order.totalprice}

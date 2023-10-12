@@ -5,20 +5,20 @@ import './Nav.css'; // Import the CSS file
 const Nav = () => {
   return (
     <nav className='NAV'>
-      <ul>
-        <li>
+      <ul className='shop15ul'>
+        <li className='shop15li'>
           <Link to="/home">Home</Link>
         </li>
-        <li>
+        <li className='shop15li'>
           <Link to="/AdminAction/add">Add Product</Link>
         </li>        
-        <li>
+        <li className='shop15li'>
           <Link to="/AdminAction/view">View Products</Link>
         </li>
-        <li>
+        <li className='shop15li'>
           <Link to="/AdminAction/report">Stock Report</Link>
         </li>
-        <li>
+        <li className='shop15li'>
           <Link to="/AdminAction/livereport">Live Report</Link>
         </li>
       </ul>

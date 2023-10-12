@@ -94,7 +94,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData) {
+    if (userData && userData.email == "sanoshadmin@gmail.com") {
       if (userData.role == "customer") {
         navigate("/admin/login");
       }

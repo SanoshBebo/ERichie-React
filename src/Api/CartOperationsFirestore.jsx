@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/e-richie-application/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const fetchCart = async (loggedInEmail, allproducts) => {
   const cartApiUrl = `${baseUrl}/Carts`; // Use a different URL for cart data

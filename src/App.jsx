@@ -104,13 +104,13 @@ import ProductDetail from "./lasya/my-react-vite-app/src/components/productlist/
 //=========================================================GaminggTeam imports============================================================================//
 // ===================================================================SASHAANKIMPORT================================================================
 
-// import SashaankHome from "./SashaankProject/pages/home/Home";
-// import SashaankDashboard from "./SashaankProject/pages/admin/dashboard/Dashboard";
-// import SashaankMyState from "./SashaankProject/context/data/myState";
-// import SashaankProductInfo from "./SashaankProject/pages/productInfo/ProductInfo";
-// import SashaankAddProduct from "./SashaankProject/pages/admin/page/AddProduct";
-// import SashaankUpdateProduct from "./SashaankProject/pages/admin/page/UpdateProduct";
-// import SashaankAllproducts from "./SashaankProject/pages/allproducts/Allproducts";
+import SashaankHome from "./SashaankProject/pages/home/Home";
+import SashaankDashboard from "./SashaankProject/pages/admin/dashboard/Dashboard";
+import ShankState from "./SashaankProject/context/data/shankState";
+import SashaankProductInfo from "./SashaankProject/pages/productInfo/ProductInfo";
+import SashaankAddProduct from "./SashaankProject/pages/admin/page/AddProduct";
+import SashaankUpdateProduct from "./SashaankProject/pages/admin/page/UpdateProduct";
+import SashaankAllproducts from "./SashaankProject/pages/allproducts/Allproducts";
 
 //================================================================SASHAANKIMPORT================================================================
 
@@ -161,6 +161,7 @@ const App = () => {
   // =========================================================vishals code============================================================================//
 
   return (
+    <ShankState>
     <MyState>
       <Router>
         <Routes>
@@ -343,28 +344,30 @@ const App = () => {
           <Route path="/shop10/table" element={<SprityAdminDashboard />} />
           <Route path="/shop10/adminhome" element={<SprityAdminHome />} />
           {/*================================================================SASHAANKCODE================================================================*/}
-          {/* <Route path="/shop09" element={<SashaankHome />} />
+          <Route path="/shop09" element={<SashaankHome />} />
           <Route path="/shop09/allproducts" element={<SashaankAllproducts />} />
           <Route
             path="/shop09/admin/dashboard"
             element={<SashaankDashboard />}
           />
+
           <Route
-            path="/shop09/productinfo/:id"
+            path="/productinfo/:id"
             element={<SashaankProductInfo />}
-          />
+            />
           <Route
             path="/shop09/admin/addproduct"
             element={<SashaankAddProduct />}
-          />
+            />
           <Route
             path="/shop09/admin/updateproduct"
             element={<SashaankUpdateProduct />}
-          /> */}
+            />
         </Routes>
         <ToastContainer />
       </Router>
     </MyState>
+            </ShankState>
   );
 };
 

@@ -16,13 +16,9 @@ const HomePage = () => {
             <div className='headershop15'>
                 <Header onSearchChange={handleSearchChange} />
 
-                <div className="slideshow-container">
-                    <img className="slideshow-image" src="/path/to/image1.jpg" alt="Image 1" />
-                    <img className="slideshow-image" src="/path/to/image2.jpg" alt="Image 2" />
-                    <img className="slideshow-image" src="/path/to/image3.jpg" alt="Image 3" />
-                </div>
+                
 
-                <div className="about-us">
+                <div className="shop15about-us">
                     <h2>About Us</h2>
 
                     <p>Welcome to Sanjay Computers- your go-to destination for all things shopping. We are a passionate team of individuals dedicated to providing you with a seamless online shopping experience.</p>
@@ -38,9 +34,9 @@ const HomePage = () => {
                     <p>Thank you for choosing Sanjay Computers. We look forward to being your trusted shopping destination, and we're excited to serve you for years to come.</p>
                 </div>
 
-                <div className="contact-us">
+                <div className="shop15contact-us">
                     <h2>Contact Us</h2>
-                    <p> Mobile No:876543210</p>
+                    <p> Mobile No:8765413210</p>
                     <p><a href="mailto:sanjaymanickam07@gmail.com">Email us</a></p>
 
                 </div>

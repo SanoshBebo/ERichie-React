@@ -50,13 +50,13 @@ function AddProduct() {
 
       if (response.status === 200) {
         // Construct the image URL
-        const imageUrl = `${storageUrl}/images%2F${encodeURIComponent(imageFile.name)}?alt=media`;
+        const imageurl = `${storageUrl}/images%2F${encodeURIComponent(imageFile.name)}?alt=media`;
 
         // Create a new product document with the image URL and additional fields
         const payload = {
           fields: {
             productname: { stringValue: product.productname },
-            price: { doubleValue: parseFloat(product.price) },
+            price: { integerValue: parseFloat(product.price) },
             description: { stringValue: product.description },
             stock: { integerValue: parseInt(product.stock, 10) },
             shopid: { stringValue: 'shop06' }, // Modify this as needed
@@ -171,7 +171,7 @@ function AddProduct() {
           )}?alt=media`;
 
           // Update the product's imageUrl field with the new image URL
-          payload.fields.imageUrl = { stringValue: newImageUrl };
+          payload.fields.imageurl = { stringValue: newImageUrl };
         } else {
           toast.error('Error: Image upload failed', { position: toast.POSITION.TOP_RIGHT });
           return;
@@ -280,12 +280,12 @@ function AddProduct() {
           {products.map((product) => (
             <div className="product-box" key={product.id}>
               <strong>{product.fields.productname?.stringValue}</strong> - ${' '}
-              {product.fields.price?.doubleValue}
+              {product.fields.price?.integerValue}
               <p>{product.fields.description?.stringValue}</p>
               <p>Stock: {product.fields.stock?.integerValue}</p>
               <img
                 className="product-image"
-                src={product.fields.imageUrl?.stringValue}
+                src={product.fields.imageurl?.stringValue}
                 alt={product.fields.productname?.stringValue}
               />
               <button

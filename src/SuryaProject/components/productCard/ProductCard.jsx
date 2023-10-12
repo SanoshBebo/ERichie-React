@@ -118,15 +118,7 @@ function ProductCard() {
                       >
                         ₹{price}
                       </p>
-                      <div className=" flex justify-center">
-                        <button
-                          type="button"
-                          onClick={() => addCart(item)}
-                          className="focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm w-full  py-2"
-                        >
-                          Add To Cart
-                        </button>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>

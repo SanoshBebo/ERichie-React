@@ -1,0 +1,157 @@
+.computer-search-bar {
+
+    display: flex;
+
+    flex-direction:column;
+
+    align-items: center;
+
+    margin-top: 100px;
+    background-color: aquamarine;
+
+  }
+
+ 
+
+  .computer-search-input {
+
+    padding: 10px;
+
+    border: 2px solid #b5b5b5;
+
+    border-radius: 4px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    width: 700px;
+
+  }
+
+ 
+
+  .computer-search-button {
+
+    background-color: #ff4500;
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }
+
+ 
+
+  .computer-search-button:hover {
+
+    background-color: #ff7f50;
+
+  }
+
+ 
+  .computer-button1 {
+
+    background-color: #688ebb;
+display: inline;
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }
+  .computer-button2 {
+
+    background-color: #5cb0b1;
+display: inline;
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }
+  .computer-button3 {
+
+    background-color: #53b486;
+display: inline;
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }
+  .computer-button4 {
+
+    background-color: #46c093;
+display: inline;
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }
+  .computer-button5 {
+
+    background-color: #5d7ba1;
+display: inline;
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+  }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./CSS/AddProduct.css"
-
+import Nav from '../navigation/navbar';
 const ProductForm = () => {
     const [product, setProduct] = useState({
         productname: '',
@@ -26,28 +26,37 @@ const ProductForm = () => {
 
     const uploadImageToFirebaseStorage = async (file) => {
         try {
-            const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ"; // Replace with your Firebase API key
-            const bucketName = "adminstore-196a7.appspot.com"; // Use your Firebase Storage bucket name
-            const storagePath = `Products/${file.name}`;
-
-            // Generate a Firebase Storage URL
-            const storageUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o?name=${encodeURIComponent(storagePath)}`;
-
-            // Upload the image file to Firebase Storage using a POST request
-            const uploadResponse = await axios.post(storageUrl, file, {
-                headers: {
-                    'Content-Type': file.type,
-                    Authorization: `Bearer ${apiKey}`,
-                },
-            });
-
-            if (uploadResponse.status === 200) {
-                // Image upload was successful, now get the download URL
-                const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(storagePath)}?alt=media`;
-
-                return downloadUrl;
+            if (file) {
+                const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ"; // Replace with your Firebase API key
+                const bucketName = "adminstore-196a7.appspot.com"; // Use your Firebase Storage bucket name
+                const storagePath = `Products/${file.productname}`;
+    
+                // Generate a Firebase Storage URL
+                const storageUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o?name=${encodeURIComponent(storagePath)}`;
+    
+                // Upload the image file to Firebase Storage using a POST request
+                const formData = new FormData();
+                formData.append("file", file);
+    
+                const uploadResponse = await axios.post(storageUrl, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${apiKey}`,
+                    },
+                });
+    
+                if (uploadResponse.status === 200) {
+                    // Image upload was successful, now get the download URL
+                    const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(storagePath)}?alt=media`;
+    
+                    return downloadUrl;
+                } else {
+                    console.error('Error uploading image:', uploadResponse.statusText);
+                    return null;
+                }
             } else {
-                console.error('Error uploading image:', uploadResponse.statusText);
+                console.error('No file selected for upload.');
+                toast.error('Please select an image file for upload.');
                 return null;
             }
         } catch (error) {
@@ -55,6 +64,7 @@ const ProductForm = () => {
             return null;
         }
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,7 +81,7 @@ const ProductForm = () => {
                     `https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products?key=IzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ`,
                     {
                         fields: {
-                            productname: { stringValue: product.name },
+                            productname: { stringValue: product.productname },
                             description: { stringValue: product.description },
                             price: { integerValue: parseInt(product.price) },
                             stock: { integerValue: parseInt(product.stock) },
@@ -81,8 +91,12 @@ const ProductForm = () => {
                         },
                     }
                 );
-                clearForm();
-                toast.success('Your product has been successfully added!'); // Use toast.success to display a success notification
+
+                // Display success notification
+                toast.success('Your product has been successfully added!');
+
+                // Reload the page
+                window.location.reload();
                 
                 // console.log('Product added:', firestoreResponse.data);
             
@@ -97,19 +111,11 @@ const ProductForm = () => {
         }
     };
 
-    const clearForm = () => {
-        setProduct({
-            productname: '',
-            description: '',
-            price: '',
-            stock: '',
-        });
-        setImageFile(null);
-    };
     
 
     return (
         <section className='addproducts'>
+            <Nav/>
         <div className="add">
             <h2>Add a New Product</h2>
             <form onSubmit={handleSubmit}>

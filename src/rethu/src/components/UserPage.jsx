@@ -15,6 +15,7 @@ function UserPage() {
   const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
   const navigate = useNavigate();
 
+<<<<<<< HEAD
 
   const handleSignOut = () => {
     localStorage.removeItem("user");
@@ -24,7 +25,14 @@ function UserPage() {
   const handleBuyNow = (product) => {
     // You can add any additional functionality here, e.g., adding the product to the cart
     navigate(`/product/${product.id}`);
+=======
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/customer/login");
+>>>>>>> 92ed7fb5567cd4088b346bcf36028c824544524c
   };
+
+
 
   const apiUrl =
     'https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products';
@@ -86,6 +94,7 @@ function UserPage() {
       setShowOrderConfirmation(true);
     }
   };
+  
 const addOrderToFirestore = () => {
     if (selectedProduct) {
       const firestoreOrdersUrl =
@@ -127,12 +136,7 @@ const addOrderToFirestore = () => {
             <li>
               <a href="/">Home</a>
             </li>
-            <li>
-              <a href="/about">About Us</a>
-            </li>
-            <li>
-              <a href="/contact">Contact</a>
-            </li>
+           
             <li>
               <i className="fa fa-shopping-cart cart">
                 {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
@@ -141,6 +145,7 @@ const addOrderToFirestore = () => {
             <li>
               <div className="search-bar">
                 <input
+                  className="search-input"
                   type="text"
                   placeholder="Search for Products"
                   value={searchInput}
@@ -176,11 +181,14 @@ const addOrderToFirestore = () => {
             <img
               src={product.fields.imageUrl?.stringValue || ''}
               alt={product.fields.productname?.stringValue || ''}
-              className="product-image"
+              className="product-image2"
             />
             <h4>{product.fields.productname?.stringValue || ''}</h4>
             <p>Price: ${product.fields.price?.doubleValue || 0}</p>
-            <button onClick={() => handleBuyNow(product)}>Buy Now</button>
+           
+          <Link to={`/shop05/product/${product.id}`}>
+          <button >Add to Cart</button>
+          </Link>
            
           </div>
         ))}
@@ -201,9 +209,10 @@ const addOrderToFirestore = () => {
           <h2>{selectedProduct.fields.productname?.stringValue || ''}</h2>
           <p>{selectedProduct.fields.description?.stringValue || ''}</p>
           <p>Price: ${selectedProduct.fields.price?.doubleValue || 0}</p>
-          <button onClick={() => { addToCart(); setShowOrderConfirmation(true); }}>Buy Now</button>
-
-          <button onClick={addToCart}>Add to Cart</button>
+         
+          <Link to={`/shop05/product/${products.productid}`}>
+          <button >Add to Cart</button>
+          </Link>
         </div>
       </div>
     )}

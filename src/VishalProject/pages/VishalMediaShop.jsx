@@ -93,7 +93,7 @@ const VishalMediaShop = () => {
 
   return (
     <div className="flex-row h-screen">
-      <div className="header flex items-center justify-between p-10 px-20">
+      <div className="header flex items-center justify-between p-10 px-20 " style={{background:'white'}}>
         <h2 className="font-bold text-2xl">Our Products</h2>
         <SearchInput shopthreeproducts={shopthreeproducts} onSelectProduct={handleSelectProduct}/>
       </div>

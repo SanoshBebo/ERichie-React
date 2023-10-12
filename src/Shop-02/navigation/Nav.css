@@ -9,18 +9,18 @@
   padding: 25px 0; /* Add padding to top and bottom */
   position: absolute; /* Fixed position at the top */
   top: 0; /* Position at the top of the viewport */
-  width: 100%; /* Full width */
+  width: 100%; /* F.shop15ull width */
 }
 
 /* Style for the navigation list */
-.NAV ul {
+.NAV .shop15ul {
   list-style: none;
   display: flex;
   justify-content: space-around;
 }
 
 /* Style for the navigation list items */
-.NAV li {
+.NAV .shop15li {
   margin: 0 10px; /* Add margin between list items */
 }
 

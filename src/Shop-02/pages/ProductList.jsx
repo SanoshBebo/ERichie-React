@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Nav from '../navigation/navbar';
 import 'react-toastify/dist/ReactToastify.css';
 import './CSS/ViewProduct.css';
 
@@ -171,7 +172,7 @@ const ProductForm = () => {
   const fetchProducts = async () => {
     try {
       // Replace 'YOUR_FIREBASE_API_KEY' with your actual Firebase API key
-      const apiKey = "YOUR_FIREBASE_API_KEY";
+      const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ";
       const response = await axios.get(
         `https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products?key=${apiKey}`
       );
@@ -209,7 +210,7 @@ const ProductForm = () => {
   const handleUpdateProduct = async (updatedProduct) => {
     try {
       // Replace 'YOUR_FIREBASE_API_KEY' with your actual Firebase API key
-      const apiKey = "YOUR_FIREBASE_API_KEY";
+      const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ";
       // Use the documentID property of the updated product to identify the Firestore document
       const documentID = updatedProduct.documentID;
 
@@ -245,7 +246,7 @@ const ProductForm = () => {
   const handleDeleteProduct = async (productToDelete) => {
     try {
       // Replace 'YOUR_FIREBASE_API_KEY' with your actual Firebase API key
-      const apiKey = "YOUR_FIREBASE_API_KEY";
+      const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ";
       // Use the documentID property of the product to delete
       const documentID = productToDelete.documentID;
 
@@ -267,7 +268,9 @@ const ProductForm = () => {
   };
 
   return (
+
     <section className='productcheckoutlist'>
+      <Nav/>
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-8">

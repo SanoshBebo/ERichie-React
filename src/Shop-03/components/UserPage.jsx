@@ -7,7 +7,7 @@ function UserPage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 5;
   const apiUrl = 'https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products';
 
   useEffect(() => {
@@ -40,33 +40,35 @@ function UserPage() {
 
   return (
     <section className='shop14'>
-    <div className="user-page">
+    <div className="user-page_shop14">
       <h1>Digital Genie</h1>
-      <div className="product-list">
+      <div className="product-list_shop14">
+      <li><Link to='/computer' className='link'><button>ComputerHome </button></Link></li>
+
         <ul>
           {currentProducts.map((product) => (
-            <div className="product-item" key={product.id}>
-              <div className="product-details">
+            <div className="product-item_shop14" key={product.id}>
+              <div className="product-details_shop14">
                 <img
                   src={product.fields.imageurl?.stringValue}
                   alt={product.fields.productname?.stringValue}
-                  className="product-image"
+                  className="product-image_shop14"
                 />
                 <strong><br></br>{product.fields.productname?.stringValue}</strong>
                 <p>Price: ₹{product.fields.price?.integerValue}</p>
-                <div className="product-buttons">
+                <div className="product-buttons_shop14">
                   <button onClick={() => addToCart(product.id)}>Add to Cart</button>
                   <Link to={`/shop14/products/${product.id}`}>
-                    <button className="view-details-button">View Details</button>
+                    <button className="view-details-button_shop14">View Details</button>
                   </Link>
-                  <button className="buy-now-button" >Buy Now</button>
+                  <button className="buy-now-button_shop14" >Buy Now</button>
                 </div>
               </div>
             </div>
           ))}
         </ul>
       </div>
-      <div className="pagination">
+      <div className="pagination_shop14">
         {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
           <button key={i} onClick={() => paginate(i + 1)}>
             {i + 1}

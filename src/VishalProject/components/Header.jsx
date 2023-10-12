@@ -16,7 +16,10 @@ const Header = () => {
 
     alignItems: "center",
   };
-
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/customer/login");
+  };
   return (
     <div style={headerStyle}>
       <div className="text-5xl font-bold">Vishal Media Shop</div>
@@ -34,6 +37,15 @@ const Header = () => {
           <li className="cursor-pointer hover:underline">
             <Link to="/mediacategories">Products</Link>
           </li>
+          <li className="cursor-pointer hover:underline">
+            <Link to="/erichie">Mainpage</Link>
+          </li>
+          <li
+              className="cursor-pointer hover:underline"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </li>
 
           <button>
             <a href="mailto:rvishal21062002@gmail.com">Contact us</a>

@@ -9,11 +9,13 @@ import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
 import { useDispatch } from "react-redux";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 function ProductInfo() {
   const context = useContext(myContext);
   const { loading, setLoading } = context;
   const dispatch = useDispatch(); // You can use useDispatch here
   const navigate = useNavigate();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   const [products, setProducts] = useState("");
   const params = useParams();
@@ -41,17 +43,29 @@ function ProductInfo() {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
+      console.log(product)
       const cartItem = {
-        id: product.id,
+        id: params.id,
         name: product.productname,
         description: product.description,
         stock: product.stock,
         price: product.price,
-        imageurl: product.imageurl,
+        imageurl: product.imageUrl,
         quantity: 1,
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+
+      toast.success("added to cart", {
+        position: "top-right",
+        autoClose: 200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
       navigate("/customer/login");
     }
