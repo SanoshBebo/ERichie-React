@@ -60,7 +60,7 @@ const TrandingPages = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {currentProducts.map((product) => (
-            <Link key={product.id} to={`/productlisting/${product.id}`}>
+            <Link key={product.id} to={`/shop11/product/${product.id}`}>
               <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300 ease-in-out">
                 <img src={product.imageurl} alt={product.productname} className="w-full h-40 object-cover mb-2" />
                 <h2 className="text-lg font-semibold">{product.productname}</h2>

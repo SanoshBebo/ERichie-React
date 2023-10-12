@@ -8,7 +8,7 @@ import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
 
 import { addItemToCart } from "../SanoshProject/redux/shopOneCartSlice";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { addCartToFirestore } from "../Api/CartOperationsFirestore";
 
@@ -21,6 +21,7 @@ const ProductDetails = () => {
 
   const [quantity, setQuantity] = useState(1);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const user = useSelector((state) => state.shoponeuser.user);
 
   const dispatch = useDispatch(); // You can use useDispatch here
   const navigate = useNavigate();

@@ -288,7 +288,7 @@ const AdminPage = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            navigate("/admin/reports");
+            navigate("/shop01/admin/reports");
           }}
         >
           Show Report

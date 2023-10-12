@@ -12,15 +12,15 @@ import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { setShopOneProducts } from "../../SanoshProject/redux/shopOneProductSlice";
 
 const ProductDetailsPage = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
   const [count, setCount] = useState(0);
   const products = useSelector((state) => state.shoponeproduct.shoponeproducts);
-  const user = useSelector((state) => state.shoponeuser.user);
   const product = products.find((product) => product.productid === id);
   const [dataLoaded, setDataLoaded] = useState(false); // Track whether data has been loaded
   const cartItems = useSelector((state) => state.shoponecart.items);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
 
   useEffect(() => {

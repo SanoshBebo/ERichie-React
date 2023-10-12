@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { setUser } from '../SanoshProject/redux/shopOneUserSlice';
+import { addItemToCart } from '../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../Api/CartOperationsFirestore';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ProductDetail() {
   const [product, setProduct] = useState(null);
@@ -8,6 +12,11 @@ function ProductDetail() {
   const { productId } = useParams();
   const [stock, setStock] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -29,6 +38,13 @@ function ProductDetail() {
     fetchProduct();
   }, [productId]);
 
+
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      navigate("/customer/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
   if (!product) {
     return <div className="text-center">Loading...</div>;
   }
@@ -36,7 +52,32 @@ function ProductDetail() {
   const productname = product.fields.productname.stringValue;
   const description = product.fields.description.stringValue;
   const imageUrl = product.fields.imageurl ? product.fields.imageurl.stringValue : '';
+  
 
+  const addToCart = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role == "customer") {
+      dispatch(setUser(userData));
+      const cartItem = {
+        id: productId,
+        name: product.fields.productname.stringValue,
+        description: product.fields.description.stringValue,
+        stock: product.fields.stock.integerValue,
+        price: product.fields.price.integerValue,
+        imageurl: product.fields.imageurl.stringValue,
+        quantity: quantity,
+      };
+      dispatch(addItemToCart(cartItem));
+      addCartToFirestore(cartItem, userData.email);
+
+    } else {
+      // localStorage.setItem("url", JSON.stringify('shop10/product/productId'));
+      navigate("/customer/login");
+    }
+    setIsLoadingUser(false);
+
+    // Create an object with the product details and count
+  };
   const handleQuantityChange = (newQuantity) => {
     if (newQuantity < 0) {
       return; // Prevent negative quantities
@@ -88,7 +129,9 @@ function ProductDetail() {
           </button>
         </div>
         <div className="mt-4">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+          <button onClick={() => {
+              addToCart();
+            }} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
             Add to cart
           </button>
         </div>

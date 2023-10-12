@@ -55,7 +55,6 @@ export const storePurchaseInFirestore = async (
               shopid: { stringValue: productDocument.shopid },
               category: { stringValue: productDocument.category },
               imageurl: { stringValue: productDocument.imageurl },
-              productid: { stringValue: productDocument.productid },
               price: { integerValue: productDocument.price },
               stock: { integerValue: updatedStock }, // Update stock field
             },
@@ -89,7 +88,40 @@ const updateStock = async (shopid, updateStockPayload, productDocument) => {
       "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents/Products",
     shop04:
       "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents/products",
-    // Add more shop URLs as needed
+    shop05:
+      "https://firestore.googleapis.com/v1/projects/cosmicmediastore-438f7/databases/(default)/documents/Products",
+    shop6:
+      "https://firestore.googleapis.com/v1/projects/e-ritchie/databases/(default)/documents/Products",
+    shop07:
+      "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents/Products",
+    shop08:
+      "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents/Products",
+    shop09:
+      "https://firestore.googleapis.com/v1/projects/shank-mobiles/databases/(default)/documents/Products",
+    shop10:
+      "https://firestore.googleapis.com/v1/projects/lemontech-67162/databases/(default)/documents/Products",
+    shop11:
+      "https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products",
+    shop12:
+      "https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products",
+    shop13:
+      "https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products",
+    shop14:
+      "https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products",
+    shop15:
+      "https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products",
+    shop16:
+      "https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products",
+    
+    shop17:
+      "https://firestore.googleapis.com/v1/projects/crud-550f3/databases/(default)/documents/Products",
+    
+    
+    
+    
+    
+    
+      // Add more shop URLs as needed
   };
 
   const apiUrl = shopUrls[shopid];

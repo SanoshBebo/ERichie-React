@@ -1,0 +1,147 @@
+.product-details-container-details {
+
+    margin: 20px auto;
+  
+    padding: 20px;
+  
+    border: 1px solid #ccc;
+  
+    border-radius: 10px;
+  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+    text-align: center;
+  
+    background-color: #fff;
+  
+    width: 45%;
+  
+    transition: all 0.3s ease; /* Transition for smooth hover effect */
+  
+  }
+  
+   
+  
+  .product-details-container-details:hover {
+  
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  
+  }
+  
+   
+  
+  .product-details-container-details h1 {
+  
+    font-size: 24px;
+  
+    margin-bottom: 10px;
+  
+  }
+  
+   
+  
+  .product-details-container-details p {
+  
+    font-size: 18px;
+  
+    margin-bottom: 10px;
+  
+  }
+  
+   
+  
+  .product-details-container-details img {
+  
+    width: 100%;
+  
+    max-width: 400px;
+  
+    height: auto;
+  
+    margin-bottom: 20px;
+  
+  }
+  
+   
+  
+  .product-details-container-details button {
+  
+    background-color: var(--primary-color);
+  
+    color: white;
+  
+    border: none;
+  
+    padding: 8px 16px; /* Reduced button size */
+  
+    margin-top: 10px;
+  
+    cursor: pointer;
+  
+    transition: background-color 0.3s;
+  
+  }
+  
+   
+  
+  .product-details-container-details button:hover {
+  
+    background-color: var(--primary-color-bright);
+  
+  }
+  
+   
+  
+  .product-details-container-details button + button {
+  
+    margin-left: 10px;
+  
+  }
+  
+   
+  
+  /* Styles for the "Back to Product List" button */
+  
+  .product-details-container-details a button {
+  
+    background-color: var(--primary-color);
+  
+  }
+  
+   
+  
+  .product-details-container-details a button:hover {
+  
+    background-color: var(--primary-color-bright);
+  
+  }
+  
+   
+  
+  @media (max-width: 768px) {
+  
+    .product-details-container-details {
+  
+      padding: 10px;
+  
+      width: 90%; /* Adjusted width for smaller screens */
+  
+    }
+  
+   
+  
+    .product-details-container-details img {
+  
+      max-width: 100%;
+  
+    }
+  
+   
+  
+    .product-details-container-details button {
+  
+      padding: 6px 12px; /* Reduced button size for smaller screens */
+  
+    }
+  
+  }

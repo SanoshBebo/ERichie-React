@@ -2,8 +2,19 @@ import { fetchShopFourProducts } from "./fetchShopFourProducts";
 import { fetchShopOneProducts } from "./fetchShopOneProducts";
 import { fetchShopThreeProducts } from "./fetchShopThreeProducts";
 import { fetchShopTwoProducts } from "./fetchShopTwoProducts";
+// import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
 import { fetchShopThirteenProducts } from "./fetchShopThirteenProducts";
-import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
+import { fetchShopSeventeenProducts } from "./fetchShopSeventeenProducts";
+import { fetchShopFourteenProducts } from "./fetchShopFourteenProducts";
+import {fetchShopFifteenProducts} from "./fetchShopFifteenProducts";
+import {fetchShopSixteenProducts} from "./fetchShopSixteenProducts";
+
+import {fetchShop09} from "./fetchShop09";
+import {fetchShop10} from "./fetchShop10";
+import {fetchShop11} from "./fetchShop11";
+import {fetchShop12} from "./fetchShop12";
+
+
 
 export const fetchAllProducts = async () => {
   try {
@@ -16,11 +27,22 @@ export const fetchAllProducts = async () => {
     const shopFourResponse = await fetchShopFourProducts();
 
     // computerTeam
-    const shopThirteenResponse = await fetchShopThirteenProducts();
+     // computerTeam
+     const shopThirteenResponse = await fetchShopThirteenProducts();
+     const shopSeventeenResponse = await fetchShopSeventeenProducts();
+     const shopFourteenResponse = await fetchShopFourteenProducts();
+     const shopFifteenProducts= await fetchShopFifteenProducts();
+     const shopSixteenProducts = await fetchShopSixteenProducts();
+
+
+     const shopNineProducts = await fetchShop09();
+     const shopTenProducts = await fetchShop10();
+     const shopelevenProducts = await fetchShop11();
+     const shopTwelveProducts = await fetchShop12();
 
     // gaming team
 
-    const shopFiveResponse = await fetchShopFiveProducts();
+    // const shopFiveResponse = await fetchShopFiveProducts();
 
     // mobile team
 
@@ -31,7 +53,17 @@ export const fetchAllProducts = async () => {
       ...shopThreeResponse,
       ...shopFourResponse,
       ...shopThirteenResponse,
-      ...shopFiveResponse,
+      // ...shopFiveResponse,
+      ...shopThirteenResponse,
+      ...shopSeventeenResponse,
+      ...shopFourteenResponse,
+      ...shopFifteenProducts,
+      ...shopSixteenProducts,
+      ...shopTwelveProducts,
+      ...shopelevenProducts,
+      ...shopTenProducts,
+      ...shopNineProducts
+
     ];
 
     // Update the state with the combined products
