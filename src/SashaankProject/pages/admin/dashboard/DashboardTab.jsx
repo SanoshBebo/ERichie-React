@@ -1,7 +1,7 @@
 //Dashboard name
 import React, { useContext, useEffect, useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import myContext from '../../../context/data/myContext';
+import MyShankContext from '../../../../SuryaProject/context/data/MyShankContext';
 import Layout from '../../../components/layout/Layout';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md'
 import { FaUser, FaCartPlus } from 'react-icons/fa';
@@ -9,7 +9,7 @@ import { AiFillShopping, AiFillPlusCircle, AiFillDelete } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 function DashboardTab() {
-    const context = useContext(myContext)
+    const context = useContext(MyShankContext)
     const { mode, product, edithandle, deleteProduct, order, user } = context
 
     // console.log(product)

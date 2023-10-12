@@ -1,11 +1,11 @@
 //State Handler
 import React, { useEffect, useState } from 'react'
-import MyContext from './myContext'
+import MyShankContext from '../../../SuryaProject/context/data/MyShankContext'
 import { Timestamp, addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { fireDB } from '../../fireabase/FirebaseConfig';
+import { shankfire } from '../../fireabase/FirebaseConfig';
 
-function myState(props) {
+function shankState(props) {
     const [mode, setMode] = useState('light');
 
     const toggleMode = () => {
@@ -49,7 +49,7 @@ function myState(props) {
         setLoading(true)
 
         try {
-            const productRef = collection(fireDB, 'Products');
+            const productRef = collection(shankfire, 'Products');
             await addDoc(productRef, products)
             toast.success("Add product successfully");
             setTimeout(() => {
@@ -74,7 +74,7 @@ function myState(props) {
 
         try {
             const q = query(
-                collection(fireDB, 'Products'),
+                collection(shankfire, 'Products'),
                 orderBy('time')
             );
 
@@ -110,7 +110,7 @@ function myState(props) {
         setLoading(true)
         try {
 
-            await setDoc(doc(fireDB, 'Products', products.id), products)
+            await setDoc(doc(shankfire, 'Products', products.id), products)
             toast.success("Product Updated successfully")
             setTimeout(() => {
                 window.location.href = '/shop09/admin/dashboard'
@@ -129,7 +129,7 @@ function myState(props) {
     const deleteProduct = async (item) => {
         setLoading(true)
         try {
-            await deleteDoc(doc(fireDB, 'Products', item.id))
+            await deleteDoc(doc(shankfire, 'Products', item.id))
             toast.success('Product Deleted successfully')
             getProductData();
             setLoading(false)
@@ -145,7 +145,7 @@ function myState(props) {
     const getOrderData = async () => {
         setLoading(true)
         try {
-            const result = await getDocs(collection(fireDB, "order"))
+            const result = await getDocs(collection(shankfire, "order"))
             const ordersArray = [];
             result.forEach((doc) => {
                 ordersArray.push(doc.data());
@@ -165,7 +165,7 @@ function myState(props) {
     const getUserData = async () => {
         setLoading(true)
         try {
-            const result = await getDocs(collection(fireDB, "users"))
+            const result = await getDocs(collection(shankfire, "users"))
             const usersArray = [];
             result.forEach((doc) => {
                 usersArray.push(doc.data());
@@ -190,7 +190,7 @@ function myState(props) {
     const [filterPrice, setFilterPrice] = useState('')
 
     return (
-        <MyContext.Provider value={{
+        <MyShankContext.Provider value={{
             mode, toggleMode, loading, setLoading,
             products, setProducts, addProduct, product,
             edithandle, updateProduct, deleteProduct, order,
@@ -198,8 +198,8 @@ function myState(props) {
             filterPrice,setFilterPrice
         }}>
             {props.children}
-        </MyContext.Provider>
+        </MyShankContext.Provider>
     )
 }
 
-export default myState
+export default shankState

@@ -1,10 +1,10 @@
 //Products card
 import React, { useContext, useEffect } from 'react'
-import myContext from '../../context/data/myContext'
+import MyShankContext from '../../../SuryaProject/context/data/MyShankContext'
 import { toast } from 'react-toastify'
 
 function ProductCard() {
-    const context = useContext(myContext)
+    const context = useContext(MyShankContext)
     const { mode, product ,searchkey, setSearchkey,filterType,setFilterType,
         filterPrice,setFilterPrice} = context
 

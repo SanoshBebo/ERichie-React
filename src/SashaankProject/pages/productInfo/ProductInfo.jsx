@@ -1,16 +1,23 @@
 //Product info
 import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../../components/layout/Layout'
-import myContext from '../../context/data/myContext';
-import { useParams } from 'react-router';
+import MyShankContext from '../../../SuryaProject/context/data/MyShankContext';
+import { useNavigate, useParams } from 'react-router';
 import { doc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { fireDB } from '../../fireabase/FirebaseConfig';
+import { shankfire } from '../../fireabase/FirebaseConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../SanoshProject/redux/shopOneUserSlice';
+import { addItemToCart } from '../../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../../Api/CartOperationsFirestore';
 
 function ProductInfo() {
-    const context = useContext(myContext);
+    const context = useContext(MyShankContext);
     const { loading, setLoading } = context;
-
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.shoponeuser.user);
+    const navigate = useNavigate();
     const [products, setProducts] = useState('')
     const params = useParams()
     // console.log(products.title)
@@ -18,7 +25,7 @@ function ProductInfo() {
     const getProductData = async () => {
         setLoading(true)
         try {
-            const productTemp = await getDoc(doc(fireDB, "products", params.id))
+            const productTemp = await getDoc(doc(shankfire, "Products", params.id))
             // console.log(productTemp)
             setProducts(productTemp.data());
             // console.log(productTemp.data())
@@ -36,16 +43,39 @@ function ProductInfo() {
     }, [])
 
 
-    // add to cart
-    const addCart = (products) => {
-
-    }
-
-    // useEffect(() => {
-    //     localStorage.setItem('cart', JSON.stringify(cartItems));
-    // }, [cartItems])
+    useEffect(() => {
+        if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+          navigate("/customer/login");
+        }
+      }, [isLoadingUser, user, navigate]);
 
 
+    const addToCart = () => {
+        const userData = JSON.parse(localStorage.getItem("user"));
+        if (userData && userData.role == "customer") {
+          dispatch(setUser(userData));
+          console.log(products)
+          const cartItem = {
+            id: products.productid,
+            name: products.productname,
+            description: products.description,
+            stock: products.stock,
+            price: products.price,
+            imageurl: products.imageurl,
+            quantity: products,
+          };
+          dispatch(addItemToCart(cartItem));
+          addCartToFirestore(cartItem, userData.email);
+    
+        } else {
+          navigate("/customer/login");
+        }
+        setIsLoadingUser(false);
+    
+        // Create an object with the product details and count
+      };
+
+  
 
 
     return (
@@ -172,9 +202,9 @@ function ProductInfo() {
                                 <span className="title-font font-medium text-2xl text-gray-900">
                                 ₹{products.price}
                                 </span>
-                                <button  onClick={()=>addCart(products)} className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-700 rounded">
-                                    Add To Cart
-                                </button>
+                                <button onClick={() => {
+              addToCart();
+            }}>add to cart</button>
                                 
                             </div>
                         </div>

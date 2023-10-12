@@ -1,6 +1,6 @@
 // Testimonials
 import React, { useContext } from 'react'
-import myContext from '../../context/data/myContext'
+import myContext from '../../../SuryaProject/context/data/myContext'
 
 function Testimonial() {
     const context = useContext(myContext);

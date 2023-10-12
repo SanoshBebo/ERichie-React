@@ -66,7 +66,9 @@ function AddProducts() {
     imageurl: '',
     price: '',
     stock: 0,
-    type: '', // New field for product type
+    type: '', 
+    shopid:'shop10',
+    category:'mobile',// New field for product type
   });
 
   const apiUrl = 'https://firestore.googleapis.com/v1/projects/lemontech-67162/databases/(default)/documents/Products';

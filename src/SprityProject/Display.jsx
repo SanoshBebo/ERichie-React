@@ -125,6 +125,8 @@ function ProductList() {
         stock: { integerValue: editedProduct.stock },
         price: { integerValue: editedProduct.price },
         type: { stringValue: editedProduct.type },
+        shopid: { stringValue: "shop10" },
+        category: { stringValue: "mobile" },
       },
     };
 

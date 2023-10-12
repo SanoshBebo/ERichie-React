@@ -1,9 +1,9 @@
 //Update Product window
 import React, { useContext } from 'react'
-import myContext from '../../../context/data/myContext';
+import MyShankContext from '../../../../SuryaProject/context/data/MyShankContext';
 
 function UpdateProduct() {
-    const context = useContext(myContext);
+    const context = useContext(MyShankContext);
     const { products, setProducts, updateProduct } = context;
     return (
         <div>

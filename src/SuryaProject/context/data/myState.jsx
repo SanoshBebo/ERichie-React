@@ -21,12 +21,12 @@ function myState(props) {
     const [loading, setLoading] = useState(false);
 
     const [products, setProducts] = useState({
-        shopid:"shop04",
+        shopid:null,
         productname: null,
-        price: 0,
+        price: null,
         imageUrl: null,
-        category: "media",
-        stock:0,
+        category: null,
+        stock:null,
         description: null,
         time: Timestamp.now(),
         date: new Date().toLocaleString(
@@ -48,12 +48,10 @@ function myState(props) {
 
         try {
             const productRef = collection(fireDB, 'products');
-            console.log(products);
-            const res = await addDoc(productRef, products);
-            console.log(res);
+            await addDoc(productRef, products)
             toast.success("Add product successfully");
             setTimeout(() => {
-                window.location.href = '/shop04/admin/dashboard'
+                window.location.href = '/dashboard'
             }, 800);
             getProductData();
             setLoading(false)
@@ -113,7 +111,7 @@ function myState(props) {
             await setDoc(doc(fireDB, 'products', products.id), products)
             toast.success("Product Updated successfully")
             setTimeout(() => {
-                window.location.href = '/shop04/admin/dashboard'
+                window.location.href = '/dashboard'
             }, 800);
             getProductData();
             setLoading(false)

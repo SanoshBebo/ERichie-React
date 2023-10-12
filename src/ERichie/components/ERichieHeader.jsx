@@ -19,7 +19,7 @@ const ERichieHeader = () => {
     <div className="bg-black text-white p-4">
       <div className="flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <Link to="/MediaCategories">ERICHIE</Link>
+          <Link to="/erichie">ERICHIE</Link>
         </div>
         <div className="md:hidden">
           <button

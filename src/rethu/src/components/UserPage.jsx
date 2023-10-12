@@ -14,6 +14,11 @@ function UserPage() {
   const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
   const navigate = useNavigate();
 
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/customer/login");
+  };
+
 
 
   const apiUrl =
@@ -118,9 +123,7 @@ const addOrderToFirestore = () => {
             <li>
               <a href="/">Home</a>
             </li>
-            <li>
-              <a href="/contact">Contact</a>
-            </li>
+           
             <li>
               <i className="fa fa-shopping-cart cart">
                 {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
@@ -129,6 +132,7 @@ const addOrderToFirestore = () => {
             <li>
               <div className="search-bar">
                 <input
+                  className="search-input"
                   type="text"
                   placeholder="Search for Products"
                   value={searchInput}
@@ -137,8 +141,11 @@ const addOrderToFirestore = () => {
                 <button onClick={handleSearch}>Search</button>
               </div>
             </li>
-            <li>
-              <button>SignOut</button>
+            <li
+              className="cursor-pointer hover:underline"
+              onClick={handleSignOut}
+            >
+              Sign Out
             </li>
           </ul>
         </nav>

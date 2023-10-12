@@ -1,7 +1,7 @@
 //Homepage
 import React, { useContext } from 'react'
 import Layout from '../../components/layout/Layout'
-import myContext from '../../context/data/myContext'
+// import myContext from '../../../SuryaProject/context/data/myContext'
 import HeroSection from '../../components/heroSection/HeroSection'
 import ProductCard from '../../components/productCard/ProductCard'
 import Testimonial from '../../components/testimonial/Testimonial'

@@ -43,9 +43,7 @@ const AdminLoginRegister = () => {
 
         if (userRole == "shopkeeper") {
           localStorage.setItem("user", JSON.stringify(user));
-          if(user.email == "sanoshadmin@gmail.com"){
-            navigate("/shop01/admin");
-          }
+          navigate("/shop01/admin");
         } else {
           console.log("invalid login credentials");
         }
