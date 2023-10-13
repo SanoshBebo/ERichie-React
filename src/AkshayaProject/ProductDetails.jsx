@@ -91,6 +91,7 @@ const ProductDetails = () => {
         name: product.name,
         description: product.description,
         stock: product.stock,
+        shopid: product.shopid,
         price: product.price,
         imageurl: product.imageurl,
         quantity: quantity,
@@ -98,6 +99,7 @@ const ProductDetails = () => {
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

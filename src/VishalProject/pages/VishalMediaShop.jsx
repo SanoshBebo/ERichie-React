@@ -112,7 +112,7 @@ const VishalMediaShop = () => {
                   className=" bg-slate-500 object-cover"
                 />
                 <h1 className="text-center">{shopthreeproduct.productname}</h1>
-                <p className="text-center">Price: ${shopthreeproduct.price}</p>
+                <p className="text-center">Price: Rs.{shopthreeproduct.price}</p>
                 <p className="text-center">Stock: {shopthreeproduct.stock}</p>
               </Link>
             </li>

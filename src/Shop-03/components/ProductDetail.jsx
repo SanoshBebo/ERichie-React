@@ -39,12 +39,14 @@ const user = useSelector((state) => state.shoponeuser.user);
         description: product.description,
         stock: product.stock,
         price: product.price,
+        shopid : product.shopid,
         imageurl: product.imageurl,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

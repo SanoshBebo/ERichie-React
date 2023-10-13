@@ -54,6 +54,7 @@ function ProductDescPage() {
         id: productId,
         name: product.productname,
         description: product.description,
+        shopid: product.shopid,
         stock: product.stock,
         price: product.price,
         imageurl: product.imageUrl,
@@ -63,6 +64,7 @@ function ProductDescPage() {
       addCartToFirestore(cartItem, userData.email);
       toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

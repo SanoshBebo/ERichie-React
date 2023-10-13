@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents";
 
 export const fetchShopThirteenProducts = async () => {
   const apiUrl = `${baseUrl}/Products`;

@@ -21,7 +21,7 @@ const ProductList = () => {
       try {
 
         const response = await axios.get(
-          'https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products'
+          'https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products'
         );
 
         const productsData = response.data.documents.map((doc) => ({
@@ -57,7 +57,7 @@ const ProductList = () => {
     try {
       
       const response = await axios.get(
-        'https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products'
+        'https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products'
       );
   
       // Extract the document ID for the matching productname
@@ -86,12 +86,12 @@ const ProductList = () => {
       // Perform the update using Axios PUT request
 
       await axios.patch(
-        `https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products/${documentId}`,
+        `https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products/${documentId}`,
         updatedData,
       );
   
       // await axios.patch(
-      //   `https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products/${productId}`,
+      //   `https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products/${productId}`,
       //   updatedFields
       // );
   
@@ -125,7 +125,7 @@ const ProductList = () => {
       
 
       await axios.delete(
-        `https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products/${productId}`,
+        `https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products/${productId}`,
       );
 
       // Remove the product from the local state after successful deletion

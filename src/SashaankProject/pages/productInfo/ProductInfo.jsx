@@ -60,6 +60,7 @@ function ProductInfo() {
             name: products.productname,
             description: products.description,
             stock: products.stock,
+            shopid: products.shopid,
             price: products.price,
             imageurl: products.imageurl,
             quantity: products,
@@ -68,7 +69,8 @@ function ProductInfo() {
           addCartToFirestore(cartItem, userData.email);
     
         } else {
-          navigate("/customer/login");
+            localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+            navigate("/customer/login");
         }
         setIsLoadingUser(false);
     

@@ -139,6 +139,7 @@ const ProductPage = () => {
         name: product.productname,
         description: product.description,
         stock: product.stock,
+        shopid: product.shopid,
         price: product.price,
         imageurl: product.imageurl,
         quantity: count,
@@ -157,6 +158,7 @@ const ProductPage = () => {
         theme: "colored",
       });
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
@@ -181,7 +183,7 @@ const ProductPage = () => {
           <p className="text-gray-600 mb-4">{product.description}</p>
 
           <p className="text-lg font-semibold text-green-500">
-            ${product.price}
+            Rs.{product.price}
           </p>
 
           <div className="flex items-center gap-2 mt-4">

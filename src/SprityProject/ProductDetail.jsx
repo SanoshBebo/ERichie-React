@@ -140,6 +140,8 @@ function ProductDetail() {
 
         price: product.fields.price.integerValue,
 
+        shopid: product.shopid,
+
         imageurl: product.fields.imageurl.stringValue,
 
         quantity: quantity,
@@ -160,8 +162,8 @@ function ProductDetail() {
 
       // localStorage.setItem("url", JSON.stringify('shop10/product/productId'));
 
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
-
     }
 
     setIsLoadingUser(false);

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -5,9 +6,15 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import './ProductDetailspopup.css';
+
+import carticon from './carticon.png';
+
 import { addItemToCart } from "../../../../SanoshProject/redux/shopOneCartSlice";
+
 import { addCartToFirestore } from "../../../../Api/CartOperationsFirestore";
+
 import { setUser } from "../../../../SanoshProject/redux/shopOneUserSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 
  
@@ -18,14 +25,21 @@ const ProductDetailsPage = () => {
 
   const [product, setProduct] = useState(null);
 
-  const [quantity, setQuantity] = useState(1); // Initial quantity is 1
+  const [quantity, setQuantity] = useState(1);
 
-  const [isAvailable, setIsAvailable] = useState(true); // State to track product availability
+  const [isAvailable, setIsAvailable] = useState(true);
+
+  const [isProductAdded, setIsProductAdded] = useState(false);
 
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+
   const dispatch = useDispatch();
+
   const user = useSelector((state) => state.shoponeuser.user);
+
   const navigate = useNavigate();
+
+ 
 
   useEffect(() => {
 
@@ -47,9 +61,11 @@ const ProductDetailsPage = () => {
 
           description: data.description.stringValue,
 
+          shopid: data.shopid.stringValue,
+
           price: data.price.integerValue,
 
-          stock: data.stock.integerValue, // Added stock property
+          stock: data.stock.integerValue,
 
           imageurl: data.imageurl.stringValue,
 
@@ -69,46 +85,108 @@ const ProductDetailsPage = () => {
 
   }, [id]);
 
- 
-
   useEffect(() => {
+
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+
       navigate("/customer/login");
+
     }
+
   }, [isLoadingUser, user, navigate]);
 
+ 
+
   const addToCart = () => {
+
+    // Check if the selected quantity exceeds the available stock or if stock is 0
+
+    if (quantity > product.stock) {
+
+      setIsAvailable(false);
+
+      return;
+
+    } else if (product.stock === 0) {
+
+      setIsAvailable(false);
+
+      return;
+
+    }
+
     const userData = JSON.parse(localStorage.getItem("user"));
+
     if (userData && userData.role == "customer") {
+
       dispatch(setUser(userData));
+
       const cartItem = {
+
         id: product.id,
+
         name: product.productname,
+
         description: product.description,
+
         stock: product.stock,
+
         price: product.price,
+
+        shopid: product.shopid,
+
         imageurl: product.imageurl,
+
         quantity: quantity,
+
       };
+
       dispatch(addItemToCart(cartItem));
+
       addCartToFirestore(cartItem, userData.email);
 
+ 
+
     } else {
+
+
+ localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
+
     }
+
     setIsLoadingUser(false);
 
-    // Create an object with the product details and count
-  };
+    setIsProductAdded(true);
 
+    setTimeout(() => {
+
+      setIsProductAdded(false);
+
+    }, 3000);
+
+  };
 
  
 
   const handleQuantityChange = (event) => {
 
-    setQuantity(parseInt(event.target.value, 10));
+    const selectedQuantity = parseInt(event.target.value, 10);
 
-    setIsAvailable(true); // Reset product availability state when quantity changes
+    // Check if selected quantity is within stock limit
+
+    if (selectedQuantity <= product.stock && selectedQuantity >= 1) {
+
+      setQuantity(selectedQuantity);
+
+      setIsAvailable(true);
+
+    } else {
+
+      setIsAvailable(false);
+
+    }
 
   };
 
@@ -124,45 +202,91 @@ const ProductDetailsPage = () => {
 
   return (
 
-    <div className="product-details-container-details">
+    <div className="product-details-container-details1">
 
-      <h1>{product.productname}</h1>
+      <div className="bars1">
 
-      <p>Price: ${product.price}</p>
+        <div>
 
-      <p>Description: {product.description}</p>
+          <Link to="/shop11/">
 
-      <img src={product.imageurl} alt={product.productname} />
+            <button>Back to E-Mobile shop</button>
 
-      <label>
+          </Link>
 
-        Quantity:
+        </div>
 
-        <input
+        <div>
 
-          type="number"
+          <Link to="/">
 
-          min="1"
+            <button>Back to Categories Page</button>
 
-          value={quantity}
+          </Link>
 
-          onChange={handleQuantityChange}
+        </div>
 
-        />
+        <div>
 
-      </label>
+          <Link to="/viewcart">
 
-      {!isAvailable && <p>Product not available in the desired quantity.</p>}
+          <button>View Cart</button>
 
-      <div className="bars">
+            {/* <img src={carticon} alt="Cart" /> */}
 
-        <button onClick={addToCart}>Add to Cart</button>
+          </Link>
 
-        <Link to="/shop11/protectlist">
+        </div>
 
-          <button>Back to Product List</button>
+      </div>
 
-        </Link>
+      <div className="product-details-container-details">
+
+        <h1>{product.productname}</h1>
+
+        <p>Price: ₹{product.price}</p>
+
+        <p>Description: {product.description}</p>
+
+        <img src={product.imageurl} alt={product.productname} />
+
+        <label>
+
+          Quantity:
+
+          <input
+
+            type="number"
+
+            min="1"
+
+            max={product.stock}
+
+            value={quantity}
+
+            onChange={handleQuantityChange}
+
+          />
+
+        </label>
+
+        {!isAvailable && quantity > product.stock && <p>Product not available in the desired quantity.</p>}
+
+        {!isAvailable && product.stock === 0 && <p style={{ color: "red" }}>Out of Stock.</p>}
+
+        {isProductAdded && <p className="message">Product added successfully!</p>}
+
+        <div className="bars">
+
+          <button onClick={addToCart}>Add to Cart</button>
+
+          <Link to="/shop11/protectlist">
+
+            <button>Back to Product List</button>
+
+          </Link>
+
+        </div>
 
       </div>
 
@@ -175,3 +299,5 @@ const ProductDetailsPage = () => {
  
 
 export default ProductDetailsPage;
+
+ 

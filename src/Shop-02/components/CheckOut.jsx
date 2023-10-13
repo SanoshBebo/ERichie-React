@@ -96,6 +96,7 @@ const CheckoutPage = () => {
         description: product.description,
         stock: product.stock,
         price: product.price,
+        shopid : product.shopid,
         imageurl: product.imageurl,
         quantity: quantity,
       };
@@ -107,6 +108,7 @@ const CheckoutPage = () => {
       toast.success('Product added to the cart', { autoClose: 2000 });
 
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

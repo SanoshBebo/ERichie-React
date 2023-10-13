@@ -53,6 +53,7 @@ function ProductDescPage() {
         name: product.productname,
         description: product.description,
         stock: product.stock,
+        shopid:product.shopid,
         price: product.price,
         imageurl: product.imageUrl,
         quantity: quantity,
@@ -62,7 +63,8 @@ function ProductDescPage() {
 
       // toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
     } else {
-      navigate('/customer/login');
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      navigate("/customer/login");
     }
     setIsLoadingUser(false);
   };

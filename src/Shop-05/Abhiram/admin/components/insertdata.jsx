@@ -48,7 +48,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
       
         
       const response = await Axios.post(
-        'https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products',
+        'https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products',
         {
           fields: {
             productname: { stringValue: productname },
