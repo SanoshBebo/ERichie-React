@@ -208,7 +208,7 @@ function ProductList() {
 
               >
 
-                <img src={product.imageurl} alt={product.productname} className="w-full h-48 object-cover mb-2 cursor-pointer" />
+                <img src={product.imageurl} alt={product.productname} className="w-40 h-42 object-cover mb-2 cursor-pointer" />
 
                 {renderProductDescription(product)}
 
