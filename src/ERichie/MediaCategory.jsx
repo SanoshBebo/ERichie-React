@@ -6,13 +6,17 @@ import { fetchShopFourProducts } from "../Api/fetchShopFourProducts";
 import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import ReactPaginate from "react-paginate";
 
 const MediaCategory = () => {
   const [mediaProducts, setMediaProducts] = useState([]);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0); // Page number starts from 0
+  const [itemsPerPage] = useState(12); // Number of items to display per page
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -44,6 +48,7 @@ const MediaCategory = () => {
   const handleSearchInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
+    setCurrentPage(0); // Reset to the first page when searching
 
     // Filter products based on the search query
     const filtered = mediaProducts.filter((product) =>
@@ -53,9 +58,21 @@ const MediaCategory = () => {
     setFilteredProducts(filtered);
   };
 
+  const currentProducts = searchQuery ? filteredProducts : mediaProducts;
+
+  // Calculate the index of the first and last item on the current page
+  const offset = currentPage * itemsPerPage;
+  const currentItems = currentProducts.slice(offset, offset + itemsPerPage);
+
+  const pageCount = Math.ceil(currentProducts.length / itemsPerPage);
+
+  const handlePageClick = (selectedPage) => {
+    setCurrentPage(selectedPage.selected);
+  };
+
   return (
     <div className="flex-row min-h-screen">
-      <div className="header flex items-center justify-between p-10 px-20">
+      <div className="header flex items-center justify-between p-20 px-20">
         <h2 className="font-bold text-2xl">Products</h2>
         <input
           type="text"
@@ -68,22 +85,22 @@ const MediaCategory = () => {
 
       <div className="ProductList pb-5">
         {isDataLoaded ? (
-          <ul className="grid grid-cols-4 gap-6 place-items-center">
-            {(searchQuery ? filteredProducts : mediaProducts).map(
-              (product, index) => (
+          <div>
+            <ul className="grid grid-cols-4 gap-6 place-items-center">
+              {currentItems.map((product, index) => (
                 <li
                   key={index}
                   className={`w-full p-2 ${
-                    product.stock == 0 ? "opacity-50 pointer-events-none" : ""
+                    product.stock === 0 ? "opacity-50 pointer-events-none" : ""
                   }`}
                 >
                   <Link
                     to={`/${product.shopid}/product/${product.productid}`}
                     className={`flex flex-col items-center gap-2 hover:translate-y${
-                      product.stock == 0 ? "text-gray-500" : "" // You can adjust the text color as needed
+                      product.stock === 0 ? "text-gray-500" : ""
                     }`}
                   >
-                    <div className="h-70 w-70 relative ">
+                    <div className="h-70 w-70 relative">
                       <img
                         src={product.imageurl}
                         alt={product.name}
@@ -97,7 +114,7 @@ const MediaCategory = () => {
                         </div>
                       )}
 
-                      {product.stock == 0 && (
+                      {product.stock === 0 && (
                         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white bg-black bg-opacity-50">
                           Out of Stock
                         </div>
@@ -108,16 +125,35 @@ const MediaCategory = () => {
                     <p className="text-center">Stock Left: {product.stock}</p>
                   </Link>
                 </li>
-              )
+              ))}
+            </ul>
+            {pageCount > 1 && (
+              <ReactPaginate
+                previousLabel={"Previous"}
+                nextLabel={"Next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination p-10"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+                previousClassName={"pagination-button"}
+                nextClassName={"pagination-button"}
+                pageClassName={"pagination-button"}
+                pageLinkClassName={"pagination-link"}
+              />
             )}
-          </ul>
+          </div>
         ) : (
           <div
             style={{
               display: "flex",
-              justifyContent: "center", // Center horizontally
-              alignItems: "center", // Center vertically
-              height: "90vh", // Full viewport height
+              justifyContent: "center",
+              alignItems: "center",
+              height: "90vh",
             }}
           >
             <Box>

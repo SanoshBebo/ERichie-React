@@ -18,7 +18,7 @@ const AdminHeader = () => {
     <div className="bg-black text-white p-4">
       <div className="flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <Link to="/">Cosmic Media Gadgets</Link>
+          <Link to="/shop01/admin">Cosmic Media Gadgets</Link>
         </div>
         <div className="md:hidden">
           <button
@@ -53,10 +53,10 @@ const AdminHeader = () => {
         <div className="hidden md:block">
           <ul className="flex space-x-5">
             <li className="cursor-pointer hover:underline">
-              <Link to="/admin">Inventory</Link>
+              <Link to="/shop01/admin">Inventory</Link>
             </li>
             <li className="cursor-pointer hover:underline">
-              <Link to="/admin/reports">Reports</Link>
+              <Link to="/shop01/admin/reports">Reports</Link>
             </li>
             <li
               className="cursor-pointer hover:underline"

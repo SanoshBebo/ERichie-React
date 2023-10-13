@@ -168,6 +168,14 @@ const CustomerLoginRegister = () => {
           </a>
         </p>
       </div>
+      <p className="mt-4 text-center text-[15px]">
+        Continue without signing in
+        <Link to="/erichie">
+          <a className="text-blue-500 hover:underline transition-colors duration-300 ease-in-out p-2">
+            Click here
+          </a>
+        </Link>
+      </p>
     </div>
   );
 };

@@ -79,12 +79,14 @@ const ProductDetailsPage = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
+      console.log(product);
       const cartItem = {
         id: product.productid,
         name: product.productname,
         description: product.description,
         stock: product.stock,
         price: product.price,
+        shopid: product.shopid,
         imageurl: product.imageurl,
         quantity: count,
       };
@@ -103,7 +105,6 @@ const ProductDetailsPage = () => {
       });
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
-
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

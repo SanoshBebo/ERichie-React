@@ -44,12 +44,8 @@ export const fetchAllProducts = async () => {
 
     // gaming team
     const shopFiveResponse = await fetchShopFiveProducts();
-
     const shopSixResponse = await fetchShopSixProducts();
-
     const shopSevenResponse = await fetchShopSevenProducts();
-
-    // const shopFiveResponse = await fetchShopFiveProducts();
 
     // mobile team
 

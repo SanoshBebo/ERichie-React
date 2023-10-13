@@ -5,7 +5,6 @@ const baseUrl =
 
 export const fetchCart = async (loggedInEmail, allproducts) => {
   const cartApiUrl = `${baseUrl}/Carts`; // Use a different URL for cart data
-  const productApiUrl = `${baseUrl}/Products`; // URL for product data
 
   try {
     const cartResponse = await axios.get(cartApiUrl);
@@ -24,15 +23,17 @@ export const fetchCart = async (loggedInEmail, allproducts) => {
           .map((document) => {
             const documentNameParts = document.name.split("/");
             const documentId = documentNameParts[documentNameParts.length - 1];
-            const { email, productid, quantity } = document.fields;
+            const { email, productid, quantity, shopid } = document.fields;
 
+            // if(shopid.stringValue == "shop01"){
+
+            // }
             // Find the corresponding product data based on product ID
             const product = allproducts.find(
               (product) => product.productid === productid.stringValue
             );
 
             console.log(document);
-
 
             return {
               email: email.stringValue,
@@ -48,7 +49,7 @@ export const fetchCart = async (loggedInEmail, allproducts) => {
               cartid: documentId,
             };
           });
-          console.log(cartData);
+        console.log(cartData);
 
         return cartData;
       } else {
@@ -69,6 +70,7 @@ export const addCartToFirestore = async (item, loggedInEmail) => {
   try {
     const collectionName = "Carts";
     const apiUrl = `${baseUrl}/${collectionName}`;
+    console.log(item, "this is the item");
 
     // Check if there are any existing documents in Firestore
     const existingItemResponse = await axios.get(apiUrl);
@@ -155,6 +157,7 @@ export const addCartToFirestore = async (item, loggedInEmail) => {
             productid: { stringValue: item.id },
             quantity: { integerValue: parseInt(item.quantity, 10) },
             email: { stringValue: loggedInEmail },
+            shopid: { stringValue: item.shopid },
           },
         };
 
@@ -174,6 +177,7 @@ export const addCartToFirestore = async (item, loggedInEmail) => {
           productid: { stringValue: item.id },
           quantity: { integerValue: parseInt(item.quantity, 10) },
           email: { stringValue: loggedInEmail },
+          shopid: { stringValue: item.shopid },
         },
       };
 
