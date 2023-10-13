@@ -7,7 +7,7 @@ import axios from "axios";
 
 import './ProductDetailspopup.css';
 
-import carticon from './carticon.png';
+//import carticon from './carticon.png';
 
 import { addItemToCart } from "../../../../SanoshProject/redux/shopOneCartSlice";
 
