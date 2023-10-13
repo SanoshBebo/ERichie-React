@@ -19,13 +19,45 @@ import { fetchShopFourProducts } from "./fetchShopFourProducts";
 const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
-export const storePurchaseInFirestore = async (
-  allProducts,
-  cartItems,
-  loggedinEmail
-) => {
-  const ordersApiUrl = `${baseUrl}/Orders`;
+const fetchShopProducts = async (shopid) => {
+  if (shopid == "shop01") {
+    return await fetchShopOneProducts();
+  } else if (shopid == "shop02") {
+    return await fetchShopTwoProducts();
+  } else if (shopid == "shop03") {
+    return await fetchShopThreeProducts();
+  } else if (shopid == "shop04") {
+    return await fetchShopFourProducts();
+  } else if (shopid == "shop05") {
+    return await fetchShopFiveProducts();
+  } else if (shopid == "shop06") {
+    return await fetchShopSixProducts();
+  } else if (shopid == "shop07") {
+    return await fetchShopSevenProducts();
+  } else if (shopid == "shop09") {
+    return await fetchShop09();
+  } else if (shopid == "shop10") {
+    return await fetchShop10();
+  } else if (shopid == "shop11") {
+    return await fetchShop11();
+  } else if (shopid == "shop12") {
+    return await fetchShop12();
+  } else if (shopid == "shop13") {
+    return await fetchShopThirteenProducts();
+  } else if (shopid == "shop14") {
+    return await fetchShopFourteenProducts();
+  } else if (shopid == "shop15") {
+    return await fetchShopFifteenProducts();
+  } else if (shopid == "shop16") {
+    return await fetchShopSixteenProducts();
+  } else if (shopid == "shop17") {
+    return await fetchShopSeventeenProducts();
+  }
+};
 
+export const storePurchaseInFirestore = async (cartItems, loggedinEmail) => {
+  const ordersApiUrl = `${baseUrl}/Orders`;
+  let shopProducts = [];
   try {
     const orderResponse = await axios.post(`${ordersApiUrl}`, {
       fields: {},
@@ -50,8 +82,13 @@ export const storePurchaseInFirestore = async (
         await axios.post(`${ordersApiUrl}/${orderid}/OrderedProducts`, {
           fields: payload,
         });
+
+        const res = await fetchShopProducts(product.shopid);
+        shopProducts = res;
+
+        console.log(shopProducts);
         // Find the corresponding product in productData
-        const productDocument = allProducts.find((document) => {
+        const productDocument = shopProducts.find((document) => {
           return document.productid === product.productid;
         });
 
@@ -159,45 +196,7 @@ export const getOrderHistory = async (email) => {
     const allOrdersResponse = await axios.get(ordersApiUrl);
     const orders = [];
 
-    // Helper function to fetch shop products
-    const fetchShopProducts = async (shopid) => {
-      if (shopid == "shop01") {
-        return await fetchShopOneProducts();
-      } else if (shopid == "shop02") {
-        return await fetchShopTwoProducts();
-      } else if (shopid == "shop03") {
-        return await fetchShopThreeProducts();
-      } else if (shopid == "shop04") {
-        return await fetchShopFourProducts();
-      } else if (shopid == "shop05") {
-        return await fetchShopFiveProducts();
-      } else if (shopid == "shop06") {
-        return await fetchShopSixProducts();
-      } else if (shopid == "shop07") {
-        return await fetchShopSevenProducts();
-      } else if (shopid == "shop09") {
-        return await fetchShop09();
-      } else if (shopid == "shop10") {
-        return await fetchShop10();
-      } else if (shopid == "shop11") {
-        return await fetchShop11();
-      } else if (shopid == "shop12") {
-        return await fetchShop12();
-      } else if (shopid == "shop13") {
-        return await fetchShopThirteenProducts();
-      } else if (shopid == "shop14") {
-        return await fetchShopFourteenProducts();
-      } else if (shopid == "shop15") {
-        return await fetchShopFifteenProducts();
-      } else if (shopid == "shop16") {
-        return await fetchShopSixteenProducts();
-      } else if (shopid == "shop17") {
-        return await fetchShopSeventeenProducts();
-      }
-      // Add conditions for other shops here
-      return [];
-    };
-
+    // Helper function to fetch shop product
     // Iterate through all orders
     await Promise.all(
       allOrdersResponse.data.documents.map(async (orderDocument) => {
@@ -243,7 +242,7 @@ export const getOrderHistory = async (email) => {
                   totalprice: totalprice.integerValue,
                   shopid: shopid.stringValue,
                   email: email.stringValue,
-                  orderid: documentId,
+                  orderid: orderId,
                 };
               })
           );

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { getOrderHistory } from "../Api/Orders";
 import { Box, CircularProgress } from "@mui/material";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 
 const OrderHistory = () => {
   const [Orders, setOrders] = useState([]);
@@ -12,22 +12,26 @@ const OrderHistory = () => {
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(0); // Page number starts from 0
   const [itemsPerPage] = useState(5); // Number of items to display per page
-
+  const navigate = useNavigate();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const fetchOrders = async () => {
-      try {
-        const orders = await getOrderHistory(user.email);
-        console.log(orders);
-        setOrders(orders);
-        setIsDataLoaded(true);
-      } catch (err) {
-        console.log("Failed to get Order Data", err);
-      }
-    };
-    fetchOrders();
+    if (user) {
+      const fetchOrders = async () => {
+        try {
+          const orders = await getOrderHistory(user.email);
+          console.log(orders);
+          setOrders(orders);
+          setIsDataLoaded(true);
+        } catch (err) {
+          console.log("Failed to get Order Data", err);
+        }
+      };
+      fetchOrders();
+    } else {
+      navigate("/customer/login");
+    }
   }, []);
 
   const currentProducts = searchQuery ? filteredOrders : Orders;

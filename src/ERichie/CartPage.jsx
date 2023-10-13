@@ -60,9 +60,6 @@ const CartComponent = () => {
         setIsDataLoaded(true);
       }
       setIsLoadingUser(false);
-      const result = await fetchAllProducts();
-
-      setAllProducts(result);
     };
 
     fetchCartAndProducts();
@@ -96,7 +93,7 @@ const CartComponent = () => {
   };
 
   const handlePurchase = async () => {
-    await storePurchaseInFirestore(allProducts, cartItems, user.email);
+    await storePurchaseInFirestore(cartItems, user.email);
 
     localStorage.removeItem("cart");
 

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
-import { addItemToCart } from '../../SanoshProject/redux/shopOneCartSlice';
-import { addCartToFirestore } from '../../Api/CartOperationsFirestore';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
+import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [imageurl, setimageurl] = useState('');
+  const [imageurl, setimageurl] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
@@ -26,17 +26,18 @@ const ProductFetch = ({ cart, setCart }) => {
         const productData = firestoreData && firestoreData.fields;
 
         if (productData) {
-          console.log(productData)
+          console.log(productData);
           setProduct({
-            productname: productData.productname.stringValue || '',
-            description: productData.description.stringValue || '',
-            price: productData.price.integerValue|| '',
-            stock: productData.stock.integerValue|| '',
-            imageurl: productData.imageurl.stringValue || '',
+            productname: productData.productname.stringValue || "",
+            description: productData.description.stringValue || "",
+            price: productData.price.integerValue || "",
+            stock: productData.stock.integerValue || "",
+            imageurl: productData.imageurl.stringValue || "",
+            shopid: productData.shopid.stringValue || "",
           });
 
           if (productData.imageurl) {
-            setimageurl(productData.imageurl.stringValue || '');
+            setimageurl(productData.imageurl.stringValue || "");
           }
           if (productData.price) {
             setPrice(parseInt(productData.price.integerValue, 10)); // Assuming the price is stored as an integer
@@ -44,7 +45,7 @@ const ProductFetch = ({ cart, setCart }) => {
         }
       })
       .catch((error) => {
-        console.error('Error fetching product:', error);
+        console.error("Error fetching product:", error);
       });
   }, [id]);
 
@@ -68,7 +69,7 @@ const ProductFetch = ({ cart, setCart }) => {
         imageurl: product.imageurl,
         quantity: quantity,
       };
-      console.log(cartItem)
+      console.log(cartItem);
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {
@@ -96,16 +97,25 @@ const ProductFetch = ({ cart, setCart }) => {
 
   return (
     <div className="container mx-auto p-6">
-      <Link to="/shop12/customer" className="bg-purple-500 text-white py-2 px-4 rounded-lg mb-4">
+      <Link
+        to="/shop12/customer"
+        className="bg-purple-500 text-white py-2 px-4 rounded-lg mb-4"
+      >
         Back to Home
       </Link>
       <h2 className="text-3xl font-semibold mb-2">{product.productname}</h2>
       <p className="text-gray-700 mb-4">{product.description}</p>
       {imageurl && (
-        <img src={imageurl} alt={product.productname} className="w-64 h-64 object-cover mx-auto mb-4" />
+        <img
+          src={imageurl}
+          alt={product.productname}
+          className="w-64 h-64 object-cover mx-auto mb-4"
+        />
       )}
       <div className="flex flex-col items-center mb-4">
-        <p className="text-2xl font-bold text-purple-500 mb-2">Price: ${price}</p>
+        <p className="text-2xl font-bold text-purple-500 mb-2">
+          Price: ${price}
+        </p>
         <div className="flex items-center space-x-4">
           <button
             onClick={decreaseQuantity}
