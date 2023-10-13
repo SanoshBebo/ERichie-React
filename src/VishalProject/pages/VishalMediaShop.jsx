@@ -124,16 +124,18 @@ const VishalMediaShop = () => {
             variant="primary"
             onClick={() => handlePagination("prev")}
             disabled={currentPage === 1}
+            style={{ backgroundColor: 'blue', color: 'white' }}
           >
             Prev
           </Button>
-          <span className="mx-2">
+          <span className="mx-2" style={{ color: 'black' }}>
             Page {currentPage} of {totalPages}
           </span>
           <Button
             variant="primary"
             onClick={() => handlePagination("next")}
             disabled={currentPage === totalPages}
+            style={{ backgroundColor: 'blue', color: 'white' }}
           >
             Next
           </Button>

@@ -153,7 +153,7 @@ const ProductPage = () => {
 
       toast.success("added to cart", {
         position: "top-right",
-        autoClose: 200,
+        autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,

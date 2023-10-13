@@ -78,6 +78,7 @@ import Shop01Home from "./Shop-01/pages/home/Home";
 import Shop01Admin from "./Shop-01/pages/admin/Admin";
 import Shop01AboutUs from "./Shop-01/pages/About/About";
 import Shop01ProductDetail from "./Shop-01/Components/product/ProductDetail";
+import Shop17Sales from "./Shop-01/pages/admin/Salesreport";
 
 //=========================================================Harinis imports============================================================================//
 
@@ -301,12 +302,12 @@ const App = () => {
             />{" "}
             {/* Add this route */}
             <Route path="/shop17/*" element={<Shop01Home />} />
-            <Route path="/admin" element={<Shop01Admin />} />
+            <Route path="/shop17/admin" element={<Shop01Admin />} />
             <Route
               path="/products/:documentId"
               element={<Shop01ProductDetail />}
             />
-            <Route path="/admin/report" element={<Shop01AboutUs />} />
+            <Route path="/shop17/admin/report" element={<Shop17Sales />} />
             <Route path="/Shop16/User" element={<UserPage />}></Route>
             <Route path="/Shop16/Admin" element={<DhanushiyaAdminPage />} />
             <Route
