@@ -186,7 +186,7 @@ const CartComponent = () => {
         <div className="md:w-1/3 p-4">
           <div className="mb-4">
             <h3 className="font-semibold text-lg">Total Price:</h3>
-            <p className="text-xl">${totalPrice.toFixed(2)}</p>
+            <p className="text-xl">Rs.{totalPrice.toFixed(2)}</p>
           </div>
           <Button
             className="bg-black text-white p-4 w-full"

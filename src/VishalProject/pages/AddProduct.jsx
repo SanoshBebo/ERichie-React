@@ -908,7 +908,7 @@ const AddProductForm = () => {
 
               <div className="ml-4 flex-shrink-0">
 
-                <p className="font-semibold">Price: ${product.price}</p>
+                <p className="font-semibold">Price: Rs.{product.price}</p>
 
                 <p className="text-gray-500">Stock: {product.stock}</p>
 

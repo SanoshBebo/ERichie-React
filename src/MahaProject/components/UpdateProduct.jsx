@@ -1,316 +1,766 @@
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 const ProductUpdateForm = () => {
   const [productId, setProductId] = useState('');
+
+ 
+
   const [product, setProduct] = useState({
+
+ 
+
     productname: '',
+
+ 
+
     description: '',
+
+ 
+
     price: '',
+
+ 
+
     stock: '',
+
+ 
+
     imageUrl: '',
+
+ 
+
     category: '',
+
+ 
+
   });
 
+ 
+
+ 
+
+ 
+
   const [imageFile, setImageFile] = useState(null);
-  const [productList, setProductList] = useState([]);
+
+ 
+
+  const [searchText, setSearchText] = useState(''); // State for search input
+
+ 
+
   const [searchResults, setSearchResults] = useState([]); // State for search results
-  // const [productList, setProductList] = useState([]);
+
+ 
+
+ 
+
+ 
+
+  // Fetch a list of products to allow the admin to select one
+
+ 
+
+  const [productList, setProductList] = useState([]);
+
+ 
+
+ 
+
+ 
 
   useEffect(() => {
+
+ 
+
     axios
-      .get('https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products')
+
+ 
+
+      .get(
+
+ 
+
+        'https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products'
+
+ 
+
+      )
+
+ 
+
       .then((response) => {
+
+ 
+
         const productsData = (response.data.documents || []).map((doc) => {
+
+ 
+
           const data = doc.fields;
+
+ 
+
           return {
+
+ 
+
             id: doc.name.split('/').pop(),
+
+ 
+
             productname: data.productname?.stringValue || '',
+
+ 
+
           };
+
+ 
+
         });
+
+ 
+
         setProductList(productsData);
+
+ 
+
       })
+
+ 
+
       .catch((error) => {
+
+ 
+
         console.error('Error fetching products:', error);
+
+ 
+
       });
+
+ 
+
   }, []);
 
-  const handleProductChange = async (e) => {
-    // const selectedProductId = e.target.value;
+ 
+
+ 
+
+ 
+
+  const handleProductChange = async (selectedProductId) => {
+
+ 
+
     setProductId(selectedProductId);
 
+ 
+
+ 
+
+ 
+
+    // Fetch the selected product's data
+
+ 
+
     try {
+
+ 
+
       const response = await axios.get(
+
+ 
+
         `https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products/${selectedProductId}`
+
+ 
+
       );
 
+ 
+
+ 
+
+ 
+
       const productData = response.data.fields;
+
+ 
+
       setProduct({
+
+ 
+
         productname: productData.productname?.stringValue || '',
+
+ 
+
         description: productData.description?.stringValue || '',
+
+ 
+
         price: productData.price?.integerValue || 0,
+
+ 
+
         stock: productData.stock?.integerValue || 0,
+
+ 
+
         imageUrl: productData.imageUrl?.stringValue || '',
+
+ 
+
         category: productData.category?.stringValue || '',
+
+ 
+
       });
+
+ 
+
     } catch (error) {
+
+ 
+
       console.error('Error fetching product:', error);
+
+ 
+
     }
+
+ 
+
   };
+
+ 
+
+ 
+
+ 
 
   const handleChange = (e) => {
+
+ 
+
     const { name, value } = e.target;
+
+ 
+
     setProduct({ ...product, [name]: value });
+
+ 
+
   };
 
+ 
+
+ 
+
+ 
+
   const handleFileChange = (e) => {
+
+ 
+
     const file = e.target.files[0];
+
+ 
+
     setImageFile(file);
+
+ 
+
   };
+
+ 
+
+ 
+
+ 
+
   const handleSearch = () => {
+
+ 
 
     // Filter the productList based on the searchText
 
+ 
+
     const results = productList.filter((productItem) =>
+
+ 
 
       productItem.productname.toLowerCase().includes(searchText.toLowerCase())
 
+ 
+
     );
+
+ 
 
     setSearchResults(results);
 
+ 
+
   };
+
+ 
+
+ 
+
+ 
 
   const handleUpdate = async (e) => {
+
+ 
+
     e.preventDefault();
 
-    try {
-      const apiKey = 'AIzaSyBwbUvnEMEOs1aNMf_XOjGegX00uZD7M2g';
+ 
 
-      let imageUrl = product.imageUrl;
+ 
+
+ 
+
+    try {
+
+ 
+
+      const apiKey = 'AIzaSyBwbUvnEMEOs1aNMf_XOjGegX00uZD7M2g'; // Replace with your Firebase API key
+
+ 
+
+ 
+
+ 
+
+      // Upload the image if there is a new image file selected
+
+ 
+
+      let imageUrl = product.imageUrl; // Default to the existing image URL
+
+ 
+
       if (imageFile) {
+
+ 
+
         const formData = new FormData();
+
+ 
+
         formData.append('file', imageFile);
 
+ 
+
+ 
+
+ 
+
         const uploadResponse = await axios.post(
+
+ 
+
           `https://firebasestorage.googleapis.com/v0/b/mobileworld-160ce.appspot.com/o?name=Products%2F${imageFile.name}`,
+
+ 
+
           formData,
+
+ 
+
           {
+
+ 
+
             headers: {
+
+ 
+
               'Content-Type': 'multipart/form-data',
+
+ 
+
             },
+
+ 
+
           }
+
+ 
+
         );
 
+ 
+
+ 
+
+ 
+
         if (uploadResponse.status === 200) {
+
+ 
+
           imageUrl = `https://firebasestorage.googleapis.com/v0/b/mobileworld-160ce.appspot.com/o/Products%2F${encodeURIComponent(
+
+ 
+
             imageFile.name
+
+ 
+
           )}?alt=media`;
+
+ 
+
         } else {
+
+ 
+
           console.error('Error uploading image:', uploadResponse.statusText);
+
+ 
+
         }
+
+ 
+
       }
 
+ 
+
+ 
+
+ 
+
+      // Create a new object with only the fields you want to update
+
+ 
+
       const updatedFields = {
+
+ 
+
+        // Include only the fields you want to update here
+
+ 
+
         productname: { stringValue: product.productname },
+
+ 
+
         description: { stringValue: product.description },
+
+ 
+
         price: { integerValue: parseFloat(product.price) },
+
+ 
+
         stock: { integerValue: parseInt(product.stock) },
+
+ 
+
         category: { stringValue: product.category },
-        imageUrl: { stringValue: imageUrl },
+
+ 
+
+        imageUrl: { stringValue:product.imageUrl}
+
+ 
+
       };
 
+ 
+
+ 
+
+ 
+
+      // Update the product details including the new image URL
+
+ 
+
       const firestoreResponse = await axios.patch(
+
+ 
+
         `https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products/${productId}?key=${apiKey}`,
+
+ 
+
         {
+
+ 
+
           fields: updatedFields,
+
+ 
+
         }
+
+ 
+
       );
 
+ 
+
+ 
+
+ 
+
       alert('Product updated successfully');
+
+ 
+
       setProduct({
+
+ 
+
         productname: '',
+
+ 
+
         description: '',
+
+ 
+
         price: '',
+
+ 
+
         stock: '',
-        imageUrl: imageUrl,
+
+ 
+
+        imageUrl: imageUrl, // Keep imageUrl as it is
+
+ 
+
         category: '',
+
+ 
+
       });
-      setImageFile(null);
+
+ 
+
+      setImageFile(null); // Clear the imageFile
+
+ 
+
     } catch (error) {
+
+ 
+
       console.error('Error updating product:', error);
+
+ 
+
     }
+
+ 
+
   };
 
+ 
+
   return (
-<div className="product-update-form-container">
 
-<h2>Update Product</h2>
+    <div className="product-update-form-container">
 
-<form onSubmit={handleUpdate}>
+      <h2 className="text-2xl font-semibold mb-4 text-blue-800 text-black">Update Product</h2>
 
-  <div className="form-fields">
+      <form onSubmit={handleUpdate}>
 
-    <label>
+        <div className="form-fields">
 
-      Search for a Product:
+          <label>
 
-      <input
+            <span className="text-black">Search for a Product :</span>
 
-        type="text"
+            <input
 
-        value={searchText}
+              type="text"
 
-        onChange={(e) => setSearchText(e.target.value)}
+              value={searchText}
 
-        placeholder="Search by product name"
+              className="text-teal-600 text-black"
 
-      />
+              onChange={(e) => setSearchText(e.target.value)}
 
-      <button type="button" onClick={handleSearch}>
+              placeholder="Search by product name"
 
-        Search
+            />
 
-      </button>
+            <button type="button" onClick={handleSearch}>
 
-    </label>
+              Search
 
-    <ul>
+              
 
-      {searchResults.map((productItem) => (
+            </button>
 
-        <li key={productItem.id}>
+            
 
-          <button type="button" onClick={() => handleProductChange(productItem.id)}>
+          </label>
 
-            {productItem.productname}
+          <ul>
 
-          </button>
+            {searchResults.map((productItem) => (
 
-        </li>
+              <li key={productItem.id}>
 
-      ))}
+                <button type="button" onClick={() => handleProductChange(productItem.id)}>
 
-    </ul>
+                  <span className="text-red-600 text-black">{productItem.productname}</span>
 
-    <label>
+                </button>
 
-      Product Name:
+              </li>
 
-      <input
+            ))}
 
-        type="text"
+          </ul>
 
-        name="productname"
+          <label>
 
-        value={product.productname}
+          <span className="text-black">Product Name:</span>
 
-        onChange={handleChange}
+            <input
 
-      />
+              type="text"
 
-    </label>
+              name="productname"
 
-    <label>
+              value={product.productname}
 
-      Description:
+              onChange={handleChange}
 
-      <textarea
+              className="text-green-600 text-black"
 
-        name="description"
+            />
 
-        value={product.description}
+          </label>
 
-        onChange={handleChange}
+          <label>
 
-      />
+          <span className="text-black">Description:</span>
 
-    </label>
+            <textarea
 
-    <label>
+              name="description"
 
-      Price:
+              value={product.description}
 
-      <input
+              onChange={handleChange}
 
-        type="number"
+              className="text-purple-600 text-black"
 
-        name="price"
+            />
 
-        value={product.price}
+          </label>
 
-        onChange={handleChange}
+          <label>
 
-      />
+          <span className="text-black">Price:</span>
 
-    </label>
+            <input
 
-    <label>
+              type="number"
 
-      Stock:
+              name="price"
 
-      <input
+              value={product.price}
 
-        type="number"
+              onChange={handleChange}
 
-        name="stock"
+              className="text-indigo-600 text-black"
 
-        value={product.stock}
+            />
 
-        onChange={handleChange}
+          </label>
 
-      />
+          <label>
 
-    </label>
+          <span className="text-black">Stock:</span>
 
-    <label>
+            <input
 
-      Category:
+              type="number"
 
-      <input
+              name="stock"
 
-        type="text"
+              value={product.stock}
 
-        name="category"
+              onChange={handleChange}
 
-        value={product.category}
+              className="text-yellow-600 text-black"
 
-        onChange={handleChange}
+            />
 
-      />
+          </label>
 
-    </label>
+          <label>
 
-    <label>
+          <span className="text-black">Category:</span>
 
-      Upload Image:
+            <input
 
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+              type="text"
 
-    </label>
+              name="category"
 
-  </div>
+              value={product.category}
 
-  {product.imageUrl && (
+              onChange={handleChange}
 
-    <div className="product-image-preview">
+              className="text-teal-600 text-black"
 
-      <img src={product.imageUrl} alt="Product Preview" />
+            />
+
+          </label>
+
+          <label>
+
+            Upload Image:
+
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+
+          </label>
+
+        </div>
+
+        {product.imageUrl && (
+
+          <div className="product-image-preview">
+
+            <img src={product.imageUrl} alt="Product Preview" />
+
+          </div>
+
+        )}
+
+        <button type="submit" className="text-black bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+
+          Update Product
+
+        </button>
+
+      </form>
 
     </div>
 
-  )}
-
-  <button type="submit">Update Product</button>
-
-</form>
-
-</div>
-
-);
+  );
 
 };
 
-
+ 
 
 export default ProductUpdateForm;

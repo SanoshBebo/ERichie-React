@@ -49,6 +49,7 @@ function ProductInfo() {
         name: product.productname,
         description: product.description,
         stock: product.stock,
+        shopid: product.shopid,
         price: product.price,
         imageurl: product.imageUrl,
         quantity: 1,
@@ -67,6 +68,7 @@ function ProductInfo() {
         theme: "colored",
       });
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

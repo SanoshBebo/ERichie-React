@@ -12,7 +12,7 @@ const Dailyinventory = () => {
   useEffect(() => {
     // Fetch product data
     axios
-      .get('https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products')
+      .get('https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products')
       .then((productResponse) => {
         const products = productResponse.data.documents.map((doc) => {
           const fields = doc.fields;

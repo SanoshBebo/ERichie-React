@@ -94,6 +94,7 @@ function ProductDetail() {
         description: product.description,
         stock: product.stock,
         price: product.price,
+        shopid: product.shopid,
         imageurl: product.imageurl,
         quantity: quantity,
       };
@@ -101,6 +102,7 @@ function ProductDetail() {
       addCartToFirestore(cartItem, userData.email);
       alert("Added to Cart");
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

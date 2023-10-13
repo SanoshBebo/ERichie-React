@@ -50,6 +50,7 @@
          name: product.productname.stringValue,
          description: product.description.stringValue,
          stock: product.stock.integerValue,
+         shopid: product.shopid,
          price: product.price.integerValue,
          imageurl: product.imageurl.stringValue,
          quantity: quantity,
@@ -57,7 +58,8 @@
        dispatch(addItemToCart(cartItem));
        addCartToFirestore(cartItem, userData.email);
      } else {
-       navigate("/customer/login");
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      navigate("/customer/login");
      }
      setIsLoadingUser(false);
 

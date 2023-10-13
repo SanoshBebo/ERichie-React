@@ -164,7 +164,7 @@ const ComputerTeamHomePage = () => {
       );
       setShop17(item5);
       const item1 = await fetchItems(
-        "https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products"
+        "https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products"
       );
       setShop13(item1);
 

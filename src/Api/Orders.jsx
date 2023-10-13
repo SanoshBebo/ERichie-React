@@ -105,7 +105,7 @@ const updateStock = async (shopid, updateStockPayload, productDocument) => {
     shop12:
       "https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products",
     shop13:
-      "https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products",
+      "https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products",
     shop14:
       "https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products",
     shop15:

@@ -80,7 +80,7 @@ const Cart = ({cart, setCart}) => {
                   };
                   
                 const response = await Axios.post(
-                    'https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Orders',
+                    'https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Orders',
                     {
                         fields: {
                             productid: { stringValue: curElm.id },
@@ -101,7 +101,7 @@ const Cart = ({cart, setCart}) => {
 
             // Update the product's stock in Firestore
             await Axios.patch(
-                `https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products/${curElm.id}`,
+                `https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products/${curElm.id}`,
                 {
                     fields: {
                         productname:{stringValue: curElm.productname},

@@ -4,7 +4,7 @@ import axios from 'axios';
 async function fetchItems() {
   try {
     const response = await axios.get(
-      'https://firestore.googleapis.com/v1/projects/abhiram-store/databases/(default)/documents/Products'
+      'https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products'
     );
 
     const itemList = response.data.documents.map((doc) => ({
