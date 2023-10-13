@@ -27,7 +27,7 @@ const ProductUpdateForm = () => {
 
  
 
-    imageUrl: '',
+    imageurl: '',
 
  
 
@@ -211,7 +211,7 @@ const ProductUpdateForm = () => {
 
  
 
-        imageUrl: productData.imageUrl?.stringValue || '',
+        imageurl: productData.imageurl?.stringValue || '',
 
  
 
@@ -343,7 +343,7 @@ const ProductUpdateForm = () => {
 
  
 
-      let imageUrl = product.imageUrl; // Default to the existing image URL
+      let imageurl = product.imageurl; // Default to the existing image URL
 
  
 
@@ -407,7 +407,7 @@ const ProductUpdateForm = () => {
 
  
 
-          imageUrl = `https://firebasestorage.googleapis.com/v0/b/mobileworld-160ce.appspot.com/o/Products%2F${encodeURIComponent(
+          imageurl = `https://firebasestorage.googleapis.com/v0/b/mobileworld-160ce.appspot.com/o/Products%2F${encodeURIComponent(
 
  
 
@@ -471,7 +471,7 @@ const ProductUpdateForm = () => {
 
  
 
-        imageUrl: { stringValue:product.imageUrl}
+        imageurl: { stringValue:product.imageurl}
 
  
 
@@ -539,7 +539,7 @@ const ProductUpdateForm = () => {
 
  
 
-        imageUrl: imageUrl, // Keep imageUrl as it is
+        imageurl: imageurl, // Keep imageurl as it is
 
  
 
@@ -737,11 +737,11 @@ const ProductUpdateForm = () => {
 
         </div>
 
-        {product.imageUrl && (
+        {product.imageurl && (
 
           <div className="product-image-preview">
 
-            <img src={product.imageUrl} alt="Product Preview" />
+            <img src={product.imageurl} alt="Product Preview" />
 
           </div>
 

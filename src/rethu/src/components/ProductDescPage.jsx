@@ -7,6 +7,9 @@ import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
 
+import { toast, ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);

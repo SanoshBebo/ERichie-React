@@ -24,7 +24,7 @@ export const fetchShop12 = async () => {
               productname,
               shopid,
               category,
-              imageUrl,
+              imageurl,
             } = document.fields;
             return {
               description: description.stringValue,
@@ -33,7 +33,7 @@ export const fetchShop12 = async () => {
               productname: productname.stringValue,
               shopid: shopid.stringValue,
               category: category.stringValue,
-              imageurl: imageUrl.stringValue,
+              imageurl: imageurl.stringValue,
               productid: documentId,
             };
           });

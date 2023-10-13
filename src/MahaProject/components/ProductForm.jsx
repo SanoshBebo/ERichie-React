@@ -7,7 +7,7 @@ const ProductForm = () => {
     description: '',
     price: '',
     stock: '',
-    imageUrl: '',
+    imageurl: '',
     category: 'mobile',
     shopid: 'shop12',
     shopname: 'MobileWorld',
@@ -29,7 +29,7 @@ const ProductForm = () => {
     setImageFile(null);
     setProduct({
       ...product,
-      imageUrl: '',
+      imageurl: '',
     });
   };
 
@@ -74,9 +74,9 @@ const ProductForm = () => {
     e.preventDefault();
 
     try {
-      const imageUrl = await uploadImageToFirebaseStorage();
+      const imageurl = await uploadImageToFirebaseStorage();
 
-      if (imageUrl) {
+      if (imageurl) {
         const apiKey = 'YOUR_API_KEY';
 
         const firestoreResponse = await axios.post(
@@ -87,7 +87,7 @@ const ProductForm = () => {
               description: { stringValue: product.description },
               price: { integerValue: parseFloat(product.price) },
               stock: { integerValue: parseInt(product.stock) },
-              imageUrl: { stringValue: imageUrl },
+              imageurl: { stringValue: imageurl },
               category: { stringValue: product.category },
               shopid: { stringValue: product.shopid },
               shopname: { stringValue: product.shopname },
@@ -101,7 +101,7 @@ const ProductForm = () => {
           description: '',
           price: '',
           stock: '',
-          imageUrl: '',
+          imageurl: '',
           category: 'mobile',
           shopid: 'shop12',
           shopname: 'MobileWorld',

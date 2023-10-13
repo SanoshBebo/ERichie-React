@@ -18,7 +18,7 @@ const ProductDisplay = () => {
             description: data.description?.stringValue || '',
             price: data.price?.integerValue || 0,
             stock: data.stock?.integerValue || 0,
-            imageUrl: data.imageUrl?.stringValue || '',
+            imageurl: data.imageurl?.stringValue || '',
             // Include other fields as needed
           };
         });
@@ -41,8 +41,8 @@ const ProductDisplay = () => {
               <br />
               Category: {product.category}
               <br />
-              {product.imageUrl && (
-                <img src={product.imageUrl} alt={product.productname} className="w-24 h-24 object-cover mb-2" />
+              {product.imageurl && (
+                <img src={product.imageurl} alt={product.productname} className="w-24 h-24 object-cover mb-2" />
               )}
             </li>
           ))}

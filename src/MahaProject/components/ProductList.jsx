@@ -22,7 +22,7 @@ const ProductList = () => {
             description: data.description?.stringValue || '',
             price: data.price?.integerValue || 0,
             stock: data.stock?.integerValue || 0,
-            imageUrl: data.imageUrl?.stringValue || '',
+            imageurl: data.imageurl?.stringValue || '',
           };
         });
         setProducts(productsData);
@@ -72,7 +72,7 @@ const ProductList = () => {
                 <h3 className="text-xl font-semibold mb-2">{product.productname}</h3>
                 <p className="text-gray-700">Price: ${product.price}</p>
                 <p className="text-gray-700">Stock: {product.stock}</p>
-                <img src={product.imageUrl} alt={product.productname} className="max-h-48 mx-auto mt-4" />
+                <img src={product.imageurl} alt={product.productname} className="max-h-48 mx-auto mt-4" />
               </div>
             </Link>
           ))}

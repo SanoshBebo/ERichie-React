@@ -45,7 +45,7 @@ const DeleteProduct = () => {
 
             price: data.price?.integerValue || 0,
 
-            imageUrl: data.imageUrl?.stringValue || '',
+            imageurl: data.imageurl?.stringValue || '',
 
             shopname: data.shopname?.stringValue || '',
 
@@ -213,7 +213,7 @@ const DeleteProduct = () => {
 
               <div className="product-image">
 
-                <img src={selectedProduct.imageUrl} alt={selectedProduct.productname} />
+                <img src={selectedProduct.imageurl} alt={selectedProduct.productname} />
 
               </div>
 

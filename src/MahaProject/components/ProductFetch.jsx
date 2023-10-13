@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageurl, setimageurl] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
@@ -32,11 +32,11 @@ const ProductFetch = ({ cart, setCart }) => {
             description: productData.description.stringValue || '',
             price: productData.price.integerValue|| '',
             stock: productData.stock.integerValue|| '',
-            imageurl: productData.imageUrl.stringValue || '',
+            imageurl: productData.imageurl.stringValue || '',
           });
 
-          if (productData.imageUrl) {
-            setImageUrl(productData.imageUrl.stringValue || '');
+          if (productData.imageurl) {
+            setimageurl(productData.imageurl.stringValue || '');
           }
           if (productData.price) {
             setPrice(parseInt(productData.price.integerValue, 10)); // Assuming the price is stored as an integer
@@ -101,8 +101,8 @@ const ProductFetch = ({ cart, setCart }) => {
       </Link>
       <h2 className="text-3xl font-semibold mb-2">{product.productname}</h2>
       <p className="text-gray-700 mb-4">{product.description}</p>
-      {imageUrl && (
-        <img src={imageUrl} alt={product.productname} className="w-64 h-64 object-cover mx-auto mb-4" />
+      {imageurl && (
+        <img src={imageurl} alt={product.productname} className="w-64 h-64 object-cover mx-auto mb-4" />
       )}
       <div className="flex flex-col items-center mb-4">
         <p className="text-2xl font-bold text-purple-500 mb-2">Price: ${price}</p>
