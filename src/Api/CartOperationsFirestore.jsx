@@ -1,11 +1,27 @@
 import axios from "axios";
+import { fetchShopOneProducts } from "./fetchShopOneProducts";
+import { fetchShopTwoProducts } from "./fetchShopTwoProducts";
+import { fetchShopThreeProducts } from "./fetchShopThreeProducts";
+import { fetchShop09 } from "./fetchShop09";
+import { fetchShop10 } from "./fetchShop10";
+import { fetchShop11 } from "./fetchShop11";
+import { fetchShop12 } from "./fetchShop12";
+import { fetchShopThirteenProducts } from "./fetchShopThirteenProducts";
+import { fetchShopFourteenProducts } from "./fetchShopFourteenProducts";
+import { fetchShopFifteenProducts } from "./fetchShopFifteenProducts";
+import { fetchShopSixteenProducts } from "./fetchShopSixteenProducts";
+import { fetchShopSeventeenProducts } from "./fetchShopSeventeenProducts";
+import { fetchShopSevenProducts } from "./fetchShopSevenProducts";
+import { fetchShopSixProducts } from "./fetchShopSixProducts";
+import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
+import { fetchShopFourProducts } from "./fetchShopFourProducts";
 
 const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
-export const fetchCart = async (loggedInEmail, allproducts) => {
+export const fetchCart = async (loggedInEmail) => {
   const cartApiUrl = `${baseUrl}/Carts`; // Use a different URL for cart data
-
+  let shopProducts = [];
   try {
     const cartResponse = await axios.get(cartApiUrl);
 
@@ -15,42 +31,93 @@ export const fetchCart = async (loggedInEmail, allproducts) => {
       if (cartResponseData.documents) {
         const cartDocuments = cartResponseData.documents;
 
-        const cartData = cartDocuments
-          .filter((document) => {
-            const { email } = document.fields;
-            return email.stringValue == loggedInEmail; //replace dynamically for user later
-          })
-          .map((document) => {
-            const documentNameParts = document.name.split("/");
-            const documentId = documentNameParts[documentNameParts.length - 1];
-            const { email, productid, quantity, shopid } = document.fields;
+        const cartData = await Promise.all(
+          cartDocuments
+            .filter((document) => {
+              const { email } = document.fields;
+              return email.stringValue == loggedInEmail; // replace dynamically for user later
+            })
+            .map(async (document) => {
+              const documentNameParts = document.name.split("/");
+              const documentId =
+                documentNameParts[documentNameParts.length - 1];
+              const { email, productid, quantity, shopid } = document.fields;
 
-            // if(shopid.stringValue == "shop01"){
+              if (shopid.stringValue == "shop01") {
+                const res = await fetchShopOneProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop02") {
+                const res = await fetchShopTwoProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop03") {
+                const res = await fetchShopThreeProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop04") {
+                const res = await fetchShopFourProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop05") {
+                const res = await fetchShopFiveProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop06") {
+                const res = await fetchShopSixProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop07") {
+                const res = await fetchShopSevenProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop09") {
+                const res = await fetchShop09();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop10") {
+                const res = await fetchShop10();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop11") {
+                const res = await fetchShop11();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop12") {
+                const res = await fetchShop12();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop13") {
+                const res = await fetchShopThirteenProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop14") {
+                const res = await fetchShopFourteenProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop15") {
+                const res = await fetchShopFifteenProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop16") {
+                const res = await fetchShopSixteenProducts();
+                shopProducts = res;
+              } else if (shopid.stringValue == "shop17") {
+                const res = await fetchShopSeventeenProducts();
+                shopProducts = res;
+              }
 
-            // }
-            // Find the corresponding product data based on product ID
-            const product = allproducts.find(
-              (product) => product.productid === productid.stringValue
-            );
+              // Find the corresponding product data based on product ID
+              console.log(shopProducts);
+              const product = shopProducts.find(
+                (product) => product.productid === productid.stringValue
+              );
 
-            console.log(document);
+              console.log(document);
 
-            return {
-              email: email.stringValue,
-              quantity: quantity.integerValue,
-              description: product.description,
-              stock: product.stock,
-              price: product.price,
-              shopid: product.shopid,
-              productname: product.productname,
-              category: product.category,
-              imageurl: product.imageurl,
-              productid: product.productid,
-              cartid: documentId,
-            };
-          });
+              return {
+                email: email.stringValue,
+                quantity: quantity.integerValue,
+                description: product.description,
+                stock: product.stock,
+                price: product.price,
+                shopid: product.shopid,
+                productname: product.productname,
+                category: product.category,
+                imageurl: product.imageurl,
+                productid: product.productid,
+                cartid: documentId,
+              };
+            })
+        );
+
         console.log(cartData);
-
         return cartData;
       } else {
         console.log("No cart documents found in the collection.");

@@ -53,10 +53,8 @@ const CartComponent = () => {
       const userData = JSON.parse(localStorage.getItem("user"));
 
       if (userData) {
-        const allProductData = await fetchAllProducts();
-        console.log(allProductData);
-        setAllProducts(allProductData);
-        const response = await fetchCart(userData.email, allProductData);
+        const response = await fetchCart(userData.email);
+        console.log(response);
         dispatch(setCartItems(response));
         dispatch(setUser(userData));
         setIsDataLoaded(true);
