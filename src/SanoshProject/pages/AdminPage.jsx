@@ -291,7 +291,16 @@ const AdminPage = () => {
             navigate("/shop01/admin/reports");
           }}
         >
-          Show Report
+          Show Shop Report
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            navigate("/erichie/overall-report");
+          }}
+        >
+          ERichie Report
         </Button>
         <Button
           variant="contained"
@@ -310,7 +319,7 @@ const AdminPage = () => {
                 key={index}
                 className="bg-slate-100 rounded-lg p-2 flex justify-between items-center m-3"
               >
-                <div className="w-20 relative">
+                <div className="w-24 relative">
                   <img
                     src={product.imageurl}
                     alt={product.name}

@@ -113,8 +113,7 @@ const MediaCategory = () => {
                           </p>
                         </div>
                       )}
-
-                      {product.stock === 0 && (
+                      {product.stock == 0 && (
                         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white bg-black bg-opacity-50">
                           Out of Stock
                         </div>

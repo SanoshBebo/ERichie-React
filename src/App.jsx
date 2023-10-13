@@ -146,6 +146,7 @@ import MediaCategory from "./ERichie/MediaCategory";
 import MainHomePage from "./ERichie/MainHomePage";
 import ERichieLayout from "./ERichie/components/ERichieLayout";
 import OrderHistory from "./ERichie/OrderHistory";
+import OverallReport from "./ERichie/OverallReport";
 
 const App = () => {
   //=========================================================vishals code============================================================================//
@@ -188,6 +189,14 @@ const App = () => {
               element={
                 <ERichieLayout>
                   <OrderHistory />
+                </ERichieLayout>
+              }
+            />
+            <Route
+              path="/erichie/overall-report"
+              element={
+                <ERichieLayout>
+                  <OverallReport />
                 </ERichieLayout>
               }
             />

@@ -77,6 +77,7 @@ export const storePurchaseInFirestore = async (cartItems, loggedinEmail) => {
           email: { stringValue: loggedinEmail },
           purchasedate: { timestampValue: new Date().toISOString() },
           productid: { stringValue: product.productid },
+          category: { stringValue: product.category },
         };
         console.log(payload);
         await axios.post(`${ordersApiUrl}/${orderid}/OrderedProducts`, {
