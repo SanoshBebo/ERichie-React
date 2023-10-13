@@ -5,10 +5,15 @@ import ProductImg from '../components/shared/ProductImg';
 import './ShoppingPage.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+<<<<<<< HEAD
 import { Link, useHistory } from 'react-router-dom';
+=======
+import { Link } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
+>>>>>>> 039683eb7b36a5a3ce416b8e01381b5da74e3e4e
 import { FaShoppingCart } from 'react-icons/fa';
 
-const history = useHistory();
+//const history = useHistory();
 class ShoppingPage extends Component {
   constructor(props) {
     

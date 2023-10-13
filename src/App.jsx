@@ -100,6 +100,7 @@ import LasyaProductList from "./lasya/my-react-vite-app/src/components/productli
 import AddProduct1 from "./lasya/my-react-vite-app/src/components/addproduct/addproduct";
 import RethuAddProduct from "./rethu/src/components/AdminPage";
 import ProductDetail from "./lasya/my-react-vite-app/src/components/productlist/productdetail";
+import UserPage1 from "./rethu/src/components/UserPage";
 
 //=========================================================GaminggTeam imports============================================================================//
 // ===================================================================SASHAANKIMPORT================================================================
@@ -144,6 +145,7 @@ import MobileCategory from "./ERichie/MobileCategory";
 import MediaCategory from "./ERichie/MediaCategory";
 import MainHomePage from "./ERichie/MainHomePage";
 import ERichieLayout from "./ERichie/components/ERichieLayout";
+
 
 const App = () => {
   //=========================================================vishals code============================================================================//
@@ -291,7 +293,7 @@ const App = () => {
           {/* =========================================team computer============================================= */}
           {/* =========================================gaming computer============================================= */}
           <Route path="/gaming" element={<ProductDisplay1 />} />
-          <Route path="/shop05" element={<RethuUserPage />} />
+          <Route path="/shop05" element={<UserPage1/>} />
           <Route path="/shop05/admin" element={<RethuAddProduct />} />
           <Route path="/shop07" element={<ShoppingPage />} />
           <Route path="/shop07/admin" element={<ThillaiAdminPage />} />

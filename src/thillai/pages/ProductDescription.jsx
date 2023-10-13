@@ -4,11 +4,21 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+<<<<<<< HEAD
+import { useDispatch, useSelector } from "react-redux";
+
+
+=======
 import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
 import { addItemToCart } from '../../SanoshProject/redux/shopOneCartSlice';
 import { addCartToFirestore } from '../../Api/CartOperationsFirestore';
+>>>>>>> 4d3cc134fa1d395811c2b606e2d38e943c80b86c
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
+import { addItemToCart } from '../../SanoshProject/redux/shopOneCartSlice';
+import { addCartToFirestore } from '../../Api/CartOperationsFirestore';
+
 
 function ProductDescriptionPage() {
   const navigate = useNavigate();
@@ -17,6 +27,9 @@ function ProductDescriptionPage() {
   const [quantity, setQuantity] = useState(1);
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [isOutOfStock, setIsOutOfStock] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const user = useSelector((state) => state.shoponeuser.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchProductData() {
@@ -171,22 +184,22 @@ function ProductDescriptionPage() {
       </div>
 
       <p>Total Price: ${productData.fields.price.integerValue * quantity}</p>
+
+ 
+
+      {isOutOfStock ? <p className="text-danger">Out of Stock</p> : null}
+      <p>Total Price: ${price * quantity}</p>
       <button onClick={() => {
   handlePurchase();
   addToCart();
 }}>
-  Buy Now 
+  Add to Cart
 </button>
-
- 
 <button onClick={() => {
-  history.push('/shop07/'); // Replace '/' with the actual URL of your home page
-}}>
+      history.push('/shop07/'); // Replace '/' with the actual URL of your home page
+     }}>
   Back to Home
-</button>
-      {isOutOfStock ? <p className="text-danger">Out of Stock</p> : null}
-      <p>Total Price: ${price * quantity}</p>
-      <button onClick={handlePurchase}>Purchase</button>
+   </button>
 
 
       {/* Order Confirmation Modal */}

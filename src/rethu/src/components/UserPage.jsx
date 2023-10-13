@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPage.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
-const history = useHistory();
-function UserPage() {
+//const history = useHistory();
+function UserPage1() {
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -24,14 +25,6 @@ function UserPage() {
   const handleBuyNow = (product) => {
     // You can add any additional functionality here, e.g., adding the product to the cart
     navigate(`/product/${product.id}`);
-
-  const handleSignOut = () => {
-    localStorage.removeItem("user");
-    navigate("/customer/login");
-
-  const handleSignOut = () => {
-    localStorage.removeItem("user");
-    navigate("/customer/login");
 
   };
 
@@ -228,6 +221,5 @@ const addOrderToFirestore = () => {
   </div>
   );
 }
-  }
-}
-export default UserPage;
+
+export default UserPage1;
