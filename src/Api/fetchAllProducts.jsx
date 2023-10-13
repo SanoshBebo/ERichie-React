@@ -6,20 +6,18 @@ import { fetchShopTwoProducts } from "./fetchShopTwoProducts";
 import { fetchShopThirteenProducts } from "./fetchShopThirteenProducts";
 import { fetchShopSeventeenProducts } from "./fetchShopSeventeenProducts";
 import { fetchShopFourteenProducts } from "./fetchShopFourteenProducts";
-import {fetchShopFifteenProducts} from "./fetchShopFifteenProducts";
-import {fetchShopSixteenProducts} from "./fetchShopSixteenProducts";
+import { fetchShopFifteenProducts } from "./fetchShopFifteenProducts";
+import { fetchShopSixteenProducts } from "./fetchShopSixteenProducts";
 
-import {fetchShop09} from "./fetchShop09";
-import {fetchShop10} from "./fetchShop10";
-import {fetchShop11} from "./fetchShop11";
-import {fetchShop12} from "./fetchShop12";
+import { fetchShop09 } from "./fetchShop09";
+import { fetchShop10 } from "./fetchShop10";
+import { fetchShop11 } from "./fetchShop11";
+import { fetchShop12 } from "./fetchShop12";
 import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
 
 import { fetchShopSixProducts } from "./fetchShopSixProducts";
 
 import { fetchShopSevenProducts } from "./fetchShopSevenProducts";
-
-
 
 export const fetchAllProducts = async () => {
   try {
@@ -32,18 +30,17 @@ export const fetchAllProducts = async () => {
     const shopFourResponse = await fetchShopFourProducts();
 
     // computerTeam
-     // computerTeam
-     const shopThirteenResponse = await fetchShopThirteenProducts();
-     const shopSeventeenResponse = await fetchShopSeventeenProducts();
-     const shopFourteenResponse = await fetchShopFourteenProducts();
-     const shopFifteenProducts= await fetchShopFifteenProducts();
-     const shopSixteenProducts = await fetchShopSixteenProducts();
+    // computerTeam
+    const shopThirteenResponse = await fetchShopThirteenProducts();
+    const shopFourteenResponse = await fetchShopFourteenProducts();
+    const shopFifteenProducts = await fetchShopFifteenProducts();
+    const shopSixteenProducts = await fetchShopSixteenProducts();
+    const shopSeventeenResponse = await fetchShopSeventeenProducts();
 
-
-     const shopNineProducts = await fetchShop09();
-     const shopTenProducts = await fetchShop10();
-     const shopelevenProducts = await fetchShop11();
-     const shopTwelveProducts = await fetchShop12();
+    const shopNineProducts = await fetchShop09();
+    const shopTenProducts = await fetchShop10();
+    const shopelevenProducts = await fetchShop11();
+    const shopTwelveProducts = await fetchShop12();
 
     // gaming team
     const shopFiveResponse = await fetchShopFiveProducts();
@@ -63,7 +60,6 @@ export const fetchAllProducts = async () => {
       ...shopThreeResponse,
       ...shopFourResponse,
       ...shopThirteenResponse,
-      // ...shopFiveResponse,
       ...shopThirteenResponse,
       ...shopSeventeenResponse,
       ...shopFourteenResponse,
@@ -74,11 +70,8 @@ export const fetchAllProducts = async () => {
       ...shopTenProducts,
       ...shopNineProducts,
       ...shopFiveResponse,
-
       ...shopSixResponse,
-
       ...shopSevenResponse,
-
     ];
 
     // Update the state with the combined products

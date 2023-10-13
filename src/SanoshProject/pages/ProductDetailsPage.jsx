@@ -22,6 +22,10 @@ const ProductDetailsPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
+  const url = `/shop01/product/${id}`;
+  let redirectUrl = {
+    url: url,
+  };
 
   useEffect(() => {
     fetchProducts()
@@ -36,6 +40,8 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      console.log(hallalujah);
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
   }, [isLoadingUser, user, navigate]);
@@ -96,6 +102,8 @@ const ProductDetailsPage = () => {
         theme: "colored",
       });
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

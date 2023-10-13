@@ -112,9 +112,18 @@ const MediaCategory = () => {
             )}
           </ul>
         ) : (
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center", // Center horizontally
+              alignItems: "center", // Center vertically
+              height: "90vh", // Full viewport height
+            }}
+          >
+            <Box>
+              <CircularProgress />
+            </Box>
+          </div>
         )}
       </div>
     </div>

@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { checkUserRole, storeUserInFirestore } from "./auth";
 
 import { useDispatch } from "react-redux";
@@ -43,7 +43,14 @@ const CustomerLoginRegister = () => {
         if (userRole == "customer") {
           dispatch(setUser(user));
           localStorage.setItem("user", JSON.stringify(user));
-          navigate("/erichie");
+          const redirectUrl = JSON.parse(localStorage.getItem("redirectUrl"));
+          console.log(redirectUrl);
+          if (redirectUrl) {
+            navigate(redirectUrl.url);
+            localStorage.removeItem("redirectUrl");
+          } else {
+            navigate("/erichie");
+          }
         }
       }
     } catch (err) {
