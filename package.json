@@ -15,6 +15,7 @@
     "@headlessui/react": "^1.7.16",
     "@mui/icons-material": "^5.14.12",
     "@mui/material": "^5.14.11",
+    "@mui/x-charts": "^6.0.0-alpha.15",
     "@radix-ui/react-dialog": "^1.0.5",
     "@reduxjs/toolkit": "^1.9.6",
     "axios": "^1.5.1",

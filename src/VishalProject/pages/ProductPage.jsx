@@ -17,7 +17,7 @@ const ProductPage = () => {
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-
+  const [Loading, setLoading] = useState(false);
   const { id } = useParams();
 
   const [count, setCount] = useState(1); // Start with 1 item
