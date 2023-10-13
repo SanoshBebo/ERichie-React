@@ -145,7 +145,7 @@ import MobileCategory from "./ERichie/MobileCategory";
 import MediaCategory from "./ERichie/MediaCategory";
 import MainHomePage from "./ERichie/MainHomePage";
 import ERichieLayout from "./ERichie/components/ERichieLayout";
-
+import OrderHistory from "./ERichie/OrderHistory";
 
 const App = () => {
   //=========================================================vishals code============================================================================//
@@ -164,212 +164,222 @@ const App = () => {
 
   return (
     <ShankState>
-    <MyState>
-      <Router>
-        <Routes>
-          <Route
-            path="/erichie"
-            element={
-              <ERichieLayout>
-                <MainHomePage />
-              </ERichieLayout>
-            }
-          />
-          <Route
-            path="/MediaCategories"
-            element={
-              <ERichieLayout>
-                <MediaCategory />
-              </ERichieLayout>
-            }
-          />
-          <Route
-            path="/shop01"
-            element={
-              <Layout>
-                <CosmicMediaGadgets />
-              </Layout>
-            }
-          />
-          <Route
-            path="/shop01/product/:id"
-            element={
-              <Layout>
-                <ProductDetailsPage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/erichie/cart"
-            element={
-              <ERichieLayout>
-                <CartPage />
-              </ERichieLayout>
-            }
-          />
-          <Route
-            path="/shop01/admin"
-            element={
-              <AdminLayout>
-                <AdminPage />
-              </AdminLayout>
-            }
-          />
-          <Route path="/customer/login" element={<CustomerLoginRegister />} />
-          <Route path="/admin/login" element={<AdminLoginRegister />} />
-          <Route
-            path="/shop01/admin/reports"
-            element={
-              <AdminLayout>
-                <IndividualShopReport />
-              </AdminLayout>
-            }
-          />
-          <Route
-            path="/shop03"
-            element={
-              <ShopThreeLayout>
-                <VishalMediaShop />
-              </ShopThreeLayout>
-            }
-          />
-          <Route
-            path="/shop03/product/:id"
-            element={
-              <ShopThreeLayout>
-                <ProductPage />
-              </ShopThreeLayout>
-            }
-          />
-          <Route path="/shop03/admin" element={<AddProductForm />} />
-          <Route path="/shop03/tablepage" element={<TablePage />} />
-          {/* // =========================================================askshayas code============================================================================// */}
-          <Route path="/shop02/*" element={<AkshayaUserPage />} />
-          <Route path="/shop02/admin/*" element={<AkshayaAdminPage />} />
-          <Route path="/*" element={<NoPage />} />
-          {/* // =========================================================Suryas code============================================================================// */}
-          <Route path="/shop04" element={<Home />} />
-          <Route path="/shop04/allproducts" element={<Allproducts />} />
-          <Route path="/shop04/admin/dashboard" element={<Dashboard />} />
-          <Route path="shop04/product/:id" element={<ProductInfo />} />
-          <Route path="/shop04/admin/addproduct" element={<AddProduct />} />
-          <Route
-            path="/shop04/admin/updateproduct"
-            element={<UpdateProduct />}
-          />
-          {/* =========================================team computer============================================= */}
-          <Route path="/computer" element={<ComputerTeamHomePage />} />
-          <Route path="/shop15" element={<UserOperations />} />
-          <Route path="/AdminAction" element={<AdminOperations />} />
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/products/*" element={<ProductList />} />
-          <Route path="/checkout/:productId" element={<CheckoutPage />} />
-          <Route path="/AdminAction/add" element={<SanjayAddProduct />} />
-          <Route path="/AdminAction/view" element={<ViewProducts />} />
-          <Route path="/AdminAction/report" element={<StockReport />} />
-          <Route path="/AdminAction/livereport" element={<LiveReport />} />
-          <Route path="/shop14/admin" element={<AddProductShop03 />} />
-          <Route path="/shop14" element={<UserPageShop03 />} />
-          <Route
-            path="/shop14/products/:productId"
-            element={<ProductDetailPage />}
-          />{" "}
-          {/* Add this route */}
-          <Route path="/shop17/*" element={<Shop01Home />} />
-          <Route path="/admin" element={<Shop01Admin />} />
-          <Route
-            path="/products/:documentId"
-            element={<Shop01ProductDetail />}
-          />
-          <Route path="/admin/report" element={<Shop01AboutUs />} />
-          <Route path="/Shop16/User" element={<UserPage />}></Route>
-          <Route path="/Shop16/Admin" element={<DhanushiyaAdminPage />} />
-          <Route
-            path="/shop4products/:productId"
-            element={<ShopProductDetails />}
-          />
-          <Route path="/shop13/*" element={<AbhiramApp />} />
-          <Route path="/shop13/abhiramadmin" element={<AdminApp />} />
-          {/* =========================================team computer============================================= */}
-          {/* =========================================gaming computer============================================= */}
-          <Route path="/gaming" element={<ProductDisplay1 />} />
-          <Route path="/shop05" element={<UserPage1/>} />
-          <Route path="/shop05/admin" element={<RethuAddProduct />} />
-          <Route path="/shop07" element={<ShoppingPage />} />
-          <Route path="/shop07/admin" element={<ThillaiAdminPage />} />
-          <Route
-            path="/shop07/admin-page/products"
-            element={<ProductList1 />}
-          />
-          <Route
-            path="/shop07/product/:productId"
-            element={<ProductDescriptionPage />}
-          />
-          <Route path="/shop06" element={<LasyaProductList />} />
-          <Route
-            path="/shop06/product/:productId"
-            element={<ProductDetail />}
-          />
-          <Route path="/shop06/admin" element={<AddProduct1 />} />
-          <Route
-            path="/shop05/product/:productId"
-            element={<ProductDescPage />}
-          />
-          {/* =========================================gaming computer============================================= */}
-          <Route path="/mobiles" element={<MobileCategory />} />
-          {/* =================================================================CHETNACODE========================================================== */}
-          <Route path="/shop11" element={<ChetnaHomePage />} />
-          <Route path="/shop11/Adminpage" element={<ChetnaAdminpage />} />
-          <Route
-            path="/shop11/product/:id"
-            element={<ChetnaProductDetailsPage />}
-          />
-          <Route path="/shop11/protectlist" element={<TrandingPages />} />
-          {/* ===============================================================MAHACODE===================================================================           */}
-          <Route path="/shop12/admin" element={<MahaAdminLayout />} />
-          <Route path="/shop12/customer" element={<CustomerApp />} />
-          <Route
-            path="/shop12/daily-inventory"
-            element={<DailyInventoryReport />}
-          />
-          <Route path="/shop12/daily-sales" element={<DailySalesReport />} />
-          <Route path="/shop12/product/:id" element={<ProductFetch />} />
-          {/* ================================================================SPRITYCODE====================================================================           */}
-          <Route path="/shop10/com" element={<Ecom />} />
-          <Route
-            path="/shop10/product/:productId"
-            element={<SprityProductDetail />}
-          />
-          <Route path="/shop10/add" element={<SprityAddProducts />} />
-          <Route path="/shop10/display" element={<SprityProductList />} />
-          <Route path="/shop10/home" element={<Homee />} />
-          <Route path="/shop10/table" element={<SprityAdminDashboard />} />
-          <Route path="/shop10/adminhome" element={<SprityAdminHome />} />
-          {/*================================================================SASHAANKCODE================================================================*/}
-          <Route path="/shop09" element={<SashaankHome />} />
-          <Route path="/shop09/allproducts" element={<SashaankAllproducts />} />
-          <Route
-            path="/shop09/admin/dashboard"
-            element={<SashaankDashboard />}
-          />
-
-          <Route
-            path="/shop09/product/:id"
-            element={<SashaankProductInfo />}
+      <MyState>
+        <Router>
+          <Routes>
+            <Route
+              path="/erichie"
+              element={
+                <ERichieLayout>
+                  <MainHomePage />
+                </ERichieLayout>
+              }
             />
-          <Route
-            path="/shop09/admin/addproduct"
-            element={<SashaankAddProduct />}
+            <Route
+              path="/order-history"
+              element={
+                <ERichieLayout>
+                  <OrderHistory />
+                </ERichieLayout>
+              }
             />
-          <Route
-            path="/shop09/admin/updateproduct"
-            element={<SashaankUpdateProduct />}
+            <Route
+              path="/MediaCategories"
+              element={
+                <ERichieLayout>
+                  <MediaCategory />
+                </ERichieLayout>
+              }
             />
-        </Routes>
-        <ToastContainer />
-      </Router>
-    </MyState>
-  </ShankState>
+            <Route
+              path="/shop01"
+              element={
+                <Layout>
+                  <CosmicMediaGadgets />
+                </Layout>
+              }
+            />
+            <Route
+              path="/shop01/product/:id"
+              element={
+                <Layout>
+                  <ProductDetailsPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="/erichie/cart"
+              element={
+                <ERichieLayout>
+                  <CartPage />
+                </ERichieLayout>
+              }
+            />
+            <Route
+              path="/shop01/admin"
+              element={
+                <AdminLayout>
+                  <AdminPage />
+                </AdminLayout>
+              }
+            />
+            <Route path="/customer/login" element={<CustomerLoginRegister />} />
+            <Route path="/admin/login" element={<AdminLoginRegister />} />
+            <Route
+              path="/shop01/admin/reports"
+              element={
+                <AdminLayout>
+                  <IndividualShopReport />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/shop03"
+              element={
+                <ShopThreeLayout>
+                  <VishalMediaShop />
+                </ShopThreeLayout>
+              }
+            />
+            <Route
+              path="/shop03/product/:id"
+              element={
+                <ShopThreeLayout>
+                  <ProductPage />
+                </ShopThreeLayout>
+              }
+            />
+            <Route path="/shop03/admin" element={<AddProductForm />} />
+            <Route path="/shop03/tablepage" element={<TablePage />} />
+            {/* // =========================================================askshayas code============================================================================// */}
+            <Route path="/shop02/*" element={<AkshayaUserPage />} />
+            <Route path="/shop02/admin/*" element={<AkshayaAdminPage />} />
+            <Route path="/*" element={<NoPage />} />
+            {/* // =========================================================Suryas code============================================================================// */}
+            <Route path="/shop04" element={<Home />} />
+            <Route path="/shop04/allproducts" element={<Allproducts />} />
+            <Route path="/shop04/admin/dashboard" element={<Dashboard />} />
+            <Route path="shop04/product/:id" element={<ProductInfo />} />
+            <Route path="/shop04/admin/addproduct" element={<AddProduct />} />
+            <Route
+              path="/shop04/admin/updateproduct"
+              element={<UpdateProduct />}
+            />
+            {/* =========================================team computer============================================= */}
+            <Route path="/computer" element={<ComputerTeamHomePage />} />
+            <Route path="/shop15" element={<UserOperations />} />
+            <Route path="/AdminAction" element={<AdminOperations />} />
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/products/*" element={<ProductList />} />
+            <Route path="/checkout/:productId" element={<CheckoutPage />} />
+            <Route path="/AdminAction/add" element={<SanjayAddProduct />} />
+            <Route path="/AdminAction/view" element={<ViewProducts />} />
+            <Route path="/AdminAction/report" element={<StockReport />} />
+            <Route path="/AdminAction/livereport" element={<LiveReport />} />
+            <Route path="/shop14/admin" element={<AddProductShop03 />} />
+            <Route path="/shop14" element={<UserPageShop03 />} />
+            <Route
+              path="/shop14/products/:productId"
+              element={<ProductDetailPage />}
+            />{" "}
+            {/* Add this route */}
+            <Route path="/shop17/*" element={<Shop01Home />} />
+            <Route path="/admin" element={<Shop01Admin />} />
+            <Route
+              path="/products/:documentId"
+              element={<Shop01ProductDetail />}
+            />
+            <Route path="/admin/report" element={<Shop01AboutUs />} />
+            <Route path="/Shop16/User" element={<UserPage />}></Route>
+            <Route path="/Shop16/Admin" element={<DhanushiyaAdminPage />} />
+            <Route
+              path="/shop4products/:productId"
+              element={<ShopProductDetails />}
+            />
+            <Route path="/shop13/*" element={<AbhiramApp />} />
+            <Route path="/shop13/abhiramadmin" element={<AdminApp />} />
+            {/* =========================================team computer============================================= */}
+            {/* =========================================gaming computer============================================= */}
+            <Route path="/gaming" element={<ProductDisplay1 />} />
+            <Route path="/shop05" element={<UserPage1 />} />
+            <Route path="/shop05/admin" element={<RethuAddProduct />} />
+            <Route path="/shop07" element={<ShoppingPage />} />
+            <Route path="/shop07/admin" element={<ThillaiAdminPage />} />
+            <Route
+              path="/shop07/admin-page/products"
+              element={<ProductList1 />}
+            />
+            <Route
+              path="/shop07/product/:productId"
+              element={<ProductDescriptionPage />}
+            />
+            <Route path="/shop06" element={<LasyaProductList />} />
+            <Route
+              path="/shop06/product/:productId"
+              element={<ProductDetail />}
+            />
+            <Route path="/shop06/admin" element={<AddProduct1 />} />
+            <Route
+              path="/shop05/product/:productId"
+              element={<ProductDescPage />}
+            />
+            {/* =========================================gaming computer============================================= */}
+            <Route path="/mobiles" element={<MobileCategory />} />
+            {/* =================================================================CHETNACODE========================================================== */}
+            <Route path="/shop11" element={<ChetnaHomePage />} />
+            <Route path="/shop11/Adminpage" element={<ChetnaAdminpage />} />
+            <Route
+              path="/shop11/product/:id"
+              element={<ChetnaProductDetailsPage />}
+            />
+            <Route path="/shop11/protectlist" element={<TrandingPages />} />
+            {/* ===============================================================MAHACODE===================================================================           */}
+            <Route path="/shop12/admin" element={<MahaAdminLayout />} />
+            <Route path="/shop12/customer" element={<CustomerApp />} />
+            <Route
+              path="/shop12/daily-inventory"
+              element={<DailyInventoryReport />}
+            />
+            <Route path="/shop12/daily-sales" element={<DailySalesReport />} />
+            <Route path="/shop12/product/:id" element={<ProductFetch />} />
+            {/* ================================================================SPRITYCODE====================================================================           */}
+            <Route path="/shop10/com" element={<Ecom />} />
+            <Route
+              path="/shop10/product/:productId"
+              element={<SprityProductDetail />}
+            />
+            <Route path="/shop10/add" element={<SprityAddProducts />} />
+            <Route path="/shop10/display" element={<SprityProductList />} />
+            <Route path="/shop10/home" element={<Homee />} />
+            <Route path="/shop10/table" element={<SprityAdminDashboard />} />
+            <Route path="/shop10/adminhome" element={<SprityAdminHome />} />
+            {/*================================================================SASHAANKCODE================================================================*/}
+            <Route path="/shop09" element={<SashaankHome />} />
+            <Route
+              path="/shop09/allproducts"
+              element={<SashaankAllproducts />}
+            />
+            <Route
+              path="/shop09/admin/dashboard"
+              element={<SashaankDashboard />}
+            />
+            <Route
+              path="/shop09/product/:id"
+              element={<SashaankProductInfo />}
+            />
+            <Route
+              path="/shop09/admin/addproduct"
+              element={<SashaankAddProduct />}
+            />
+            <Route
+              path="/shop09/admin/updateproduct"
+              element={<SashaankUpdateProduct />}
+            />
+          </Routes>
+          <ToastContainer />
+        </Router>
+      </MyState>
+    </ShankState>
   );
 };
 

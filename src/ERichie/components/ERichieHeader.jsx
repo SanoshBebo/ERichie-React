@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const ERichieHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -14,6 +17,16 @@ const ERichieHeader = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
   };
+  const handleSignIn = () => {
+    navigate("/customer/login");
+  };
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) {
+      setIsUserSignedIn(true);
+    }
+  }, []);
 
   return (
     <div className="bg-black text-white p-4">
@@ -64,13 +77,24 @@ const ERichieHeader = () => {
             <li className="cursor-pointer hover:underline">
               <Link to="/erichie">Home</Link>
             </li>
-
-            <li
-              className="cursor-pointer hover:underline"
-              onClick={handleSignOut}
-            >
-              Sign Out
+            <li className="cursor-pointer hover:underline">
+              <Link to="/order-history">Orders</Link>
             </li>
+            {isUserSignedIn ? (
+              <li
+                className="cursor-pointer hover:underline"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </li>
+            ) : (
+              <li
+                className="cursor-pointer hover:underline"
+                onClick={handleSignIn}
+              >
+                Sign In
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -90,7 +114,21 @@ const ERichieHeader = () => {
             <li className="cursor-pointer hover:underline">
               <Link to="/erichie">Home</Link>
             </li>
-            <li className="cursor-pointer hover:underline">Sign Out</li>
+            {isUserSignedIn ? (
+              <li
+                className="cursor-pointer hover:underline"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </li>
+            ) : (
+              <li
+                className="cursor-pointer hover:underline"
+                onClick={handleSignIn}
+              >
+                Sign In
+              </li>
+            )}
           </ul>
         </div>
       )}
