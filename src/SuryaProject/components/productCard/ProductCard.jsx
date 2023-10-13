@@ -30,6 +30,7 @@ function ProductCard() {
       const cartItem = {
         id: product.id,
         name: product.productname,
+        shopid: product.shopid,
         description: product.description,
         stock: product.stock,
         price: product.price,
@@ -118,7 +119,6 @@ function ProductCard() {
                       >
                         ₹{price}
                       </p>
-                      
                     </div>
                   </div>
                 </div>

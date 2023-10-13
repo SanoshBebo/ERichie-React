@@ -65,6 +65,8 @@ const ProductDetails = () => {
           shopname: productData.shopname?.stringValue || "Unknown Shop",
 
           imageurl: productData.imageurl?.stringValue || "",
+
+          shopid: productData.shopid?.stringValue || "",
         });
       })
 

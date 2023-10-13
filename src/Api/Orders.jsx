@@ -112,16 +112,10 @@ const updateStock = async (shopid, updateStockPayload, productDocument) => {
       "https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products",
     shop16:
       "https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products",
-    
+
     shop17:
       "https://firestore.googleapis.com/v1/projects/crud-550f3/databases/(default)/documents/Products",
-    
-    
-    
-    
-    
-    
-      // Add more shop URLs as needed
+    // Add more shop URLs as needed
   };
 
   const apiUrl = shopUrls[shopid];

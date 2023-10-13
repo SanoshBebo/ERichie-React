@@ -56,7 +56,8 @@ const ProductPage = () => {
 
             const documentId = documentNameParts[documentNameParts.length - 1];
 
-            const { description, stock, price, productname } = document.fields;
+            const { description, stock, price, productname, shopid } =
+              document.fields;
 
             return {
               description: description.stringValue,
@@ -70,6 +71,8 @@ const ProductPage = () => {
               productid: documentId,
 
               imageurl: document.fields.imageurl.stringValue,
+
+              shopid: shopid.stringValue,
             };
           });
 
@@ -134,6 +137,7 @@ const ProductPage = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
+      console.log(product);
       const cartItem = {
         id: product.productid,
         name: product.productname,
@@ -200,7 +204,7 @@ const ProductPage = () => {
               value={manualQuantity}
               onChange={handleManualQuantityChange}
               className="w-12 text-center border border-gray-300 rounded"
-            />  
+            />
 
             <button
               className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition"
@@ -219,8 +223,6 @@ const ProductPage = () => {
             >
               Add To Cart
             </button>
-
-            
           </div>
         </div>
       </div>
