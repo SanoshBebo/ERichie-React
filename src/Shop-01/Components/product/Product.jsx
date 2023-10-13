@@ -219,6 +219,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import firebase from "firebase/compat/app";
+import styles from "./ProductList.css";
 import "firebase/compat/firestore";
 
 function ProductCard({ product }) {

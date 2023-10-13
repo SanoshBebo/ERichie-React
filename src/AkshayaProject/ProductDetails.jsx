@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCartToFirestore } from "../Api/CartOperationsFirestore";
 
 import { useNavigate } from "react-router-dom";
+import MediaCategory from "../ERichie/MediaCategory";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -162,13 +163,24 @@ const ProductDetails = () => {
       >
         Add to Cart
       </button>
-
       <button
-        className="buy-now-button bg-green-500 text-white p-3 rounded-md mt-4 hover:bg-green-600 transition-colors"
-        onClick={() => onBuyNow(product, quantity)}
+        className=" bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
+        // onClick={}
       >
-        Buy Now
+        Back
       </button>
+      {/* <button
+        className="add-to-cart-button bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
+        onClick={UserView}
+      >
+        My web
+      </button>
+      <button
+        className="add-to-cart-button bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
+        onClick={cart}
+      >
+        Cart
+      </button> */}
     </div>
   );
 };
