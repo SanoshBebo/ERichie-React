@@ -6,13 +6,9 @@ import './ShoppingPage.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-//import { useHistory } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
 
-//const history = useHistory();
 class ShoppingPage extends Component {
   constructor(props) {
-    
     super(props);
     this.state = {
       showProductModal: false,
@@ -23,13 +19,15 @@ class ShoppingPage extends Component {
       quantity: 1, // Initialize quantity to 1
       totalPrice: 0, // Initialize total price to 0
       showSuccessModal: false,
+      currentPage: 1,
+      itemsPerPage: 6, // Number of items to display per page
     };
   }
 
-  categories = ['All', 'Electronics'];
+  categories = ['All', 'Gaming'];
 
   handleCloseProductModal = () => this.setState({ showProductModal: false });
-  
+
   openProductPage = (product) => (
     <Link
       to={{
@@ -37,16 +35,18 @@ class ShoppingPage extends Component {
         state: { product },
       }}
     >
-      <button className="btn btn-buy-now">Buy Now</button>
+      <button className="btn btn-buy-now">View Details</button>
     </Link>
   );
+
   showSuccessModal = () => {
     this.setState({ showSuccessModal: true });
   };
+
   openProductModal = (product) => {
     const initialQuantity = 1; // Initial quantity is 1
     const initialTotalPrice = (product.price?.integerValue || 0) * initialQuantity; // Calculate initial total price
-  
+
     this.setState({
       selectedProduct: product,
       showProductModal: true,
@@ -54,7 +54,6 @@ class ShoppingPage extends Component {
       totalPrice: initialTotalPrice, // Set initial total price
     });
   };
-  
 
   openQuantityInputModal = () => {
     const { selectedProduct, quantity } = this.state;
@@ -79,36 +78,36 @@ class ShoppingPage extends Component {
 
   handlePurchase = async () => {
     const { selectedProduct, quantity, totalPrice } = this.state;
-  
+
     if (!selectedProduct) {
       console.error('No product selected for purchase.');
       return;
     }
-  
+
     // Fetch the existing product data
     try {
       const response = await axios.get(`https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${selectedProduct.id}`);
       const existingProductData = response.data.fields;
-  
+
       // Calculate the updated stock quantity
       const updatedQuantity = selectedProduct.stock?.integerValue - quantity;
-  
+
       if (updatedQuantity < 0) {
         console.error('Invalid quantity. Product quantity cannot be negative.');
         return;
       }
-  
+
       // Create an object with the updated data including existing fields
       const updatedData = {
         ...existingProductData,
         stock: { integerValue: updatedQuantity },
       };
-  
+
       // Make a PATCH request to update the product document
       await axios.patch(`https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${selectedProduct.id}`, {
         fields: updatedData,
       });
-  
+
       // Make a POST request to Firestore to create a new order
       await axios.post('https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Orders', {
         fields: {
@@ -120,7 +119,7 @@ class ShoppingPage extends Component {
           UserID: { stringValue: 'yourUserID' },
         },
       });
-  
+
       // If the requests succeed, you can reset the selectedProduct, quantity, and totalPrice
       this.setState({
         selectedProduct: null,
@@ -132,7 +131,7 @@ class ShoppingPage extends Component {
       console.error('Error sending order:', error);
     }
   };
-  
+
   handleFilter() {
     let filteredProducts = [];
     if (this.state.selectedCategory !== 'All') {
@@ -158,20 +157,35 @@ class ShoppingPage extends Component {
     }
   }
 
+  handlePagination = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   render() {
+    const { currentPage, itemsPerPage } = this.state;
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const filteredProducts = this.handleFilter();
+    const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Calculate page numbers
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(filteredProducts.length / itemsPerPage); i++) {
+      pageNumbers.push(i);
+    }
 
     return (
       <div>
-         
-         <div className="navbar">
-      <Link to="/gaming">Gaming</Link>
-      <Link to="/erichie">HomePage</Link>
-      <div className="cart-icon" onClick={() => history.push('/cart')}>
-        <FaShoppingCart />
-      </div>
-    </div>
-
+        <div className='navbar'>
+          <Link to="/erichie">Home Page</Link>
+          <Link to="/gaming">Go back</Link>
+          <Link to="/erichie/cart" className="navbar-button">
+            <i className="fa fa-shopping-cart"></i> My Cart
+          </Link>
+          <a href="/customer/login" className="navbar-button">
+            Signout
+          </a>
+        </div>
 
         <div className='container d-flex justify-content-between border rounded p-2 shadow-sm align-items-center'>
           <small className='text-muted d-none d-md-block'></small>
@@ -190,6 +204,7 @@ class ShoppingPage extends Component {
             </Dropdown>
           </div>
         </div>
+
         {this.state.showProductModal && this.state.selectedProduct && (
           <div className='modal fade show' style={{ display: 'block' }}>
             <div className='modal-dialog modal-dialog-centered modal-lg'>
@@ -206,9 +221,9 @@ class ShoppingPage extends Component {
                       </div>
                       <div className='col-md-6'>
                         <p>Description: {this.state.selectedProduct.description?.stringValue}</p>
-                        <p>Price: ₺{this.state.selectedProduct.price?.integerValue}</p>
+                        <p>Price: Rs.{this.state.selectedProduct.price?.integerValue}</p>
                         <p>Quantity: {this.state.quantity}</p>
-                        <p>Total Price: ₺{this.state.totalPrice}</p>
+                        <p>Total Price: Rs.{this.state.totalPrice}</p>
                         <button className='btn btn-primary' onClick={this.openQuantityInputModal}>
                           Change Quantity
                         </button>
@@ -223,9 +238,10 @@ class ShoppingPage extends Component {
             </div>
           </div>
         )}
+
         <div className='container border rounded mt-2 px-0 px-sm-2 shadow-sm'>
           <div className='product-list'>
-            {filteredProducts.map((product, index) => {
+            {currentProducts.map((product, index) => {
               if (product) {
                 const category = product.category?.stringValue;
                 const description = product.description?.stringValue || product.descriprion?.stringValue; // Handle the typo
@@ -239,9 +255,7 @@ class ShoppingPage extends Component {
                     <ProductImg src={imageUrl} alt='Product' />
                     <p className='product-name'>{productName}</p>
                     <p className='product-description'>{description}</p>
-                    <p className='product-price'>Price: ₺{price}</p>
-                    
-                    
+                    <p className='product-price'>Price: Rs.{price}</p>
                     {this.openProductPage(product)}
                   </div>
                 );
@@ -251,6 +265,19 @@ class ShoppingPage extends Component {
             })}
           </div>
         </div>
+
+        <div className='pagination'>
+          {pageNumbers.map((number) => (
+            <span
+              key={number}
+              onClick={() => this.handlePagination(number)}
+              className={number === currentPage ? 'active' : ''}
+            >
+              {number}
+            </span>
+          ))}
+        </div>
+
         <Modal show={this.state.showSuccessModal} onHide={() => this.setState({ showSuccessModal: false })}>
           <Modal.Header closeButton>
             <Modal.Title>Order Placed Successfully</Modal.Title>

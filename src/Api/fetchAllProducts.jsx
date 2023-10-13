@@ -17,7 +17,7 @@ import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
 
 import { fetchShopSixProducts } from "./fetchShopSixProducts";
 
-import { fetchShopSevenProduct } from "./fetchShopSevenProducts";
+import { fetchShopSevenProducts } from "./fetchShopSevenProducts";
 
 
 

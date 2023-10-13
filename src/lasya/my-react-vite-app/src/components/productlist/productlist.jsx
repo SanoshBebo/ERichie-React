@@ -43,7 +43,17 @@ function ProductList({ isAdmin }) {
   return (
     <div>
 
-
+      <div className='navbar'>
+          <Link to="/erichie">Home Page</Link>
+          <Link to="/gaming">Go Back</Link>
+          <Link to="/erichie/cart" className="navbar-button">
+            <i className="fa fa-shopping-cart"></i> My Cart
+          </Link>
+          <a href="/customer/login" className="navbar-button">
+            Signout
+          </a>
+        </div>
+        <br></br>
       <div className="product-list-container">
         {error ? (
           <p>{error}</p>

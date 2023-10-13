@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
@@ -27,7 +26,6 @@ function ProductDescPage() {
       .get(apiUrl)
       .then((response) => {
         const productData = response.data.fields;
-        
         setProduct(productData);
         calculateTotalPrice(productData.price.doubleValue, quantity);
       })
@@ -63,24 +61,18 @@ function ProductDescPage() {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-      
       toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
     } else {
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
-
-    // Create an object with the product details and count
   };
 
   const handleBuyNow = () => {
-    // You can customize this part as per your requirements
-    // For simplicity, it sets the orderPlaced state to true.
     setOrderPlaced(true);
   };
 
   const handleClose = () => {
-    // Navigate to "/shop05" when the "Close" button is clicked
     navigate("/shop05");
   };
 
@@ -89,59 +81,100 @@ function ProductDescPage() {
   }
 
   return (
-    <div className="product-description-container">
-      <div className="product-description">
-        <h1>{product.productname.stringValue}</h1>
+    <div>
+       <style>
+        {`
+          .centered-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          }
 
-        <img
-          src={product.imageUrl.stringValue}
-          alt={product.productname.stringValue}
-          className="product-image1"
-        />
+          .centered-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+          }
+          .quantity-button {
+            display: inline-block;
+            background-color: #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+          }
+        `}
+      </style>
+      <div className="centered-container">
+      <div className="centered-card">
+        <h1>{product.productname.stringValue}</h1>
+        <div className="image-container">
+          <img
+            src={product.imageUrl.stringValue}
+            alt={product.productname.stringValue}
+            className="product-image1"
+          />
+        </div>
         <p>Description: {product.description.stringValue}</p>
         <p>Price: Rs.{product.price.doubleValue}</p>
-
-        <label>Quantity: </label>
-        <input
-          type="number"
-          value={quantity}
-          onChange={(e) => {
-            const newQuantity = parseInt(e.target.value, 10) || 1;
-            setQuantity(newQuantity);
-          }}
-          className="quantity-input"
-        />
-     
-      
-
-
+        <div className="quantity-container">
+          <button
+            className="quantity-button"
+            onClick={() => {
+              setQuantity(quantity - 1 > 0 ? quantity - 1 : 1);
+            }}
+          >
+            -
+          </button>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => {
+              const newQuantity = parseInt(e.target.value, 10) || 1;
+              setQuantity(newQuantity);
+            }}
+            className="quantity-input"
+          />
+          <button
+            className="quantity-button"
+            onClick={() => {
+              setQuantity(quantity + 1);
+            }}
+          >
+            +
+          </button>
+        </div>
         <p>Total Price: ${totalPrice}</p>
-
         <button
           onClick={() => {
             addToCart();
           }}
+          style={{ backgroundColor: "green", color: "white" }}
           className="buy-button"
         >
           Add to Cart
         </button>
-        <button onClick={() => {
-  history.push('/shop05/'); // Replace '/' with the actual URL of your home page
-}}>
-  Back to Home
-</button>
+        <button
+          onClick={handleClose}
+          className="buy-button"
+          style={{ backgroundColor: "blue", color: "white" }}
+        >
+          Back to Home
+        </button>
         {orderPlaced && (
           <div>
             <div className="overlay" />
             <div className="popup">
               <p>Order Successfully Placed</p>
               <button onClick={handleClose}>Close</button>
-              {/* You can add additional information or actions here */}
             </div>
           </div>
         )}
       </div>
     </div>
+  </div>
   );
 }
+
 export default ProductDescPage;

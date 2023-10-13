@@ -215,3 +215,49 @@
 
 }
 
+/* Add these styles for the search bar */
+.search-bar {
+  margin: 10px;
+}
+
+.search-bar input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  color: black; /* Set text color to black */
+}
+
+.search-bar button {
+  background-color: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+.navbar-button {
+  margin-right: 10px; /* Add spacing between buttons */
+  padding: 10px 20px; /* Adjust padding for buttons */
+  background-color: #0074D9; /* Button background color */
+  color: #FFF; /* Text color */
+  border: none;
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer;
+}
+
+/* Style for the Cart icon */
+.navbar-button.cart-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust the search bar input color */
+.search-bar input[type="text"] {
+  color: #000; /* Black text color */
+}
+

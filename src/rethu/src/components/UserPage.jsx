@@ -130,10 +130,6 @@ const addOrderToFirestore = () => {
         <ul className="list-elements">
            
             <li>
-              <a href="/">Home</a>
-            </li>
-           
-            <li>
               <i className="fa fa-shopping-cart cart">
                 {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
               </i>
@@ -156,16 +152,22 @@ const addOrderToFirestore = () => {
             >
               Sign Out
             </li>
+            <li>
+            <Link to="/gaming">Go Back to Home</Link>
+            </li>
+            <li>
+            <Link to="/erichie">HomePage</Link>
+            </li>
+            <li
+              className="cursor-pointer hover:underline"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </li>
           </ul>
+        
         </nav>
       </header>
-      <div className="navbar">
-      <Link to="/gaming">Gaming</Link>
-      <Link to="/erichie">HomePage</Link>
-      <div className="cart-icon" onClick={() => history.push('/cart')}>
-        <FaShoppingCart />
-      </div>
-    </div>
 
       <div>
         <h1 className="store-name">Welcome to the Dead Eye Game Store!</h1>
@@ -178,6 +180,7 @@ const addOrderToFirestore = () => {
               src={product.fields.imageUrl?.stringValue || ''}
               alt={product.fields.productname?.stringValue || ''}
               className="product-image2"
+              style={{ width: '50%' }} // Set the width to 30%
             />
             <h4>{product.fields.productname?.stringValue || ''}</h4>
             <p>Price: ${product.fields.price?.doubleValue || 0}</p>

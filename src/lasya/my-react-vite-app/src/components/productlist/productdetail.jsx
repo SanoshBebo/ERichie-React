@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
 import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
 import { setUser } from '../../../../../SanoshProject/redux/shopOneUserSlice';
 
-import { useDispatch, useSelector } from "react-redux";
-=======
-import { setUser } from "../../../../../SanoshProject/redux/shopOneProductSlice";
-import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
-import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
->>>>>>> 4d3cc134fa1d395811c2b606e2d38e943c80b86c
 function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -44,15 +37,15 @@ function ProductDescPage() {
     setTotalPrice(total);
   };
 
-   useEffect(() => {
-    if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
-      navigate("/customer/login");
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role === 'shopkeeper') {
+      navigate('/customer/login');
     }
   }, [isLoadingUser, user, navigate]);
 
   const addToCart = () => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData && userData.role == "customer") {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (userData && userData.role === 'customer') {
       dispatch(setUser(userData));
       console.log(product);
       const cartItem = {
@@ -66,15 +59,14 @@ function ProductDescPage() {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-      
-      toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
+
+      // toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
     } else {
-      navigate("/customer/login");
+      navigate('/customer/login');
     }
     setIsLoadingUser(false);
-
-    // Create an object with the product details and count
   };
+
   const handleBuyNow = () => {
     // You can customize this part as per your requirements
     // For simplicity, it sets the orderPlaced state to true.
@@ -91,53 +83,80 @@ function ProductDescPage() {
   }
 
   return (
-    <div className="product-description">
-      <h1>{product.productname.stringValue}</h1>
-      <img src={product.imageUrl.stringValue} alt={product.productname.stringValue} />
-      <p>Description: {product.description.stringValue}</p>
-      <p>Price: ${product.price.doubleValue}</p>
-
-      <label>Quantity: </label>
-      <input
-        type="number"
-        value={quantity}
-        onChange={(e) => {
-          const newQuantity = parseInt(e.target.value, 10) || 1;
-          setQuantity(newQuantity);
-          calculateTotalPrice(product.price.doubleValue, newQuantity);
-        }}
-      />
-
-      <p>Total Price: ${totalPrice}</p>
-
-      <button
-        onClick={() => {
-          addToCart();
-        }}
-      >
-        Buy Now
-      </button>
-
-       
-      <button onClick={() => {
-      history.push('/shop06/'); // Replace '/' with the actual URL of your home page
-     }}>
-  Back to Home
-   </button>
-
-
-      {orderPlaced && (
-        <div>
-          <div className="overlay" />
-          <div className="popup">
-            <p>Order Successfully Placed</p>
-            <button onClick={handleClose}>Close</button>
-            {/* You can add additional information or actions here */}
-          </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <div style={{ textAlign: 'center' }}>
+      <div className="product-card">
+        <h1>{product.productname.stringValue}</h1>
+        <img
+          src={product.imageUrl.stringValue}
+          alt={product.productname.stringValue}
+          style={{ width: '70%' }} // Decrease image size to 40%
+        />
+        <p>Description: {product.description.stringValue}</p>
+        <p>Price: ${product.price.doubleValue}</p>
+        <div className="quantity-control">
+          <label>Quantity: </label>
+          <button
+            className="quantity-button"
+            onClick={() => {
+              const newQuantity = quantity - 1 > 0 ? quantity - 1 : 1;
+              setQuantity(newQuantity);
+              calculateTotalPrice(product.price.doubleValue, newQuantity);
+            }}
+          >
+            -
+          </button>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => {
+              const newQuantity = parseInt(e.target.value, 10) || 1;
+              setQuantity(newQuantity);
+              calculateTotalPrice(product.price.doubleValue, newQuantity);
+            }}
+          />
+          <button
+            className="quantity-button"
+            onClick={() => {
+              setQuantity(quantity + 1);
+              calculateTotalPrice(product.price.doubleValue, quantity + 1);
+            }}
+          >
+            +
+          </button>
         </div>
-      )}
+        <p>Total Price: ${totalPrice}</p>
+        <button
+          className="buy-button"
+          onClick={() => {
+            addToCart();
+          }}
+        >
+          <span style={{ color: 'white' }}>Add to Cart</span>
+        </button>
+        <button
+            className="back-button"
+            onClick={() => {
+              navigate('/shop06'); // Use the navigate function to go back to the home page
+            }}
+          >
+            <span style={{ color: 'white' }}>Back to Home</span>
+          </button>
+        {orderPlaced && (
+          <div>
+            <div className="overlay" />
+            <div className="popup">
+              <p>Order Successfully Placed</p>
+              <button className="close-button" onClick={handleClose}>Close</button>
+              {/* You can add additional information or actions here */}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-  );
+  </div>
+);
 }
+
 
 export default ProductDescPage;
