@@ -100,7 +100,7 @@ const MediaCategory = () => {
                       product.stock === 0 ? "text-gray-500" : ""
                     }`}
                   >
-                    <div className="h-70 w-70 relative">
+                    <div className=" w-48 relative">
                       <img
                         src={product.imageurl}
                         alt={product.name}

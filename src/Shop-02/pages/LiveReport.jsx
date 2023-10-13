@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { format } from 'date-fns';
-import { getOrderByDateFromFireStore } from './getorderdetails';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { format } from "date-fns";
+import { getOrderByDateFromFireStore } from "./getorderdetails";
 
 const Dailyinventory = () => {
   const [productdata, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [todayDate, setTodayDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const [todayDate, setTodayDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [inventoryData, setInventoryData] = useState([]);
 
   useEffect(() => {
     // Fetch product data
     axios
-      .get('https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products')
+      .get(
+        "https://firestore.googleapis.com/v1/projects/adminstore-196a7/databases/(default)/documents/Products"
+      )
       .then((productResponse) => {
         const products = productResponse.data.documents.map((doc) => {
           const fields = doc.fields;
           return {
-            id: doc.name.split('/').pop(),
+            id: doc.name.split("/").pop(),
             productName: fields.productname.stringValue,
             currentStock: fields.stock.integerValue,
           };
@@ -25,7 +27,7 @@ const Dailyinventory = () => {
         setProductData(products);
       })
       .catch((error) => {
-        console.error('Error fetching product data:', error);
+        console.error("Error fetching product data:", error);
         setLoading(false);
       });
 
@@ -43,7 +45,8 @@ const Dailyinventory = () => {
 
         const inventoryData = productdata.map((product) => {
           const todaysSales = todaySalesMap[product.id] || 0;
-          const openingStock = parseInt(product.currentStock) + parseInt(todaysSales);
+          const openingStock =
+            parseInt(product.currentStock) + parseInt(todaysSales);
           const currentStock = openingStock - todaysSales;
           return {
             ...product,
@@ -57,7 +60,7 @@ const Dailyinventory = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching product data:', error);
+        console.error("Error fetching product data:", error);
       });
   }, [productdata]);
 

@@ -60,6 +60,9 @@ const CartComponent = () => {
         setIsDataLoaded(true);
       }
       setIsLoadingUser(false);
+      const result = await fetchAllProducts();
+
+      setAllProducts(result);
     };
 
     fetchCartAndProducts();

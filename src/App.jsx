@@ -168,6 +168,14 @@ const App = () => {
         <Router>
           <Routes>
             <Route
+              path="/"
+              element={
+                <ERichieLayout>
+                  <MainHomePage />
+                </ERichieLayout>
+              }
+            />
+            <Route
               path="/erichie"
               element={
                 <ERichieLayout>

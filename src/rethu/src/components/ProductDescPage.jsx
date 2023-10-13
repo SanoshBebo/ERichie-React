@@ -7,9 +7,9 @@ import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -55,19 +55,20 @@ function ProductDescPage() {
       console.log(product);
       const cartItem = {
         id: productId,
-        name: product.productname,
-        description: product.description,
-        shopid: product.shopid,
-        stock: product.stock,
-        price: product.price,
-        imageurl: product.imageUrl,
+        name: product.productname.stringValue,
+        description: product.description.stringValue,
+        shopid: product.shopid.stringValue,
+        stock: product.stock.integerValue,
+        price: parseInt(product.price.doubleValue, 10),
+        imageurl: product.imageUrl.stringValue,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-      toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
+      toast.success("Product added successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } else {
-      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
@@ -87,7 +88,7 @@ function ProductDescPage() {
 
   return (
     <div>
-       <style>
+      <style>
         {`
           .centered-container {
             display: flex;
@@ -112,73 +113,73 @@ function ProductDescPage() {
         `}
       </style>
       <div className="centered-container">
-      <div className="centered-card">
-        <h1>{product.productname.stringValue}</h1>
-        <div className="image-container">
-          <img
-            src={product.imageUrl.stringValue}
-            alt={product.productname.stringValue}
-            className="product-image1"
-          />
-        </div>
-        <p>Description: {product.description.stringValue}</p>
-        <p>Price: Rs.{product.price.doubleValue}</p>
-        <div className="quantity-container">
-          <button
-            className="quantity-button"
-            onClick={() => {
-              setQuantity(quantity - 1 > 0 ? quantity - 1 : 1);
-            }}
-          >
-            -
-          </button>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              const newQuantity = parseInt(e.target.value, 10) || 1;
-              setQuantity(newQuantity);
-            }}
-            className="quantity-input"
-          />
-          <button
-            className="quantity-button"
-            onClick={() => {
-              setQuantity(quantity + 1);
-            }}
-          >
-            +
-          </button>
-        </div>
-        <p>Total Price: ${totalPrice}</p>
-        <button
-          onClick={() => {
-            addToCart();
-          }}
-          style={{ backgroundColor: "green", color: "white" }}
-          className="buy-button"
-        >
-          Add to Cart
-        </button>
-        <button
-          onClick={handleClose}
-          className="buy-button"
-          style={{ backgroundColor: "blue", color: "white" }}
-        >
-          Back to Home
-        </button>
-        {orderPlaced && (
-          <div>
-            <div className="overlay" />
-            <div className="popup">
-              <p>Order Successfully Placed</p>
-              <button onClick={handleClose}>Close</button>
-            </div>
+        <div className="centered-card">
+          <h1>{product.productname.stringValue}</h1>
+          <div className="image-container">
+            <img
+              src={product.imageUrl.stringValue}
+              alt={product.productname.stringValue}
+              className="product-image1"
+            />
           </div>
-        )}
+          <p>Description: {product.description.stringValue}</p>
+          <p>Price: Rs.{product.price.doubleValue}</p>
+          <div className="quantity-container">
+            <button
+              className="quantity-button"
+              onClick={() => {
+                setQuantity(quantity - 1 > 0 ? quantity - 1 : 1);
+              }}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                const newQuantity = parseInt(e.target.value, 10) || 1;
+                setQuantity(newQuantity);
+              }}
+              className="quantity-input"
+            />
+            <button
+              className="quantity-button"
+              onClick={() => {
+                setQuantity(quantity + 1);
+              }}
+            >
+              +
+            </button>
+          </div>
+          <p>Total Price: ${totalPrice}</p>
+          <button
+            onClick={() => {
+              addToCart();
+            }}
+            style={{ backgroundColor: "green", color: "white" }}
+            className="buy-button"
+          >
+            Add to Cart
+          </button>
+          <button
+            onClick={handleClose}
+            className="buy-button"
+            style={{ backgroundColor: "blue", color: "white" }}
+          >
+            Back to Home
+          </button>
+          {orderPlaced && (
+            <div>
+              <div className="overlay" />
+              <div className="popup">
+                <p>Order Successfully Placed</p>
+                <button onClick={handleClose}>Close</button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 

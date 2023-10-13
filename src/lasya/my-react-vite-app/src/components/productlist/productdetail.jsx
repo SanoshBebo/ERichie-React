@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from '../../../../../SanoshProject/redux/shopOneCartSlice';
-import { addCartToFirestore } from '../../../../../Api/CartOperationsFirestore';
-import { setUser } from '../../../../../SanoshProject/redux/shopOneUserSlice';
+import { addItemToCart } from "../../../../../SanoshProject/redux/shopOneCartSlice";
+import { addCartToFirestore } from "../../../../../Api/CartOperationsFirestore";
+import { setUser } from "../../../../../SanoshProject/redux/shopOneUserSlice";
 
 function ProductDescPage() {
   const { productId } = useParams();
@@ -28,7 +28,7 @@ function ProductDescPage() {
         calculateTotalPrice(productData.price.doubleValue, quantity);
       })
       .catch((error) => {
-        console.error('Error fetching product data: ', error);
+        console.error("Error fetching product data: ", error);
       });
   }, [productId, quantity]);
 
@@ -38,24 +38,24 @@ function ProductDescPage() {
   };
 
   useEffect(() => {
-    if ((!isLoadingUser && user.length === 0) || user.role === 'shopkeeper') {
-      navigate('/customer/login');
+    if ((!isLoadingUser && user.length === 0) || user.role === "shopkeeper") {
+      navigate("/customer/login");
     }
   }, [isLoadingUser, user, navigate]);
 
   const addToCart = () => {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    if (userData && userData.role === 'customer') {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.role === "customer") {
       dispatch(setUser(userData));
       console.log(product);
       const cartItem = {
         id: productId,
-        name: product.productname,
-        description: product.description,
-        stock: product.stock,
-        shopid:product.shopid,
-        price: product.price,
-        imageurl: product.imageUrl,
+        name: product.productname.stringValue,
+        description: product.description.stringValue,
+        stock: product.stock.integerValue,
+        shopid: product.shopid.stringValue,
+        price: product.price.doubleValue,
+        imageurl: product.imageUrl.stringValue,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
@@ -77,7 +77,7 @@ function ProductDescPage() {
 
   const handleClose = () => {
     // Navigate to "/shop05" when the "Close" button is clicked
-    navigate('/shop06');
+    navigate("/shop06");
   };
 
   if (!product) {
@@ -85,80 +85,88 @@ function ProductDescPage() {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    <div style={{ textAlign: 'center' }}>
-      <div className="product-card">
-        <h1>{product.productname.stringValue}</h1>
-        <img
-          src={product.imageUrl.stringValue}
-          alt={product.productname.stringValue}
-          style={{ width: '70%' }} // Decrease image size to 40%
-        />
-        <p>Description: {product.description.stringValue}</p>
-        <p>Price: ${product.price.doubleValue}</p>
-        <div className="quantity-control">
-          <label>Quantity: </label>
-          <button
-            className="quantity-button"
-            onClick={() => {
-              const newQuantity = quantity - 1 > 0 ? quantity - 1 : 1;
-              setQuantity(newQuantity);
-              calculateTotalPrice(product.price.doubleValue, newQuantity);
-            }}
-          >
-            -
-          </button>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              const newQuantity = parseInt(e.target.value, 10) || 1;
-              setQuantity(newQuantity);
-              calculateTotalPrice(product.price.doubleValue, newQuantity);
-            }}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
+        <div className="product-card">
+          <h1>{product.productname.stringValue}</h1>
+          <img
+            src={product.imageUrl.stringValue}
+            alt={product.productname.stringValue}
+            style={{ width: "70%" }} // Decrease image size to 40%
           />
+          <p>Description: {product.description.stringValue}</p>
+          <p>Price: ${product.price.doubleValue}</p>
+          <div className="quantity-control">
+            <label>Quantity: </label>
+            <button
+              className="quantity-button"
+              onClick={() => {
+                const newQuantity = quantity - 1 > 0 ? quantity - 1 : 1;
+                setQuantity(newQuantity);
+                calculateTotalPrice(product.price.doubleValue, newQuantity);
+              }}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                const newQuantity = parseInt(e.target.value, 10) || 1;
+                setQuantity(newQuantity);
+                calculateTotalPrice(product.price.doubleValue, newQuantity);
+              }}
+            />
+            <button
+              className="quantity-button"
+              onClick={() => {
+                setQuantity(quantity + 1);
+                calculateTotalPrice(product.price.doubleValue, quantity + 1);
+              }}
+            >
+              +
+            </button>
+          </div>
+          <p>Total Price: ${totalPrice}</p>
           <button
-            className="quantity-button"
+            className="buy-button"
             onClick={() => {
-              setQuantity(quantity + 1);
-              calculateTotalPrice(product.price.doubleValue, quantity + 1);
+              addToCart();
             }}
           >
-            +
+            <span style={{ color: "white" }}>Add to Cart</span>
           </button>
-        </div>
-        <p>Total Price: ${totalPrice}</p>
-        <button
-          className="buy-button"
-          onClick={() => {
-            addToCart();
-          }}
-        >
-          <span style={{ color: 'white' }}>Add to Cart</span>
-        </button>
-        <button
+          <button
             className="back-button"
             onClick={() => {
-              navigate('/shop06'); // Use the navigate function to go back to the home page
+              navigate("/shop06"); // Use the navigate function to go back to the home page
             }}
           >
-            <span style={{ color: 'white' }}>Back to Home</span>
+            <span style={{ color: "white" }}>Back to Home</span>
           </button>
-        {orderPlaced && (
-          <div>
-            <div className="overlay" />
-            <div className="popup">
-              <p>Order Successfully Placed</p>
-              <button className="close-button" onClick={handleClose}>Close</button>
-              {/* You can add additional information or actions here */}
+          {orderPlaced && (
+            <div>
+              <div className="overlay" />
+              <div className="popup">
+                <p>Order Successfully Placed</p>
+                <button className="close-button" onClick={handleClose}>
+                  Close
+                </button>
+                {/* You can add additional information or actions here */}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
-
 
 export default ProductDescPage;

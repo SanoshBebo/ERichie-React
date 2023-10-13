@@ -15,12 +15,11 @@ const ProductDetail = () => {
 
   const apiUrl = `https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products/${productId}`;
 
-const user = useSelector((state) => state.shoponeuser.user);
+  const user = useSelector((state) => state.shoponeuser.user);
   const [quantity, setQuantity] = useState(1);
- const dispatch = useDispatch(); // You can use useDispatch here
+  const dispatch = useDispatch(); // You can use useDispatch here
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
-
 
   const buyNow = () => {
     // Implement your logic for buying the product here
@@ -35,12 +34,12 @@ const user = useSelector((state) => state.shoponeuser.user);
       console.log(product);
       const cartItem = {
         id: productId,
-        name: product.productname,
-        description: product.description,
-        stock: product.stock,
-        price: product.price,
-        shopid : product.shopid,
-        imageurl: product.imageurl,
+        name: product.productname.stringValue,
+        description: product.description.stringValue,
+        stock: product.stock.integerValue,
+        price: product.price.integerValue,
+        shopid: product.shopid.stringValue,
+        imageurl: product.imageurl.stringValue,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
@@ -55,10 +54,13 @@ const user = useSelector((state) => state.shoponeuser.user);
   };
 
   useEffect(() => {
-    axios.get(apiUrl).then((response) => {
+    axios
+      .get(apiUrl)
+      .then((response) => {
         const productData = response.data.fields;
         setProduct(productData);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error fetching product details: ", error);
       });
   }, [apiUrl, productId]);
@@ -68,20 +70,20 @@ const user = useSelector((state) => state.shoponeuser.user);
       navigate("/customer/login");
     }
   }, [isLoadingUser, user, navigate]);
-  
+
   if (!product) {
     return <div>Loading...</div>;
   }
 
   return (
     <section className="shop_14">
-       {/* Add a Back button to navigate back to the user page */}
-       <button className="back-button" onClick={() => navigate("/shop14/")}>
-          Back
-        </button>
+      {/* Add a Back button to navigate back to the user page */}
+      <button className="back-button" onClick={() => navigate("/shop14/")}>
+        Back
+      </button>
       <div className="product-detail-page_shop14">
         <h1>Digital Genie</h1>
-         
+
         <div className="product-details_shop14">
           <h2>Product Details</h2>
           <img
@@ -116,6 +118,6 @@ const user = useSelector((state) => state.shoponeuser.user);
       </div>
     </section>
   );
-}
+};
 
 export default ProductDetail;

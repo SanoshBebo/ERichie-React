@@ -3,7 +3,8 @@ import { fetchProducts } from "./ApiCalls";
 const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
-export const getOrderByDateFromFireStore = async () => {
+export const getOrderByDateFromFireStore = async (shopid) => {
+  console.log(shopid);
   const allproducts = await fetchProducts();
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
@@ -33,7 +34,10 @@ export const getOrderByDateFromFireStore = async () => {
               const purchaseDate = document.fields.purchasedate.timestampValue;
               const purchaseDateStr = purchaseDate.split("T")[0]; // Extract the date part
               const todayDate = new Date().toISOString().split("T")[0];
-              return purchaseDateStr === todayDate && document.fields.shopid.stringValue == "shop01"; // Compare with today's date
+              return (
+                purchaseDateStr === todayDate &&
+                document.fields.shopid.stringValue == shopid
+              ); // Compare with today's date
             })
             .map((document) => {
               const documentNameParts = document.name.split("/");
@@ -48,15 +52,15 @@ export const getOrderByDateFromFireStore = async () => {
                 email,
               } = document.fields;
 
-
               const user = userDocuments.find((document) => {
-                console.log(document.fields.email.stringValue,email.stringValue)
-                return (
-                  document.fields.email.stringValue == email.stringValue
+                console.log(
+                  document.fields.email.stringValue,
+                  email.stringValue
                 );
+                return document.fields.email.stringValue == email.stringValue;
               });
 
-              console.log(user)
+              console.log(user);
               const userInfo = user.fields;
 
               const productInfo = allproducts.find((prod) => {
@@ -75,7 +79,6 @@ export const getOrderByDateFromFireStore = async () => {
                 email: email.stringValue,
                 orderid: documentId,
                 currentstock: productInfo.stock,
-
               };
             });
 
@@ -132,7 +135,9 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
               endDateCopy.setHours(23, 59, 59, 999);
               // Compare purchaseDate with the specified date range
               return (
-                purchaseDate >= startDateCopy && purchaseDate <= endDateCopy && document.fields.shopid.stringValue == "shop01"
+                purchaseDate >= startDateCopy &&
+                purchaseDate <= endDateCopy &&
+                document.fields.shopid.stringValue == "shop01"
               );
             })
             .map((document) => {
@@ -149,20 +154,18 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
               } = document.fields;
 
               const user = userDocuments.find((document) => {
-                return (
-                  document.fields.email.stringValue == email.stringValue
-                );
+                return document.fields.email.stringValue == email.stringValue;
               });
 
               const userInfo = user.fields;
 
-              console.log(userInfo)
+              console.log(userInfo);
               const productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
-              console.log(productInfo)
-              
-              console.log(document)
+              console.log(productInfo);
+
+              console.log(document);
               return {
                 name: userInfo.name.stringValue,
                 productname: productInfo.productname,

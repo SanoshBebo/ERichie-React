@@ -98,7 +98,7 @@ export const fetchCart = async (loggedInEmail) => {
               const product = shopProducts.find(
                 (product) => product.productid === productid.stringValue
               );
-
+              console.log(product);
               console.log(document);
 
               return {

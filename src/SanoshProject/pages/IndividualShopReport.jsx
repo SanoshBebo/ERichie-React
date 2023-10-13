@@ -23,7 +23,8 @@ const IndividualShopReport = () => {
   const offset = currentPage * ordersPerPage;
   const currentPageData = orders.slice(offset, offset + ordersPerPage);
   useEffect(() => {
-    getOrderByDateFromFireStore()
+    const shopid = "shop01";
+    getOrderByDateFromFireStore(shopid)
       .then((todaysOrders) => {
         console.log(todaysOrders);
         setOrders(todaysOrders);
@@ -71,7 +72,9 @@ const IndividualShopReport = () => {
                   Product Name
                 </th>
                 <th className="border-b border-gray-300 px-4 py-2">Quantity</th>
-                <th className="border-b border-gray-300 px-4 py-2">Current Stock</th>
+                <th className="border-b border-gray-300 px-4 py-2">
+                  Current Stock
+                </th>
                 <th className="border-b border-gray-300 px-4 py-2">
                   Total Price
                 </th>

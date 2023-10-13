@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const DailyInventoryReport = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [inventoryData, setInventoryData] = useState([]);
 
   useEffect(() => {
@@ -33,10 +35,16 @@ const DailyInventoryReport = () => {
             {inventoryData.length > 0 ? (
               inventoryData.map((item) => (
                 <tr key={item.productId}>
-                  <td className="border border-gray-300 p-2">{item.productName}</td>
-                  <td className="border border-gray-300 p-2">{item.openingStock}</td>
+                  <td className="border border-gray-300 p-2">
+                    {item.productName}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {item.openingStock}
+                  </td>
                   <td className="border border-gray-300 p-2">{item.sales}</td>
-                  <td className="border border-gray-300 p-2">{item.currentStock}</td>
+                  <td className="border border-gray-300 p-2">
+                    {item.currentStock}
+                  </td>
                 </tr>
               ))
             ) : (
