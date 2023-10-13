@@ -354,7 +354,7 @@ const App = () => {
           />
 
           <Route
-            path="/productinfo/:id"
+            path="/shop09/product/:id"
             element={<SashaankProductInfo />}
             />
           <Route

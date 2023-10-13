@@ -28,7 +28,7 @@ export const fetchShop09 = async () => {
             return {
               description: description.stringValue,
               price: price.stringValue,
-              title: title.stringValue,
+              productname: title.stringValue,
               shopid: shopid.stringValue,
               category: category.stringValue,
               imageurl: imageUrl.stringValue,
