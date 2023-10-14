@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './ProductForm.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./ProductForm.css";
 
 const ProductForm = () => {
-  const firestoreApiKey = 'AIzaSyAMTkJfx4_ZowkhsFySraPbqI-ZoGOEt6U';
-  const firestoreProjectId = 'e-ritchie';   
-  const firestoreCollection = 'Products';
+  const firestoreApiKey = "AIzaSyAMTkJfx4_ZowkhsFySraPbqI-ZoGOEt6U";
+  const firestoreProjectId = "e-ritchie";
+  const firestoreCollection = "Products";
 
   const [product, setProduct] = useState({
-    productname: '',
-    description: '',
-    price: '',
-    stock: '',
-    imageUrl: '',
-    category: '',
-    shopname: 'E-nerd', // Set shopname to 'E-nerd'
-    shopid: 'shop02',   // Set shopid to 'shop12'
+    productname: "",
+    description: "",
+    price: "",
+    stock: "",
+    imageUrl: "",
+    category: "",
+    shopname: "E-nerd", // Set shopname to 'E-nerd'
+    shopid: "shop02", // Set shopid to 'shop12'
   });
 
   const [imageFile, setImageFile] = useState(null);
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,19 +33,21 @@ const ProductForm = () => {
   const uploadImageToFirebaseStorage = async () => {
     try {
       const apiKey = firestoreApiKey;
-      const bucketName = 'e-ritchie.appspot.com'; // Replace with your Firebase Storage bucket name
+      const bucketName = "e-ritchie.appspot.com"; // Replace with your Firebase Storage bucket name
       const storagePath = `products/${imageFile.name}`;
 
       const formData = new FormData();
-      formData.append('file', imageFile);
+      formData.append("file", imageFile);
 
       const uploadResponse = await axios.post(
-        `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o?name=${encodeURIComponent(storagePath)}`,
+        `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o?name=${encodeURIComponent(
+          storagePath
+        )}`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -57,11 +58,11 @@ const ProductForm = () => {
         )}?alt=media`;
         return downloadUrl;
       } else {
-        console.error('Error uploading image:', uploadResponse.statusText);
+        console.error("Error uploading image:", uploadResponse.statusText);
         return null;
       }
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
       return null;
     }
   };
@@ -76,7 +77,7 @@ const ProductForm = () => {
         // Add the shop ID to the product data
         const updatedProduct = {
           ...product,
-          shopid: { stringValue: 'shop02' }, // Replace with your desired shop ID
+          shopid: { stringValue: "shop02" }, // Replace with your desired shop ID
         };
 
         const firestoreResponse = await axios.post(
@@ -95,28 +96,28 @@ const ProductForm = () => {
           }
         );
 
-        console.log('Product added:', firestoreResponse.data);
+        console.log("Product added:", firestoreResponse.data);
         setProduct({
-          productname: '',
-          description: '',
-          price: '',
-          stock: '',
-          imageUrl: '',
-          category: '',
-          shopname: '',
-          shopid: '',
+          productname: "",
+          description: "",
+          price: "",
+          stock: "",
+          imageUrl: "",
+          category: "",
+          shopname: "",
+          shopid: "",
         });
         setImageFile(null);
       } else {
-        console.error('Error uploading image or retrieving image URL.');
+        console.error("Error uploading image or retrieving image URL.");
       }
     } catch (error) {
-      console.error('Error adding product:', error);
+      console.error("Error adding product:", error);
     }
   };
 
   return (
-    <div className="product-form-container">
+    <div className="product-form-container bg-gray-200">
       <h2>Add a New Product</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-fields">
@@ -198,29 +199,27 @@ const ProductForm = () => {
 
           <label>
             Image File:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
+            <input type="file" accept="image/*" onChange={handleFileChange} />
           </label>
-
-          
         </div>
 
-       
         {imageFile && (
           <div>
             <img
               src={URL.createObjectURL(imageFile)}
               alt="Product Preview"
-              style={{ maxWidth: '200px', maxHeight: '200px' }}
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
             />
           </div>
         )}
 
         <br />
-        <button type="submit">Add Product</button>
+        <button
+          type="submit"
+          className="p-2 bg-slate-400 border border-gray-700"
+        >
+          Add Product
+        </button>
       </form>
     </div>
   );

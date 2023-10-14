@@ -4,7 +4,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #e259c4;
+  background-color: lightblue;
 }
 
 .product-form-container h2 {
@@ -16,7 +16,8 @@
   margin-bottom: 5px;
 }
 
-.form-fields input, .form-fields textarea {
+.form-fields input,
+.form-fields textarea {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
