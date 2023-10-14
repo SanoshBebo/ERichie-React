@@ -173,9 +173,7 @@ const CartComponent = () => {
                 </li>
               ))
             ) : (
-              <div>
-                <h1 className="absolute">No Items Available In Cart</h1>
-              </div>
+              <h1 className="font-bold text-xl">No Items Available In Cart</h1>
             )}
           </ul>
         ) : (
