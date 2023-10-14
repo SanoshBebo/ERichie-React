@@ -25,7 +25,7 @@ function ProductDescPage() {
       .then((response) => {
         const productData = response.data.fields;
         setProduct(productData);
-        calculateTotalPrice(productData.price.doubleValue, quantity);
+        calculateTotalPrice(productData.price.integerValue, quantity);
       })
       .catch((error) => {
         console.error("Error fetching product data: ", error);
@@ -54,7 +54,7 @@ function ProductDescPage() {
         description: product.description.stringValue,
         stock: product.stock.integerValue,
         shopid: product.shopid.stringValue,
-        price: product.price.doubleValue,
+        price: product.price.integerValue,
         imageurl: product.imageUrl.stringValue,
         quantity: quantity,
       };
@@ -121,14 +121,14 @@ function ProductDescPage() {
               onChange={(e) => {
                 const newQuantity = parseInt(e.target.value, 10) || 1;
                 setQuantity(newQuantity);
-                calculateTotalPrice(product.price.doubleValue, newQuantity);
+                calculateTotalPrice(product.price.integerValue, newQuantity);
               }}
             />
             <button
               className="quantity-button"
               onClick={() => {
                 setQuantity(quantity + 1);
-                calculateTotalPrice(product.price.doubleValue, quantity + 1);
+                calculateTotalPrice(product.price.integerValue, quantity + 1);
               }}
             >
               +

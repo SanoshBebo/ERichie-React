@@ -191,9 +191,9 @@ const App = () => {
             <Route
               path="/erichie/overall-report"
               element={
-                <ERichieLayout>
+                <AdminLayout>
                   <OverallReport />
-                </ERichieLayout>
+                </AdminLayout>
               }
             />
             <Route

@@ -1,11 +1,11 @@
 // ProductList.js
-import './productlist.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import ReactPaginate from 'react-js-pagination';
+import "./productlist.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import ReactPaginate from "react-js-pagination";
 //import { useHistory } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart } from "react-icons/fa";
 
 function ProductList({ isAdmin }) {
   const [products, setProducts] = useState([]);
@@ -16,16 +16,18 @@ function ProductList({ isAdmin }) {
   useEffect(() => {
     // Replace 'YOUR_BACKEND_API_URL/products' with your actual backend API endpoint URL
     axios
-      .get('https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products')
+      .get(
+        "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products"
+      )
       .then((response) => {
         const productList = response.data.documents.map((doc) => ({
-          id: doc.name.split('/').pop(),
+          id: doc.name.split("/").pop(),
           fields: doc.fields,
         }));
         setProducts(productList);
-             })
+      })
       .catch((error) => {
-        setError('Error fetching products: ' + error.message);
+        setError("Error fetching products: " + error.message);
       });
   }, []);
 
@@ -42,18 +44,17 @@ function ProductList({ isAdmin }) {
 
   return (
     <div>
-
-      <div className='navbar'>
-          <Link to="/erichie">Home Page</Link>
-          <Link to="/gaming">Go Back</Link>
-          <Link to="/erichie/cart" className="navbar-button">
-            <i className="fa fa-shopping-cart"></i> My Cart
-          </Link>
-          <a href="/customer/login" className="navbar-button">
-            Signout
-          </a>
-        </div>
-        <br></br>
+      <div className="navbar">
+        <Link to="/erichie">Home Page</Link>
+        <Link to="/gaming">Go Back</Link>
+        <Link to="/erichie/cart" className="navbar-button">
+          <i className="fa fa-shopping-cart"></i> My Cart
+        </Link>
+        <a href="/customer/login" className="navbar-button">
+          Signout
+        </a>
+      </div>
+      <br></br>
       <div className="product-list-container">
         {error ? (
           <p>{error}</p>
@@ -61,12 +62,15 @@ function ProductList({ isAdmin }) {
           displayedProducts.map((product) => (
             <div className="product-box" key={product.id}>
               <Link to={`product/${product.id}`}>
-                <strong>{product.fields.productname?.stringValue}</strong> - ${product.fields.price?.doubleValue}
+                <strong>{product.fields.productname?.stringValue}</strong> - $
+                {product.fields.price?.integerValue}
                 <p>{product.fields.description?.stringValue}</p>
-                {isAdmin ? <p>Stock: {product.fields.stock?.integerValue}</p> : null}
+                {isAdmin ? (
+                  <p>Stock: {product.fields.stock?.integerValue}</p>
+                ) : null}
                 <img
                   className="product-image"
-                  src={product.fields.imageUrl?.stringValue}
+                  src={product.fields.imageurl?.stringValue}
                   alt={product.fields.productname?.stringValue}
                 />
               </Link>
