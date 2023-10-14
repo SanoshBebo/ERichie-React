@@ -1,12 +1,13 @@
 import axios from "axios";
-import { fetchProducts } from "./Shop09_APICalls";
-import MyShankContext from "../../../../SuryaProject/context/data/MyShankContext";
+
+import { fetchShop09 } from "../../../../Api/fetchShop09";
 const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);
-  const allproducts = await fetchProducts();
+
+  const allproducts = await fetchShop09();
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
@@ -53,6 +54,8 @@ export const getOrderByDateFromFireStore = async (shopid) => {
                 email,
               } = document.fields;
 
+              console.log(documentId);
+
               const user = userDocuments.find((document) => {
                 console.log(
                   document.fields.email.stringValue,
@@ -69,6 +72,7 @@ export const getOrderByDateFromFireStore = async (shopid) => {
               });
 
               console.log(productInfo);
+
               return {
                 name: userInfo.name.stringValue,
                 productname: productInfo.productname,
@@ -96,8 +100,12 @@ export const getOrderByDateFromFireStore = async (shopid) => {
   }
 };
 
-export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
-  const allproducts = await fetchProducts();
+export const getOrderByDateRangeFromFireStore = async (
+  startDate,
+  endDate,
+  shopid
+) => {
+  const allproducts = await fetchShop09();
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
@@ -138,7 +146,7 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
               return (
                 purchaseDate >= startDateCopy &&
                 purchaseDate <= endDateCopy &&
-                document.fields.shopid.stringValue == "shop09"
+                document.fields.shopid.stringValue == shopid
               );
             })
             .map((document) => {
@@ -190,89 +198,5 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
     return orders;
   } catch (error) {
     console.error("Error fetching orders:", error);
-  }
-};
-
-export const getOrderDetailsByDateRange = async (startDate, endDate) => {
-  const allproducts = await fetchProducts();
-  try {
-    const userApiUrl = `${baseUrl}/Users`;
-    const userResponse = await axios.get(userApiUrl);
-    const userDocuments = userResponse.data.documents;
-    //
-    const ordersApiUrl = `${baseUrl}/Orders`;
-
-    const response = await axios.get(ordersApiUrl);
-
-    if (response.status === 200) {
-      const responseData = response.data;
-
-      if (responseData.documents) {
-        const orderDocuments = responseData.documents;
-
-        const startDateCopy = new Date(startDate);
-        const endDateCopy = new Date(endDate);
-
-        const orderData = orderDocuments
-          .filter((document) => {
-            const purchaseDate = new Date(
-              document.fields.purchaseDate.timestampValue
-            );
-            // Set the time part of startDateCopy to the beginning of the day
-            startDateCopy.setHours(0, 0, 0, 0);
-
-            // Set the time part of endDateCopy to the end of the day
-            endDateCopy.setHours(23, 59, 59, 999);
-            // Compare purchaseDate with the specified date range
-            return purchaseDate >= startDateCopy && purchaseDate <= endDateCopy;
-          })
-          .map((document) => {
-            const documentNameParts = document.name.split("/");
-            const documentId = documentNameParts[documentNameParts.length - 1];
-            const {
-              productid,
-              purchaseDate,
-              quantity,
-              totalprice,
-              shopid,
-              useruid,
-            } = document.fields;
-
-            const user = userDocuments.find((document) => {
-              return document.fields.useruid.stringValue == useruid.stringValue;
-            });
-
-            const userInfo = user.fields;
-
-            const productInfo = allproducts.find((prod) => {
-              return prod.productid == productid.stringValue;
-            });
-
-            return {
-              name: userInfo.name.stringValue,
-              productname: productInfo.productname,
-              productid: productid.stringValue,
-              stock: productid.stock,
-              purchaseDate: purchaseDate.timestampValue,
-              quantity: quantity.integerValue,
-              totalprice: totalprice.integerValue,
-              shopid: shopid.stringValue,
-              useruid: useruid.stringValue,
-              orderid: documentId,
-            };
-          });
-        console.log(orderData);
-        return orderData;
-      } else {
-        console.log("No documents found in the collection.");
-        return [];
-      }
-    } else {
-      console.error("Error fetching product data:", response.statusText);
-      return [];
-    }
-  } catch (error) {
-    console.error("Error fetching product data:", error);
-    return [];
   }
 };

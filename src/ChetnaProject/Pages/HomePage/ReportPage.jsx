@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   getOrderByDateFromFireStore,
   getOrderByDateRangeFromFireStore,
-} from "../../../SanoshProject/api/GetOrderDetails";
+} from "./GetOrderDetailsChetna";
 
 const ReportPage = () => {
   const [orders, setOrders] = useState([]);

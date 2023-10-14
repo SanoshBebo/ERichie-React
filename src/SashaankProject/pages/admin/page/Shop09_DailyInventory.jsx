@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   getOrderByDateFromFireStore,
   getOrderByDateRangeFromFireStore,
-} from "./Shop09_GetOrderDetails";
+} from "./GetOrderDetailsShashank";
 import MyShankContext from "../../../../SuryaProject/context/data/MyShankContext";
 import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
@@ -16,6 +16,7 @@ const IndividualShop09Report = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const ordersPerPage = 7;
   const pageCount = Math.ceil(orders.length / ordersPerPage);
+  const shopid = "shop09";
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -24,7 +25,6 @@ const IndividualShop09Report = () => {
   const offset = currentPage * ordersPerPage;
   const currentPageData = orders.slice(offset, offset + ordersPerPage);
   useEffect(() => {
-    const shopid = "shop09";
     getOrderByDateFromFireStore(shopid)
       .then((todaysOrders) => {
         console.log(todaysOrders);
@@ -36,7 +36,7 @@ const IndividualShop09Report = () => {
   }, []);
 
   const getOrdersByDate = () => {
-    getOrderByDateRangeFromFireStore(startDate, endDate)
+    getOrderByDateRangeFromFireStore(startDate, endDate, shopid)
       .then((order) => {
         console.log(order);
         setOrdersByDate(order);
