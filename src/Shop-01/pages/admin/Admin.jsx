@@ -74,7 +74,7 @@ function ProductComponent() {
     try {
       if (imageFile) {
         // Your Firebase API Key
-        const apiKey = 'YOUR_FIREBASE_API_KEY'; // Replace with your Firebase API Key
+        //const apiKey = 'YOUR_FIREBASE_API_KEY'; // Replace with your Firebase API Key
 
         // Create a Firestore document with the product data including the image URL
         const formData = new FormData();

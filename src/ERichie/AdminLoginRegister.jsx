@@ -46,11 +46,42 @@ const AdminLoginRegister = () => {
           localStorage.setItem("user", JSON.stringify(user));
           if (user.email == "sanoshadmin@gmail.com") {
             navigate("/shop01/admin");
+          } else if (user.email == "sashadmin@gmail.com") {
+            navigate("/shop09/admin/dashboard");
+          } else if (user.email == "vishaladmin@gmail.com") {
+            navigate("/shop03/admin");
           } else if (user.email == "sprityadmin@gmail.com") {
+            navigate("/shop10/adminhome");
+          } else if (user.email == "suryaadmin@gmail.com") {
+            navigate("/shop04/admin/dashboard");
+          } else if (user.email == "akshayaadmin@gmail.com") {
+            navigate("/shop02/admin");
+          } else if (user.email == "thillaiadmin@gmail.com") {
+            navigate("/shop07/admin");
+          } else if (user.email == "rethuadmin@gmail.com") {
+            navigate("/shop05/admin");
+          } else if (user.email == "mahaadmin@gmail.com") {
+            navigate("/shop12/admin");
+          } else if (user.email == "chetnaadmin@gmail.com") {
+            navigate("/shop11/Adminpage");
+          } else if (user.email == "lasyaadmin@gmail.com") {
+            navigate("/shop06/admin");
           }
-        } else {
-          setInvalidCredentials(true);
-          console.log("invalid login credentials");
+          // else if(user.email == "abhinandanadmin@gmail.com"){
+          //   navigate("");}
+          else if (user.email == "sundariadmin@gmail.com") {
+            navigate("/shop14/admin");
+          } else if (user.email == "abhiramadmin@gmail.com") {
+            navigate("/shop13/abhiramadmin");
+          } else if (user.email == "hariniadmin@gmail.com") {
+            navigate("/shop17/admin");
+          } else if (user.email == "sanjayadmin@gmail.com") {
+            navigate("/AdminAction");
+          } else if (user.email == "dhanuadmin@gmail.com") {
+            navigate("/Shop16/Admin");
+          } else {
+            console.log("invalid login credentials");
+          }
         }
       }
     } catch (err) {
@@ -83,8 +114,28 @@ const AdminLoginRegister = () => {
         dispatch(setUser(user));
         if (user.email == "sanoshadmin@gmail.com") {
           navigate("/shop01/admin");
-          if (user.email == "sashfiretest1@gmail.com")
+          if (user.email == "sashadmin@gmail.com")
             navigate("/shop09/admin/dashboard");
+          if (user.email == "vishaladmin@gmail.com") navigate("/shop03/admin");
+          if (user.email == "sprityadmin@gmail.com")
+            navigate("/shop10/adminhome");
+          if (user.email == "suryaadmin@gmail.com")
+            navigate("/shop04/admin/dashboard");
+          if (user.email == "akshayaadmin@gmail.com") navigate("/shop02/admin");
+          if (user.email == "thillaiadmin@gmail.com") navigate("/shop07/admin");
+          if (user.email == "rethuadmin@gmail.com") navigate("/shop05/admin");
+          if (user.email == "mahaadmin@gmail.com") navigate("/shop12/admin");
+          if (user.email == "chetnaadmin@gmail.com")
+            navigate("/shop11/Adminpage");
+          if (user.email == "lasyaadmin@gmail.com") navigate("/shop06/admin");
+          // if(user.email == "abhinandanadmin@gmail.com")
+          //   navigate("");
+          if (user.email == "sundariadmin@gmail.com") navigate("/shop14/admin");
+          if (user.email == "abhiramadmin@gmail.com")
+            navigate("/shop13/abhiramadmin");
+          if (user.email == "hariniadmin@gmail.com") navigate("/shop17/admin");
+          if (user.email == "sanjayadmin@gmail.com") navigate("/AdminAction");
+          if (user.email == "dhanuadmin@gmail.com") navigate("/Shop16/Admin");
         }
       }
     } catch (err) {
