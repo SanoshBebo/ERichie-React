@@ -152,22 +152,9 @@ import OrderHistory from "./ERichie/OrderHistory";
 import OverallReport from "./ERichie/OverallReport";
 import ProductDetails from "./AkshayaProject/ProductDetails";
 import UserView from "./AkshayaProject/UserView";
+import ReportPage from "./ChetnaProject/Pages/HomePage/ReportPage";
 
 const App = () => {
-  //=========================================================vishals code============================================================================//
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetchProducts()
-      .then((productsData) => {
-        dispatch(setShopThreeProducts(productsData));
-      })
-      .catch((error) => {
-        console.error("Error fetching product data:", error);
-      });
-  }, [dispatch]);
-  // =========================================================vishals code============================================================================//
-
   return (
     <ShankState>
       <MyState>
@@ -350,7 +337,7 @@ const App = () => {
               path="/shop07/product/:productId"
               element={<ProductDescriptionPage />}
             />
-             <Route
+            <Route
               path="/shop07/admin-page"
               element={<IndividualShop07Report />}
             />
@@ -369,6 +356,7 @@ const App = () => {
             {/* =================================================================CHETNACODE========================================================== */}
             <Route path="/shop11" element={<ChetnaHomePage />} />
             <Route path="/shop11/Adminpage" element={<ChetnaAdminpage />} />
+            <Route path="/shop11/admin/shop-report" element={<ReportPage />} />
             <Route
               path="/shop11/product/:id"
               element={<ChetnaProductDetailsPage />}

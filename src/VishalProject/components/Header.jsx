@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const headerStyle = {
     backgroundColor: "pink",
 
@@ -41,11 +42,11 @@ const Header = () => {
             <Link to="/erichie">Mainpage</Link>
           </li>
           <li
-              className="cursor-pointer hover:underline"
-              onClick={handleSignOut}
-            >
-              Sign Out
-            </li>
+            className="cursor-pointer hover:underline"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </li>
 
           <button>
             <a href="mailto:rvishal21062002@gmail.com">Contact us</a>

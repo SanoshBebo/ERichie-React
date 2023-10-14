@@ -1,46 +1,149 @@
-import React, { useState } from 'react';
-import DeleteProducts from '../operatorCrud/DeleteProducts'
-import OperatorAdding from '../operatorCrud/OperatorAdding';
-import UpdateProducts from '../operatorCrud/UpdateProducts';
-import ViewProducts from '../operatorCrud/ViewProducts';
+import React, { useState } from "react";
+
+import DeleteProducts from "../operatorCrud/DeleteProducts";
+
+import OperatorAdding from "../operatorCrud/OperatorAdding";
+
+import UpdateProducts from "../operatorCrud/UpdateProducts";
+
+import ViewProducts from "../operatorCrud/ViewProducts";
+
 import { Link } from "react-router-dom";
+
 const AdminPage = () => {
-    const [selectedOperation, setSelectedOperation] = useState(null);
+  const [selectedOperation, setSelectedOperation] = useState(null);
 
-    const renderSelectedOperation = () => {
+  const buttonStyle = {
+    backgroundColor: "#007bff",
 
-        switch (selectedOperation) {
-            case 'view':
-                return <ViewProducts />;
-            case 'add':
-                return <OperatorAdding />;
-            case 'delete':
-                return <DeleteProducts />;
-            case 'update':
-                return <UpdateProducts />;
-            default:
-                return <div className='text-center font-bold mt-4'>Select an operation to perform.</div>;
-        }
-    };
+    color: "white",
 
-    return (
-        <div className="bg-cover bg-fixed h-screen">
-            <div className='container mx-auto py-20 text-black'>
-                <a href="#" className="text-4xl font-bold text-primary">E-<span className="text-primary">Mobile</span></a>
+    border: "none",
 
-                <h1 className="text-3xl font-semibold text-center mb-8">Admin Page</h1>
-                <div className='flex justify-center mb-8'>
-                    <button onClick={() => setSelectedOperation('view')} className="btn-primary mx-2">View Products</button>
-                    <button onClick={() => setSelectedOperation('delete')} className="btn-primary mx-2">Delete Products</button>
-                    <button onClick={() => setSelectedOperation('add')} className="btn-primary mx-2">Add Products</button>
-                    <button onClick={() => setSelectedOperation('update')} className="btn-primary mx-2">Update Products</button>
-                </div>
-                <div>
-                    {renderSelectedOperation()}
-                </div>
-            </div>
+    padding: "1px 4px",
+
+    margin: "0 5px",
+
+    borderRadius: "5px",
+
+    cursor: "pointer",
+
+    transition: "background-color 0.3s",
+  };
+
+  const renderSelectedOperation = () => {
+    switch (selectedOperation) {
+      case "view":
+        return <ViewProducts />;
+
+      case "add":
+        return <OperatorAdding />;
+
+      case "delete":
+        return <DeleteProducts />;
+
+      case "update":
+        return <UpdateProducts />;
+
+      default:
+        return (
+          <div style={{ textAlign: "center", fontWeight: "800" }}>
+            Select an operation to perform.
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div
+      style={{
+        margin: "0 auto",
+
+        padding: "20px",
+
+        border: "1px solid #ccc",
+
+        borderRadius: "10px",
+
+        backgroundColor: "#f9f9f9",
+
+        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+
+        backgroundImage:
+          'url("../../pictures/pexels-mudassir-ali-2680270.jpg")',
+
+        backgroundPosition: "fixed",
+
+        padding: "20px",
+
+        color: "black",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ color: "white", fontSize: "1.5rem", fontWeight: "800" }}>
+          E-<span style={{ color: "#007bff" }}>Mobile</span>
         </div>
-    );
+      </div>
+
+      <h1
+        style={{
+          textAlign: "center",
+          marginBottom: "20px",
+          color: "white",
+          fontWeight: "800",
+          fontSize: "1.5rem",
+        }}
+      >
+        Admin Page
+      </h1>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          marginBottom: "20px",
+        }}
+      >
+        <button
+          style={buttonStyle}
+          onClick={() => setSelectedOperation("view")}
+        >
+          View Products
+        </button>
+
+        <button
+          style={buttonStyle}
+          onClick={() => setSelectedOperation("delete")}
+        >
+          Delete Products
+        </button>
+
+        <button style={buttonStyle} onClick={() => setSelectedOperation("add")}>
+          Add Products
+        </button>
+
+        <button
+          style={buttonStyle}
+          onClick={() => setSelectedOperation("update")}
+        >
+          Update Products
+        </button>
+
+        <Link to="/shop11/admin/shop-report">
+          <button
+            style={buttonStyle}
+            onClick={() => setSelectedOperation("Report")}
+          >
+            Report
+          </button>
+        </Link>
+      </div>
+
+      <div>{renderSelectedOperation()}</div>
+    </div>
+  );
 };
 
 export default AdminPage;

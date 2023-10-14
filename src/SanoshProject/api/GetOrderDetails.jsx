@@ -1,11 +1,11 @@
 import axios from "axios";
-import { fetchProducts } from "./ApiCalls";
+import { fetchShop11 } from "../../Api/fetchShop11";
 const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);
-  const allproducts = await fetchProducts();
+  const allproducts = await fetchShop11();
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
@@ -95,8 +95,12 @@ export const getOrderByDateFromFireStore = async (shopid) => {
   }
 };
 
-export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
-  const allproducts = await fetchProducts();
+export const getOrderByDateRangeFromFireStore = async (
+  startDate,
+  endDate,
+  shopid
+) => {
+  const allproducts = await fetchShop11();
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
@@ -137,7 +141,7 @@ export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
               return (
                 purchaseDate >= startDateCopy &&
                 purchaseDate <= endDateCopy &&
-                document.fields.shopid.stringValue == "shop01"
+                document.fields.shopid.stringValue == shopid
               );
             })
             .map((document) => {

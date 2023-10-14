@@ -1,0 +1,225 @@
+.modified-product-details-container1 {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 20px;
+
+}
+
+
+
+.modified-search-bar {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    background: #007bff;
+
+    border-radius: 20px;
+
+    transition: box-shadow 0.3s ease;
+
+}
+
+.modified-search-bar:hover {
+
+    background: #0056b3;
+
+}
+
+
+
+.modified-search-bar input {
+
+    width: 80%;
+
+    padding: 10px;
+
+    border: 1px solid #007bff;
+
+    border-radius: 5px;
+
+    font-size: 16px;
+
+    outline: none;
+
+
+
+    background: #007bff;
+
+    transition: box-shadow 0.3s ease;
+
+
+
+}
+
+.modified-search-bar input:hover {
+
+    background-color: #0056b3;
+
+}
+
+.modified-product-details-container {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+}
+
+
+
+.modified-product-details-card {
+
+    text-align: center;
+
+    text-decoration: none;
+
+    color: #333;
+
+    margin: 10px;
+
+    width: 200px;
+
+}
+
+
+
+.modified-product-details-card img {
+
+    height: 200px;
+
+    object-fit: cover;
+
+    margin-bottom: 10px;
+
+    box-shadow: 0 4px 8px rgba(21, 19, 19, 0.1);
+
+    transition: box-shadow 0.3s ease;
+
+}
+
+
+
+.modified-product-details-card img:hover {
+
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+.tranding-pagination {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+
+.tranding-pagination button {
+
+    background-color: #007bff;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    margin: 0 5px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+
+}
+
+
+
+.tranding-pagination button:hover {
+
+    background-color: #0056b3;
+
+}
+
+h2 {
+
+    text-decoration: none;
+
+    color: #333;
+
+}
+
+.back-btn {
+
+    background-color: #007bff;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    margin: 5px 5px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+
+}
+
+.back-btn:hover {
+
+    background-color: #0056b3;
+
+}
+
+.tranding-page-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    transition: box-shadow 0.3s ease;
+
+
+
+}
+
+.primary-text1 {
+
+    color: #007bff;
+
+    font-weight: 1000;
+
+}
+
+.productlist1 {
+
+    color: black;
+
+    font-weight: 1000;
+
+}
