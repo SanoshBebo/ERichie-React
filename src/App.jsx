@@ -158,6 +158,7 @@ import OverallReport from "./ERichie/OverallReport";
 import ProductDetails from "./AkshayaProject/ProductDetails";
 import UserView from "./AkshayaProject/UserView";
 import ReportPage from "./ChetnaProject/Pages/HomePage/ReportPage";
+import SprityAdminReport from "./SprityProject/SprityAdminReport";
 
 const App = () => {
   return (
@@ -390,6 +391,10 @@ const App = () => {
             <Route path="/shop10/home" element={<Homee />} />
             <Route path="/shop10/table" element={<SprityAdminDashboard />} />
             <Route path="/shop10/adminhome" element={<SprityAdminHome />} />
+            <Route
+              path="/shop10/admin/report"
+              element={<SprityAdminReport />}
+            />
             {/*================================================================SASHAANKCODE================================================================*/}
             <Route path="/shop09" element={<SashaankHome />} />
             <Route
