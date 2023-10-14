@@ -120,6 +120,7 @@ import SashaankUpdateProduct from "./SashaankProject/pages/admin/page/UpdateProd
 import SashaankAllproducts from "./SashaankProject/pages/allproducts/Allproducts";
 import IndividualShop09Report from "./SashaankProject/pages/admin/page/Shop09_DailyInventory";
 
+
 //================================================================SASHAANKIMPORT================================================================
 
 //===============================================================MAHAIMPORTS===================================================================
@@ -414,6 +415,10 @@ const App = () => {
             <Route
               path="/shop09/admin/order-details"
               element={<IndividualShop09Report />}
+            />
+            <Route
+              path="/shop09/admin/overall-analytics"
+              element={<OverallReport />}
             />
           </Routes>
           <ToastContainer />
