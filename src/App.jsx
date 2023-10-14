@@ -96,6 +96,7 @@ import ShoppingPage from "./thillai/pages/ShoppingPage";
 import ProductDescPage from "./rethu/src/components/ProductDescPage";
 import DeadEyeShopReport from "./rethu/src/components/shop05_dailyinventory";
 import ProductDescriptionPage from "./thillai/pages/ProductDescription";
+import IndividualShop07Report from "./thillai/components/admin-page/dashboard/shop07_dailyinventory";
 import ThillaiAdminPage from "./thillai/pages/AdminPage";
 import ProductList1 from "./thillai/components/admin-page/products/ProductList";
 import LasyaProductList from "./lasya/my-react-vite-app/src/components/productlist/productlist";
@@ -348,6 +349,10 @@ const App = () => {
             <Route
               path="/shop07/product/:productId"
               element={<ProductDescriptionPage />}
+            />
+             <Route
+              path="/shop07/admin-page"
+              element={<IndividualShop07Report />}
             />
             <Route path="/shop06" element={<LasyaProductList />} />
             <Route
