@@ -28,7 +28,6 @@ import TablePage from "./VishalProject/pages/TablePage";
 //=========================================================vishals imports============================================================================//
 
 //=========================================================Akshayas imports============================================================================//
-import { AkshayaUserPage } from "./AkshayaProject/AkshayaUserPage";
 import { AkshayaAdminPage } from "./AkshayaProject/AkshayaAdminPage";
 
 //=========================================================Akshayas imports============================================================================//
@@ -150,6 +149,8 @@ import MainHomePage from "./ERichie/MainHomePage";
 import ERichieLayout from "./ERichie/components/ERichieLayout";
 import OrderHistory from "./ERichie/OrderHistory";
 import OverallReport from "./ERichie/OverallReport";
+import ProductDetails from "./AkshayaProject/ProductDetails";
+import UserView from "./AkshayaProject/UserView";
 
 const App = () => {
   //=========================================================vishals code============================================================================//
@@ -272,7 +273,11 @@ const App = () => {
             <Route path="/shop03/admin" element={<AddProductForm />} />
             <Route path="/shop03/tablepage" element={<TablePage />} />
             {/* // =========================================================askshayas code============================================================================// */}
-            <Route path="/shop02/*" element={<AkshayaUserPage />} />
+            <Route path="/shop02" element={<UserView />} />
+            <Route
+              path="/shop02/product/:productId"
+              element={<ProductDetails />}
+            />
             <Route path="/shop02/admin/*" element={<AkshayaAdminPage />} />
             <Route path="/*" element={<NoPage />} />
             {/* // =========================================================Suryas code============================================================================// */}
@@ -309,12 +314,16 @@ const App = () => {
               path="/products/:documentId"
               element={<Shop01ProductDetail />}
             />
-
-            <Route path="/shop17/admin/report" element={<IndividualShop17Report />} />
+            <Route
+              path="/shop17/admin/report"
+              element={<IndividualShop17Report />}
+            />
             <Route path="/Shop16/User" element={<UserPage />}></Route>
             <Route path="/Shop16/Admin" element={<DhanushiyaAdminPage />} />
-            <Route path="/Shop16/Daily_Inventoryreport" element={<IndividualShop16Report />} />
-
+            <Route
+              path="/Shop16/Daily_Inventoryreport"
+              element={<IndividualShop16Report />}
+            />
             <Route
               path="/shop4products/:productId"
               element={<ShopProductDetails />}
@@ -326,8 +335,10 @@ const App = () => {
             <Route path="/gaming" element={<ProductDisplay1 />} />
             <Route path="/shop05" element={<UserPage1 />} />
             <Route path="/shop05/admin" element={<RethuAddProduct />} />
-            <Route path="/shop05/admin/Dead_eye_Inventory" element={< DeadEyeShopReport/>} />
-
+            <Route
+              path="/shop05/admin/Dead_eye_Inventory"
+              element={<DeadEyeShopReport />}
+            />
             <Route path="/shop07" element={<ShoppingPage />} />
             <Route path="/shop07/admin" element={<ThillaiAdminPage />} />
             <Route

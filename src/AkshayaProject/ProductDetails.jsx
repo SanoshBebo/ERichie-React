@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
 
@@ -106,8 +106,6 @@ const ProductDetails = () => {
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
-
-    // Create an object with the product details and count
   };
 
   if (!product) {
@@ -115,17 +113,19 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="product-detail p-4 bg-white rounded-md shadow-lg">
-      <img
-        src={product.imageurl}
-        alt={product.name}
-        className="product-image w-full h-48 object-contain mb-4"
-      />
+    <div className="product-detail p-4 w-full bg-white rounded-md shadow-lg min-h-screen flex flex-col items-center justify-center">
+      <div className="text-center">
+        <div className="w-52 mx-auto mb-4">
+          <img
+            src={product.imageurl}
+            alt={product.name}
+            className="product-image w-full object-contain"
+          />
+        </div>
 
-      <h2 className="text-2xl font-semibold">{product.name}</h2>
-      <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+        <h2 className="text-2xl font-semibold">{product.name}</h2>
+        <p className="text-gray-600 text-sm mb-4">{product.description}</p>
 
-      <div className="flex items-center">
         <p className="text-xl font-semibold text-blue-600 mr-4">
           Price: ${product.price}
         </p>
@@ -157,30 +157,38 @@ const ProductDetails = () => {
         </button>
       </div>
 
-      <button
-        className="add-to-cart-button bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
-        onClick={addToCart}
-      >
-        Add to Cart
-      </button>
-      <button
-        className=" bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
-        // onClick={}
-      >
-        Back
-      </button>
-      {/* <button
-        className="add-to-cart-button bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
-        onClick={UserView}
-      >
-        My web
-      </button>
-      <button
-        className="add-to-cart-button bg-blue-500 text-white p-3 rounded-md mt-4 hover:bg-blue-600 transition-colors"
-        onClick={cart}
-      >
-        Cart
-      </button> */}
+      <div className="mt-4">
+        <button
+          className="add-to-cart-button bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors"
+          onClick={addToCart}
+        >
+          Add to Cart
+        </button>
+      </div>
+
+      <div className="mt-4">
+        <Link to="/shop02">
+          <button className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors">
+            Back
+          </button>
+        </Link>
+        <Link to="/erichie/cart">
+          <button
+            className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors"
+            style={{ marginLeft: "10px" }}
+          >
+            Cart
+          </button>
+        </Link>
+        <Link to="/shop02">
+          <button
+            className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors"
+            style={{ marginLeft: "10px" }}
+          >
+            Myweb
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

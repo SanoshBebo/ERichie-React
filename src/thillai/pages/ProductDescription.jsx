@@ -54,7 +54,7 @@ function ProductDescriptionPage() {
 
         if (response.status === 200) {
           const data = response.data;
-
+          console.log(data);
           setProductData(data);
         } else {
           console.error("Failed to fetch product data:", response.statusText);
@@ -136,6 +136,7 @@ function ProductDescriptionPage() {
       dispatch(setUser(userData));
 
       console.log(productData);
+
       const cartItem = {
         id: productId,
 
