@@ -1,24 +1,97 @@
 import React from "react";
+
 import Navbar from "../navbar/navbar";
-import SearchInputForm from "../forms/searchinputForm/SearchInputForm";
 
 const Showcase = () => {
   return (
-    <div className="bg-cover bg-center h-screen relative">
-      <div className="bg-black bg-opacity-50 absolute inset-0"></div>
-      <section className="container mx-auto flex flex-col justify-center items-center h-screen relative z-10">
-        <Navbar />
-        <div className="text-white text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold mb-4">
-            Best <span className="text-primary">Mobile</span> Available
+    <section
+      style={{
+        height: "100vh",
+
+        width: "100%",
+
+        backgroundImage:
+          "url('../../pictures/pexels-mudassir-ali-2680270.jpg')",
+
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+
+        position: "relative",
+
+        display: "flex",
+
+        justifyContent: "center",
+
+        alignItems: "center",
+      }}
+      className="showcase-container"
+    >
+      <Navbar />
+
+      <div
+        style={{
+          height: "100%",
+
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+
+          position: "absolute",
+        }}
+        className="overlay"
+      ></div>
+
+      <div
+        style={{
+          width: "fit-content",
+
+          display: "flex",
+
+          flexDirection: "column",
+
+          justifyContent: "center",
+
+          alignItems: "center",
+        }}
+        className="showcase-content"
+        id="showcasecolor"
+      >
+        <div className="mainscreen">
+          <h1
+            style={{
+              color: "white",
+
+              textAlign: "center",
+
+              fontSize: "2.5rem",
+            }}
+          >
+            Best{" "}
+            <span
+              style={{
+                color: "#007bff",
+
+                fontFamily: "Roboto Condensed",
+
+                fontSize: "2.5rem",
+              }}
+            >
+              Mobiles
+            </span>{" "}
+            Available
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-light mb-8">
+
+          <p
+            style={{
+              color: "white",
+
+              fontFamily: "Roboto Condensed",
+
+              fontSize: "2.5rem",
+            }}
+          >
             Buy quality products
           </p>
-          {/* <SearchInputForm /> */}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

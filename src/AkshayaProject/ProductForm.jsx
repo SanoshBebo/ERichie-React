@@ -214,10 +214,7 @@ const ProductForm = () => {
         )}
 
         <br />
-        <button
-          type="submit"
-          className="p-2 bg-slate-400 border border-gray-700"
-        >
+        <button type="submit" className="p-2 bg-slate-400 border ">
           Add Product
         </button>
       </form>

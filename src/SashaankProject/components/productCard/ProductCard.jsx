@@ -1,12 +1,20 @@
 //Products card
-import React, { useContext, useEffect } from 'react'
-import MyShankContext from '../../../SuryaProject/context/data/MyShankContext'
-import { toast } from 'react-toastify'
+import React, { useContext, useEffect } from "react";
+import MyShankContext from "../../../SuryaProject/context/data/MyShankContext";
+import { toast } from "react-toastify";
 
 function ProductCard() {
-    const context = useContext(MyShankContext)
-    const { mode, product ,searchkey, setSearchkey,filterType,setFilterType,
-        filterPrice,setFilterPrice} = context
+  const context = useContext(MyShankContext);
+  const {
+    mode,
+    product,
+    searchkey,
+    setSearchkey,
+    filterType,
+    setFilterType,
+    filterPrice,
+    setFilterPrice,
+  } = context;
 
     // useEffect(() => {
     //     localStorage.setItem('cart', JSON.stringify(cartItems));
@@ -50,4 +58,4 @@ function ProductCard() {
     )
 }
 
-export default ProductCard
+export default ProductCard;

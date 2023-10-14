@@ -96,6 +96,7 @@ import ShoppingPage from "./thillai/pages/ShoppingPage";
 import ProductDescPage from "./rethu/src/components/ProductDescPage";
 import DeadEyeShopReport from "./rethu/src/components/shop05_dailyinventory";
 import ProductDescriptionPage from "./thillai/pages/ProductDescription";
+import IndividualShop07Report from "./thillai/components/admin-page/dashboard/shop07_dailyinventory";
 import ThillaiAdminPage from "./thillai/pages/AdminPage";
 import ProductList1 from "./thillai/components/admin-page/products/ProductList";
 import LasyaProductList from "./lasya/my-react-vite-app/src/components/productlist/productlist";
@@ -151,22 +152,9 @@ import OrderHistory from "./ERichie/OrderHistory";
 import OverallReport from "./ERichie/OverallReport";
 import ProductDetails from "./AkshayaProject/ProductDetails";
 import UserView from "./AkshayaProject/UserView";
+import ReportPage from "./ChetnaProject/Pages/HomePage/ReportPage";
 
 const App = () => {
-  //=========================================================vishals code============================================================================//
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetchProducts()
-      .then((productsData) => {
-        dispatch(setShopThreeProducts(productsData));
-      })
-      .catch((error) => {
-        console.error("Error fetching product data:", error);
-      });
-  }, [dispatch]);
-  // =========================================================vishals code============================================================================//
-
   return (
     <ShankState>
       <MyState>
@@ -349,6 +337,10 @@ const App = () => {
               path="/shop07/product/:productId"
               element={<ProductDescriptionPage />}
             />
+            <Route
+              path="/shop07/admin-page"
+              element={<IndividualShop07Report />}
+            />
             <Route path="/shop06" element={<LasyaProductList />} />
             <Route
               path="/shop06/product/:productId"
@@ -364,6 +356,7 @@ const App = () => {
             {/* =================================================================CHETNACODE========================================================== */}
             <Route path="/shop11" element={<ChetnaHomePage />} />
             <Route path="/shop11/Adminpage" element={<ChetnaAdminpage />} />
+            <Route path="/shop11/admin/shop-report" element={<ReportPage />} />
             <Route
               path="/shop11/product/:id"
               element={<ChetnaProductDetailsPage />}

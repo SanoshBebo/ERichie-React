@@ -1,6 +1,6 @@
 //Add Product window
-import React, { useContext } from 'react'
-import MyShankContext from '../../../../SuryaProject/context/data/MyShankContext'
+import React, { useContext } from "react";
+import MyShankContext from "../../../../SuryaProject/context/data/MyShankContext";
 
 function AddProduct() {
     const context = useContext(MyShankContext);
@@ -71,4 +71,4 @@ function AddProduct() {
     )
 }
 
-export default AddProduct
+export default AddProduct;

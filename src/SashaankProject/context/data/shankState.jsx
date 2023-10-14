@@ -39,6 +39,7 @@ function shankState(props) {
     category: "mobile",
     description: null,
     stock: 0,
+    description: null,
     time: Timestamp.now(),
     date: new Date().toLocaleString("en-US", {
       month: "short",
@@ -82,7 +83,7 @@ function shankState(props) {
     setLoading(true);
 
     try {
-      const q = query(collection(shankfire, "Products"), orderBy("time"));
+      const q = query(collection(shankfire, "Products"));
 
       const data = onSnapshot(q, (QuerySnapshot) => {
         let productArray = [];

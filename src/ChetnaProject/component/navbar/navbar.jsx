@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import cartIcon from "./carticon.png";
+
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -9,6 +10,7 @@ const Navbar = () => {
   };
 
   const recipientEmail = "bisenchetna3@gmail.com";
+
   const subject = "Contact";
 
   const handleEmailClick = () => {
@@ -18,47 +20,242 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-primary py-2 px-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <a href="#" className="text-white text-2xl font-semibold">
-          E-<span className="text-primary-bright">Mobile</span>
+    <section
+      style={{
+        position: "fixed",
+
+        width: "100%",
+
+        top: 0,
+
+        display: "flex",
+
+        justifyContent: "space-between",
+
+        alignItems: "center",
+
+        padding: "1rem",
+
+        background: "rgba(0, 0, 0, 0.5)",
+
+        zIndex: 1,
+      }}
+    >
+      <div style={{ flex: "1" }}>
+        <a
+          href="#"
+          style={{
+            fontSize: "1.5rem",
+            color: "#fff",
+            textDecoration: "none",
+            fontFamily: "Roboto Condensed, sans-serif",
+            fontWeight: "700",
+          }}
+        >
+          E-
+          <span style={{ fontFamily: "Roboto Condensed, sans-serif" }}>
+            Mobile
+          </span>
         </a>
-        <nav className="space-x-4">
-          <a href="#" className="text-white hover:text-primary-bright transition duration-300">
-            Home
-          </a>
-          <a href="#Mobile" className="text-white hover:text-primary-bright transition duration-300">
-            Mobiles
-          </a>
-          <button
-            className="text-white hover:text-primary-bright transition duration-300"
-            onClick={toggleModal}
-          >
-            Contact
-          </button>
-        </nav>
       </div>
 
+      <nav style={{ display: "flex", gap: "20px" }}>
+        <a
+          href="#Mobile"
+          style={{
+            color: "#fff",
+            textDecoration: "none",
+            fontSize: "1.1rem",
+            transition: "0.2s ease-in",
+            cursor: "pointer",
+          }}
+        >
+          Mobiles
+        </a>
+
+        <a
+          href="#"
+          style={{
+            color: "#fff",
+            textDecoration: "none",
+            fontSize: "1.1rem",
+            transition: "0.2s ease-in",
+            cursor: "pointer",
+          }}
+          onClick={toggleModal}
+        >
+          Contact
+        </a>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Link
+            to="/erichie"
+            style={{ textDecoration: "none", color: "#fff", cursor: "pointer" }}
+          >
+            <button
+              style={{
+                backgroundColor: "#007bff",
+
+                color: "white",
+
+                border: "none",
+
+                padding: "1px 4px",
+
+                borderRadius: "5px",
+
+                cursor: "pointer",
+
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              Main Page
+            </button>
+          </Link>
+
+          <Link
+            to="/erichie/cart"
+            style={{ textDecoration: "none", color: "#fff", cursor: "pointer" }}
+          >
+            <button
+              style={{
+                backgroundColor: "#007bff",
+
+                color: "white",
+
+                border: "none",
+
+                padding: "1px 4px",
+
+                borderRadius: "5px",
+
+                cursor: "pointer",
+
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              View Cart
+            </button>
+          </Link>
+
+          <Link
+            to="/mobiles"
+            style={{ textDecoration: "none", color: "#fff", cursor: "pointer" }}
+          >
+            <button
+              style={{
+                backgroundColor: "#007bff",
+
+                color: "white",
+
+                border: "none",
+
+                padding: "1px 4px",
+
+                borderRadius: "5px",
+
+                cursor: "pointer",
+
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              Home
+            </button>
+          </Link>
+        </div>
+      </nav>
+
       {isModalVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-md p-4 max-w-md">
-            <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+        <div
+          style={{
+            display: "flex",
+
+            justifyContent: "center",
+
+            alignItems: "center",
+
+            position: "fixed",
+
+            left: 0,
+
+            top: 0,
+
+            width: "100%",
+
+            height: "100%",
+
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+
+            overflow: "auto",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#fefefe",
+
+              padding: "20px",
+
+              border: "1px solid #888",
+
+              width: "80%",
+
+              maxWidth: "400px",
+
+              textAlign: "center",
+
+              position: "relative",
+
+              zIndex: 1,
+            }}
+          >
+            <h2>Contact Us</h2>
+
             <button
               onClick={handleEmailClick}
-              className="bg-primary text-white font-semibold px-4 py-2 rounded-lg mr-2 hover:bg-primary-bright transition duration-300"
+              style={{
+                backgroundColor: "#007bff",
+
+                color: "white",
+
+                border: "none",
+
+                padding: "10px 20px",
+
+                borderRadius: "5px",
+
+                cursor: "pointer",
+
+                transition: "background-color 0.3s ease",
+              }}
             >
               Send Email
             </button>
+
             <button
-              className="bg-gray-300 text-gray-600 font-semibold px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300"
               onClick={toggleModal}
+              className="close-modal"
+              style={{
+                marginTop: "20px",
+
+                padding: "10px 20px",
+
+                backgroundColor: "#ccc",
+
+                border: "none",
+
+                borderRadius: "5px",
+
+                cursor: "pointer",
+
+                transition: "background-color 0.3s ease",
+              }}
             >
               Close
             </button>
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
