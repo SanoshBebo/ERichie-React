@@ -41,8 +41,10 @@ const MobileCategory = () => {
     setSearchQuery(query);
   };
 
-  const filteredProducts = mobileProducts.filter((product) =>
-    product.productname && product.productname.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProducts = mobileProducts.filter(
+    (product) =>
+      product.productname &&
+      product.productname.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -71,13 +73,13 @@ const MobileCategory = () => {
               <li
                 key={index}
                 className={`w-full p-2 ${
-                  product.stock === 0 ? "opacity-50 pointer-events-none" : ""
+                  product.stock == 0 ? "opacity-50 pointer-events-none" : ""
                 }`}
               >
                 <Link
                   to={`/${product.shopid}/product/${product.productid}`}
                   className={`flex flex-col items-center gap-2 ${
-                    product.stock === 0 ? "text-gray-500" : ""
+                    product.stock == 0 ? "text-gray-500" : ""
                   }`}
                 >
                   <div className="h-70 w-70 relative">
@@ -94,16 +96,22 @@ const MobileCategory = () => {
                       </div>
                     )}
 
-                    {product.stock === 0 && (
+                    {product.stock == 0 && (
                       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white bg-black bg-opacity-50">
                         Out of Stock
                       </div>
                     )}
                   </div>
-                  <h1 className="text-center font-bold text-lg">{product.productname || product.title}</h1>
-                  <p className="text-center font-serif">Price: Rs.{product.price}</p>
+                  <h1 className="text-center font-bold text-lg">
+                    {product.productname || product.title}
+                  </h1>
+                  <p className="text-center font-serif">
+                    Price: Rs.{product.price}
+                  </p>
                   <p className="text-center">Store: {product.shopid}</p>
-                  <p className="text-center font-bold">Available: {product.stock}</p>
+                  <p className="text-center font-bold">
+                    Available: {product.stock}
+                  </p>
                 </Link>
               </li>
             ))}
