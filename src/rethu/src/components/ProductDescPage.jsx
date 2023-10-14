@@ -30,7 +30,7 @@ function ProductDescPage() {
       .then((response) => {
         const productData = response.data.fields;
         setProduct(productData);
-        calculateTotalPrice(productData.price.doubleValue, quantity);
+        calculateTotalPrice(productData.price.integerValue, quantity);
       })
       .catch((error) => {
         console.error("Error fetching product data: ", error);
@@ -59,8 +59,8 @@ function ProductDescPage() {
         description: product.description.stringValue,
         shopid: product.shopid.stringValue,
         stock: product.stock.integerValue,
-        price: parseInt(product.price.doubleValue, 10),
-        imageurl: product.imageUrl.stringValue,
+        price: parseInt(product.price.integerValue, 10),
+        imageurl: product.imageurl.stringValue,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
@@ -117,13 +117,13 @@ function ProductDescPage() {
           <h1>{product.productname.stringValue}</h1>
           <div className="image-container">
             <img
-              src={product.imageUrl.stringValue}
+              src={product.imageurl.stringValue}
               alt={product.productname.stringValue}
               className="product-image1"
             />
           </div>
           <p>Description: {product.description.stringValue}</p>
-          <p>Price: Rs.{product.price.doubleValue}</p>
+          <p>Price: Rs.{product.price.integerValue}</p>
           <div className="quantity-container">
             <button
               className="quantity-button"

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './AdminPage.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./AdminPage.css";
 
 function AddProduct() {
   const [product, setProduct] = useState({
-    category: 'Gaming',
-    description: '',
-    modelNo: '',
-    price: '',
-    productname: '',
-    shopname: 'shop05', // Pre-defined shopname
-    stock: '',
+    category: "Gaming",
+    description: "",
+    modelNo: "",
+    price: "",
+    productname: "",
+    shopname: "shop05", // Pre-defined shopname
+    stock: "",
   });
 
   const [Products, setProducts] = useState([]);
@@ -19,27 +19,27 @@ function AddProduct() {
   const [showAddProductForm, setShowAddProductForm] = useState(false); // Control the visibility of the "Add Product" form
 
   const apiUrl =
-    'https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products';
+    "https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products";
 
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const firebaseStorageUrl =
-    'https://firebasestorage.googleapis.com/v0/b/dead-eye-game-store.appspot.com/o';
+    "https://firebasestorage.googleapis.com/v0/b/dead-eye-game-store.appspot.com/o";
 
   useEffect(() => {
     axios
       .get(apiUrl)
       .then((response) => {
         const productList = response.data.documents.map((doc) => ({
-          id: doc.name.split('/').pop(),
+          id: doc.name.split("/").pop(),
           fields: doc.fields,
         }));
         setProducts(productList);
         setFilteredProducts(productList);
       })
       .catch((error) => {
-        console.error('Error fetching products: ', error);
+        console.error("Error fetching products: ", error);
       });
   }, []);
 
@@ -60,10 +60,10 @@ function AddProduct() {
   };
 
   const handleAddProduct = async () => {
-    const imageFile = product.imageUrl;
+    const imageFile = product.imageurl;
     const imageName = imageFile.name;
     const imageRef =
-      firebaseStorageUrl + '/' + encodeURIComponent(imageName) + '?alt=media';
+      firebaseStorageUrl + "/" + encodeURIComponent(imageName) + "?alt=media";
 
     const payload = {
       fields: {
@@ -74,7 +74,7 @@ function AddProduct() {
         productname: { stringValue: product.productname },
         shopname: { stringValue: product.shopname },
         stock: { integerValue: parseInt(product.stock, 10) },
-        imageUrl: { stringValue: imageRef },
+        imageurl: { stringValue: imageRef },
       },
     };
 
@@ -82,7 +82,7 @@ function AddProduct() {
       // Upload the image to Firebase Storage
       const imageUploadResponse = await axios.post(imageRef, imageFile, {
         headers: {
-          'Content-Type': imageFile.type,
+          "Content-Type": imageFile.type,
         },
       });
 
@@ -91,50 +91,52 @@ function AddProduct() {
         const productAddResponse = await axios.post(apiUrl, payload);
         if (productAddResponse.status === 200) {
           const newProduct = {
-            id: productAddResponse.data.name.split('/').pop(),
+            id: productAddResponse.data.name.split("/").pop(),
             fields: payload.fields,
           };
           const updatedProducts = [...Products, newProduct];
           setProducts(updatedProducts);
           setFilteredProducts(updatedProducts);
           setProduct({
-            category: 'Gaming',
-            description: '',
-            modelNo: '',
-            price: '',
-            productname: '',
-            shopname: 'shop05',
-            stock: '',
-            imageUrl: '',
+            category: "Gaming",
+            description: "",
+            modelNo: "",
+            price: "",
+            productname: "",
+            shopname: "shop05",
+            stock: "",
+            imageurl: "",
           });
           setShowAddProductForm(false); // Close the form after adding a product
         } else {
-          console.log('Error: Product addition failed');
+          console.log("Error: Product addition failed");
         }
       } else {
-        console.log('Error: Image upload failed');
+        console.log("Error: Image upload failed");
       }
     } catch (error) {
-      console.error('Error: ', error);
+      console.error("Error: ", error);
     }
   };
 
   const handleDeleteProduct = async (id) => {
     const confirmDelete = window.confirm(
-      'Are you sure you want to delete this product?'
+      "Are you sure you want to delete this product?"
     );
     if (confirmDelete) {
       try {
         const response = await axios.delete(`${apiUrl}/${id}`);
         if (response.status === 200) {
-          const updatedProducts = Products.filter((product) => product.id !== id);
+          const updatedProducts = Products.filter(
+            (product) => product.id !== id
+          );
           setProducts(updatedProducts);
           setFilteredProducts(updatedProducts);
         } else {
-          console.log('Error: Product deletion failed');
+          console.log("Error: Product deletion failed");
         }
       } catch (error) {
-        console.error('Error: ', error);
+        console.error("Error: ", error);
       }
     }
   };
@@ -142,14 +144,14 @@ function AddProduct() {
   const handleEditProduct = (id) => {
     const editedProduct = Products.find((product) => product.id === id);
     setProduct({
-      category: 'Gaming',
+      category: "Gaming",
       description: editedProduct.fields.description.stringValue,
       modelNo: editedProduct.fields.modelNo.stringValue,
       price: editedProduct.fields.price.integerValue,
       productname: editedProduct.fields.productname.stringValue,
-      shopname: 'shop05', // Pre-defined shopname
+      shopname: "shop05", // Pre-defined shopname
       stock: editedProduct.fields.stock.integerValue,
-      imageUrl: editedProduct.fields.imageUrl.stringValue,
+      imageurl: editedProduct.fields.imageurl.stringValue,
     });
     setEditProductId(id);
     setIsEditing(true);
@@ -157,21 +159,21 @@ function AddProduct() {
   };
 
   const handleSaveEdit = async () => {
-    const imageFile = product.imageUrl;
+    const imageFile = product.imageurl;
     const imageName = imageFile.name;
     const imageRef =
-      firebaseStorageUrl + '/' + encodeURIComponent(imageName) + '?alt=media';
+      firebaseStorageUrl + "/" + encodeURIComponent(imageName) + "?alt=media";
 
     const payload = {
       fields: {
-        category: { stringValue: 'Gaming' },
+        category: { stringValue: "Gaming" },
         description: { stringValue: product.description },
         modelNo: { stringValue: product.modelNo },
         price: { integerValue: parseInt(product.price) },
         productname: { stringValue: product.productname },
-        shopname: { stringValue: 'Shop05' }, // Pre-defined shopname
+        shopname: { stringValue: "Shop05" }, // Pre-defined shopname
         stock: { integerValue: parseInt(product.stock, 10) },
-        imageUrl: { stringValue: imageRef },
+        imageurl: { stringValue: imageRef },
       },
     };
 
@@ -179,7 +181,7 @@ function AddProduct() {
       // Upload the new image to Firebase Storage
       const imageUploadResponse = await axios.post(imageRef, imageFile, {
         headers: {
-          'Content-Type': imageFile.type,
+          "Content-Type": imageFile.type,
         },
       });
 
@@ -198,42 +200,42 @@ function AddProduct() {
           setIsEditing(false);
           setEditProductId(null);
           setProduct({
-            category: 'Gaming',
-            description: '',
-            modelNo: '',
-            price: '',
-            productname: '',
-            shopname: 'shop05',
-            stock: '',
-            imageUrl: '',
+            category: "Gaming",
+            description: "",
+            modelNo: "",
+            price: "",
+            productname: "",
+            shopname: "shop05",
+            stock: "",
+            imageurl: "",
           });
           setShowAddProductForm(false); // Close the form after saving edit
         } else {
-          console.log('Error: Product editing failed');
+          console.log("Error: Product editing failed");
         }
       } else {
-        console.log('Error: Image upload failed');
+        console.log("Error: Image upload failed");
       }
     } catch (error) {
-      console.error('Error: ', error);
+      console.error("Error: ", error);
     }
   };
 
-  const DeadEyeInventory =() => {
-    window.location.href = '/shop05/admin/Dead_eye_Inventory';
-  }
+  const DeadEyeInventory = () => {
+    window.location.href = "/shop05/admin/Dead_eye_Inventory";
+  };
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditProductId(null);
     setProduct({
-      category: 'Gaming',
-      description: '',
-      modelNo: '',
-      price: '',
-      productname: '',
-      shopname: 'shop05',
-      stock: '',
-      imageUrl: '',
+      category: "Gaming",
+      description: "",
+      modelNo: "",
+      price: "",
+      productname: "",
+      shopname: "shop05",
+      stock: "",
+      imageurl: "",
     });
     setShowAddProductForm(false); // Close the form when canceling edit
   };
@@ -241,103 +243,95 @@ function AddProduct() {
   return (
     <div className="add-product-pages">
       <div className="add-product-containers">
-      <button onClick={() => DeadEyeInventory()}>Dead_eye_Inventory</button>
-        <h1>{isEditing ? 'Edit Product' : 'Add Product'}</h1>
+        <button onClick={() => DeadEyeInventory()}>Dead_eye_Inventory</button>
+        <h1>{isEditing ? "Edit Product" : "Add Product"}</h1>
         {/* Button to toggle the "Add Product" form */}
         <button onClick={() => setShowAddProductForm(!showAddProductForm)}>
-          {showAddProductForm ? 'Close Form' : 'Add Product'}
+          {showAddProductForm ? "Close Form" : "Add Product"}
         </button>
 
         {/* "Add Product" form */}
         {showAddProductForm && (
-  <div className="product-forms">
-    <div>
-      <label>Category</label>
-      <input
-        type="text"
-        value={product.category}
-        disabled
-      />
-    </div>
-    <div className="form-group">
-      <div className="description-input">
-        <label>Description:</label>
-        <input
-          type="text"
-          value={product.description}
-          onChange={(e) =>
-            setProduct({ ...product, description: e.target.value })
-          }
-        />
-      </div>
-      <div>
-        <label>Model No:</label>
-        <input
-          type="text"
-          value={product.modelNo}
-          onChange={(e) =>
-            setProduct({ ...product, modelNo: e.target.value })
-          }
-        />
-      </div>
-      <div>
-        <label>Price:</label>
-        <input
-          type="number"
-          value={product.price}
-          onChange={(e) =>
-            setProduct({ ...product, price: e.target.value })
-          }
-        />
-      </div>
-      <div>
-        <label>Product Name:</label>
-        <input
-          type="text"
-          value={product.productname}
-          onChange={(e) =>
-            setProduct({ ...product, productname: e.target.value })
-          }
-        />
-      </div>
-      <div>
-        <label>Shop Name:</label>
-        <input
-          type="text"
-          value={product.shopname}
-          disabled
-        />
-      </div>
-      <div>
-        <label>Stock:</label>
-        <input
-          type="number"
-          value={product.stock}
-          onChange={(e) =>
-            setProduct({ ...product, stock: e.target.value })
-          }
-        />
-      </div>
-    </div>
-    <div>
-      <label>Image File:</label>
-      <input
-        type="file"
-        onChange={(e) =>
-          setProduct({ ...product, imageUrl: e.target.files[0] })
-        }
-      />
-    </div>
-    {isEditing ? (
-      <div>
-        <button onClick={handleSaveEdit}>Save Edit</button>
-        <button onClick={handleCancelEdit}>Cancel Edit</button>
-      </div>
-    ) : (
-      <button onClick={handleAddProduct}>Add Product</button>
-    )}
-  </div>
-)}
+          <div className="product-forms">
+            <div>
+              <label>Category</label>
+              <input type="text" value={product.category} disabled />
+            </div>
+            <div className="form-group">
+              <div className="description-input">
+                <label>Description:</label>
+                <input
+                  type="text"
+                  value={product.description}
+                  onChange={(e) =>
+                    setProduct({ ...product, description: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Model No:</label>
+                <input
+                  type="text"
+                  value={product.modelNo}
+                  onChange={(e) =>
+                    setProduct({ ...product, modelNo: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Price:</label>
+                <input
+                  type="number"
+                  value={product.price}
+                  onChange={(e) =>
+                    setProduct({ ...product, price: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Product Name:</label>
+                <input
+                  type="text"
+                  value={product.productname}
+                  onChange={(e) =>
+                    setProduct({ ...product, productname: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Shop Name:</label>
+                <input type="text" value={product.shopname} disabled />
+              </div>
+              <div>
+                <label>Stock:</label>
+                <input
+                  type="number"
+                  value={product.stock}
+                  onChange={(e) =>
+                    setProduct({ ...product, stock: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <div>
+              <label>Image File:</label>
+              <input
+                type="file"
+                onChange={(e) =>
+                  setProduct({ ...product, imageurl: e.target.files[0] })
+                }
+              />
+            </div>
+            {isEditing ? (
+              <div>
+                <button onClick={handleSaveEdit}>Save Edit</button>
+                <button onClick={handleCancelEdit}>Cancel Edit</button>
+              </div>
+            ) : (
+              <button onClick={handleAddProduct}>Add Product</button>
+            )}
+          </div>
+        )}
       </div>
       <div className="product-lists">
         <h2 className="ProductListName">Product List</h2>
@@ -351,33 +345,44 @@ function AddProduct() {
           <button onClick={handleSearch}>Search</button>
         </div>
         <ul>
-  {filteredProducts.map((product) => (
-    <div className="product-items" key={product.id}>
-      <div className="product-cards">
-        <div className="product-images">
-          <img
-            src={product.fields.imageUrl?.stringValue}
-            alt={product.fields.productname?.stringValue}
-          />
-        </div>
-        
-        <div className="product-details-1">
-          <strong>{product.fields.productname?.stringValue}</strong>
-          <p><strong>Description:</strong></p>
-          <p>{product.fields.description?.stringValue}</p>
-        </div>
-        <div className="product-details-2">
-          <p><strong>Price:</strong> ${product.fields.price?.doubleValue}</p>
-          <p><strong>Stock:</strong> {product.fields.stock?.integerValue}</p>
-          <div className="product-buttons-2">
-            <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-            <button onClick={() => handleEditProduct(product.id)}>Edit</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  ))}
-</ul>
+          {filteredProducts.map((product) => (
+            <div className="product-items" key={product.id}>
+              <div className="product-cards">
+                <div className="product-images">
+                  <img
+                    src={product.fields.imageurl?.stringValue}
+                    alt={product.fields.productname?.stringValue}
+                  />
+                </div>
+
+                <div className="product-details-1">
+                  <strong>{product.fields.productname?.stringValue}</strong>
+                  <p>
+                    <strong>Description:</strong>
+                  </p>
+                  <p>{product.fields.description?.stringValue}</p>
+                </div>
+                <div className="product-details-2">
+                  <p>
+                    <strong>Price:</strong> $
+                    {product.fields.price?.integerValue}
+                  </p>
+                  <p>
+                    <strong>Stock:</strong> {product.fields.stock?.integerValue}
+                  </p>
+                  <div className="product-buttons-2">
+                    <button onClick={() => handleDeleteProduct(product.id)}>
+                      Delete
+                    </button>
+                    <button onClick={() => handleEditProduct(product.id)}>
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </ul>
       </div>
     </div>
   );

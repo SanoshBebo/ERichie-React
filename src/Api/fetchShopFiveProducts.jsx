@@ -19,6 +19,7 @@ export const fetchShopFiveProducts = async () => {
           const documentNameParts = document.name.split("/");
           const documentId = documentNameParts[documentNameParts.length - 1];
           const fields = document.fields;
+          console.log(fields);
 
           // Define a function to handle fields based on their existence
           const handleField = (fieldName) => {
@@ -37,7 +38,7 @@ export const fetchShopFiveProducts = async () => {
 
           const productname = fields.productname.stringValue;
 
-          const shopid = fields.shopid.stringValue;
+          const shopid = fields.shopid?.stringValue || "shop05";
 
           const category = fields.category.stringValue;
 

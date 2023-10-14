@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getSalesByCategory } from "../Api/SalesReportFunctionalities";
-import { PieChart } from "@mui/x-charts/PieChart";
+import { Box, CircularProgress } from "@mui/material";
+import LoaderComponent from "./components/LoaderComponent";
+import ShopSalesBarChart from "./components/ShopSalesTable";
+import ProductCardTopAndBottom from "./components/ProductCardTopAndBottom";
 
 const OverallReport = () => {
-  const [shopSales, setShopSales] = useState({});
+  const [shopSalesData, setShopSalesData] = useState({});
   const [pieData, setPieData] = useState({});
   const [topSellingMediaProducts, setTopSellingMediaProducts] = useState([]);
   const [bottomSellingMediaProducts, setBottomSellingMediaProducts] = useState(
@@ -20,6 +23,7 @@ const OverallReport = () => {
   );
   const [bottomSellingComputerProducts, setBottomSellingComputerProducts] =
     useState([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
     const getSalesByCategoryFunction = async () => {
@@ -35,6 +39,14 @@ const OverallReport = () => {
           topSellingComputerProducts,
           bottomSellingComputerProducts,
         } = await getSalesByCategory();
+        const restructuredData = Object.entries(shopSales).map(
+          ([shop, sales]) => ({
+            shop,
+            sales,
+          })
+        );
+        console.log(restructuredData);
+
         console.log(
           shopSales,
           topSellingMediaProducts,
@@ -46,7 +58,7 @@ const OverallReport = () => {
           topSellingComputerProducts,
           bottomSellingComputerProducts
         );
-        setShopSales(shopSales);
+        setShopSalesData(restructuredData);
         setTopSellingMediaProducts(topSellingMediaProducts);
         setBottomSellingMediaProducts(bottomSellingMediaProducts);
         setTopSellingMobileProducts(topSellingMobileProducts);
@@ -55,6 +67,7 @@ const OverallReport = () => {
         setBottomSellingGamingProducts(bottomSellingGamingProducts);
         setTopSellingComputerProducts(topSellingComputerProducts);
         setBottomSellingComputerProducts(bottomSellingComputerProducts);
+        setIsDataLoaded(true);
       } catch (err) {
         console.error("Sales Report Could Not Be Retrieved", err);
       }
@@ -64,7 +77,38 @@ const OverallReport = () => {
   }, []);
 
   // Render your component with the updated state variables
-  return <div>hello</div>;
+  return (
+    <div className="min-h-screen">
+      {isDataLoaded ? (
+        <div>
+          <ShopSalesBarChart shopSalesData={shopSalesData} />
+
+          <ProductCardTopAndBottom
+            topProducts={topSellingMediaProducts}
+            bottomProducts={bottomSellingMediaProducts}
+            title="Media Products"
+          />
+          <ProductCardTopAndBottom
+            topProducts={topSellingComputerProducts}
+            bottomProducts={bottomSellingComputerProducts}
+            title="Computer Products"
+          />
+          <ProductCardTopAndBottom
+            topProducts={topSellingMobileProducts}
+            bottomProducts={bottomSellingMobileProducts}
+            title="Mobile Products"
+          />
+          <ProductCardTopAndBottom
+            topProducts={topSellingGamingProducts}
+            bottomProducts={bottomSellingGamingProducts}
+            title="Gaming Products"
+          />
+        </div>
+      ) : (
+        <LoaderComponent />
+      )}
+    </div>
+  );
 };
 
 export default OverallReport;

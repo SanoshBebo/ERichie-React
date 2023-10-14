@@ -35,14 +35,13 @@ export const getSalesByCategory = async () => {
       "shop05",
       "shop06",
       "shop07",
-      "shop08",
       "shop09",
       "shop10",
       "shop11",
       "shop12",
       "shop13",
       "shop14",
-      "shop015",
+      "shop15",
       "shop16",
       "shop17",
     ];
@@ -65,13 +64,14 @@ export const getSalesByCategory = async () => {
                 (document) => document.fields.category.stringValue === "media"
               )
               .map(async (document) => {
+                console.log(document);
                 const documentNameParts = document.name.split("/");
                 const documentId =
                   documentNameParts[documentNameParts.length - 1];
                 const { productid, totalprice, shopid } = document.fields;
-
-                mediaSales += totalprice;
-
+                console.log(totalprice);
+                mediaSales += parseInt(totalprice.integerValue, 10);
+                console.log(mediaSales);
                 if (mediaProducts[productid.stringValue]) {
                   mediaProducts[productid.stringValue].totalsales +=
                     totalprice.integerValue;
@@ -79,14 +79,17 @@ export const getSalesByCategory = async () => {
                   const shopProducts = await fetchShopProducts(
                     shopid.stringValue
                   );
+                  console.log(shopProducts);
                   const productInfo = shopProducts.find(
                     (prod) => prod.productid === productid.stringValue
                   );
+                  console.log(productInfo);
                   // If the product is not in the dictionary, add it
                   mediaProducts[productid.stringValue] = {
                     productInfo,
                     totalsales: totalprice.integerValue,
                   };
+                  console.log(mediaProducts);
                 }
               })
           );
@@ -97,13 +100,15 @@ export const getSalesByCategory = async () => {
                   document.fields.category.stringValue === "computer"
               )
               .map(async (document) => {
+                console.log(document);
+
                 const documentNameParts = document.name.split("/");
                 const documentId =
                   documentNameParts[documentNameParts.length - 1];
                 const { productid, totalprice, shopid } = document.fields;
 
-                computerSales += totalprice;
-
+                computerSales += parseInt(totalprice.integerValue, 10);
+                console.log(computerSales);
                 if (computerProducts[productid.stringValue]) {
                   computerProducts[productid.stringValue].totalsales +=
                     totalprice.integerValue;
@@ -114,11 +119,13 @@ export const getSalesByCategory = async () => {
                   const productInfo = shopProducts.find(
                     (prod) => prod.productid === productid.stringValue
                   );
+                  console.log(productInfo);
                   // If the product is not in the dictionary, add it
                   computerProducts[productid.stringValue] = {
                     productInfo,
                     totalsales: totalprice.integerValue,
                   };
+                  console.log(computerProducts);
                 }
               })
           );
@@ -133,7 +140,8 @@ export const getSalesByCategory = async () => {
                   documentNameParts[documentNameParts.length - 1];
                 const { productid, totalprice, shopid } = document.fields;
 
-                mobileSales += totalprice;
+                mobileSales += parseInt(totalprice.integerValue, 10);
+                console.log(mobileSales);
 
                 if (mobileProducts[productid.stringValue]) {
                   mobileProducts[productid.stringValue].totalsales +=
@@ -142,14 +150,17 @@ export const getSalesByCategory = async () => {
                   const shopProducts = await fetchShopProducts(
                     shopid.stringValue
                   );
+                  console.log(shopProducts);
                   const productInfo = shopProducts.find(
                     (prod) => prod.productid === productid.stringValue
                   );
+                  console.log(productInfo);
                   // If the product is not in the dictionary, add it
                   mobileProducts[productid.stringValue] = {
                     productInfo,
                     totalsales: totalprice.integerValue,
                   };
+                  console.log(mobileProducts);
                 }
               })
           );
@@ -160,13 +171,14 @@ export const getSalesByCategory = async () => {
                 (document) => document.fields.category.stringValue === "gaming"
               )
               .map(async (document) => {
+                console.log(document);
                 const documentNameParts = document.name.split("/");
                 const documentId =
                   documentNameParts[documentNameParts.length - 1];
                 const { productid, totalprice, shopid } = document.fields;
 
-                gamingSales += totalprice;
-
+                gamingSales += parseInt(totalprice.integerValue, 10);
+                console.log(gamingSales);
                 if (gamingProducts[productid.stringValue]) {
                   gamingProducts[productid.stringValue].totalsales +=
                     totalprice.integerValue;
@@ -174,14 +186,17 @@ export const getSalesByCategory = async () => {
                   const shopProducts = await fetchShopProducts(
                     shopid.stringValue
                   );
+                  console.log(shopProducts);
                   const productInfo = shopProducts.find(
                     (prod) => prod.productid === productid.stringValue
                   );
+                  console.log(productInfo);
                   // If the product is not in the dictionary, add it
                   gamingProducts[productid.stringValue] = {
                     productInfo,
                     totalsales: totalprice.integerValue,
                   };
+                  console.log(gamingProducts);
                 }
               })
           );

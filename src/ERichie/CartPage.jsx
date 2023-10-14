@@ -117,6 +117,8 @@ const CartComponent = () => {
     fetchCart(user.useruid).then((response) => {
       dispatch(setCartItems(response));
     });
+
+    navigate("/order-history");
   };
 
   return (
