@@ -17,40 +17,41 @@ export const fetchShopFiveProducts = async () => {
 
         const productData = productDocuments.map((document) => {
           const documentNameParts = document.name.split("/");
-
           const documentId = documentNameParts[documentNameParts.length - 1];
+          const fields = document.fields;
 
-          const {
-            description,
+          // Define a function to handle fields based on their existence
+          const handleField = (fieldName) => {
+            const stringValue = fields[fieldName]?.stringValue;
+            const integerValue = fields[fieldName]?.integerValue;
+            return stringValue
+              ? parseInt(stringValue, 10)
+              : integerValue || null;
+          };
 
-            stock,
+          const description = fields.description.stringValue;
 
-            price,
+          const stock = handleField("stock");
 
-            productname,
+          const price = handleField("price");
 
-            shopid,
+          const productname = fields.productname.stringValue;
 
-            category,
+          const shopid = fields.shopid.stringValue;
 
-            imageUrl,
-          } = document.fields;
+          const category = fields.category.stringValue;
+
+          const imageurl =
+            fields.imageUrl?.stringValue || fields.imageurl?.stringValue;
 
           return {
-            description: description.stringValue,
-
-            stock: stock.integerValue,
-
-            price: price.doubleValue,
-
-            productname: productname.stringValue,
-
-            shopid: shopid.stringValue,
-
-            category: category.stringValue,
-
-            imageurl: imageUrl.stringValue,
-
+            description,
+            stock,
+            price,
+            productname,
+            shopid,
+            category,
+            imageurl,
             productid: documentId,
           };
         });
