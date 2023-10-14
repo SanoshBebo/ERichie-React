@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   getOrderByDateFromFireStore,
   getOrderByDateRangeFromFireStore,
-} from "./shop03_getorderdetails";
+} from "./Shop02_GetOrderDetails";
 import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const IndividualShopReport = () => {
+const AkshayaIndividualShopReport = () => {
   const [orders, setOrders] = useState([]);
   const [ordersByDate, setOrdersByDate] = useState([]);
   const [startDate, setStartDate] = useState();
@@ -15,6 +15,7 @@ const IndividualShopReport = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const ordersPerPage = 7;
   const pageCount = Math.ceil(orders.length / ordersPerPage);
+  const shopid = "shop02";
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -23,7 +24,6 @@ const IndividualShopReport = () => {
   const offset = currentPage * ordersPerPage;
   const currentPageData = orders.slice(offset, offset + ordersPerPage);
   useEffect(() => {
-    const shopid = "shop03";
     getOrderByDateFromFireStore(shopid)
       .then((todaysOrders) => {
         console.log(todaysOrders);
@@ -35,7 +35,7 @@ const IndividualShopReport = () => {
   }, []);
 
   const getOrdersByDate = () => {
-    getOrderByDateRangeFromFireStore(startDate, endDate)
+    getOrderByDateRangeFromFireStore(startDate, endDate, shopid)
       .then((order) => {
         console.log(order);
         setOrdersByDate(order);
@@ -54,13 +54,13 @@ const IndividualShopReport = () => {
   };
 
   return (
-    <div className="min-h-screen p-10 bg-pink-100">
-      <div className="min-h-[500px] bg-pink-200 p-4 rounded-lg shadow-md">
+    <div className="min-h-screen p-10">
+      <div className="min-h-[500px]">
         <h2 className="font-bold text-2xl mb-4">Today's Orders</h2>
         <div className="overflow-x-auto">
-          <table className="w-full table-auto border-collapse bg-white">
+          <table className="w-full table-auto border-collapse">
             <thead>
-              <tr className="bg-pink-300">
+              <tr className="bg-gray-100">
                 <th className="border-b border-gray-300 px-4 py-2">Order ID</th>
                 <th className="border-b border-gray-300 px-4 py-2">
                   Customer Name
@@ -82,7 +82,7 @@ const IndividualShopReport = () => {
             </thead>
             <tbody>
               {currentPageData.map((order) => (
-                <tr key={order.orderid} className="hover:bg-pink-50">
+                <tr key={order.orderid} className="hover:bg-gray-100">
                   <td className="border-b border-gray-300 px-4 py-2">
                     {order.orderid}
                   </td>
@@ -113,10 +113,8 @@ const IndividualShopReport = () => {
           <button
             onClick={() => handlePageClick({ selected: currentPage - 1 })}
             className={`${
-              currentPage === 0
-                ? "hidden"
-                : "block"
-            } bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600`}
+              currentPage === 0 ? "hidden" : "block"
+            } bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600`}
           >
             Previous
           </button>
@@ -135,16 +133,14 @@ const IndividualShopReport = () => {
           <button
             onClick={() => handlePageClick({ selected: currentPage + 1 })}
             className={`${
-              currentPage === pageCount - 1
-                ? "hidden"
-                : "block"
-            } bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600`}
+              currentPage === pageCount - 1 ? "hidden" : "block"
+            } bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600`}
           >
             Next
           </button>
         </div>
       </div>
-      <div className="flex-row space-y-10">
+      <div className="flex-row space-y-10 ">
         <h2 className="font-bold text-2xl mb-4">Orders By Date</h2>
         <div className="flex space-x-4 items-center justify-start">
           <DatePicker
@@ -165,16 +161,16 @@ const IndividualShopReport = () => {
           />
           <button
             onClick={getOrdersByDate}
-            className="bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600"
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
           >
             View
           </button>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full table-auto border-collapse bg-white">
+          <table className="w-full table-auto border-collapse">
             {ordersByDate.length > 0 ? (
               <thead>
-                <tr className="bg-pink-300">
+                <tr className="bg-gray-100">
                   <th className="border-b border-gray-300 px-4 py-2">
                     Order ID
                   </th>
@@ -201,7 +197,7 @@ const IndividualShopReport = () => {
 
             <tbody>
               {ordersByDate.map((order) => (
-                <tr key={order.orderid} className="hover:bg-pink-50">
+                <tr key={order.orderid} className="hover:bg-gray-100">
                   <td className="border-b border-gray-300 px-4 py-2">
                     {order.orderid}
                   </td>
@@ -230,4 +226,4 @@ const IndividualShopReport = () => {
   );
 };
 
-export default IndividualShopReport;
+export default AkshayaIndividualShopReport;
