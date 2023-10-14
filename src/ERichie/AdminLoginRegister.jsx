@@ -16,10 +16,11 @@ const AdminLoginRegister = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
   const dispatch = useDispatch();
 
   const toggleRegistration = () => {
+    setInvalidCredentials(false);
     setIsRegistering(!isRegistering);
   };
 
@@ -43,15 +44,21 @@ const AdminLoginRegister = () => {
 
         if (userRole == "shopkeeper") {
           localStorage.setItem("user", JSON.stringify(user));
-          navigate("/shop01/admin");
+          if (user.email == "sanoshadmin@gmail.com") {
+            navigate("/shop01/admin");
+          } else if (user.email == "sprityadmin@gmail.com") {
+          }
         } else {
+          setInvalidCredentials(true);
           console.log("invalid login credentials");
         }
       }
     } catch (err) {
       if (err.code === "auth/invalid-login-credentials") {
+        setInvalidCredentials(true);
         console.error("Invalid email or password. Please try again.");
       } else {
+        setInvalidCredentials(true);
         console.error("An error occurred while signing in:", err);
       }
     }
@@ -74,9 +81,9 @@ const AdminLoginRegister = () => {
         await storeUserInFirestore(user);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(setUser(user));
-        if(user.email == "sanoshadmin@gmail.com"){
+        if (user.email == "sanoshadmin@gmail.com") {
           navigate("/shop01/admin");
-        if(user.email == "sashfiretest1@gmail.com")
+          if (user.email == "sashfiretest1@gmail.com")
             navigate("/shop09/admin/dashboard");
         }
       }
@@ -84,16 +91,6 @@ const AdminLoginRegister = () => {
       console.error(err);
     }
   };
-
-  const signInWithGoogle = async () => {
-    try {
-      const response = await signInWithPopup(auth, googleProvider);
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       <div className="bg-white p-8 rounded shadow-md w-96">
@@ -125,6 +122,11 @@ const AdminLoginRegister = () => {
             placeholder="Your email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          {invalidCredentials && (
+            <div>
+              <p className="text-red-500">Invalid Credentials</p>
+            </div>
+          )}
         </div>
         <div className="mb-4">
           <label htmlFor="password" className="block text-gray-600">
@@ -137,21 +139,20 @@ const AdminLoginRegister = () => {
             placeholder="Your password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          {invalidCredentials && (
+            <div>
+              <p className="text-red-500">Invalid Credentials</p>
+            </div>
+          )}
         </div>
         <div className="flex space-x-8">
           <button
             onClick={() => {
               isRegistering ? signUp() : signIn();
             }}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-2"
+            className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600 mb-2"
           >
             {isRegistering ? "Register" : "Login"}
-          </button>
-          <button
-            onClick={signInWithGoogle}
-            className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 mb-2"
-          >
-            Sign in with Google
           </button>
         </div>
         <p className="mt-4 text-center">

@@ -28,7 +28,9 @@ import TablePage from "./VishalProject/pages/TablePage";
 //=========================================================vishals imports============================================================================//
 
 //=========================================================Akshayas imports============================================================================//
-import { AkshayaAdminPage } from "./AkshayaProject/AkshayaAdminPage";
+import AkshayaAdminPage  from "./AkshayaProject/AkshayaAdminPage";
+import AkshayaIndividualShopReport from "./AkshayaProject/Shop02_DailyInventory"
+import AkshayaProductForm from "./AkshayaProject/ProductForm"
 
 //=========================================================Akshayas imports============================================================================//
 
@@ -100,6 +102,7 @@ import IndividualShop07Report from "./thillai/components/admin-page/dashboard/sh
 import ThillaiAdminPage from "./thillai/pages/AdminPage";
 import ProductList1 from "./thillai/components/admin-page/products/ProductList";
 import LasyaProductList from "./lasya/my-react-vite-app/src/components/productlist/productlist";
+import LasyaIndividualShopReport from "./lasya/my-react-vite-app/src/components/Shop06_DailyInventory";
 import AddProduct1 from "./lasya/my-react-vite-app/src/components/addproduct/addproduct";
 import RethuAddProduct from "./rethu/src/components/AdminPage";
 import ProductDetail from "./lasya/my-react-vite-app/src/components/productlist/productdetail";
@@ -268,8 +271,10 @@ const App = () => {
               path="/shop02/product/:productId"
               element={<ProductDetails />}
             />
-            <Route path="/shop02/admin/*" element={<AkshayaAdminPage />} />
+            <Route path="/shop02/admin" element={<AkshayaAdminPage />} />
             <Route path="/*" element={<NoPage />} />
+            <Route path="/shop02/admin/report" element={<AkshayaIndividualShopReport />} />
+            <Route path="/shop02/admin/add-product" element={<AkshayaProductForm />} />
             {/* // =========================================================Suryas code============================================================================// */}
             <Route path="/shop04" element={<Home />} />
             <Route path="/shop04/allproducts" element={<Allproducts />} />
@@ -344,6 +349,7 @@ const App = () => {
               element={<IndividualShop07Report />}
             />
             <Route path="/shop06" element={<LasyaProductList />} />
+            <Route path="/shop06/admin/report" element={<LasyaIndividualShopReport />} />
             <Route
               path="/shop06/product/:productId"
               element={<ProductDetail />}

@@ -3,6 +3,25 @@ import React from "react";
 const ProductCardTopAndBottom = (data) => {
   const { topProducts, bottomProducts, title, bg } = data;
   console.log(topProducts, bottomProducts, title);
+
+  const shopnames = {
+    shop01: "Cosmic-Media-Gadgets",
+    shop02: "E-Nerd",
+    shop03: "Vishal Media Shop",
+    shop04: "Supreme-Mart",
+    shop05: "Dead-Eye-GameStore",
+    shop06: "Lasya-Gaming",
+    shop07: "Thillai-Gaming",
+    shop09: "Shank-Mobiles",
+    shop10: "Lemon-Tech",
+    shop11: "E-Mobile",
+    shop12: "Mobile-World",
+    shop13: "Abhiram-Store",
+    shop14: "Digital-Genie",
+    shop15: "Sanjay-Computers",
+    shop16: "Dhanu-Computers",
+    shop17: "MrComputerWizz",
+  };
   return (
     <div className="flex flex-col items-center justify-center text-center py-10">
       <div className="bg-gray-200 w-full">
@@ -27,7 +46,9 @@ const ProductCardTopAndBottom = (data) => {
                       </div>
                       <div className="flex-row ">
                         <p className="p-1">{product.productInfo.productname}</p>
-                        <p className="p-1">{product.productInfo.shopid}</p>
+                        <p className="p-1">
+                          {shopnames[product.productInfo.shopid]}
+                        </p>
                       </div>
                     </div>
                   </li>
@@ -53,7 +74,9 @@ const ProductCardTopAndBottom = (data) => {
                       </div>
                       <div className="flex-row ">
                         <p className="p-1">{product.productInfo.productname}</p>
-                        <p className="p-1">{product.productInfo.shopid}</p>
+                        <p className="p-1">
+                          {shopnames[product.productInfo.shopid]}
+                        </p>
                       </div>
                     </div>
                   </li>

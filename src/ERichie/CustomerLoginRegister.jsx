@@ -18,10 +18,12 @@ const CustomerLoginRegister = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
 
   const dispatch = useDispatch();
 
   const toggleRegistration = () => {
+    setInvalidCredentials(false);
     setIsRegistering(!isRegistering);
   };
 
@@ -51,12 +53,16 @@ const CustomerLoginRegister = () => {
           } else {
             navigate("/erichie");
           }
+        } else {
+          setInvalidCredentials(true);
         }
       }
     } catch (err) {
       if (err.code === "auth/invalid-login-credentials") {
+        setInvalidCredentials(true);
         console.error("Invalid email or password. Please try again.");
       } else {
+        setInvalidCredentials(true);
         console.error("An error occurred while signing in:", err);
       }
     }
@@ -82,15 +88,8 @@ const CustomerLoginRegister = () => {
         navigate("/erichie");
       }
     } catch (err) {
-      console.error(err);
-    }
-  };
+      setInvalidCredentials(true);
 
-  const signInWithGoogle = async () => {
-    try {
-      const response = await signInWithPopup(auth, googleProvider);
-      console.log(response);
-    } catch (err) {
       console.error(err);
     }
   };
@@ -113,6 +112,11 @@ const CustomerLoginRegister = () => {
               placeholder="Your full name"
               onChange={(e) => setName(e.target.value)}
             />
+            {invalidCredentials && (
+              <div>
+                <p className="text-red-500">Invalid Credentials</p>
+              </div>
+            )}
           </div>
         )}
         <div className="mb-4">
@@ -126,6 +130,11 @@ const CustomerLoginRegister = () => {
             placeholder="Your email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          {invalidCredentials && (
+            <div>
+              <p className="text-red-500">Invalid Credentials</p>
+            </div>
+          )}
         </div>
         <div className="mb-4">
           <label htmlFor="password" className="block text-gray-600">
@@ -138,21 +147,20 @@ const CustomerLoginRegister = () => {
             placeholder="Your password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          {invalidCredentials && (
+            <div>
+              <p className="text-red-500">Invalid Credentials</p>
+            </div>
+          )}
         </div>
         <div className="flex gap-4 p-2">
           <button
             onClick={() => {
               isRegistering ? signUp() : signIn();
             }}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-2 focus:outline-none focus:bg-blue-600"
+            className="bg-blue-500 text-white w-full py-2 px-4 rounded hover:bg-blue-600 mb-2 focus:outline-none focus:bg-blue-600"
           >
             {isRegistering ? "Register" : "Login"}
-          </button>
-          <button
-            onClick={signInWithGoogle}
-            className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600  mb-2 focus:outline-none focus:bg-red-600"
-          >
-            Sign in with Google
           </button>
         </div>
         <p className="mt-4 text-center">

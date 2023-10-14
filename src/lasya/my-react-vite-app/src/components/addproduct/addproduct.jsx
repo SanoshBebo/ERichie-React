@@ -1,16 +1,18 @@
-import "./addproduct.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import './addproduct.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom"
+import LasyaIndividualShopReport from '../Shop06_DailyInventory';
 
 function AddProduct() {
   const [product, setProduct] = useState({
-    productname: "",
-    price: "",
-    description: "",
-    stock: "",
-    imageFile: null,
+    productname: '',
+    price: '',
+    description: '',
+    stock: '',
+    imageUrl: null,
   });
 
   const [products, setProducts] = useState([]);
@@ -55,9 +57,7 @@ function AddProduct() {
 
       if (response.status === 200) {
         // Construct the image URL
-        const imageurl = `${storageUrl}/images%2F${encodeURIComponent(
-          imageFile.name
-        )}?alt=media`;
+        const imageUrl = `${storageUrl}/images%2F${encodeURIComponent(imageFile.name)}?alt=media`;
 
         // Create a new product document with the image URL and additional fields
         const payload = {
@@ -257,8 +257,21 @@ function AddProduct() {
 
   return (
     <div>
+
+
+
       <div className="add-product-container">
-        <h1>{isEditing ? "Edit Product" : "Add Product"}</h1>
+        <h1>{isEditing ? 'Edit Product' : 'Add Product'}</h1>
+        <div className=' flex justify-center mb-3'>
+          <Link to='/shop06/admin/report' button
+            className=' bg-blue-500 w-35 text-white font-bold  px-2 py-2 rounded-lg'>
+            Report </Link>
+        </div>
+       <div className=' flex justify-center mb-3'>
+          <Link to='/shop06/admin/report' button
+            className=' bg-blue-500 w-35 text-white font-bold  px-2 py-2 rounded-lg'>
+            E-Richie Report </Link>
+        </div>
         <div className="product-form">
           <label>Product Name:</label>
           <input
@@ -303,8 +316,11 @@ function AddProduct() {
             </div>
           ) : (
             <button onClick={handleAddProduct}>Add Product</button>
+
           )}
         </div>
+        
+
       </div>
 
       <div>
@@ -334,11 +350,13 @@ function AddProduct() {
                 Delete
               </button>
             </div>
+
           ))}
         </ul>
       </div>
       <ToastContainer />
     </div>
+
   );
 }
 

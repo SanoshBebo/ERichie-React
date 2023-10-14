@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import TablePage from "./TablePage"; // Use relative import
 
- 
+
 
 const AddProductForm = () => {
 
@@ -32,7 +32,7 @@ const AddProductForm = () => {
 
   });
 
- 
+
 
   const [products, setProducts] = useState([]); // Store the list of products
 
@@ -40,7 +40,7 @@ const AddProductForm = () => {
 
   const [displayImage, setDisplayImage] = useState(true); // Control image display
 
- 
+
 
   useEffect(() => {
 
@@ -60,7 +60,7 @@ const AddProductForm = () => {
 
         const response = await axios.get(apiUrl);
 
- 
+
 
         if (response.status === 200) {
 
@@ -98,7 +98,7 @@ const AddProductForm = () => {
 
           });
 
- 
+
 
           setProducts(productsData);
 
@@ -118,13 +118,13 @@ const AddProductForm = () => {
 
     }
 
- 
+
 
     fetchProducts();
 
   }, []); // Fetch products once when the component mounts
 
- 
+
 
   const handleInputChange = (event) => {
 
@@ -140,7 +140,7 @@ const AddProductForm = () => {
 
   };
 
- 
+
 
   const handleImageUpload = (event) => {
 
@@ -160,13 +160,13 @@ const AddProductForm = () => {
 
       )}?alt=media`;
 
- 
+
 
       const imageFormData = new FormData();
 
       imageFormData.append("file", file);
 
- 
+
 
       axios
 
@@ -216,13 +216,13 @@ const AddProductForm = () => {
 
   };
 
- 
+
 
   const handleSubmit = async (event) => {
 
     event.preventDefault();
 
- 
+
 
     // Check if any required field is missing
 
@@ -246,7 +246,7 @@ const AddProductForm = () => {
 
     }
 
- 
+
 
     try {
 
@@ -256,13 +256,13 @@ const AddProductForm = () => {
 
         "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
 
- 
+
 
       // Define the collection you want to add/update the product in (e.g., 'Products')
 
       const collectionName = "Products";
 
- 
+
 
       // Create the full API URL for the new document or the specific product document to be updated
 
@@ -272,7 +272,7 @@ const AddProductForm = () => {
 
         : `${baseUrl}/${collectionName}`;
 
- 
+
 
       // Check if a new image has been uploaded
 
@@ -308,7 +308,7 @@ const AddProductForm = () => {
 
               : products.find((p) => p.id === selectedProductId)?.imageurl
 
-                  .value,
+                .value,
 
           },
 
@@ -316,7 +316,7 @@ const AddProductForm = () => {
 
       };
 
- 
+
 
       // Use Axios to make a POST (for adding) or PATCH (for updating) request
 
@@ -326,7 +326,7 @@ const AddProductForm = () => {
 
         : await axios.post(apiUrl, payload);
 
- 
+
 
       if (response.status === 200) {
 
@@ -364,7 +364,7 @@ const AddProductForm = () => {
 
         });
 
- 
+
 
         setSelectedProductId(null); // Clear the selected product ID after adding/updating
 
@@ -408,7 +408,7 @@ const AddProductForm = () => {
 
   };
 
- 
+
 
   const handleEditProduct = (productId) => {
 
@@ -448,7 +448,7 @@ const AddProductForm = () => {
 
   };
 
- 
+
 
   const handleDeleteProduct = async (productId) => {
 
@@ -458,7 +458,7 @@ const AddProductForm = () => {
 
     );
 
- 
+
 
     if (shouldDelete) {
 
@@ -470,25 +470,25 @@ const AddProductForm = () => {
 
           "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
 
- 
+
 
         // Define the collection where the product is stored (e.g., 'Products')
 
         const collectionName = "Products";
 
- 
+
 
         // Create the full API URL for the specific product document to be deleted
 
         const apiUrl = `${baseUrl}/${collectionName}/${productId}`;
 
- 
+
 
         // Use Axios to make a DELETE request to delete the product document
 
         const response = await axios.delete(apiUrl);
 
- 
+
 
         if (response.status === 200) {
 
@@ -542,7 +542,7 @@ const AddProductForm = () => {
 
   };
 
- 
+
 
   const refreshProductList = async () => {
 
@@ -560,7 +560,7 @@ const AddProductForm = () => {
 
       const response = await axios.get(apiUrl);
 
- 
+
 
       if (response.status === 200) {
 
@@ -596,7 +596,7 @@ const AddProductForm = () => {
 
         });
 
- 
+
 
         setProducts(productsData);
 
@@ -624,7 +624,7 @@ const AddProductForm = () => {
 
   };
 
- 
+
 
   return (
 
@@ -647,6 +647,17 @@ const AddProductForm = () => {
         >
 
           Report Analysis
+
+        </Link>
+        <Link
+
+          to="/shop03/tablepage"
+
+          className="bg-blue-500 text-white p-2 ml-2 rounded-full hover:bg-blue-600 transition"
+
+        >
+
+          E-Richie Analysis
 
         </Link>
 
@@ -808,15 +819,11 @@ const AddProductForm = () => {
 
               type="submit"
 
-              className={`${
+              className={`${selectedProductId ? "bg-blue-500" : "bg-green-500"
 
-                selectedProductId ? "bg-blue-500" : "bg-green-500"
+                } text-white p-2 rounded-full hover:bg-${selectedProductId ? "blue-600" : "green-600"
 
-              } text-white p-2 rounded-full hover:bg-${
-
-                selectedProductId ? "blue-600" : "green-600"
-
-              } transition w-full`}
+                } transition w-full`}
 
             >
 
@@ -842,7 +849,7 @@ const AddProductForm = () => {
 
             )}
 
-         <button
+            <button
 
               type="button"
 
@@ -862,7 +869,7 @@ const AddProductForm = () => {
 
       </div>
 
- 
+
 
       <div className="mt-4">
 
@@ -956,6 +963,6 @@ const AddProductForm = () => {
 
 };
 
- 
+
 
 export default AddProductForm;

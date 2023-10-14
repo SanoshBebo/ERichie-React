@@ -30,8 +30,10 @@ export const AkshayaAdminPage = () => {
       <Routes>
         <Route path="/" element={<ProductList />} />
 
-        <Route path="/add-product" element={<ProductForm />} />
+        
       </Routes>
     </div>
   );
 };
+
+export default AkshayaAdminPage;
