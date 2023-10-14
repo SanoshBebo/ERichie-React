@@ -2,33 +2,36 @@ import React, { useState } from 'react';
 import ProductForm from './ProductForm';
 import ProductDisplay from './ProductDisplay';
 import UpdateProduct from './UpdateProduct';
-import DeleteProduct from './DeleteProduct'; // Import the DeleteProduct component
+import DeleteProduct from './DeleteProduct';
+import IndividualShopReport from '../DailyInventory';
 
 const AdminPanel = () => {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showDisplayProduct, setShowDisplayProduct] = useState(false);
   const [showUpdateProduct, setShowUpdateProduct] = useState(false);
-  const [showDeleteProduct, setShowDeleteProduct] = useState(false); // Add state for delete product
+  const [showDeleteProduct, setShowDeleteProduct] = useState(false);
+  const [showinventoryProduct, setshowinventoryProduct] = useState(false);
+  // const [showsalesreportProduct, setshowsalesreportProduct] = useState(false);
 
   const handleAddProductClick = () => {
     setShowAddProduct(true);
     setShowDisplayProduct(false);
     setShowUpdateProduct(false);
-    setShowDeleteProduct(false); // Ensure other options are set to false
+    setShowDeleteProduct(false);
   };
 
   const handleDisplayProductClick = () => {
     setShowAddProduct(false);
     setShowDisplayProduct(true);
     setShowUpdateProduct(false);
-    setShowDeleteProduct(false); // Ensure other options are set to false
+    setShowDeleteProduct(false);
   };
 
   const handleUpdateProductClick = () => {
     setShowAddProduct(false);
     setShowDisplayProduct(false);
     setShowUpdateProduct(true);
-    setShowDeleteProduct(false); // Ensure other options are set to false
+    setShowDeleteProduct(false);
   };
 
   const handleDeleteProductClick = () => {
@@ -37,9 +40,15 @@ const AdminPanel = () => {
     setShowUpdateProduct(false);
     setShowDeleteProduct(true);
   };
+  const handleinventoryProductClick = () => {
+    window.location.href  = '/shop12/daily-inventory';
+  }
+  // const handlesalesreportProductClick = () => {
+    
+  // }
 
   return (
-    <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen flex flex-col items-center justify-center text-white">
+    <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen flex flex-col items-center justify-center text-black">
       <div className="admin-panel p-8 bg-white rounded-lg shadow-md">
         <h1 className="text-3xl font-semibold mb-4 text-center">Move forward with your admin actions</h1>
         <div className="flex flex-col items-center gap-4">
@@ -47,11 +56,15 @@ const AdminPanel = () => {
           <button onClick={handleDisplayProductClick} className="btn">Display Products</button>
           <button onClick={handleUpdateProductClick} className="btn">Update Products</button>
           <button onClick={handleDeleteProductClick} className="btn">Delete Products</button>
+          <button onClick={handleinventoryProductClick} className="btn">Inventory Report</button>
+          {/* <button onClick={handlesalesreportProductClick} className="btn">Sales Report</button> */}
         </div>
         {showAddProduct && <ProductForm />}
         {showDisplayProduct && <ProductDisplay />}
         {showUpdateProduct && <UpdateProduct />}
-        {showDeleteProduct && <DeleteProduct />} {/* Render DeleteProduct component when showDeleteProduct is true */}
+        {showDeleteProduct && <DeleteProduct />}
+        {showinventoryProduct && <IndividualShopReport />}
+        {/* {showsalesreportProduct && <SalesReport />} */}
       </div>
     </div>
   );

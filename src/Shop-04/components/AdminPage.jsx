@@ -256,7 +256,7 @@ const handleCancelEdit = () => {
         <h1>Welcome to Dhanu Computers !</h1>
        
         {/* <button type="button" class="btn btn-outline-dark">Back to main menu</button> */}
-        <Link to="/Shop16/User"><strong>Daily Sales</strong></Link>
+        <Link to="/Shop16/Daily_Inventoryreport"><strong>Daily Inventory</strong></Link>
       </div>
     <div className="add-product-pages">
       <div className="add-product-containers">

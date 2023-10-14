@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getOrderByDateFromFireStore } from './getorderdetails';
+import { getOrderByDateFromFireStore } from './shop_13_Getorderdetails';
 import '../styles/dailysales.css';
 
 const DailySalesReport = () => {

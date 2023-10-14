@@ -220,6 +220,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
+import styles from "./ProductList.css";
 
 function ProductCard({ product }) {
   return (

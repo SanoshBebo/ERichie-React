@@ -78,7 +78,7 @@ const CustomerApp = () => {
               <li onClick={() => scrollTo('contact')}>Contact Me</li>
             </ul>
           </nav>
-          <h2 id="home" className="welcome-text text-4xl">
+          <h2 id="home" className=" text-4xl font-bold text-center mt-8">
             {welcomeWords.map((word, index) => (
               <span key={index}>{word} </span>
             ))}
@@ -86,9 +86,9 @@ const CustomerApp = () => {
           <CartIcon cart={cart} setCart={setCart} />
         </div>
 
-        <div id="image-cover">
+        {/* <div id="image-cover">
           <img src="image3.webp" alt="Image 1" className="w-full h-auto" />
-        </div>
+        </div> */}
 
         <ProductList cart={cart} setCart={setCart} />
         <div id="about" className="p-8 border border-gray-300 rounded-md">
@@ -99,16 +99,16 @@ const CustomerApp = () => {
         </div>
         <div id="contact" className="p-8 border border-gray-300 rounded-md">
           {/* Your contact information */}
-          <p>Mobile World - Contact Information</p>
-          <p>📍 Address: 123 Main Street, Your City, State, 12345</p>
+          <p>Mobile World </p>
+          <p>📍 Address: 123 Main Street, Chennai, Tamilnadu, 60026</p>
           <p>📞 Phone: +1 (123) 456-7890</p>
           <p>📧 Email: info@mobileworldshop.com</p>
         </div>
         {isFooterVisible && (
-          <footer className="fade-in bg-gray-900 text-white p-4">
-            <p>"The great growling engine of change - technology." - Alvin Toffler</p>
-          </footer>
-        )}
+  <footer className="fade-in text-white p-4 text-center">
+    <p>"The great growling engine of change - technology." - Alvin Toffler</p>
+  </footer>
+)}
       </div>
     </div>
   );

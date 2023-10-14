@@ -39,7 +39,7 @@ const ProductDisplay = () => {
               <strong>{product.productname}</strong> - {product.description}, Price: ${product.price}, Stock: {product.stock}
               <br />
               <br />
-              Category: {product.category}
+              
               <br />
               {product.imageurl && (
                 <img src={product.imageurl} alt={product.productname} className="w-24 h-24 object-cover mb-2" />

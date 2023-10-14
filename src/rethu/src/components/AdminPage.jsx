@@ -70,7 +70,7 @@ function AddProduct() {
         category: { stringValue: product.category },
         description: { stringValue: product.description },
         modelNo: { stringValue: product.modelNo },
-        price: { doubleValue: parseFloat(product.price) },
+        price: { integerValue: parseInt(product.price) },
         productname: { stringValue: product.productname },
         shopname: { stringValue: product.shopname },
         stock: { integerValue: parseInt(product.stock, 10) },
@@ -145,7 +145,7 @@ function AddProduct() {
       category: 'Gaming',
       description: editedProduct.fields.description.stringValue,
       modelNo: editedProduct.fields.modelNo.stringValue,
-      price: editedProduct.fields.price.doubleValue,
+      price: editedProduct.fields.price.integerValue,
       productname: editedProduct.fields.productname.stringValue,
       shopname: 'shop05', // Pre-defined shopname
       stock: editedProduct.fields.stock.integerValue,
@@ -167,7 +167,7 @@ function AddProduct() {
         category: { stringValue: 'Gaming' },
         description: { stringValue: product.description },
         modelNo: { stringValue: product.modelNo },
-        price: { doubleValue: parseFloat(product.price) },
+        price: { integerValue: parseInt(product.price) },
         productname: { stringValue: product.productname },
         shopname: { stringValue: 'Shop05' }, // Pre-defined shopname
         stock: { integerValue: parseInt(product.stock, 10) },
@@ -219,6 +219,9 @@ function AddProduct() {
     }
   };
 
+  const DeadEyeInventory =() => {
+    window.location.href = '/shop05/admin/Dead_eye_Inventory';
+  }
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditProductId(null);
@@ -238,6 +241,7 @@ function AddProduct() {
   return (
     <div className="add-product-pages">
       <div className="add-product-containers">
+      <button onClick={() => DeadEyeInventory()}>Dead_eye_Inventory</button>
         <h1>{isEditing ? 'Edit Product' : 'Add Product'}</h1>
         {/* Button to toggle the "Add Product" form */}
         <button onClick={() => setShowAddProductForm(!showAddProductForm)}>

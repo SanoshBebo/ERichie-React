@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   getOrderByDateFromFireStore,
   getOrderByDateRangeFromFireStore,
-} from "./shop_13_Getorderdetails";
+} from "./shop17_getorderdetails";
 import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,7 +23,7 @@ const IndividualShopReport = () => {
   const offset = currentPage * ordersPerPage;
   const currentPageData = orders.slice(offset, offset + ordersPerPage);
   useEffect(() => {
-    const shopid = "shop13";
+    const shopid = "shop17";
     getOrderByDateFromFireStore(shopid)
       .then((todaysOrders) => {
         console.log(todaysOrders);

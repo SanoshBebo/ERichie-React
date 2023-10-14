@@ -23,12 +23,7 @@ const CartDropdown = ({ cart, removeFromCart, calculateTotalPrice, closeCart, ha
         </ul>
         <p className="mt-4">Total Price: ${calculateTotalPrice()}</p>
         <div className="mt-6 flex justify-between">
-          <button
-            onClick={handleBuyNow}
-            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
-          >
-            Buy Now
-          </button>
+          
           <button
             onClick={closeCart}
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"

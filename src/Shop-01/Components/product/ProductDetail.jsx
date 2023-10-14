@@ -6,6 +6,8 @@ import 'firebase/compat/firestore';
 import './ProductDetail.css'; // Import the CSS file
 import Header from "../../components/header/Header";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBV81LLXLpCtn-8rGdcrLyrIg4mwhCvkZA",
@@ -86,28 +88,31 @@ function ProductDetail() {
 
   const addToCart = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData && userData.role == "customer") {
+    if (userData && userData.role === "customer") {
       dispatch(setUser(userData));
       const cartItem = {
         id: documentId,
         name: product.productname,
         description: product.description,
         stock: product.stock,
-        price: product.price,
         shopid: product.shopid,
+        price: product.price,
         imageurl: product.imageurl,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-      alert("Added to Cart");
+  
+      // Show a toast message
+      toast.success('Product added to cart!', {
+        position: 'top-right',
+        autoClose: 3000, // Time in milliseconds to keep the toast open
+      });
     } else {
-      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      // localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
-
-    // Create an object with the product details and count
   };
 
 

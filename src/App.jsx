@@ -78,6 +78,7 @@ import Shop01Home from "./Shop-01/pages/home/Home";
 import Shop01Admin from "./Shop-01/pages/admin/Admin";
 import Shop01AboutUs from "./Shop-01/pages/About/About";
 import Shop01ProductDetail from "./Shop-01/Components/product/ProductDetail";
+import IndividualShop17Report from "./Shop-01/pages/admin/shop17_dailyinventory";
 
 //=========================================================Harinis imports============================================================================//
 
@@ -85,6 +86,7 @@ import Shop01ProductDetail from "./Shop-01/Components/product/ProductDetail";
 import UserPage from "./Shop-04/components/UserPage";
 import DhanushiyaAdminPage from "./Shop-04/components/AdminPage";
 import ShopProductDetails from "./Shop-04/components/shopProductDetail";
+import IndividualShop16Report from "./Shop-04/components/Shop16_Daily_Inventory";
 
 //=========================================================Dhanushiyas imports============================================================================//
 
@@ -93,6 +95,7 @@ import RethuUserPage from "./rethu/src/components/UserPage";
 import ProductDisplay1 from "./ERichie/ProductDisplay";
 import ShoppingPage from "./thillai/pages/ShoppingPage";
 import ProductDescPage from "./rethu/src/components/ProductDescPage";
+import DeadEyeShopReport from "./rethu/src/components/shop05_dailyinventory";
 import ProductDescriptionPage from "./thillai/pages/ProductDescription";
 import ThillaiAdminPage from "./thillai/pages/AdminPage";
 import ProductList1 from "./thillai/components/admin-page/products/ProductList";
@@ -301,14 +304,17 @@ const App = () => {
             />{" "}
             {/* Add this route */}
             <Route path="/shop17/*" element={<Shop01Home />} />
-            <Route path="/admin" element={<Shop01Admin />} />
+            <Route path="/shop17/admin" element={<Shop01Admin />} />
             <Route
               path="/products/:documentId"
               element={<Shop01ProductDetail />}
             />
-            <Route path="/admin/report" element={<Shop01AboutUs />} />
+
+            <Route path="/shop17/admin/report" element={<IndividualShop17Report />} />
             <Route path="/Shop16/User" element={<UserPage />}></Route>
             <Route path="/Shop16/Admin" element={<DhanushiyaAdminPage />} />
+            <Route path="/Shop16/Daily_Inventoryreport" element={<IndividualShop16Report />} />
+
             <Route
               path="/shop4products/:productId"
               element={<ShopProductDetails />}
@@ -320,6 +326,8 @@ const App = () => {
             <Route path="/gaming" element={<ProductDisplay1 />} />
             <Route path="/shop05" element={<UserPage1 />} />
             <Route path="/shop05/admin" element={<RethuAddProduct />} />
+            <Route path="/shop05/admin/Dead_eye_Inventory" element={< DeadEyeShopReport/>} />
+
             <Route path="/shop07" element={<ShoppingPage />} />
             <Route path="/shop07/admin" element={<ThillaiAdminPage />} />
             <Route

@@ -8,6 +8,8 @@ import { setUser } from "../../../../SanoshProject/redux/shopOneUserSlice";
 import { addItemToCart } from "../../../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = ({}) => {
   const [product, setproduct] = useState({});
@@ -27,11 +29,10 @@ const ProductDetail = ({}) => {
 
   const addToCart = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData && userData.role == "customer") {
+    if (userData && userData.role === "customer") {
       dispatch(setUser(userData));
-      console.log(product);
       const cartItem = {
-        id: product.id,
+        id: id,
         name: product.productname,
         description: product.description,
         stock: product.stock,
@@ -42,13 +43,17 @@ const ProductDetail = ({}) => {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+  
+      // Show a toast message
+      toast.success('Product added to cart!', {
+        position: 'top-right',
+        autoClose: 3000, // Time in milliseconds to keep the toast open
+      });
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
-
-    // Create an object with the product details and count
   };
 
   useEffect(() => {

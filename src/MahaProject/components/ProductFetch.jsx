@@ -5,6 +5,8 @@ import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
@@ -57,7 +59,7 @@ const ProductFetch = ({ cart, setCart }) => {
 
   const addToCart = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData && userData.role == "customer") {
+    if (userData && userData.role === "customer") {
       dispatch(setUser(userData));
       const cartItem = {
         id: id,
@@ -69,17 +71,21 @@ const ProductFetch = ({ cart, setCart }) => {
         imageurl: product.imageurl,
         quantity: quantity,
       };
-      console.log(cartItem);
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+  
+      // Show a toast message
+      toast.success('Product added to cart!', {
+        position: 'top-right',
+        autoClose: 3000, // Time in milliseconds to keep the toast open
+      });
     } else {
-      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      // localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
-
-    // Create an object with the product details and count
   };
+
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -99,12 +105,19 @@ const ProductFetch = ({ cart, setCart }) => {
     <div className="container mx-auto p-6">
       <Link
         to="/shop12/customer"
-        className="bg-purple-500 text-white py-2 px-4 rounded-lg mb-4"
+        className="bg-purple-500 text-white py-1 px-2 rounded-lg mb-4"
       >
         Back to Home
       </Link>
-      <h2 className="text-3xl font-semibold mb-2">{product.productname}</h2>
-      <p className="text-gray-700 mb-4">{product.description}</p>
+      <Link to='/mobiles' className="bg-purple-500 text-white py-1 px-2 rounded-lg mb-4">
+        Back to Mobile Category
+      </Link>
+      <Link to='/erichie' className="bg-purple-500 text-white py-1 px-2 rounded-lg mb-4">
+        Back to Erichie
+      </Link>
+      <h2 className="text-3xl font-semibold mb-2 text-center">{product.productname}</h2>
+      <p className="text-gray-700 mb-4 text-center">{product.description}</p>
+      
       {imageurl && (
         <img
           src={imageurl}
@@ -114,7 +127,7 @@ const ProductFetch = ({ cart, setCart }) => {
       )}
       <div className="flex flex-col items-center mb-4">
         <p className="text-2xl font-bold text-purple-500 mb-2">
-          Price: ${price}
+          Price: Rs.{price}
         </p>
         <div className="flex items-center space-x-4">
           <button
@@ -137,11 +150,18 @@ const ProductFetch = ({ cart, setCart }) => {
         >
           Add to Cart
         </button>
-        <button className="bg-blue-500 text-white px-6 py-2 rounded-lg mt-2 hover:bg-blue-600 transition duration-300">
-          Buy Now
-        </button>
       </div>
+      <div className="fixed top-4 right-4 flex items-center cursor-pointer">
+      {/* Cart Icon */}
+      <Link to="/erichie/cart">
+        <div className="relative">
+          {/* Image */}
+          <i className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-20 text-base sm:text-lg md:text-xl lg:text-2xl cursor-pointer">🛒</i>
+        </div>
+      </Link>
     </div>
+    </div>
+    
   );
 };
 

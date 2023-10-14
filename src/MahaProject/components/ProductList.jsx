@@ -47,10 +47,10 @@ const ProductList = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <Link to='/shop12/customer' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 inline-block">
-        Back to MobileWorld
+      <Link to='/mobiles' className="bg-purple-500 text-white py-1 px-2 rounded-lg mb-4 rounded full">
+        Back to Mobile Category
       </Link>
-      <Link to='/erichie' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 inline-block">
+      <Link to='/erichie' className="bg-purple-500 text-white py-1 px-2 rounded-lg mb-4 rounded full">
         Back to Erichie
       </Link>
       <div className="bg-white shadow-md rounded p-4 mb-4">
@@ -69,9 +69,9 @@ const ProductList = () => {
           {currentProducts.map((product) => (
             <Link to={`/shop12/product/${product.id}`} key={product.id}>
               <div className="bg-white shadow-md rounded p-6 cursor-pointer">
-                <h3 className="text-xl font-semibold mb-2">{product.productname}</h3>
-                <p className="text-gray-700">Price: ${product.price}</p>
-                <p className="text-gray-700">Stock: {product.stock}</p>
+                <h3 className="text-xl font-semibold mb-2 text-center ">{product.productname}</h3>
+                <p className="text-gray-700 text-center">Price: Rs.{product.price}</p>
+                <p className="text-gray-700 text-center">Stock: {product.stock}</p>
                 <img src={product.imageurl} alt={product.productname} className="max-h-48 mx-auto mt-4" />
               </div>
             </Link>
@@ -82,9 +82,9 @@ const ProductList = () => {
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           >
-            Previous
+            -
           </button>
           <span className="mx-4 text-lg font-semibold">
             {currentPage} / {totalPages}
@@ -92,11 +92,12 @@ const ProductList = () => {
           <button
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           >
-            Next
+            +
           </button>
         </div>
+
       </div>
     </div>
   );
