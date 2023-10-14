@@ -54,6 +54,7 @@ function ProductInfo() {
       console.log(products);
       const cartItem = {
         id: params.id,
+        name: products.productname,
         description: products.description,
         stock: parseInt(products.stock, 10),
         shopid: products.shopid,
@@ -82,14 +83,14 @@ function ProductInfo() {
               <img
                 alt="ecommerce"
                 className="lg:w-1/3 w-full lg:h-auto  object-cover object-center rounded"
-                src={products.imageUrl}
+                src={products.imageurl || products.imageUrl}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
                   {products.category}
                 </h2>
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                  {products.title}
+                  {products.productname}
                 </h1>
                 <div className="flex mb-4">
                   <span className="flex items-center">
@@ -193,7 +194,7 @@ function ProductInfo() {
                   {products.description}
                 </p>
 
-                <div className="flex">
+                <div className="flex justify-between items-center">
                   <span className="title-font font-medium text-2xl text-gray-900">
                     ₹{products.price}
                   </span>
@@ -201,9 +202,11 @@ function ProductInfo() {
                     onClick={() => {
                       addToCart();
                     }}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
                   >
-                    add to cart
+                    Add to Cart
                   </button>
+
                 </div>
               </div>
             </div>

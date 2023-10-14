@@ -103,6 +103,7 @@ const MobileCategory = () => {
                   <h1 className="text-center font-bold text-lg">{product.productname || product.title}</h1>
                   <p className="text-center font-serif">Price: Rs.{product.price}</p>
                   <p className="text-center">Store: {product.shopid}</p>
+                  <p className="text-center font-bold">Available: {product.stock}</p>
                 </Link>
               </li>
             ))}

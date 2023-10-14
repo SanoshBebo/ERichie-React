@@ -93,7 +93,7 @@ function DashboardTab() {
                                             </tr>
                                         </thead>
                                         {product.map((item, index) => {
-                                            const { title, price, imageUrl, category, description, date } = item;
+                                            const { productname, price, imageurl, imageUrl,  category, description, date } = item;
                                             return (
                                                 <tbody className=''>
                                                     <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
@@ -101,10 +101,10 @@ function DashboardTab() {
                                                             {index + 1}.
                                                         </td>
                                                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                            <img className='w-16' src={imageUrl} alt="img" />
+                                                            <img className='w-16' src={imageurl || imageUrl} alt="img" />
                                                         </th>
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                            {title}
+                                                            {productname}
                                                         </td>
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                             ₹{price}
@@ -194,7 +194,7 @@ function DashboardTab() {
                                     </thead>
                                     {allorder.cartItems.map((item,index)=>{
                                         // console.log(allorder)
-                                        const {title,description,category,imageUrl,price} = item;
+                                        const {productname,description,category,imageUrl,price} = item;
                                         return(
                                             <tbody>
                                         <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
@@ -205,7 +205,7 @@ function DashboardTab() {
                                                 <img className='w-16' src={imageUrl} alt="img" />
                                             </th>
                                             <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                {title}
+                                                {productname}
                                             </td>
                                             <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                 ₹{price}

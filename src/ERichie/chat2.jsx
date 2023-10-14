@@ -33,7 +33,7 @@ const Chatbot = () => {
     "https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products",
     // above is computer team 
     'https://firestore.googleapis.com/v1/projects/lemontech-67162/databases/(default)/documents/Products',
-    // "https://firestore.googleapis.com/v1/projects/shank-mobiles/databases/(default)/documents/Products",
+    "https://firestore.googleapis.com/v1/projects/shank-mobiles/databases/(default)/documents/Products",
     //shahsank link
     "https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products",
     "https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products",

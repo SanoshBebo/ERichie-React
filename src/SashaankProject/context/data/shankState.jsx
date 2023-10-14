@@ -33,10 +33,10 @@ function shankState(props) {
 
   const [products, setProducts] = useState({
     shopid: "shop09",
-    title: null,
+    productname: null,
     price: null,
     imageUrl: null,
-    category: "mobiles",
+    category: "mobile",
     description: null,
     stock: 0,
     time: Timestamp.now(),
@@ -49,7 +49,7 @@ function shankState(props) {
 
   const addProduct = async () => {
     if (
-      products.title == null ||
+      products.productname == null ||
       products.price == null ||
       products.imageUrl == null ||
       products.category == null ||
