@@ -1,0 +1,102 @@
+/* chat2.css */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 35%; /* Adjust the width to your preference */
+  background-color: #cbeef2;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s;
+}
+
+.floating-chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0091ff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.227);
+}
+
+.chatbox {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 300px;
+  padding: 10px;
+  
+}
+
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.chat-input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.chat-button {
+  background-color: hsla(0, 0%, 100%, 0.834);
+  color: #053341;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight:bold;
+}
+
+/* chat2.css */
+.chat-minimize-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatbot-container.minimized {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s;
+  transform: translateY(85%);
+}
+
+/* chat2.css */
+.chat-close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ce1313; /* Red color for close button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.sendbuttonchat{
+  background-color: #17e987;
+  border-radius: 2px ;
+  color: #100f0f;
+  
+}

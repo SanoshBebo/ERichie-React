@@ -18,26 +18,44 @@ export const fetchShop09 = async () => {
         const productData = productDocuments.map((document) => {
           const documentNameParts = document.name.split("/");
           const documentId = documentNameParts[documentNameParts.length - 1];
-          const {
+          const fields = document.fields;
+
+          // Define a function to handle fields based on their existence
+          const handleField = (fieldName) => {
+            const stringValue = fields[fieldName]?.stringValue;
+            const integerValue = fields[fieldName]?.integerValue;
+            return stringValue
+              ? parseInt(stringValue, 10)
+              : integerValue || null;
+          };
+
+          const description = fields.description.stringValue;
+
+          const stock = handleField("stock");
+
+          const price = handleField("price");
+
+          const productname = fields.productname.stringValue;
+
+          const shopid = fields.shopid.stringValue;
+
+          const category = fields.category.stringValue;
+
+          const imageurl =
+            fields.imageUrl?.stringValue || fields.imageurl?.stringValue;
+
+          return {
             description,
+            stock,
             price,
-            title,
+            productname,
             shopid,
             category,
-            imageUrl,
-            stock,
-          } = document.fields;
-          return {
-            description: description.stringValue,
-            price: price.stringValue,
-            productname: title.stringValue,
-            shopid: shopid.stringValue,
-            category: category.stringValue,
-            imageurl: imageUrl.stringValue,
-            stock: stock.integerValue,
+            imageurl,
             productid: documentId,
           };
         });
+
         return productData;
       } else {
         console.log("No documents found in the collection.");

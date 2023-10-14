@@ -8,7 +8,7 @@ const shopThreeLayout = ({ children }) => {
     <>
       <Header />
       {children}
-      <Footer />
+      
     </>
   );
 };

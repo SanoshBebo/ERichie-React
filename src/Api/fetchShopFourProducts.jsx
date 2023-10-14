@@ -4,8 +4,7 @@ const baseUrl =
   "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents";
 
 export const fetchShopFourProducts = async () => {
-  const apiUrl = `${baseUrl}/products`;
-
+  const apiUrl = `${baseUrl}/Products`;
   try {
     const response = await axios.get(apiUrl);
 
@@ -18,26 +17,44 @@ export const fetchShopFourProducts = async () => {
         const productData = productDocuments.map((document) => {
           const documentNameParts = document.name.split("/");
           const documentId = documentNameParts[documentNameParts.length - 1];
-          const {
+          const fields = document.fields;
+
+          // Define a function to handle fields based on their existence
+          const handleField = (fieldName) => {
+            const stringValue = fields[fieldName]?.stringValue;
+            const integerValue = fields[fieldName]?.integerValue;
+            return stringValue
+              ? parseInt(stringValue, 10)
+              : integerValue || null;
+          };
+
+          const description = fields.description.stringValue;
+
+          const stock = handleField("stock");
+
+          const price = handleField("price");
+
+          const productname = fields.productname.stringValue;
+
+          const shopid = fields.shopid.stringValue;
+
+          const category = fields.category.stringValue;
+
+          const imageurl =
+            fields.imageUrl?.stringValue || fields.imageurl?.stringValue;
+
+          return {
             description,
             stock,
             price,
             productname,
             shopid,
             category,
-            imageUrl,
-          } = document.fields;
-          return {
-            description: description.stringValue,
-            stock: parseInt(stock.stringValue, 10),
-            price: parseInt(price.stringValue, 10),
-            productname: productname.stringValue,
-            shopid: shopid.stringValue,
-            category: category.stringValue,
-            imageurl: imageUrl.stringValue,
+            imageurl,
             productid: documentId,
           };
         });
+
         return productData;
       } else {
         console.log("No documents found in the collection.");
