@@ -76,6 +76,8 @@ const AdminLoginRegister = () => {
         dispatch(setUser(user));
         if(user.email == "sanoshadmin@gmail.com"){
           navigate("/shop01/admin");
+        if(user.email == "sashfiretest1@gmail.com")
+            navigate("/shop09/admin/dashboard");
         }
       }
     } catch (err) {

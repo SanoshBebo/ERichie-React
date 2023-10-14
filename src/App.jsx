@@ -115,6 +115,7 @@ import SashaankProductInfo from "./SashaankProject/pages/productInfo/ProductInfo
 import SashaankAddProduct from "./SashaankProject/pages/admin/page/AddProduct";
 import SashaankUpdateProduct from "./SashaankProject/pages/admin/page/UpdateProduct";
 import SashaankAllproducts from "./SashaankProject/pages/allproducts/Allproducts";
+import IndividualShop09Report from "./SashaankProject/pages/admin/page/Shop09_DailyInventory";
 
 //================================================================SASHAANKIMPORT================================================================
 
@@ -403,6 +404,10 @@ const App = () => {
             <Route
               path="/shop09/admin/updateproduct"
               element={<SashaankUpdateProduct />}
+            />
+            <Route
+              path="/shop09/admin/order-details"
+              element={<IndividualShop09Report />}
             />
           </Routes>
           <ToastContainer />

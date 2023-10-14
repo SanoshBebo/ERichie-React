@@ -126,6 +126,15 @@ function Navbar() {
                   <Link to={'/shop09/allproducts'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     All Products
                   </Link>
+                  <Link to={'/shop09/admin/order-details'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Shop Analytics
+                  </Link>
+                  <Link to={'/shop09/allproducts'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Category Analytics
+                  </Link>
+                  <Link to={'/shop09/allproducts'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    E-Ritchie Analytics
+                  </Link>
                  {/* {user ?  <Link to={'/order'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
                   </Link> :   <Link to={'/signup'}  className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
