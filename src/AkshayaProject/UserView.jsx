@@ -118,6 +118,14 @@ const UserView = () => {
   const filteredProducts = products.filter((product) => {
     return product.name.toLowerCase().includes(searchInput.toLowerCase());
   });
+  const indexOfLastProduct = currentPage * productsPerPage;
+
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   return (
     <div>
@@ -142,7 +150,7 @@ const UserView = () => {
           </div>
         </div>
         <ul className="product-list">
-          {filteredProducts.map((product) => (
+          {currentProducts.map((product) => (
             <li key={product.id} className="product-item">
               <Link
                 to={`/shop02/product/${product.id}`}
@@ -170,6 +178,26 @@ const UserView = () => {
             </li>
           ))}
         </ul>
+        <div className="flex justify-center my-4">
+          <ul className="flex">
+            {Array.from({
+              length: Math.ceil(filteredProducts.length / productsPerPage),
+            }).map((_, index) => (
+              <li key={index} className="mx-2">
+                <button
+                  className={`py-2 px-4 rounded ${
+                    currentPage === index + 1
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <Routes>

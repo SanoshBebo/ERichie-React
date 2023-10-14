@@ -225,22 +225,38 @@ export const getOrderHistory = async (email) => {
 
                 console.log(document);
                 console.log(shopid.stringValue);
-                const shopProducts = await fetchShopProducts(
-                  shopid.stringValue
-                );
-                console.log(shopProducts);
-                const productInfo = shopProducts.find(
-                  (prod) => prod.productid === productid.stringValue
-                );
+
+                let productInfo = null;
+                try {
+                  const shopProducts = await fetchShopProducts(
+                    shopid.stringValue
+                  );
+                  console.log(shopProducts);
+                  productInfo = shopProducts.find(
+                    (prod) => prod.productid === productid.stringValue
+                  );
+                  console.log(productInfo);
+                } catch (error) {
+                  console.error("Error fetching shop products: ", error);
+                }
 
                 return {
-                  productname: productInfo.productname,
-                  imageurl: productInfo.imageurl,
+                  productname:
+                    productInfo && productInfo.productname
+                      ? productInfo.productname
+                      : productInfo
+                      ? productInfo.name
+                      : "Unknown",
+                  imageurl: productInfo ? productInfo.imageurl : "Unknown",
                   productid: productid.stringValue,
-                  purchaseDate: purchasedate.timestampValue,
-                  quantity: quantity.integerValue,
-                  description: productInfo.description,
-                  totalprice: totalprice.integerValue,
+                  purchaseDate: purchasedate
+                    ? purchasedate.timestampValue
+                    : "Unknown",
+                  quantity: quantity ? quantity.integerValue : 0,
+                  description: productInfo
+                    ? productInfo.description
+                    : "Unknown",
+                  totalprice: totalprice ? totalprice.integerValue : 0,
                   shopid: shopid.stringValue,
                   email: email.stringValue,
                   orderid: orderId,

@@ -19,6 +19,7 @@ export const fetchShop09 = async () => {
           const documentNameParts = document.name.split("/");
           const documentId = documentNameParts[documentNameParts.length - 1];
           const fields = document.fields;
+          console.log(fields);
 
           // Define a function to handle fields based on their existence
           const handleField = (fieldName) => {
