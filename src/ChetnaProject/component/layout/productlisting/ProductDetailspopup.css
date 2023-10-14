@@ -1,6 +1,4 @@
-
-
-.product-details-container-details1{
+.product-details-container-details1 {
 
   display: flex;
 
@@ -18,7 +16,7 @@
 
 }
 
- 
+
 
 .product-details-container-details {
 
@@ -44,7 +42,7 @@
 
 }
 
- 
+
 
 .product-details-container-details:hover {
 
@@ -52,7 +50,7 @@
 
 }
 
- 
+
 
 .product-details-container-details h1 {
 
@@ -62,7 +60,7 @@
 
 }
 
- 
+
 
 .product-details-container-details p {
 
@@ -72,23 +70,23 @@
 
 }
 
- 
+
 
 .product-details-container-details img {
 
-    width: 60%;
+  width: 60%;
 
-    max-width: 400px;
+  max-width: 400px;
 
-    height: auto;
+  height: auto;
 
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 
-    margin-left: 85px;
+  margin-left: 85px;
 
 }
 
- 
+
 
 .product-details-container-details button {
 
@@ -110,19 +108,19 @@
 
 }
 
-.product-details-container-details1 .bars1{
+.product-details-container-details1 .bars1 {
 
   display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    justify-content: flex-end;
+  justify-content: flex-end;
 
-    margin-top: 40px;
+  margin-top: 40px;
 
- 
 
- 
+
+
 
 }
 
@@ -146,23 +144,23 @@
 
 }
 
-.product-details-container-details1 .bars1 button:hover{
+.product-details-container-details1 .bars1 button:hover {
 
- 
+
 
   background: #537aa4;
 
 }
 
-.product-details-container-details1 .bars1 img:hover{
+.product-details-container-details1 .bars1 img:hover {
 
- 
 
-  color:  #537aa4;
+
+  color: #537aa4;
 
 }
 
- 
+
 
 .product-details-container-details button:hover {
 
@@ -170,15 +168,15 @@
 
 }
 
- 
 
-.product-details-container-details button + button {
+
+.product-details-container-details button+button {
 
   margin-left: 10px;
 
 }
 
- 
+
 
 .product-details-container-details a button {
 
@@ -186,7 +184,7 @@
 
 }
 
- 
+
 
 .product-details-container-details a button:hover {
 
@@ -194,7 +192,7 @@
 
 }
 
- 
+
 
 @media (max-width: 768px) {
 
@@ -206,7 +204,7 @@
 
   }
 
- 
+
 
   .product-details-container-details img {
 
@@ -214,7 +212,7 @@
 
   }
 
- 
+
 
   .product-details-container-details button {
 
@@ -224,17 +222,15 @@
 
 }
 
- 
 
- 
 
- 
 
-.product-details-container-details input[type="number"]
 
-{
 
-  width: 50px;  
+
+.product-details-container-details input[type="number"] {
+
+  width: 50px;
 
   padding: 8px;
 
@@ -244,27 +240,35 @@
 
   border-radius: 4px;
 
- 
+
 
 }
 
 .error-message {
 
-   color: red;  
+  color: red;
 
   margin-top: 8px;
 
 }
 
- 
 
-.product-details-container-details h1,p{
+
+.product-details-container-details h1 {
 
   color: black;
 
 }
 
-.bars1 img{
+
+
+.product-details-container-details p {
+
+  color: black;
+
+}
+
+.bars1 img {
 
   padding: 21px;
 
@@ -274,11 +278,11 @@
 
   margin-top: 21px;
 
- 
+
 
 }
 
-.message{
+.message {
 
   color: white;
 
@@ -289,5 +293,3 @@
   background: green;
 
 }
-
- 

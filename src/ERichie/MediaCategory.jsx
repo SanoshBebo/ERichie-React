@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ReactPaginate from "react-paginate";
+import MediaLoader from "./components/MediaLoader";
 
 const MediaCategory = () => {
   const [mediaProducts, setMediaProducts] = useState([]);
@@ -147,18 +148,7 @@ const MediaCategory = () => {
             )}
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "90vh",
-            }}
-          >
-            <Box>
-              <CircularProgress />
-            </Box>
-          </div>
+          <MediaLoader />
         )}
       </div>
     </div>
