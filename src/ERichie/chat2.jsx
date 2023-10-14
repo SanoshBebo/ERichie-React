@@ -181,7 +181,7 @@ const LinkCheck=(product)=>
           role: 'system',
 
           content1:  `${product.fields.productname.stringValue} `,
-          content2: `|| Price: ${product.fields.price.integerValue}`,
+          content2: `|| Price: ${product.fields.price.integerValue || product.fields.price.stringValue}`,
           link: linkToRender,
           
         });
