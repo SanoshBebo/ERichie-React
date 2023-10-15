@@ -67,6 +67,9 @@ const Header = () => {
             <li className="cursor-pointer hover:underline">
               <Link to="/erichie">Home</Link>
             </li>
+            <li className="cursor-pointer hover:underline">
+              <Link to="/MediaCategories">Media</Link>
+            </li>
 
             <li
               className="cursor-pointer hover:underline"

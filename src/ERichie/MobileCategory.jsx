@@ -128,9 +128,7 @@ const MobileCategory = () => {
 
       {loading ? (
         <div className="loading-message">
-          <p className="text-bold text-center text-3xl ">
-            The phones and friends are getting ready to meet you.
-          </p>
+          <p className="text-bold text-center text-3xl ">Loading Please Wait</p>
         </div>
       ) : (
         <div className="ProductList pb-5">
@@ -139,13 +137,13 @@ const MobileCategory = () => {
               <li
                 key={index}
                 className={`w-full p-2 ${
-                  product.stock == 0 ? "opacity-50 pointer-events-none" : ""
+                  product.stock <= 0 ? "opacity-50 pointer-events-none" : ""
                 }`}
               >
                 <Link
                   to={`/${product.shopid}/product/${product.productid}`}
                   className={`flex flex-col items-center gap-2 ${
-                    product.stock == 0
+                    product.stock <= 0
                       ? "text-gray-500 pointer-events-none"
                       : ""
                   } border border-gray-600 rounded-md shadow-md `}
