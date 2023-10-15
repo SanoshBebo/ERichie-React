@@ -7,7 +7,7 @@ import mobile from "../ERichie/Assets/mobile.jpg";
 const MainHomePage = () => {
   return (
     <div className="min-h-screen flex-grow justify-center items-center relative">
-      <div className="flex">
+      <div className="flex-row lg:flex md:flex-row md:w-full ">
         <div className="w-1/2 h-1/2 relative">
           <Link to="/computer">
             <img
@@ -39,7 +39,7 @@ const MainHomePage = () => {
           </Link>
         </div>
       </div>
-      <div className="flex">
+      <div className=" lg:flex md:flex-row md:w-full ">
         <div className="w-1/2 h-1/2 relative">
           <Link to="/MediaCategories">
             <img

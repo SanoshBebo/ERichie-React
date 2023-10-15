@@ -61,7 +61,8 @@ export const getSalesByCategory = async () => {
           await Promise.all(
             orderDocuments
               .filter(
-                (document) => document.fields.category.stringValue === "media"
+                (document) =>
+                  document.fields.category.stringValue.toLowerCase() === "media"
               )
               .map(async (document) => {
                 console.log(document);
@@ -97,7 +98,8 @@ export const getSalesByCategory = async () => {
             orderDocuments
               .filter(
                 (document) =>
-                  document.fields.category.stringValue === "computer"
+                  document.fields.category.stringValue.toLowerCase() ===
+                  "computer"
               )
               .map(async (document) => {
                 console.log(document);
@@ -132,7 +134,9 @@ export const getSalesByCategory = async () => {
           await Promise.all(
             orderDocuments
               .filter(
-                (document) => document.fields.category.stringValue === "mobile"
+                (document) =>
+                  document.fields.category.stringValue.toLowerCase() ===
+                  "mobile"
               )
               .map(async (document) => {
                 const documentNameParts = document.name.split("/");
@@ -168,7 +172,9 @@ export const getSalesByCategory = async () => {
           await Promise.all(
             orderDocuments
               .filter(
-                (document) => document.fields.category.stringValue === "gaming"
+                (document) =>
+                  document.fields.category.stringValue.toLowerCase() ===
+                  "gaming"
               )
               .map(async (document) => {
                 console.log(document);
