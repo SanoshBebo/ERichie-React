@@ -67,6 +67,10 @@ function ProductInfo() {
         quantity: 1,
       };
       console.log(cartItem);
+      toast.success("Product added to cart successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Automatically close after 3 seconds
+      });
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {
@@ -74,11 +78,6 @@ function ProductInfo() {
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
-    toast.success('Product added to cart successfully', {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000, // Automatically close after 3 seconds
-    });
-    
 
     // Create an object with the product details and count
   };
@@ -215,7 +214,6 @@ function ProductInfo() {
                   >
                     Add to Cart
                   </button>
-
                 </div>
               </div>
             </div>
