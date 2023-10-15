@@ -337,7 +337,7 @@ const AdminPage = () => {
                   {product.stock == 0 && (
                     <div className="w-44">
                       <h5 className="text-xl font-semibold">
-                        Out on Stock : {product.stock}
+                        Out of Stock : {product.stock}
                       </h5>
                     </div>
                   )}
