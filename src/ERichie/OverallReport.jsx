@@ -4,9 +4,15 @@ import { Box, CircularProgress } from "@mui/material";
 import LoaderComponent from "./components/LoaderComponent";
 import ShopSalesBarChart from "./components/ShopSalesTable";
 import ProductCardTopAndBottom from "./components/ProductCardTopAndBottom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const OverallReport = () => {
   const [shopSalesData, setShopSalesData] = useState({});
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [pieData, setPieData] = useState({});
   const [topSellingMediaProducts, setTopSellingMediaProducts] = useState([]);
   const [bottomSellingMediaProducts, setBottomSellingMediaProducts] = useState(
@@ -21,9 +27,27 @@ const OverallReport = () => {
   const [topSellingComputerProducts, setTopSellingComputerProducts] = useState(
     []
   );
+  const [isLoadingUser, setIsLoadingUser] = useState(false);
   const [bottomSellingComputerProducts, setBottomSellingComputerProducts] =
     useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "customer") {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
 
   useEffect(() => {
     const getSalesByCategoryFunction = async () => {

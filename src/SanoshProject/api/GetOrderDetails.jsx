@@ -102,7 +102,7 @@ export const getOrderByDateRangeFromFireStore = async (
   endDate,
   shopid
 ) => {
-  const allproducts = await fetchShop11();
+  const allproducts = await fetchShopOneProducts();
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;

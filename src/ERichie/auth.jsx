@@ -30,11 +30,14 @@ export const checkUserRole = async (user) => {
     const userData = response.data;
     if (userData.documents) {
       const userDocuments = userData.documents;
+      console.log(userDocuments);
       const signedInUserRole = userDocuments.find((document) => {
         if (document.fields.email.stringValue == user.email) {
           return document.fields.role.stringValue;
         }
       });
+      console.log(user.email);
+      console.log(signedInUserRole);
       const role = signedInUserRole.fields.role.stringValue;
       return role;
 

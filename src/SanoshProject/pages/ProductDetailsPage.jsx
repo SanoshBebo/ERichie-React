@@ -124,7 +124,7 @@ const ProductDetailsPage = () => {
         <div className="flex-1 p-4 mt-5">
           <h2 className="text-2xl font-semibold p-3">{product.productname}</h2>
           <p className="text-gray-600 text-lg pl-3">{product.description}</p>
-          <p className="text-xl mt-2 pl-3">${product.price}</p>
+          <p className="text-xl mt-2 pl-3"> ₹{product.price}</p>
           <div className="flex items-center mt-4">
             <button
               className="bg-gray-200 text-gray-600 px-3 py-2 rounded-md"

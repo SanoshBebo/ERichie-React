@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setShopOneProducts } from "../redux/shopOneProductSlice";
 import { fetchProducts } from "../api/ApiCalls";
+import ReactPaginate from "react-paginate";
 
 const CosmicMediaGadgets = () => {
   const products = useSelector((state) => state.shoponeproduct.shoponeproducts);
@@ -10,10 +11,12 @@ const CosmicMediaGadgets = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(0); // Page number starts from 0
+  const [itemsPerPage] = useState(12); // Number of items to display per page
   const handleSearchInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
+    setCurrentPage(0); // Reset to the first page when searching
 
     // Filter products based on the search query
     const filtered = products.filter((product) =>
@@ -21,6 +24,18 @@ const CosmicMediaGadgets = () => {
     );
 
     setFilteredProducts(filtered);
+  };
+
+  const currentProducts = searchQuery ? filteredProducts : products;
+
+  // Calculate the index of the first and last item on the current page
+  const offset = currentPage * itemsPerPage;
+  const currentItems = currentProducts.slice(offset, offset + itemsPerPage);
+
+  const pageCount = Math.ceil(currentProducts.length / itemsPerPage);
+
+  const handlePageClick = (selectedPage) => {
+    setCurrentPage(selectedPage.selected);
   };
 
   useEffect(() => {
@@ -48,10 +63,10 @@ const CosmicMediaGadgets = () => {
 
       <div className="ProductList pb-5">
         <ul className="grid grid-cols-4 gap-6 place-items-center">
-          {(searchQuery ? filteredProducts : products).map((product, index) => (
+          {currentItems.map((product, index) => (
             <li
               key={index}
-              className={`w-full p-2 ${
+              className={`w-full p-2 m-5 ${
                 product.stock == 0 ? "opacity-50 pointer-events-none" : ""
               }`}
             >
@@ -87,6 +102,25 @@ const CosmicMediaGadgets = () => {
             </li>
           ))}
         </ul>
+        {pageCount > 1 && (
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination p-10"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+            previousClassName={"pagination-button"}
+            nextClassName={"pagination-button"}
+            pageClassName={"pagination-button"}
+            pageLinkClassName={"pagination-link"}
+          />
+        )}
       </div>
     </div>
   );

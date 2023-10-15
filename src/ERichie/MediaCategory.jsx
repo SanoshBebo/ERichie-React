@@ -17,7 +17,24 @@ const MediaCategory = () => {
   const [itemsPerPage] = useState(12); // Number of items to display per page
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-
+  const shopnames = {
+    shop01: "Cosmic-Media-Gadgets",
+    shop02: "E-Nerd",
+    shop03: "Vishal Media Shop",
+    shop04: "Supreme-Mart",
+    shop05: "Dead-Eye-GameStore",
+    shop06: "Lasya-Gaming",
+    shop07: "Thillai-Gaming",
+    shop09: "Shank-Mobiles",
+    shop10: "Lemon-Tech",
+    shop11: "E-Mobile",
+    shop12: "Mobile-World",
+    shop13: "Abhiram-Store",
+    shop14: "Digital-Genie",
+    shop15: "Sanjay-Computers",
+    shop16: "Dhanu-Computers",
+    shop17: "MrComputerWizz",
+  };
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -73,6 +90,31 @@ const MediaCategory = () => {
 
   return (
     <div className="flex-row min-h-screen">
+      <h2 className="font-bold text-2xl ml-20 mt-12 ">Shops</h2>
+
+      <div className="header flex items-center justify-between pt-16 px-20">
+        <Link to="/shop03">
+          <p className="font-bold text-l p-3 border rounded bg-pink-300 hover:cursor-pointer">
+            Vishal's Media Shop
+          </p>
+        </Link>
+        <Link to="/shop01">
+          <p className="font-bold text-l p-3 border rounded bg-gray-300 hover:cursor-pointer">
+            Cosmic Media Gadgets
+          </p>
+        </Link>
+
+        <Link to="/shop02">
+          <p className="font-bold text-l p-3 border rounded bg-purple-300 hover:cursor-pointer">
+            E-Nerd
+          </p>
+        </Link>
+        <Link to="/shop04">
+          <p className="font-bold text-l p-3 border rounded bg-red-300 hover:cursor-pointer">
+            Supreme-Mart
+          </p>
+        </Link>
+      </div>
       <div className="header flex items-center justify-between p-20 px-20">
         <h2 className="font-bold text-2xl">Products</h2>
         <input
@@ -120,9 +162,16 @@ const MediaCategory = () => {
                         </div>
                       )}
                     </div>
-                    <h1 className="text-center">{product.productname}</h1>
-                    <p className="text-center">Price: {product.price}</p>
-                    <p className="text-center">Stock Left: {product.stock}</p>
+                    <div className="flex-row gap-2">
+                      <h1 className="text-center font-bold text-xl p-2">
+                        {product.productname}
+                      </h1>
+                      <p className="text-center p-1">
+                        {shopnames[product.shopid]}
+                      </p>
+                      <p className="text-center p-1">Price ₹{product.price}</p>
+                      <p className="text-center">Stock Left: {product.stock}</p>
+                    </div>
                   </Link>
                 </li>
               ))}

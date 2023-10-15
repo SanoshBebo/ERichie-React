@@ -241,17 +241,18 @@ export const getOrderHistory = async (email) => {
                 }
 
                 return {
-                  productname:
-                    productInfo && productInfo.productname
-                      ? productInfo.productname
-                      : productInfo
-                      ? productInfo.name
-                      : "Unknown",
-                  imageurl: productInfo ? productInfo.imageurl : "Unknown",
-                  productid: productid.stringValue,
-                  purchaseDate: purchasedate
+                  productname: productInfo.productname
+                    ? productInfo.productname
+                    : productInfo.name,
+                  imageurl: productInfo.imageUrl
+                    ? productInfo.imageUrl
+                    : productInfo.imageurl,
+                  productid: productid.stringValue
+                    ? productid.stringValue
+                    : id.stringValue,
+                  purchaseDate: purchasedate.timestampValue
                     ? purchasedate.timestampValue
-                    : "Unknown",
+                    : purchaseDate.timestampValue,
                   quantity: quantity ? quantity.integerValue : 0,
                   description: productInfo
                     ? productInfo.description
