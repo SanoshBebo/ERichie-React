@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast notifications
+import { User } from "lucide-react";
 
 const AddProductForm = () => {
   const navigate = useNavigate();
@@ -23,41 +24,49 @@ const AddProductForm = () => {
   const [displayImage, setDisplayImage] = useState(true);
 
   useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const baseUrl =
-          "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
-        const collectionName = "Products";
-        const apiUrl = `${baseUrl}/${collectionName}`;
-        const response = await axios.get(apiUrl);
+    const userdata = JSON.parse(localStorage.getItem("user"));
+    if (
+      userdata.role == "shopkeeper" &&
+      userdata.email == "vishaladmin@gmail.com"
+    ) {
+      async function fetchProducts() {
+        try {
+          const baseUrl =
+            "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
+          const collectionName = "Products";
+          const apiUrl = `${baseUrl}/${collectionName}`;
+          const response = await axios.get(apiUrl);
 
-        if (response.status === 200) {
-          const productsData = response.data.documents.map((doc) => {
-            const fields = doc.fields;
-            return {
-              id: doc.name.split("/").pop(),
-              description: fields.description.stringValue,
-              stock: fields.stock.integerValue,
-              price: fields.price.integerValue,
-              productname: fields.productname.stringValue,
-              shopid: fields.shopid.stringValue,
-              category: fields.category.stringValue,
-              imageurl: {
-                value: fields.imageurl.stringValue,
-                uploadButton: "Upload Image",
-              },
-            };
-          });
-          setProducts(productsData);
-        } else {
-          console.error("Error fetching products:", response.statusText);
-          console.error("Response data:", response.data);
+          if (response.status === 200) {
+            const productsData = response.data.documents.map((doc) => {
+              const fields = doc.fields;
+              return {
+                id: doc.name.split("/").pop(),
+                description: fields.description.stringValue,
+                stock: fields.stock.integerValue,
+                price: fields.price.integerValue,
+                productname: fields.productname.stringValue,
+                shopid: fields.shopid.stringValue,
+                category: fields.category.stringValue,
+                imageurl: {
+                  value: fields.imageurl.stringValue,
+                  uploadButton: "Upload Image",
+                },
+              };
+            });
+            setProducts(productsData);
+          } else {
+            console.error("Error fetching products:", response.statusText);
+            console.error("Response data:", response.data);
+          }
+        } catch (error) {
+          console.error("Error fetching products:", error);
         }
-      } catch (error) {
-        console.error("Error fetching products:", error);
       }
+      fetchProducts();
+    } else {
+      navigate("/admin/login");
     }
-    fetchProducts();
   }, []);
 
   const handleInputChange = (event) => {
@@ -139,7 +148,8 @@ const AddProductForm = () => {
           imageurl: {
             stringValue: hasNewImage
               ? productData.imageurl
-              : products.find((p) => p.id === selectedProductId)?.imageurl.value,
+              : products.find((p) => p.id === selectedProductId)?.imageurl
+                  .value,
           },
         },
       };
@@ -204,6 +214,7 @@ const AddProductForm = () => {
 
   const handleEditProduct = (productId) => {
     const productToEdit = products.find((product) => product.id === productId);
+    console.log(productToEdit);
     if (productToEdit) {
       setProductData({
         ...productData,

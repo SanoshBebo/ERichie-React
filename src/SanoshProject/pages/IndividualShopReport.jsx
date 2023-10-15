@@ -6,6 +6,9 @@ import {
 import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { setUser } from "../redux/shopOneUserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const IndividualShopReport = () => {
   const [orders, setOrders] = useState([]);
@@ -17,12 +20,33 @@ const IndividualShopReport = () => {
   const pageCount = Math.ceil(orders.length / ordersPerPage);
   const shopid = "shop01";
   const [isDataLoaded, setisDataLoaded] = useState(false);
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(false);
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
 
   const offset = currentPage * ordersPerPage;
   const currentPageData = orders.slice(offset, offset + ordersPerPage);
+
+  useEffect(() => {
+    if ((!isLoadingUser && user.length === 0) || user.role == "customer") {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
   useEffect(() => {
     getOrderByDateFromFireStore(shopid)
       .then((todaysOrders) => {

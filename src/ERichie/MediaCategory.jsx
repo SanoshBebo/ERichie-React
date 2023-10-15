@@ -134,13 +134,13 @@ const MediaCategory = () => {
                 <li
                   key={index}
                   className={`w-full p-2 ${
-                    product.stock === 0 ? "opacity-50 pointer-events-none" : ""
+                    product.stock == 0 ? "opacity-50 pointer-events-none" : ""
                   }`}
                 >
                   <Link
                     to={`/${product.shopid}/product/${product.productid}`}
                     className={`flex flex-col items-center gap-2 hover:translate-y${
-                      product.stock === 0 ? "text-gray-500" : ""
+                      product.stock == 0 ? "text-gray-500" : ""
                     }`}
                   >
                     <div className=" w-48 relative">
