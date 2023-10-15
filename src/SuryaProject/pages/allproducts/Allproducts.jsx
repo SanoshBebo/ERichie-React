@@ -32,8 +32,7 @@ function Allproducts() {
           <div className="flex flex-wrap -m-4">
             {product
               .filter((obj) =>
-                obj.productname.toLowerCase().includes(searchkey)
-              )
+                obj.productname.toLowerCase().includes(searchkey))
               .filter((obj) => obj.category.toLowerCase().includes(filterType))
               .filter((obj) => obj.price.includes(filterPrice))
               .map((item, index) => {

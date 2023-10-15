@@ -1,571 +1,270 @@
 
 
 import React, { useState, useEffect } from 'react';
+
 import axios from 'axios';
-const ProductUpdateForm = () => {
-  const [productId, setProductId] = useState('');
 
  
+
+const ProductUpdateForm = () => {
+
+  const [productId, setProductId] = useState('');
 
   const [product, setProduct] = useState({
 
- 
-
     productname: '',
-
- 
 
     description: '',
 
- 
-
     price: '',
-
- 
 
     stock: '',
 
- 
-
     imageurl: '',
-
- 
 
     category: '',
 
- 
-
   });
-
- 
-
- 
-
- 
 
   const [imageFile, setImageFile] = useState(null);
 
- 
+  const [searchText, setSearchText] = useState('');
 
-  const [searchText, setSearchText] = useState(''); // State for search input
-
- 
-
-  const [searchResults, setSearchResults] = useState([]); // State for search results
-
- 
-
- 
-
- 
-
-  // Fetch a list of products to allow the admin to select one
-
- 
+  const [searchResults, setSearchResults] = useState([]);
 
   const [productList, setProductList] = useState([]);
 
  
 
- 
-
- 
-
   useEffect(() => {
-
- 
 
     axios
 
- 
-
       .get(
-
- 
 
         'https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products'
 
- 
-
       )
-
- 
 
       .then((response) => {
 
- 
-
         const productsData = (response.data.documents || []).map((doc) => {
-
- 
 
           const data = doc.fields;
 
- 
-
           return {
-
- 
 
             id: doc.name.split('/').pop(),
 
- 
-
             productname: data.productname?.stringValue || '',
-
- 
 
           };
 
- 
-
         });
-
- 
 
         setProductList(productsData);
 
- 
-
       })
-
- 
 
       .catch((error) => {
 
- 
-
         console.error('Error fetching products:', error);
 
- 
-
       });
-
- 
 
   }, []);
 
  
 
- 
-
- 
-
   const handleProductChange = async (selectedProductId) => {
-
- 
 
     setProductId(selectedProductId);
 
- 
-
- 
-
- 
-
-    // Fetch the selected product's data
-
- 
-
     try {
-
- 
 
       const response = await axios.get(
 
- 
-
         `https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products/${selectedProductId}`
-
- 
 
       );
 
- 
-
- 
-
- 
-
       const productData = response.data.fields;
-
- 
 
       setProduct({
 
- 
-
         productname: productData.productname?.stringValue || '',
-
- 
 
         description: productData.description?.stringValue || '',
 
- 
-
         price: productData.price?.integerValue || 0,
-
- 
 
         stock: productData.stock?.integerValue || 0,
 
- 
-
         imageurl: productData.imageurl?.stringValue || '',
-
- 
 
         category: productData.category?.stringValue || '',
 
- 
+        shopid: productData.shopid?.stringValue || '',
 
       });
 
- 
-
     } catch (error) {
-
- 
 
       console.error('Error fetching product:', error);
 
- 
-
     }
 
- 
-
   };
-
- 
-
- 
 
  
 
   const handleChange = (e) => {
 
- 
-
     const { name, value } = e.target;
-
- 
 
     setProduct({ ...product, [name]: value });
 
- 
-
   };
-
- 
-
- 
 
  
 
   const handleFileChange = (e) => {
 
- 
-
     const file = e.target.files[0];
-
- 
 
     setImageFile(file);
 
- 
-
   };
-
- 
-
- 
 
  
 
   const handleSearch = () => {
 
- 
-
-    // Filter the productList based on the searchText
-
- 
-
     const results = productList.filter((productItem) =>
-
- 
 
       productItem.productname.toLowerCase().includes(searchText.toLowerCase())
 
- 
-
     );
 
- 
-
     setSearchResults(results);
-
- 
 
   };
 
  
 
- 
-
- 
-
   const handleUpdate = async (e) => {
-
- 
 
     e.preventDefault();
 
- 
-
- 
-
- 
-
     try {
 
- 
-
-      const apiKey = 'AIzaSyBwbUvnEMEOs1aNMf_XOjGegX00uZD7M2g'; // Replace with your Firebase API key
+      const apiKey = 'AIzaSyBwbUvnEMEOs1aNMf_XOjGegX00uZD7M2g';
 
  
 
- 
-
- 
-
-      // Upload the image if there is a new image file selected
-
- 
-
-      let imageurl = product.imageurl; // Default to the existing image URL
-
- 
+      let imageurl = product.imageurl;
 
       if (imageFile) {
 
- 
-
         const formData = new FormData();
-
- 
 
         formData.append('file', imageFile);
 
- 
-
- 
-
- 
-
         const uploadResponse = await axios.post(
-
- 
 
           `https://firebasestorage.googleapis.com/v0/b/mobileworld-160ce.appspot.com/o?name=Products%2F${imageFile.name}`,
 
- 
-
           formData,
-
- 
 
           {
 
- 
-
             headers: {
-
- 
 
               'Content-Type': 'multipart/form-data',
 
- 
-
             },
-
- 
 
           }
 
- 
-
         );
-
- 
-
- 
-
- 
 
         if (uploadResponse.status === 200) {
 
- 
-
           imageurl = `https://firebasestorage.googleapis.com/v0/b/mobileworld-160ce.appspot.com/o/Products%2F${encodeURIComponent(
-
- 
 
             imageFile.name
 
- 
-
           )}?alt=media`;
-
- 
 
         } else {
 
- 
-
           console.error('Error uploading image:', uploadResponse.statusText);
 
- 
-
         }
-
- 
 
       }
 
  
 
- 
-
- 
-
-      // Create a new object with only the fields you want to update
-
- 
-
       const updatedFields = {
-
- 
-
-        // Include only the fields you want to update here
-
- 
 
         productname: { stringValue: product.productname },
 
- 
-
         description: { stringValue: product.description },
-
- 
 
         price: { integerValue: parseFloat(product.price) },
 
- 
-
         stock: { integerValue: parseInt(product.stock) },
-
- 
 
         category: { stringValue: product.category },
 
- 
+        imageurl: { stringValue: product.imageurl },
 
-        imageurl: { stringValue:product.imageurl}
-
- 
+        shopid: { stringValue: product.shopid },
 
       };
 
  
 
- 
-
- 
-
-      // Update the product details including the new image URL
-
- 
-
       const firestoreResponse = await axios.patch(
-
- 
 
         `https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products/${productId}?key=${apiKey}`,
 
- 
-
         {
-
- 
 
           fields: updatedFields,
 
- 
-
         }
-
- 
 
       );
 
  
 
- 
-
- 
-
       alert('Product updated successfully');
-
- 
 
       setProduct({
 
- 
-
         productname: '',
-
- 
 
         description: '',
 
- 
-
         price: '',
-
- 
 
         stock: '',
 
- 
-
-        imageurl: imageurl, // Keep imageurl as it is
-
- 
+        imageurl: imageurl,
 
         category: '',
 
- 
-
       });
 
- 
-
-      setImageFile(null); // Clear the imageFile
-
- 
+      setImageFile(null);
 
     } catch (error) {
 
- 
-
       console.error('Error updating product:', error);
 
- 
-
     }
-
- 
 
   };
 
@@ -603,11 +302,7 @@ const ProductUpdateForm = () => {
 
               Search
 
-              
-
             </button>
-
-            
 
           </label>
 
@@ -631,7 +326,7 @@ const ProductUpdateForm = () => {
 
           <label>
 
-          <span className="text-black">Product Name:</span>
+            <span className="text-black">Product Name:</span>
 
             <input
 
@@ -651,7 +346,7 @@ const ProductUpdateForm = () => {
 
           <label>
 
-          <span className="text-black">Description:</span>
+            <span className="text-black">Description:</span>
 
             <textarea
 
@@ -669,7 +364,7 @@ const ProductUpdateForm = () => {
 
           <label>
 
-          <span className="text-black">Price:</span>
+            <span className="text-black">Price:</span>
 
             <input
 
@@ -689,7 +384,7 @@ const ProductUpdateForm = () => {
 
           <label>
 
-          <span className="text-black">Stock:</span>
+            <span className="text-black">Stock:</span>
 
             <input
 
@@ -709,7 +404,7 @@ const ProductUpdateForm = () => {
 
           <label>
 
-          <span className="text-black">Category:</span>
+            <span className="text-black">Category:</span>
 
             <input
 
@@ -747,7 +442,7 @@ const ProductUpdateForm = () => {
 
         )}
 
-        <button type="submit" className="text-black bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+        <button type="submit" className="text-black bg-blue-500 hover.bg-blue-700 font-bold py-2 px-4 rounded">
 
           Update Product
 
@@ -764,3 +459,5 @@ const ProductUpdateForm = () => {
  
 
 export default ProductUpdateForm;
+
+ 

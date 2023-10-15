@@ -88,7 +88,13 @@ const ProductFetch = ({ cart, setCart }) => {
 
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+
+    if (quantity < product.stock) { // Check if quantity is less than product's stock
+
+      setQuantity(quantity + 1);
+
+    }
+
   };
 
   const decreaseQuantity = () => {

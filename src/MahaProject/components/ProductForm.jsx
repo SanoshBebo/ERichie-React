@@ -35,6 +35,7 @@ const ProductForm = () => {
 
   const uploadImageToFirebaseStorage = async () => {
     try {
+      const apiKey = 'AIzaSyBwbUvnEMEOs1aNMf_XOjGegX00uZD7M2g';
       const bucketName = 'mobileworld-160ce.appspot.com';
       const storagePath = `Products/${imageFile.name}`;
 

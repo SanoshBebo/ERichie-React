@@ -34,15 +34,15 @@ function Allproducts() {
 
           <div className="flex flex-wrap -m-4">
             {product
-              .filter((obj) => obj.title.toLowerCase().includes(searchkey))
+              .filter((obj) => obj.productname.toLowerCase().includes(searchkey))
               .filter((obj) => obj.category.toLowerCase().includes(filterType))
-              .filter((obj) => obj.price.includes(filterPrice))
+              .filter((obj) => obj.price.toString().includes(filterPrice))
               .map((item, index) => {
-                const { productname, price, description, imageUrl, id } = item;
+                const { productname, price, description, imageUrl, imageurl, id } = item;
                 return (
                   <div
                     onClick={() =>
-                      (window.location.href = `/productinfo/${id}`)
+                      (window.location.href = `/shop09/product/${id}`)
                     }
                     key={index}
                     className="p-4 md:w-1/4  drop-shadow-lg "
@@ -57,7 +57,7 @@ function Allproducts() {
                       <div className="flex justify-center cursor-pointer">
                         <img
                           className=" rounded-2xl w-full h-80 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
-                          src={imageUrl}
+                          src={imageUrl ||  imageurl}
                           alt="blog"
                         />
                       </div>
@@ -72,7 +72,7 @@ function Allproducts() {
                           className="title-font text-lg font-medium text-gray-900 mb-3"
                           style={{ color: mode === "dark" ? "white" : "" }}
                         >
-                          {title}
+                          {productname}
                         </h1>
                         {/* <p className="leading-relaxed mb-3">{item.description.}</p> */}
                         <p

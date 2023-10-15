@@ -74,6 +74,13 @@ function Navbar() {
                   >
                     All Products
                   </Link>
+                  <Link
+                    to={"/customer/login"}
+                    className="text-sm font-medium text-black-700 p-2"
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    Sign Out
+                  </Link>
 
                   {/* {user ? <div className="flow-root">
                     <Link to={'shop09/order'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
@@ -191,6 +198,14 @@ function Navbar() {
                       >
                         E-Ritchie Analytics
                       </Link>
+                      <Link
+                    to={"/admin/login"}
+                    className="text-sm font-medium text-black-700 p-2"
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    Sign Out
+                  </Link>
+                      
                       {/* {user ?  <Link to={'/order'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
                     </Link> :   <Link to={'/signup'}  className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>

@@ -20,6 +20,10 @@ function ProductInfo() {
   const navigate = useNavigate();
   const [products, setProducts] = useState("");
   const params = useParams();
+  const url = `/shop09/product/${products}`;
+  let redirectUrl = {
+    url: url,
+  };
   // console.log(products.title)
 
   const getProductData = async () => {
@@ -70,6 +74,11 @@ function ProductInfo() {
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
+    toast.success('Product added to cart successfully', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000, // Automatically close after 3 seconds
+    });
+    
 
     // Create an object with the product details and count
   };

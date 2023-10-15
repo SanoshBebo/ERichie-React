@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   getOrderByDateFromFireStore,
   getOrderByDateRangeFromFireStore,
 } from "./GetOrderDetailsShashank";
-import MyShankContext from "../../../../SuryaProject/context/data/MyShankContext";
-import ReactPaginate from "react-paginate";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 const IndividualShop09Report = () => {
   const [orders, setOrders] = useState([]);
@@ -16,7 +15,7 @@ const IndividualShop09Report = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const ordersPerPage = 7;
   const pageCount = Math.ceil(orders.length / ordersPerPage);
-  const shopid = "shop09";
+  const shopid = "shop09";  
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -36,15 +35,22 @@ const IndividualShop09Report = () => {
   }, []);
 
   const getOrdersByDate = () => {
-    getOrderByDateRangeFromFireStore(startDate, endDate, shopid)
-      .then((order) => {
-        console.log(order);
-        setOrdersByDate(order);
-      })
-      .catch((err) => {
-        console.error("error fetching Data:", err);
-      });
+    // Check if both startDate and endDate are set
+    if (startDate && endDate) {
+      getOrderByDateRangeFromFireStore(startDate, endDate, shopid)
+        .then((order) => {
+          console.log(order);
+          setOrdersByDate(order);
+        })
+        .catch((err) => {
+          console.error("error fetching Data:", err);
+        });
+    } else {
+      // Handle the case where startDate or endDate is not set
+      console.error("Please select both start and end dates.");
+    }
   };
+  
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
