@@ -24,14 +24,16 @@ export const storeUserInFirestore = async (userdata) => {
 };
 
 export const checkUserRole = async (user) => {
-  const apiUrl = `${baseUrl}/Users`;
+  const apiUrl = `${baseUrl}/Users?pageSize=50`;
   const response = await axios.get(apiUrl);
+  console.log(response);
   if (response.status === 200) {
     const userData = response.data;
     if (userData.documents) {
       const userDocuments = userData.documents;
       console.log(userDocuments);
       const signedInUserRole = userDocuments.find((document) => {
+        console.log(document);
         if (document.fields.email.stringValue == user.email) {
           return document.fields.role.stringValue;
         }

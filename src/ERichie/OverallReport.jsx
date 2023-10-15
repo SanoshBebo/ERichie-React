@@ -6,6 +6,7 @@ import ShopSalesBarChart from "./components/ShopSalesTable";
 import ProductCardTopAndBottom from "./components/ProductCardTopAndBottom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
 
 const OverallReport = () => {
   const [shopSalesData, setShopSalesData] = useState({});

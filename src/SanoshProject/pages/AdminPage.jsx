@@ -320,18 +320,35 @@ const AdminPage = () => {
                 className="bg-slate-100 rounded-lg p-2 flex justify-between items-center m-3"
               >
                 <div className="w-24 relative">
-                  <img
-                    src={product.imageurl}
-                    alt={product.name}
-                    className="object-contain w-full h-full"
-                  />
-                  {product.stock < 10 && (
-                    <div>
-                      <h5>Low on Stock : {product.stock}</h5>
+                  <div className="w-40 h-40">
+                    <img
+                      src={product.imageurl}
+                      alt={product.name}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
+                  {product.stock > 10 && (
+                    <div className="w-44">
+                      <h5 className="text-xl font-semibold">
+                        Current Stock : {product.stock}
+                      </h5>
+                    </div>
+                  )}
+                  {product.stock == 0 && (
+                    <div className="w-44">
+                      <h5 className="text-xl font-semibold">
+                        Out on Stock : {product.stock}
+                      </h5>
+                    </div>
+                  )}
+                  {product.stock < 10 && product.stock > 0 && (
+                    <div className="w-44">
+                      <h5 className="text-xl font-semibold">
+                        Low on Stock : {product.stock}
+                      </h5>
                     </div>
                   )}
                 </div>
-
                 <h1 className="text-lg font-semibold">{product.productname}</h1>
 
                 <div className="flex gap-4 p-3">

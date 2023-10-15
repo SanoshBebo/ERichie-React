@@ -27,7 +27,6 @@ const AdminLoginRegister = () => {
   const signIn = async () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
       if (response.user.uid) {
         let user = {
           useruid: response.user.uid,
