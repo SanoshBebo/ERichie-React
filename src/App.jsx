@@ -28,9 +28,9 @@ import TablePage from "./VishalProject/pages/TablePage";
 //=========================================================vishals imports============================================================================//
 
 //=========================================================Akshayas imports============================================================================//
-import AkshayaAdminPage  from "./AkshayaProject/AkshayaAdminPage";
-import AkshayaIndividualShopReport from "./AkshayaProject/Shop02_DailyInventory"
-import AkshayaProductForm from "./AkshayaProject/ProductForm"
+import AkshayaAdminPage from "./AkshayaProject/AkshayaAdminPage";
+import AkshayaIndividualShopReport from "./AkshayaProject/Shop02_DailyInventory";
+import AkshayaProductForm from "./AkshayaProject/ProductForm";
 
 //=========================================================Akshayas imports============================================================================//
 
@@ -120,7 +120,6 @@ import SashaankUpdateProduct from "./SashaankProject/pages/admin/page/UpdateProd
 import SashaankAllproducts from "./SashaankProject/pages/allproducts/Allproducts";
 import IndividualShop09Report from "./SashaankProject/pages/admin/page/Shop09_DailyInventory";
 
-
 //================================================================SASHAANKIMPORT================================================================
 
 //===============================================================MAHAIMPORTS===================================================================
@@ -159,6 +158,7 @@ import ProductDetails from "./AkshayaProject/ProductDetails";
 import UserView from "./AkshayaProject/UserView";
 import ReportPage from "./ChetnaProject/Pages/HomePage/ReportPage";
 import SprityAdminReport from "./SprityProject/SprityAdminReport";
+import SuryaAdminReport from "./SuryaProject/pages/admin/SuryaAdminReport";
 
 const App = () => {
   return (
@@ -274,8 +274,14 @@ const App = () => {
             />
             <Route path="/shop02/admin" element={<AkshayaAdminPage />} />
             <Route path="/*" element={<NoPage />} />
-            <Route path="/shop02/admin/report" element={<AkshayaIndividualShopReport />} />
-            <Route path="/shop02/admin/add-product" element={<AkshayaProductForm />} />
+            <Route
+              path="/shop02/admin/report"
+              element={<AkshayaIndividualShopReport />}
+            />
+            <Route
+              path="/shop02/admin/add-product"
+              element={<AkshayaProductForm />}
+            />
             {/* // =========================================================Suryas code============================================================================// */}
             <Route path="/shop04" element={<Home />} />
             <Route path="/shop04/allproducts" element={<Allproducts />} />
@@ -285,6 +291,10 @@ const App = () => {
             <Route
               path="/shop04/admin/updateproduct"
               element={<UpdateProduct />}
+            />
+            <Route
+              path="/shop04/admin/shopreport"
+              element={<SuryaAdminReport />}
             />
             {/* =========================================team computer============================================= */}
             <Route path="/computer" element={<ComputerTeamHomePage />} />
@@ -350,7 +360,10 @@ const App = () => {
               element={<IndividualShop07Report />}
             />
             <Route path="/shop06" element={<LasyaProductList />} />
-            <Route path="/shop06/admin/report" element={<LasyaIndividualShopReport />} />
+            <Route
+              path="/shop06/admin/report"
+              element={<LasyaIndividualShopReport />}
+            />
             <Route
               path="/shop06/product/:productId"
               element={<ProductDetail />}
