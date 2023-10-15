@@ -27,6 +27,7 @@ const ProductDetail = ({}) => {
     }
   }, [isLoadingUser, user, navigate]);
 
+
   const addToCart = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role === "customer") {
@@ -69,7 +70,14 @@ const ProductDetail = ({}) => {
 
     fetchData();
   }, [id]);
-
+  const [viewcart, setViewCart] = useState(true);
+  useEffect(() => {
+    if (product.stock <= 0) {
+      setViewCart(false);
+    } else {
+      setViewCart(true);
+    }
+  }, [product.stock]);
   useEffect(() => {}, []);
 
   const onClose = () => {
@@ -96,17 +104,24 @@ const ProductDetail = ({}) => {
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               min="1" // Set a minimum value
+              max={product.stock}
             />
           </div>
-
-          <button
-            onClick={() => {
+          <div>
+            {viewcart ? (
+                <>
+                <button
+                  onClick={() => {
               addToCart();
             }}
           >
             Add To Cart
           </button>
-          
+                </>
+              ) : (
+                <p>No stock</p>
+              )}
+            </div>          
         </div>
       </div>
     </div>

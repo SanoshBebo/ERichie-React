@@ -94,8 +94,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../pages/Header";
 import "./Home.css";
+import loadingImage from './loading.gif'; 
 
 let linkToRender = null;
+const productsPerPage = 15;
 
 const ComputerTeamHomePage = () => {
   async function fetchItems(url) {
@@ -112,7 +114,7 @@ const ComputerTeamHomePage = () => {
         stock: doc.fields.stock.integerValue || 0,
         shopid: doc.fields.shopid.stringValue || "",
       }));
-      const filteredItemList = itemList.filter((item) => item.stock > 0);
+      const filteredItemList = itemList;
 
       return filteredItemList.map((item) => ({
         id: item.id,
@@ -129,19 +131,23 @@ const ComputerTeamHomePage = () => {
       return [];
     }
   }
-  const [displayedProducts, setDisplayedProducts] = useState([]);
+  // const [displayedProducts, setDisplayedProducts] = useState([]);
   const [shop13, setShop13] = useState([]);
   const [shop14, setShop14] = useState([]);
   const [shop15, setShop15] = useState([]);
   const [shop16, setShop16] = useState([]);
   const [shop17, setShop17] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const [allshops, setAllShops] = useState([]);
 
   const [search, setSearch] = useState();
   const [issearch, setIsSearch] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+const [displayedProducts, setDisplayedProducts] = useState([]);
 
-  const maxDisplayedProducts = 100; // Maximum number of products to display by default
+
 
   useEffect(() => {
     import("./productpage.css");
@@ -170,7 +176,8 @@ const ComputerTeamHomePage = () => {
 
       const fetcharray = [...item3, ...item1, ...item2, ...item4, ...item5];
       setAllShops(fetcharray);
-      setDisplayedProducts(fetcharray.slice(0, maxDisplayedProducts));
+      setDisplayedProducts(fetcharray);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -179,6 +186,7 @@ const ComputerTeamHomePage = () => {
     if (!search || search.trim() === "") {
       alert("Please enter a search term");
       setDisplayedProducts(allshops);
+      setAllShops(allshops);
       return;
     }
     setIsSearch(true);
@@ -188,6 +196,7 @@ const ComputerTeamHomePage = () => {
     );
 
     setDisplayedProducts(filteredProducts);
+    setAllShops(filteredProducts);
   };
 
   const Linkcheck = (product) => {
@@ -206,6 +215,17 @@ const ComputerTeamHomePage = () => {
       linkToRender = `/products/${product.id}`;
     }
   };
+
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = allshops.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
 
   return (
     <div className="computer-home">
@@ -228,13 +248,23 @@ const ComputerTeamHomePage = () => {
         </Link>
       </div>
 
+{isLoading ? ( // Display loading image when isLoading is true
+
+        <div className='loading-container'>
+
+          <img src={loadingImage} alt='Loading' />
+
+        </div>
+
+      ) : (
       <div className="productpage">
         <div className="shop">
           <div className="container">
             <div className="right_box">
               <div className="product_box">
                 <div className="product_container">
-                  {displayedProducts.map((curElm) => {
+                  
+                  {currentProducts.map((curElm) => {
                     Linkcheck(curElm);
                     return (
                       <>
@@ -259,8 +289,32 @@ const ComputerTeamHomePage = () => {
             </div>
           </div>
         </div>
+        <div className="pagination">
+            <ul className="pagination-list">
+              {Array.from(
+                { length: Math.ceil(allshops.length / productsPerPage) },
+                (_, index) => (
+                  <li
+                    key={index}
+                    className={`pagination-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="pagination-button"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
       </div>
+      )}
       <div>
+        
       <Link to ="/shop13">
           <div className="computer-button1"><button>Abhiram-Store </button>
             </div>

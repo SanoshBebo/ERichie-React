@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const CheckoutPage = () => {
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   const { productId } = useParams();
   const user = useSelector((state) => state.shoponeuser.user);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -62,7 +62,10 @@ const CheckoutPage = () => {
  
 
   const handleIncreaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    if(quantity+1<= product.stock){
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+    
   };
 
   const handleDecreaseQuantity = () => {

@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./ProductDetail.css";
+import { AiOutlineSearch,AiOutlineShoppingCart } from 'react-icons/ai';
+
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
   const { productId } = useParams();
+
+  
 
   const [product, setProduct] = useState(null);
 
@@ -44,6 +50,10 @@ const ProductDetail = () => {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+      toast.success('Product added to cart!', {
+        position: 'top-right',
+        autoClose: 3000, // Time in milliseconds to keep the toast open
+      });
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
@@ -74,13 +84,23 @@ const ProductDetail = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <section className="shop_14">
       {/* Add a Back button to navigate back to the user page */}
-      <button className="back-button" onClick={() => navigate("/shop14/")}>
-        Back
-      </button>
+      <nav>
+      <div className="container">
+        <button className="btn btn-primary back-button" onClick={() => navigate("/shop14/")}>
+          Back
+        </button>
+        <div className="icon">
+          <Link to="/erichie/cart" className="btn btn-primary">
+            <AiOutlineShoppingCart /> 
+          </Link>
+        </div>
+      </div>
+    </nav>
       <div className="product-detail-page_shop14">
         <h1>Digital Genie</h1>
 
@@ -100,6 +120,18 @@ const ProductDetail = () => {
           <p>Price: ₹{product.price?.integerValue}</p>
 
           <p>Stock: {product.stock?.integerValue}</p>
+          <div className="quantity-input">
+            <label htmlFor="quantity">Quantity:</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              min="0" // Set a minimum value
+              max={product.stock.integerValue}
+            />
+          </div>
 
           <div className="spaced-buttons_shop14">
             <button
@@ -110,9 +142,9 @@ const ProductDetail = () => {
               Add to Cart
             </button>
 
-            <button className="spaced-buttons_shop14" onClick={buyNow}>
+            {/* <button className="spaced-buttons_shop14" onClick={buyNow}>
               Buy Now
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

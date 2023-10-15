@@ -33,7 +33,7 @@ const Home = (addtocart) => {
             <h3></h3>
             <h2></h2>
             <p></p>
-            <Link to='/shop' className='link' >shopnow</Link>
+            <Link to='/shop13/shop' className='link' >shopnow</Link>
           </div>
         </div>
         

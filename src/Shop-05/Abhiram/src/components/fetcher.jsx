@@ -18,7 +18,7 @@ async function fetchItems() {
       stock: doc.fields.stock.integerValue || 0,
       shopid: doc.fields.shopid.stringValue || '',
     }));
-    const filteredItemList = itemList.filter((item) => item.stock > 0);
+    const filteredItemList = itemList;
 
     return filteredItemList.map((item) => ({
         id: item.id,

@@ -7,6 +7,10 @@ import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AiOutlineSearch,AiOutlineShoppingCart } from 'react-icons/ai';
+
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -55,6 +59,11 @@ function ProductDetails() {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+       // Show a toast message
+       toast.success('Product added to cart!', {
+        position: 'top-right',
+        autoClose: 3000, // Time in milliseconds to keep the toast open
+      });
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
@@ -64,19 +73,21 @@ function ProductDetails() {
     // Create an object with the product details and count
   };
 
+
   return (
     <section className="dhanu">
+      
       <div className="product-details">
         {product ? (
           <div>
-            <h2>{product.productname.stringValue}</h2>
+            
+            <h1>{product.productname.stringValue}</h1>
             <img
               src={product.imageurl.stringValue}
               alt={product.productname.stringValue}
             />
             <p>Description: {product.description.stringValue}</p>
             <p>Price: ${product.price.integerValue}</p>
-            <button>ADD TO CART</button>
             <br></br>
             <Link to="/Shop16/User">
               <strong>CLICK TO SEE MORE PRODUCTS</strong>
@@ -89,7 +100,8 @@ function ProductDetails() {
                 name="quantity"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-                min="1" // Set a minimum value
+                min="0" 
+                max={product.stock.integerValue}// Set a minimum value
               />
             </div>
 
@@ -100,13 +112,30 @@ function ProductDetails() {
             >
               Add To Cart
             </button>
+            <br />
+            <button className="btn btn-secondary back-button" onClick={() => navigate("/shop16/user")}>
+          Back
+        </button>
+        <div className="icon">
+          <Link to="/erichie/cart" className="btn btn-primary">
+            <AiOutlineShoppingCart /> 
+          </Link>
+        </div>
+
+            
+        
           </div>
         ) : (
           <p>Loading product details...</p>
         )}
       </div>
+      
+        
+     
+      
 
       <div>
+      
         <h5>© 1996-2023, dhanu.com, Inc. or its affiliates</h5>
       </div>
     </section>

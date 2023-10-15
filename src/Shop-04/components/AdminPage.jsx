@@ -87,7 +87,7 @@ function AddProduct() {
         category: { stringValue: product.category },
         description: { stringValue: product.description },
         modelNo: { stringValue: product.modelNo },
-        price: { integerValue: parseFloat(product.price) },
+        price: { integerValue: parseInt(product.price) },
         productname: { stringValue: product.productname },
         shopid: { stringValue: product.shopid },
         stock: { integerValue: parseInt(product.stock, 10) },
@@ -180,7 +180,7 @@ const handleSaveEdit = async () => {
       category: { stringValue: 'computer' },
       description: { stringValue: product.description },
       modelNo: { stringValue: product.modelNo },
-      price: { IntegerValue: parseFloat(product.price) },
+      price: { integerValue: parseInt(product.price) },
       productname: { stringValue: product.productname },
       shopid: { stringValue: 'Shop16' }, // Pre-defined shopid
       stock: { integerValue: parseInt(product.stock, 10) },

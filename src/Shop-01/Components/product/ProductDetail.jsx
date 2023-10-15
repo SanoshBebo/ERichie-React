@@ -62,11 +62,15 @@ function ProductDetail() {
   }, [documentId]);
 
   const increaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    if((quantity+1)<= product.stock){
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+    
   };
 
   const decreaseQuantity = () => {
     if (quantity > 0) {
+    
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
@@ -149,6 +153,7 @@ function ProductDetail() {
                   value={quantity}
                   readOnly
                   className="quantity-input"
+                  
                 />
                 <button className="quantity-button" onClick={increaseQuantity}>
                   +

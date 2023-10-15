@@ -57,11 +57,11 @@ function UserPage() {
                 <strong><br></br>{product.fields.productname?.stringValue}</strong>
                 <p>Price: ₹{product.fields.price?.integerValue}</p>
                 <div className="product-buttons_shop14">
-                  <button onClick={() => addToCart(product.id)}>Add to Cart</button>
+                  {/* <button onClick={() => addToCart(product.id)}>Add to Cart</button> */}
                   <Link to={`/shop14/products/${product.id}`}>
                     <button className="view-details-button_shop14">View Details</button>
                   </Link>
-                  <button className="buy-now-button_shop14" >Buy Now</button>
+                  {/* <button className="buy-now-button_shop14" >Buy Now</button> */}
                 </div>
               </div>
             </div>

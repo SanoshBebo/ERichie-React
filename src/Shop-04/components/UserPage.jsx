@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './UserPage.css';
 import './shopProductDetail';
 import './DeleteProduct';
+import Pagination from "react-js-pagination";
 
 function UserPage() {
   const [products, setProducts] = useState([]);
@@ -13,21 +14,15 @@ function UserPage() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const productsPerPage = 3;
+  const productsPerPage = 4;
 
- const indexOfLastProduct = currentPage * productsPerPage;
-
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-
- 
-
-  const paginate = (pageNumber) => {
+const handlePageChange = (pageNumber) => {
 
     setCurrentPage(pageNumber);
 
   };
+
+
 
   const apiUrl =
     'https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products';
@@ -83,19 +78,23 @@ function UserPage() {
         ))}
       </div>
     </div>
-    <div className="pagination">
+    <Pagination
 
-        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
+          activePage={currentPage}
 
-          <button key={i} onClick={() => paginate(i + 1)}>
+          itemsCountPerPage={productsPerPage}
 
-            {i + 1}
+          totalItemsCount={filteredProducts.length}
 
-          </button>
+          pageRangeDisplayed={5}
 
-        ))}
+          onChange={handlePageChange}
 
-      </div>
+          itemClass="page-item"
+
+          linkClass="page-link"
+
+        />
     <div>
       <h5>© 1996-2023, dhanu.com, Inc. or its affiliates</h5>
     </div>
