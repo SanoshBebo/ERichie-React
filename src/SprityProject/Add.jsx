@@ -26,6 +26,7 @@ function ImageUpload({ onImageUpload }) {
         onImageUpload(storageUrl); // Pass the uploaded image URL to the parent component
       } catch (error) {
         console.error("Error uploading image:", error);
+        window.confirm ("Error uploading Image")
       }
     }
   };
@@ -77,6 +78,7 @@ function AddProducts() {
     // Validate required fields
     if (!product.productname.trim() || !product.price.trim()) {
       console.error("Please provide a valid product name and price.");
+      window.confirm ("Please provide a valid product name and price")
       return;
     }
     // Create the payload with all fields
@@ -98,6 +100,7 @@ function AddProducts() {
 
       if (response.status === 200) {
         console.log("Product added successfully.");
+        window.confirm ("Product added successfully.")
       } else {
         console.error("Error adding product. Response:", response);
       }

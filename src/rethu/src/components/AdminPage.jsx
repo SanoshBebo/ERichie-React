@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AdminPage.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import OverallReport from "../../../ERichie/OverallReport";
+import { Link } from "react-router-dom";
 
 function AddProduct() {
   const [product, setProduct] = useState({
@@ -16,7 +20,7 @@ function AddProduct() {
   const [Products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editProductId, setEditProductId] = useState(null);
-  const [showAddProductForm, setShowAddProductForm] = useState(false); // Control the visibility of the "Add Product" form
+  const [showAddProductForm, setShowAddProductForm] = useState(false);
 
   const apiUrl =
     "https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products";
@@ -79,7 +83,6 @@ function AddProduct() {
     };
 
     try {
-      // Upload the image to Firebase Storage
       const imageUploadResponse = await axios.post(imageRef, imageFile, {
         headers: {
           "Content-Type": imageFile.type,
@@ -87,9 +90,12 @@ function AddProduct() {
       });
 
       if (imageUploadResponse.status === 200) {
-        // Image uploaded successfully, now add the product
         const productAddResponse = await axios.post(apiUrl, payload);
         if (productAddResponse.status === 200) {
+          toast.success("Product added successfully!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+
           const newProduct = {
             id: productAddResponse.data.name.split("/").pop(),
             fields: payload.fields,
@@ -107,7 +113,7 @@ function AddProduct() {
             stock: "",
             imageurl: "",
           });
-          setShowAddProductForm(false); // Close the form after adding a product
+          setShowAddProductForm(false);
         } else {
           console.log("Error: Product addition failed");
         }
@@ -127,6 +133,10 @@ function AddProduct() {
       try {
         const response = await axios.delete(`${apiUrl}/${id}`);
         if (response.status === 200) {
+          toast.success("Product deleted successfully!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+
           const updatedProducts = Products.filter(
             (product) => product.id !== id
           );
@@ -141,89 +151,10 @@ function AddProduct() {
     }
   };
 
-  const handleEditProduct = (id) => {
-    const editedProduct = Products.find((product) => product.id === id);
-    setProduct({
-      category: "Gaming",
-      description: editedProduct.fields.description.stringValue,
-      modelNo: editedProduct.fields.modelNo.stringValue,
-      price: editedProduct.fields.price.integerValue,
-      productname: editedProduct.fields.productname.stringValue,
-      shopname: "shop05", // Pre-defined shopname
-      stock: editedProduct.fields.stock.integerValue,
-      imageurl: editedProduct.fields.imageurl.stringValue,
-    });
-    setEditProductId(id);
-    setIsEditing(true);
-    setShowAddProductForm(true); // Show the "Add Product" form when editing
-  };
-
-  const handleSaveEdit = async () => {
-    const imageFile = product.imageurl;
-    const imageName = imageFile.name;
-    const imageRef =
-      firebaseStorageUrl + "/" + encodeURIComponent(imageName) + "?alt=media";
-
-    const payload = {
-      fields: {
-        category: { stringValue: "Gaming" },
-        description: { stringValue: product.description },
-        modelNo: { stringValue: product.modelNo },
-        price: { integerValue: parseInt(product.price) },
-        productname: { stringValue: product.productname },
-        shopname: { stringValue: "Shop05" }, // Pre-defined shopname
-        stock: { integerValue: parseInt(product.stock, 10) },
-        imageurl: { stringValue: imageRef },
-      },
-    };
-
-    try {
-      // Upload the new image to Firebase Storage
-      const imageUploadResponse = await axios.post(imageRef, imageFile, {
-        headers: {
-          "Content-Type": imageFile.type,
-        },
-      });
-
-      if (imageUploadResponse.status === 200) {
-        // Image uploaded successfully, now update the product
-        const productUpdateResponse = await axios.patch(
-          `${apiUrl}/${editProductId}`,
-          payload
-        );
-        if (productUpdateResponse.status === 200) {
-          const updatedProducts = Products.map((p) =>
-            p.id === editProductId ? { ...p, fields: payload.fields } : p
-          );
-          setProducts(updatedProducts);
-          setFilteredProducts(updatedProducts);
-          setIsEditing(false);
-          setEditProductId(null);
-          setProduct({
-            category: "Gaming",
-            description: "",
-            modelNo: "",
-            price: "",
-            productname: "",
-            shopname: "shop05",
-            stock: "",
-            imageurl: "",
-          });
-          setShowAddProductForm(false); // Close the form after saving edit
-        } else {
-          console.log("Error: Product editing failed");
-        }
-      } else {
-        console.log("Error: Image upload failed");
-      }
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
   const DeadEyeInventory = () => {
     window.location.href = "/shop05/admin/Dead_eye_Inventory";
   };
+
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditProductId(null);
@@ -237,20 +168,26 @@ function AddProduct() {
       stock: "",
       imageurl: "",
     });
-    setShowAddProductForm(false); // Close the form when canceling edit
+    setShowAddProductForm(false);
   };
 
   return (
     <div className="add-product-pages">
       <div className="add-product-containers">
-        <button onClick={() => DeadEyeInventory()}>Dead_eye_Inventory</button>
-        <h1>{isEditing ? "Edit Product" : "Add Product"}</h1>
-        {/* Button to toggle the "Add Product" form */}
-        <button onClick={() => setShowAddProductForm(!showAddProductForm)}>
+        <button className="inventory-button" onClick={() => DeadEyeInventory()}>
+          Dead_eye_Inventory
+        </button>
+        <Link to="/shop05/admin/overall-report">Overall Report</Link>
+        <h1 className="add-product-heading">
+          {isEditing ? "Edit Product" : "Add Product"}
+        </h1>
+        <button
+          className="toggle-form-button"
+          onClick={() => setShowAddProductForm(!showAddProductForm)}
+        >
           {showAddProductForm ? "Close Form" : "Add Product"}
         </button>
 
-        {/* "Add Product" form */}
         {showAddProductForm && (
           <div className="product-forms">
             <div>
@@ -322,13 +259,20 @@ function AddProduct() {
                 }
               />
             </div>
+
             {isEditing ? (
-              <div>
-                <button onClick={handleSaveEdit}>Save Edit</button>
-                <button onClick={handleCancelEdit}>Cancel Edit</button>
+              <div className="edit-product-buttons">
+                <button className="save-edit-button" onClick={handleSaveEdit}>
+                  Save Edit
+                </button>
+                <button className="cancel-edit-button" onClick={handleCancelEdit}>
+                  Cancel Edit
+                </button>
               </div>
             ) : (
-              <button onClick={handleAddProduct}>Add Product</button>
+              <button className="add-product-button" onClick={handleAddProduct}>
+                Add Product
+              </button>
             )}
           </div>
         )}
@@ -338,11 +282,13 @@ function AddProduct() {
         <div className="product-searches">
           <input
             type="text"
-            placeholder="Search by product name"
+            placeholder="Search by Product Name"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button onClick={handleSearch}>Search</button>
+          <button className="search-button" onClick={handleSearch}>
+            Search
+          </button>
         </div>
         <ul>
           {filteredProducts.map((product) => (
@@ -356,25 +302,31 @@ function AddProduct() {
                 </div>
 
                 <div className="product-details-1">
-                  <strong>{product.fields.productname?.stringValue}</strong>
-                  <p>
-                    <strong>Description:</strong>
+                  <strong className="product-name">
+                    {product.fields.productname?.stringValue}
+                  </strong>
+                  <p className="product-description">
+                    {product.fields.description?.stringValue}
                   </p>
-                  <p>{product.fields.description?.stringValue}</p>
                 </div>
                 <div className="product-details-2">
-                  <p>
-                    <strong>Price:</strong> $
-                    {product.fields.price?.integerValue}
+                  <p className="product-price">
+                    <strong>Price:</strong> ${product.fields.price?.integerValue}
                   </p>
-                  <p>
+                  <p className="product-stock">
                     <strong>Stock:</strong> {product.fields.stock?.integerValue}
                   </p>
                   <div className="product-buttons-2">
-                    <button onClick={() => handleDeleteProduct(product.id)}>
+                    <button
+                      className="delete-product-button"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
                       Delete
                     </button>
-                    <button onClick={() => handleEditProduct(product.id)}>
+                    <button
+                      className="edit-product-button"
+                      onClick={() => handleEditProduct(product.id)}
+                    >
                       Edit
                     </button>
                   </div>
@@ -384,6 +336,7 @@ function AddProduct() {
           ))}
         </ul>
       </div>
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
     </div>
   );
 }

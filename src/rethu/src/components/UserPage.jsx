@@ -4,7 +4,6 @@ import "./UserPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 
-//const history = useHistory();
 function UserPage1() {
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -14,16 +13,13 @@ function UserPage1() {
   const [cartCount, setCartCount] = useState(0); // Cart count based on unique products
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [productsPerPage] = useState(6); // Number of products to show per page
   const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
-  };
-
-  const handleBuyNow = (product) => {
-    // You can add any additional functionality here, e.g., adding the product to the cart
-    navigate(`/product/${product.id}`);
   };
 
   const apiUrl =
@@ -127,6 +123,25 @@ function UserPage1() {
     }
   };
 
+  // Calculate the start and end indexes for products on the current page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  // Generate an array of page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="user-page">
       <header className="navbar">
@@ -151,12 +166,6 @@ function UserPage1() {
                 <button onClick={handleSearch}>Search</button>
               </div>
             </li>
-            <li
-              className="cursor-pointer hover:underline"
-              onClick={handleSignOut}
-            >
-              Sign Out
-            </li>
             <li>
               <Link to="/gaming">Go Back to Home</Link>
             </li>
@@ -177,20 +186,18 @@ function UserPage1() {
         <h1 className="store-name">Welcome to the Dead Eye Game Store!</h1>
       </div>
       <div className="product-list">
-        {filteredProducts.map((product) => (
+        {currentProducts.map((product) => (
           <div key={product.id} className="product-item">
-            {/* ... (your product display code) ... */}
             <img
               src={product.fields.imageurl?.stringValue || ""}
               alt={product.fields.productname?.stringValue || ""}
-              className="product-image2"
-              style={{ width: "50%" }} // Set the width to 30%
+              className="product-image2" // Add class to center-align images
             />
             <h4>{product.fields.productname?.stringValue || ""}</h4>
             <p>Price: ${product.fields.price?.integerValue || 0}</p>
 
             <Link to={`/shop05/product/${product.id}`}>
-              <button>Add to Cart</button>
+              <button onClick={() => openProductModal(product)}>Add to Cart</button>
             </Link>
           </div>
         ))}
@@ -212,18 +219,33 @@ function UserPage1() {
             <p>{selectedProduct.fields.description?.stringValue || ""}</p>
             <p>Price: ${selectedProduct.fields.price?.integerValue || 0}</p>
 
-            <Link to={`/shop05/product/${products.productid}`}>
-              <button>Add to Cart</button>
-            </Link>
+            <button onClick={addToCart}>Add to Cart</button>
           </div>
         </div>
       )}
+
+      {/* Order Confirmation Popup */}
       {showOrderConfirmation && (
         <div className="order-confirmation-popup">
           <p>Order Successfully Placed</p>
           <button onClick={() => setShowOrderConfirmation(false)}>Close</button>
         </div>
       )}
+
+      {/* Pagination */}
+      <div className="pagination">
+        {pageNumbers.map((number) => (
+          <button
+            key={number}
+            className={`pagination-button ${
+              number === currentPage ? "active" : ""
+            }`}
+            onClick={() => handlePageChange(number)}
+          >
+            {number}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

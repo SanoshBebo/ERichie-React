@@ -265,6 +265,7 @@ const App = () => {
               }
             />
             <Route path="/shop03/admin" element={<AddProductForm />} />
+            <Route path="/shop03/admin/overall-report" element={<OverallReport />} />
             <Route path="/shop03/tablepage" element={<TablePage />} />
             {/* // =========================================================askshayas code============================================================================// */}
             <Route path="/shop02" element={<UserView />} />
@@ -341,6 +342,7 @@ const App = () => {
             <Route path="/gaming" element={<ProductDisplay1 />} />
             <Route path="/shop05" element={<UserPage1 />} />
             <Route path="/shop05/admin" element={<RethuAddProduct />} />
+            <Route path="/shop05/admin/overall-report" element={<OverallReport />} />
             <Route
               path="/shop05/admin/Dead_eye_Inventory"
               element={<DeadEyeShopReport />}
@@ -359,10 +361,18 @@ const App = () => {
               path="/shop07/admin-page"
               element={<IndividualShop07Report />}
             />
+            <Route
+              path="/shop07/admin-page/overall-report"
+              element={<OverallReport />}
+            />
             <Route path="/shop06" element={<LasyaProductList />} />
             <Route
               path="/shop06/admin/report"
               element={<LasyaIndividualShopReport />}
+            />
+            <Route
+              path="/shop06/admin/overall-report"
+              element={<OverallReport />}
             />
             <Route
               path="/shop06/product/:productId"
@@ -384,6 +394,7 @@ const App = () => {
               element={<ChetnaProductDetailsPage />}
             />
             <Route path="/shop11/protectlist" element={<TrandingPages />} />
+            <Route path="/shop11/admin/overall-report" element={<OverallReport />} />
             {/* ===============================================================MAHACODE===================================================================           */}
             <Route path="/shop12/admin" element={<MahaAdminLayout />} />
             <Route path="/shop12/customer" element={<CustomerApp />} />

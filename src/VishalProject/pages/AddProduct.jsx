@@ -1,101 +1,69 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
-
 import { useNavigate, Link } from "react-router-dom";
-
-import TablePage from "./TablePage"; // Use relative import
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast notifications
 
 const AddProductForm = () => {
   const navigate = useNavigate();
 
   const [productData, setProductData] = useState({
     productname: "",
-
     description: "",
-
     stock: 0,
-
     price: 0,
-
-    shopid: "shop03", // Fixed shop name
-
-    category: "media", // Fixed category
-
+    shopid: "shop03",
+    category: "media",
     productid: "",
-
     imageurl: "",
   });
 
-  const [products, setProducts] = useState([]); // Store the list of products
-
+  const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
-
-  const [displayImage, setDisplayImage] = useState(true); // Control image display
+  const [displayImage, setDisplayImage] = useState(true);
 
   useEffect(() => {
-    // Fetch the list of products from your API and populate the products state
-
     async function fetchProducts() {
       try {
         const baseUrl =
           "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
-
         const collectionName = "Products";
-
         const apiUrl = `${baseUrl}/${collectionName}`;
-
         const response = await axios.get(apiUrl);
 
         if (response.status === 200) {
-          // Extract the product data from the response and set it in the products state
-
           const productsData = response.data.documents.map((doc) => {
             const fields = doc.fields;
-
             return {
               id: doc.name.split("/").pop(),
-
               description: fields.description.stringValue,
-
               stock: fields.stock.integerValue,
-
               price: fields.price.integerValue,
-
               productname: fields.productname.stringValue,
-
               shopid: fields.shopid.stringValue,
-
               category: fields.category.stringValue,
-
               imageurl: {
                 value: fields.imageurl.stringValue,
-
-                uploadButton: "Upload Image", // You can customize the button text
+                uploadButton: "Upload Image",
               },
             };
           });
-
           setProducts(productsData);
         } else {
           console.error("Error fetching products:", response.statusText);
-
           console.error("Response data:", response.data);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     }
-
     fetchProducts();
-  }, []); // Fetch products once when the component mounts
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
     setProductData({
       ...productData,
-
       [name]: value,
     });
   };
@@ -104,46 +72,34 @@ const AddProductForm = () => {
     const file = event.target.files[0];
 
     if (file) {
-      // Upload the image to Firebase Storage
-
-      const storageBucket = "about-me-bf7ef.appspot.com"; // Replace with your Firebase Storage bucket name
-
+      const storageBucket = "about-me-bf7ef.appspot.com";
       const storageRef = `products/${file.name}`;
-
       const storageUrl = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/${encodeURIComponent(
         storageRef
       )}?alt=media`;
 
       const imageFormData = new FormData();
-
       imageFormData.append("file", file);
 
       axios
-
         .post(storageUrl, imageFormData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
-
         .then((response) => {
           if (response.status === 200) {
             console.log("Image uploaded successfully:", response.data);
-
             setProductData({
               ...productData,
-
-              imageurl: storageUrl, // Store the image URL
+              imageurl: storageUrl,
             });
-
-            setDisplayImage(true); // Display the uploaded image
+            setDisplayImage(true);
           } else {
             console.error("Error uploading image:", response.statusText);
-
             console.error("Response data:", response.data);
           }
         })
-
         .catch((error) => {
           console.error("Error uploading image:", error);
         });
@@ -152,9 +108,6 @@ const AddProductForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Check if any required field is missing
-
     if (
       !productData.productname ||
       !productData.description ||
@@ -163,58 +116,33 @@ const AddProductForm = () => {
       !productData.imageurl
     ) {
       alert("Please fill in all the fields.");
-
       return;
     }
-
     try {
-      // Define your base URL
-
       const baseUrl =
         "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
-
-      // Define the collection you want to add/update the product in (e.g., 'Products')
-
       const collectionName = "Products";
-
-      // Create the full API URL for the new document or the specific product document to be updated
-
       const apiUrl = selectedProductId
         ? `${baseUrl}/${collectionName}/${selectedProductId}`
         : `${baseUrl}/${collectionName}`;
-
-      // Check if a new image has been uploaded
-
       const hasNewImage =
         productData.imageurl !==
         products.find((p) => p.id === selectedProductId)?.imageurl.value;
-
-      // Create a payload object with the product data
-
       const payload = {
         fields: {
           description: { stringValue: productData.description },
-
           stock: { integerValue: parseInt(productData.stock, 10) },
-
           price: { integerValue: parseInt(productData.price, 10) },
-
           productname: { stringValue: productData.productname },
-
           shopid: { stringValue: productData.shopid },
-
           category: { stringValue: productData.category },
-
           imageurl: {
             stringValue: hasNewImage
               ? productData.imageurl
-              : products.find((p) => p.id === selectedProductId)?.imageurl
-                  .value,
+              : products.find((p) => p.id === selectedProductId)?.imageurl.value,
           },
         },
       };
-
-      // Use Axios to make a POST (for adding) or PATCH (for updating) request
 
       const response = selectedProductId
         ? await axios.patch(apiUrl, payload)
@@ -225,85 +153,70 @@ const AddProductForm = () => {
           selectedProductId
             ? "Product updated successfully:"
             : "New product added successfully:",
-
           response.data
         );
-
-        // Clear the form after successful submission
-
         setProductData({
           productname: "",
-
           description: "",
-
           stock: 0,
-
           price: 0,
-
-          shopid: "shop03", // Reset shop name
-
-          category: "media", // Reset category
-
+          shopid: "shop03",
+          category: "media",
           productid: "",
-
           imageurl: "",
         });
-
-        setSelectedProductId(null); // Clear the selected product ID after adding/updating
-
-        refreshProductList(); // Refresh the product list after adding/updating
-
-        setDisplayImage(false); // Hide the displayed image
+        setSelectedProductId(null);
+        refreshProductList();
+        setDisplayImage(false);
+        toast.success(
+          selectedProductId
+            ? "Product updated successfully"
+            : "New product added successfully"
+        );
       } else {
         console.error(
           selectedProductId
             ? "Error updating product:"
             : "Error adding new product:",
-
           response.statusText
         );
-
         console.error("Response data:", response.data);
+        toast.error(
+          selectedProductId
+            ? "Error updating product"
+            : "Error adding new product"
+        );
       }
     } catch (error) {
       console.error(
         selectedProductId
           ? "Error updating product:"
           : "Error adding new product:",
-
         error
+      );
+      toast.error(
+        selectedProductId
+          ? "Error updating product"
+          : "Error adding new product"
       );
     }
   };
 
   const handleEditProduct = (productId) => {
-    // Find the product with the given ID in the products list
-
     const productToEdit = products.find((product) => product.id === productId);
-
     if (productToEdit) {
-      // Set the product data in the form for editing
-
       setProductData({
+        ...productData,
         description: productToEdit.description,
-
         stock: productToEdit.stock,
-
         price: productToEdit.price,
-
         productname: productToEdit.productname,
-
-        shopid: productData.shopid, // Restore fixed shop name
-
-        category: productData.category, // Restore fixed category
-
-        imageurl: productToEdit.imageurl.value, // Restore image URL
+        shopid: productData.shopid,
+        category: productData.category,
+        imageurl: productToEdit.imageurl.value,
       });
-
       setSelectedProductId(productId);
-
-      setDisplayImage(true); // Display the image when editing
-
+      setDisplayImage(true);
       window.scrollTo(0, 0);
     }
   };
@@ -315,108 +228,69 @@ const AddProductForm = () => {
 
     if (shouldDelete) {
       try {
-        // Define your base URL
-
         const baseUrl =
           "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
-
-        // Define the collection where the product is stored (e.g., 'Products')
-
         const collectionName = "Products";
-
-        // Create the full API URL for the specific product document to be deleted
-
         const apiUrl = `${baseUrl}/${collectionName}/${productId}`;
-
-        // Use Axios to make a DELETE request to delete the product document
 
         const response = await axios.delete(apiUrl);
 
         if (response.status === 200) {
           console.log("Product deleted successfully:", response.data);
-
-          // Refresh the product list after deleting
-
           refreshProductList();
-
-          // Clear the form
-
           setProductData({
             productname: "",
-
             description: "",
-
             stock: 0,
-
             price: 0,
-
-            shopid: "shop03", // Reset shop name
-
-            category: "media", // Reset category
-
+            shopid: "shop03",
+            category: "media",
             productid: "",
-
             imageurl: "",
           });
-
-          setSelectedProductId(null); // Clear the selected product ID
-
-          setDisplayImage(false); // Hide the displayed image
+          setSelectedProductId(null);
+          setDisplayImage(false);
+          toast.success("Product deleted successfully");
         } else {
           console.error("Error deleting product:", response.statusText);
-
           console.error("Response data:", response.data);
+          toast.error("Error deleting product");
         }
       } catch (error) {
         console.error("Error deleting product:", error);
+        toast.error("Error deleting product");
       }
     }
   };
 
   const refreshProductList = async () => {
-    // Fetch the updated list of products from your API and update the products state
-
     try {
       const baseUrl =
         "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
-
       const collectionName = "Products";
-
       const apiUrl = `${baseUrl}/${collectionName}`;
-
       const response = await axios.get(apiUrl);
 
       if (response.status === 200) {
         const productsData = response.data.documents.map((doc) => {
           const fields = doc.fields;
-
           return {
             id: doc.name.split("/").pop(),
-
             description: fields.description.stringValue,
-
             stock: fields.stock.integerValue,
-
             price: fields.price.integerValue,
-
             productname: fields.productname.stringValue,
-
             shopid: fields.shopid.stringValue,
-
             category: fields.category.stringValue,
-
             imageurl: {
               value: fields.imageurl.stringValue,
-
-              uploadButton: "Upload Image", // You can customize the button text
+              uploadButton: "Upload Image",
             },
           };
         });
-
         setProducts(productsData);
       } else {
         console.error("Error fetching products:", response.statusText);
-
         console.error("Response data:", response.data);
       }
     } catch (error) {
@@ -425,9 +299,7 @@ const AddProductForm = () => {
   };
 
   const handleBack = () => {
-    // Use the navigate function to go back to the previous page
-
-    navigate(-1); // -1 takes you back one step in the navigation history
+    navigate(-1);
   };
 
   return (
@@ -444,10 +316,16 @@ const AddProductForm = () => {
           Report Analysis
         </Link>
         <Link
-          to="/erichie/overall-report"
+          to="/shop03/admin/overall-report"
           className="bg-blue-500 text-white p-2 ml-2 rounded-full hover:bg-blue-600 transition"
         >
           E-Richie Analysis
+        </Link>
+        <Link
+          to="/admin/login"
+          className="bg-blue-500 text-white p-2 ml-2 rounded-full hover:bg-blue-600 transition"
+        >
+          Sign Out
         </Link>
       </div>
 
@@ -624,6 +502,9 @@ const AddProductForm = () => {
           ))}
         </ul>
       </div>
+
+      {/* Add ToastContainer for notifications */}
+      <ToastContainer />
     </div>
   );
 };

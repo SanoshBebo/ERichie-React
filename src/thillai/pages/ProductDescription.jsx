@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link   } from "react-router-dom";
 
 import axios from "axios";
 
@@ -189,6 +189,19 @@ function ProductDescriptionPage() {
   const price = productData.fields.price.integerValue;
 
   return (
+    <div>
+      <div className="navbar">
+          <Link to="/erichie">Home Page</Link>
+          <Link to="/gaming">Go back</Link>
+          <Link to="/erichie/cart" className="navbar-button">
+            <i className="fa fa-shopping-cart"></i> My Cart
+          </Link>
+          <a href="/customer/login" className="navbar-button">
+            Signout
+          </a>
+          
+    </div>
+
     <div className="container">
       <Card className="text-center">
         <Card.Header>
@@ -290,6 +303,7 @@ function ProductDescriptionPage() {
           </Button>
         </Modal.Footer>
       </Modal>
+    </div>
     </div>
   );
 }

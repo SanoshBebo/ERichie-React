@@ -171,6 +171,13 @@
   .buy-now-button:hover {
     background-color: #db3038; /* Darker golden color on hover */
   }
+
+  .buy-button{
+    color:#fff;
+    font-size: 16px;
+    text-align: center;
+    background-color: #fff;
+  }
   
   /* Back to Product List link styles */
   .back-link {

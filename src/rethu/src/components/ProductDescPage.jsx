@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
@@ -69,6 +69,7 @@ function ProductDescPage() {
         position: toast.POSITION.TOP_RIGHT,
       });
     } else {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
@@ -88,6 +89,17 @@ function ProductDescPage() {
 
   return (
     <div>
+      <div className="navbar">
+          <Link to="/erichie">Home Page</Link>
+          <Link to="/gaming">Go back</Link>
+          <Link to="/erichie/cart" className="navbar-button">
+            <i className="fa fa-shopping-cart"></i> My Cart
+          </Link>
+          <a href="/customer/login" className="navbar-button">
+            Signout
+          </a>
+          
+    </div>
       <style>
         {`
           .centered-container {

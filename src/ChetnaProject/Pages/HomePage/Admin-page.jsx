@@ -138,7 +138,32 @@ const AdminPage = () => {
           >
             Report
           </button>
+          </Link>
+          
+        <Link to="/shop11/admin/overall-report">
+
+          <button
+
+            style={buttonStyle}
+
+            onClick={() => setSelectedOperation("ERichie-Report")}
+
+          >
+
+            ERichie-Report
+
+          </button>
+
         </Link>
+        <Link to="/admin/login">
+          <button
+            style={buttonStyle}
+            onClick={() => setSelectedOperation("Report")}
+          >
+            Logout
+          </button>
+        </Link>
+
       </div>
 
       <div>{renderSelectedOperation()}</div>

@@ -99,6 +99,7 @@ const ProductDetails = () => {
         imageurl: product.imageurl,
         quantity: quantity,
       };
+      window.confirm("Added to Cart successfully!!");
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {
@@ -127,7 +128,7 @@ const ProductDetails = () => {
         <p className="text-gray-600 text-sm mb-4">{product.description}</p>
 
         <p className="text-xl font-semibold text-blue-600 mr-4">
-          Price: ${product.price}
+          Price: Rs.{product.price}
         </p>
         <p className="text-gray-600">Stock: {product.stock}</p>
       </div>
@@ -147,6 +148,8 @@ const ProductDetails = () => {
           className="w-12 text-center text-lg border border-gray-300 rounded-md"
           min={1}
           max={product.stock}
+          readOnly
+          
         />
 
         <button

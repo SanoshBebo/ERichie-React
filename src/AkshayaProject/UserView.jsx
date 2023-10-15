@@ -132,6 +132,14 @@ const UserView = () => {
       <header className="bg-blue-200 py-4 text-center">
         <h1 className="text-4xl font-bold">E-NERD</h1>
       </header>
+      <div className="absolute top-12 right-12"> {/* Adjust spacing using Tailwind classes */}
+
+      < Link to= '/MediaCategories' button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => navigate(-1)}>
+
+        Back
+        </Link>
+
+    </div>
 
       <br />
       <div className="flex-row justify-center items-center text-center">

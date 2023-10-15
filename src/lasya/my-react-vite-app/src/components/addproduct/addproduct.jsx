@@ -68,7 +68,7 @@ function AddProduct() {
             stock: { integerValue: parseInt(product.stock, 10) },
             shopid: { stringValue: "shop06" }, // Modify this as needed
             category: { stringValue: "gaming" }, // Modify this as needed
-            imageUrl: { stringValue: imageurl },
+            imageUrl: { stringValue: imageUrl },
           },
         };
 
@@ -268,7 +268,7 @@ function AddProduct() {
             Report </Link>
         </div>
        <div className=' flex justify-center mb-3'>
-          <Link to='/shop06/admin/report' button
+          <Link to='/shop06/admin/overall-report' button
             className=' bg-blue-500 w-35 text-white font-bold  px-2 py-2 rounded-lg'>
             E-Richie Report </Link>
         </div>
@@ -328,7 +328,7 @@ function AddProduct() {
         <ul>
           {products.map((product) => (
             <div className="product-box" key={product.id}>
-              <strong>{product.fields.productname?.stringValue}</strong> - ${" "}
+              <strong>{product.fields.productname?.stringValue}</strong> - Rs.{" "}
               {product.fields.price?.integerValue}
               <p>{product.fields.description?.stringValue}</p>
               <p>Stock: {product.fields.stock?.integerValue}</p>

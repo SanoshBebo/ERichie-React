@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../../../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../../../../Api/CartOperationsFirestore";
 import { setUser } from "../../../../../SanoshProject/redux/shopOneUserSlice";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function ProductDescPage() {
   const { productId } = useParams();
@@ -61,7 +65,9 @@ function ProductDescPage() {
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
 
-      // toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT });
+      toast.success("Product added to cart successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
@@ -85,14 +91,25 @@ function ProductDescPage() {
   }
 
   return (
+    
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-      }}
-    >
+      }}>
+        <div className="navbar">
+          <Link to="/erichie">Home Page</Link>
+          <Link to="/gaming">Go back</Link>
+          <Link to="/erichie/cart" className="navbar-button">
+            <i className="fa fa-shopping-cart"></i> My Cart
+          </Link>
+          <a href="/customer/login" className="navbar-button">
+            Signout
+          </a>
+        </div>
+      
       <div style={{ textAlign: "center" }}>
         <div className="product-card">
           <h1>{product.productname.stringValue}</h1>
@@ -102,7 +119,7 @@ function ProductDescPage() {
             style={{ width: "70%" }} // Decrease image size to 40%
           />
           <p>Description: {product.description.stringValue}</p>
-          <p>Price: ${product.price.doubleValue}</p>
+          <p>Price: Rs.{product.price.integerValue}</p>
           <div className="quantity-control">
             <label>Quantity: </label>
             <button
@@ -134,15 +151,18 @@ function ProductDescPage() {
               +
             </button>
           </div>
-          <p>Total Price: ${totalPrice}</p>
+          <p>Total Price: Rs.{totalPrice}</p>
           <button
             className="buy-button"
             onClick={() => {
               addToCart();
             }}
-          >
-            <span style={{ color: "white" }}>Add to Cart</span>
+          >Add To Cart
+            <Link to="/erichie/cart"></Link>
           </button>
+
+          <span style={{ color: "white" }}>Add to Cart</span>
+
           <button
             className="back-button"
             onClick={() => {

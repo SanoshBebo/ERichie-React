@@ -152,7 +152,8 @@ const MobileCategory = () => {
                     <img
                       src={product.imageurl}
                       alt={product.name}
-                      className="bg-slate-500 object-cover w-full h-full"
+                      className="bg-slate-500 object-cover w-100 h-200px"
+                      
                     />
 
                     {product.stock > 0 && product.stock <= 5 && (

@@ -195,13 +195,9 @@ const ProductDetailsPage = () => {
           />
         </label>
 
-        {!isAvailable && quantity > product.stock && (
-          <p>Product not available in the desired quantity.</p>
-        )}
+        {quantity > product.stock && <p style={{ color: "red" }}>Out of Stock.</p>}
 
-        {!isAvailable && product.stock === 0 && (
-          <p style={{ color: "red" }}>Out of Stock.</p>
-        )}
+        {!isAvailable && product.stock === 0 && <p style={{ color: "red" }}>Out of Stock.</p>}
 
         {isProductAdded && (
           <p className="message">Product added successfully!</p>

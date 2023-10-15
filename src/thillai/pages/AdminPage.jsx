@@ -33,6 +33,9 @@ const AdminPage = () => {
                         <Button variant="outline-primary" size="sm" active={location.pathname === "/shop07/admin-page"} className="mx-0">
                             <NavLink to="/shop07/admin-page" className={"text-decoration-none text-light"}>Sales</NavLink>
                         </Button>
+                        <Button variant="outline-primary" size="sm" active={location.pathname === "/shop07/admin-page/overall-report"} className="mx-0">
+                            <NavLink to="/shop07/admin-page/overall-report" className={"text-decoration-none text-light"}> Overall Sales</NavLink>
+                        </Button>
 
                         <Button variant="outline-primary" size="sm" active={location.pathname === "/shop07/admin-page/products"} className="mx-0">
                             <NavLink to="/shop07/admin-page/products" className={"text-decoration-none text-light"}>Products</NavLink>

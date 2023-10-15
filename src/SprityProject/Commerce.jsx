@@ -94,7 +94,7 @@ function ProductList() {
 
       <Link to={`/shop10/product/${product.id}`}>
 
-        <button>View Details</button>
+        <button style={{ fontWeight: 'bold' }}>View Details</button>
 
       </Link>
 

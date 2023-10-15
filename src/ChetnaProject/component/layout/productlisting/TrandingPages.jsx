@@ -110,7 +110,7 @@ const TrandingPages = () => {
 
       <div className="modified-product-details-container">
         {currentProducts.map((product) => (
-          <Link key={product.id} to={`/productlisting/${product.id}`}>
+          <Link key={product.id} to={`/shop11/product/${product.id}`}>
             <div className="modified-product-details-card">
               <img src={product.imageurl} alt={product.productname} />
 

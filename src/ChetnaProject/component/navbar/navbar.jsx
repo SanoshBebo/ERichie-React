@@ -137,6 +137,33 @@ const Navbar = () => {
               View Cart
             </button>
           </Link>
+          <Link
+            to="/customer/login"
+            style={{ textDecoration: "none", color: "#fff", cursor: "pointer" }}
+          >
+            <button
+              style={{
+                backgroundColor: "#007bff",
+
+                color: "white",
+
+                border: "none",
+
+                padding: "1px 4px",
+
+                borderRadius: "5px",
+
+                cursor: "pointer",
+
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              Log out
+            </button>
+          </Link>
+
+
+
 
           <Link
             to="/mobiles"

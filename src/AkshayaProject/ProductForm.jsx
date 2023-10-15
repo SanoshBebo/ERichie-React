@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ProductForm.css";
+import { Link } from "react-router-dom";
 
 const ProductForm = () => {
   const firestoreApiKey = "AIzaSyAMTkJfx4_ZowkhsFySraPbqI-ZoGOEt6U";
@@ -118,7 +119,9 @@ const ProductForm = () => {
 
   return (
     <div className="product-form-container bg-gray-200">
-      <h2>Add a New Product</h2>
+      <Link to= '/shop02/admin' button type="submit" className="p-2 bg-slate-400 border ">
+          Back to Admin Console</Link>
+      <h2>Add Product</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-fields">
           <label>

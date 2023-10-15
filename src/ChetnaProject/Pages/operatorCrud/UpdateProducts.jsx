@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+
+
+import React, { useState, useEffect, useRef } from "react";
 
 import axios from "axios";
 
 import Modal from "react-modal";
 
-// import "./update.css"; // Import your CSS file here
-
 const UpdateProducts = () => {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [products, setProducts] = useState([]);
@@ -14,6 +15,7 @@ const UpdateProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const [updatedProduct, setUpdatedProduct] = useState({
+
     category: "",
 
     description: "",
@@ -27,6 +29,7 @@ const UpdateProducts = () => {
     stock: 0,
 
     imageurl: "",
+
   });
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,20 +40,26 @@ const UpdateProducts = () => {
 
   const [updateSuccessMessage, setUpdateSuccessMessage] = useState("");
 
+  const fileInputRef = useRef(null);
+
   useEffect(() => {
-    // Fetch data from Firestore or API endpoint to populate the products list
 
     axios
 
       .get(
+
         "https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products"
+
       )
 
       .then((response) => {
+
         const productsData = response.data.documents.map((doc) => {
+
           const data = doc.fields;
 
           return {
+
             id: doc.name.split("/").pop(),
 
             category: data.category.stringValue,
@@ -66,38 +75,49 @@ const UpdateProducts = () => {
             stock: data.stock.integerValue,
 
             imageurl: data.imageurl.stringValue,
+
           };
+
         });
 
         setProducts(productsData);
+
       })
 
       .catch((error) => {
+
         console.error("Error fetching products:", error);
+
       });
+
   }, []);
 
+ 
+
   const filteredProducts = products.filter((product) =>
+
     product.productname.toLowerCase().includes(searchTerm.toLowerCase())
+
   );
+
+ 
 
   const indexOfLastProduct = currentPage * productsPerPage;
 
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const openModal = (product) => {
+
     setSelectedProduct(product);
 
     setIsModalOpen(true);
 
     setUpdatedProduct({
+
       category: product.category,
 
       description: product.description,
@@ -111,26 +131,101 @@ const UpdateProducts = () => {
       stock: product.stock,
 
       imageurl: product.imageurl,
+
     });
+
   };
+
+ 
 
   const closeModal = () => {
+
     setIsModalOpen(false);
+
   };
 
-  const handleInputChange = (field, value) => {
-    setUpdatedProduct({
-      ...updatedProduct,
+ 
 
-      [field]: value,
-    });
+  const handleImageUpload = async (file) => {
+
+    const storageUrl = `https://firebasestorage.googleapis.com/v0/b/e-mobile-81b40.appspot.com/o/${encodeURIComponent(
+
+      "images/" + file.name
+
+    )}`;
+
+ 
+
+    try {
+
+      await axios.post(storageUrl, file, {
+
+        headers: {
+
+          "Content-Type": file.type,
+
+        },
+
+      });
+
+ 
+
+      const imageUrl = `https://firebasestorage.googleapis.com/v0/b/e-mobile-81b40.appspot.com/o/${encodeURIComponent(
+
+        "images/" + file.name
+
+      )}?alt=media`;
+
+      return imageUrl;
+
+    } catch (error) {
+
+      console.error("Error uploading image:", error);
+
+      return null;
+
+    }
+
   };
 
-  const handleUpdateProduct = () => {
+ 
+
+  const handleUpdateProduct = async () => {
+
+    if (!selectedProduct || !updatedProduct.productname || !updatedProduct.description || !updatedProduct.price || !updatedProduct.stock) {
+
+      console.error("Invalid product data");
+
+      return;
+
+    }
+
+    let imageUrl = updatedProduct.imageurl;
+
+    if (fileInputRef.current && fileInputRef.current.files.length > 0) {
+
+      const uploadedImageUrl = await handleImageUpload(fileInputRef.current.files[0]);
+
+      if (uploadedImageUrl) {
+
+        imageUrl = uploadedImageUrl;
+
+      } else {
+
+        console.error("Error uploading image.");
+
+        return;
+
+      }
+
+    }
+
     const apiUrl = `https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products/${selectedProduct.id}`;
 
     const updatedData = {
+
       fields: {
+
         category: { stringValue: updatedProduct.category },
 
         description: { stringValue: updatedProduct.description },
@@ -143,78 +238,136 @@ const UpdateProducts = () => {
 
         stock: { integerValue: updatedProduct.stock },
 
-        imageurl: { stringValue: updatedProduct.imageurl },
+        imageurl: { stringValue: imageUrl },
+
       },
+
     };
+
+ 
 
     axios
 
       .patch(apiUrl, updatedData)
 
       .then((response) => {
+
         console.log("Product updated successfully:", response.data);
 
         setUpdateSuccessMessage("Product updated successfully");
 
         setTimeout(() => {
+
           setUpdateSuccessMessage("");
+
         }, 3000);
 
+        setProducts((prevProducts) => {
+
+          return prevProducts.map((product) => {
+
+            if (product.id === selectedProduct.id) {
+
+              return {
+
+                ...product,
+
+                category: updatedProduct.category,
+
+                description: updatedProduct.description,
+
+                price: updatedProduct.price,
+
+                productname: updatedProduct.productname,
+
+                shopid: updatedProduct.shopid,
+
+                stock: updatedProduct.stock,
+
+                imageurl: imageUrl,
+
+              };
+
+            }
+
+            return product;
+
+          });
+
+        });
+
         closeModal();
+
       })
 
       .catch((error) => {
+
         console.error("Error updating product:", error);
+
       });
+
   };
 
+ 
+
   return (
-    <div
-      className="update-products-container1"
-      style={{ textAlign: "center", marginTop: "20px" }}
-    >
-      <div className="search-bar" style={{ marginBottom: "20px" }}>
-        <h1 style={{ color: "red", fontSize: "24px" }}>Update Product</h1>
 
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "100%",
+    <div className="update-products-container" style={{ textAlign: "center", marginTop: "20px" }}>
 
-            padding: "10px",
+      <h1 style={{ color: "red", fontSize: "24px" }}>Update Product</h1>
 
-            border: "1px solid #007bff",
+      <input
 
-            borderRadius: "5px",
+        type="text"
 
-            fontSize: "16px",
+        placeholder="Search products..."
 
-            outline: "none",
+        value={searchTerm}
 
-            background: "#007bff",
+        onChange={(e) => setSearchTerm(e.target.value)}
 
-            transition: "box-shadow 0.3s ease",
+        style={{
 
-            margin: "10px",
-          }}
-        />
-      </div>
+          width: "100%",
 
-      <div
-        className="update-products-container"
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-      >
+          padding: "10px",
+
+          border: "1px solid #007bff",
+
+          borderRadius: "5px",
+
+          fontSize: "16px",
+
+          outline: "none",
+
+          background: "#007bff",
+
+          transition: "box-shadow 0.3s ease",
+
+          margin: "10px",
+
+        }}
+
+      />
+
+      <div className="update-products-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+
         {currentProducts.length === 0 && searchTerm !== "" ? (
+
           <p>No products found.</p>
+
         ) : (
+
           currentProducts.map((product) => (
+
             <div
+
               key={product.id}
+
               className="product-card"
+
               style={{
+
                 border: "1px solid #ccc",
 
                 padding: "20px",
@@ -234,40 +387,39 @@ const UpdateProducts = () => {
                 transition: "transform 0.3s ease",
 
                 cursor: "pointer",
+
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.transform = "scale(1.05)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.transform = "scale(1)")
-              }
+
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+
             >
-              <img
-                src={product.imageurl}
-                alt={product.productname}
-                className="product-image"
-                style={{
-                  width: "80px",
-                  height: "80px",
-                  objectFit: "cover",
-                  marginBottom: "10px",
-                }}
-              />
+
+              {/* Product Details */}
+
+              <img src={product.imageurl} alt={product.productname} className="product-image" style={{ width: "80px", height: "80px", objectFit: "cover", marginBottom: "10px" }} />
 
               <h3>{product.productname}</h3>
 
               <p>Category: {product.category}</p>
 
-              <p>Price: ${product.price}</p>
+              <p>Price: ₹{product.price}</p>
 
               <p>Shop ID: {product.shopid}</p>
 
               <p>Stock: {product.stock}</p>
 
+              {/* Update Button */}
+
               <button
+
                 onClick={() => openModal(product)}
+
                 className="update-btn-admin"
+
                 style={{
+
                   backgroundColor: "#007bff",
 
                   color: "white",
@@ -283,22 +435,39 @@ const UpdateProducts = () => {
                   marginTop: "10px",
 
                   transition: "background-color 0.3s ease",
+
                 }}
+
               >
+
                 Update
+
               </button>
+
             </div>
+
           ))
+
         )}
+
       </div>
 
+      {/* Update Product Modal */}
+
       <Modal
+
         isOpen={isModalOpen}
+
         onRequestClose={closeModal}
+
         contentLabel="Update Product Modal"
+
         className="modal-content"
+
         style={{
+
           overlay: {
+
             display: "flex",
 
             justifyContent: "center",
@@ -306,10 +475,16 @@ const UpdateProducts = () => {
             alignItems: "center",
 
             backgroundColor: "rgba(0, 0, 0, 0.5)",
+
           },
 
           content: {
+
             width: "300px",
+
+            height: "500px",
+
+            overflowY: "auto",
 
             margin: "0 auto",
 
@@ -322,100 +497,147 @@ const UpdateProducts = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 
             textAlign: "center",
+
           },
+
         }}
+
       >
+
+        {/* Update Product Form */}
+
         {selectedProduct && (
+
           <div>
+
             <h2 style={{ margin: "10px 0" }}>Update Product</h2>
 
-            <label style={{ margin: "10px 0", display: "block" }}>
-              Product Name:
-            </label>
+            {/* Product Name */}
+
+            <label style={{ margin: "10px 0", display: "block" }}>Product Name:</label>
 
             <input
+
               type="text"
+
               value={updatedProduct.productname}
-              onChange={(e) => handleInputChange("productname", e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                margin: "5px 0",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
+
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, productname: e.target.value })}
+
+              style={{ width: "100%", padding: "8px", margin: "5px 0", borderRadius: "4px", border: "1px solid #ccc" }}
+
             />
 
-            <label style={{ margin: "10px 0", display: "block" }}>
-              Description:
-            </label>
+            {/* Category */}
+
+            <label style={{ margin: "10px 0", display: "block" }}>Category:</label>
 
             <input
+
               type="text"
-              value={updatedProduct.description}
-              onChange={(e) => handleInputChange("description", e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                margin: "5px 0",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
+
+              value={updatedProduct.category}
+
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, category: e.target.value })}
+
+              style={{ width: "100%", padding: "8px", margin: "5px 0", borderRadius: "4px", border: "1px solid #ccc" }}
+
             />
+
+            {/* Description */}
+
+            <label style={{ margin: "10px 0", display: "block" }}>Description:</label>
+
+            <input
+
+              type="text"
+
+              value={updatedProduct.description}
+
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, description: e.target.value })}
+
+              style={{ width: "100%", padding: "8px", margin: "5px 0", borderRadius: "4px", border: "1px solid #ccc" }}
+
+            />
+
+            {/* Price */}
 
             <label style={{ margin: "10px 0", display: "block" }}>Price:</label>
 
             <input
+
               type="number"
-              min="1"
+
+              min="0"
+
               value={updatedProduct.price}
-              onChange={(e) => handleInputChange("price", e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                margin: "5px 0",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
+
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, price: e.target.value })}
+
+              style={{ width: "100%", padding: "8px", margin: "5px 0", borderRadius: "4px", border: "1px solid #ccc" }}
+
             />
+
+            {/* Stock */}
 
             <label style={{ margin: "10px 0", display: "block" }}>Stock:</label>
 
             <input
+
               type="number"
-              min="1"
+
+              min="0"
+
               value={updatedProduct.stock}
-              onChange={(e) => handleInputChange("stock", e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                margin: "5px 0",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
+
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, stock: e.target.value })}
+
+              style={{ width: "100%", padding: "8px", margin: "5px 0", borderRadius: "4px", border: "1px solid #ccc" }}
+
             />
 
-            <label style={{ margin: "10px 0", display: "block" }}>
-              Image URL:
-            </label>
+            {/* Image URL */}
+
+            <label style={{ margin: "10px 0", display: "block" }}>Image URL:</label>
 
             <input
+
               type="text"
+
               value={updatedProduct.imageurl}
-              onChange={(e) => handleInputChange("imageurl", e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                margin: "5px 0",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
+
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, imageurl: e.target.value })}
+
+              style={{ width: "100%", padding: "8px", margin: "5px 0", borderRadius: "4px", border: "1px solid #ccc" }}
+
             />
 
+            {/* Image File Upload */}
+
+            <label style={{ margin: "10px 0", display: "block" }}>Upload Image:</label>
+
+            <input
+
+              type="file"
+
+              accept="image/*"
+
+              ref={fileInputRef}
+
+              style={{ margin: "5px 0" }}
+
+            />
+
+            {/* Update and Close Buttons */}
+
             <button
+
               onClick={handleUpdateProduct}
+
               className="update-btn-admin"
+
               style={{
+
                 backgroundColor: "#007bff",
 
                 color: "white",
@@ -429,15 +651,23 @@ const UpdateProducts = () => {
                 margin: "10px 0",
 
                 cursor: "pointer",
+
               }}
+
             >
+
               Update Product
+
             </button>
 
             <button
+
               onClick={closeModal}
+
               className="cancel-btn-admin"
+
               style={{
+
                 backgroundColor: "#ff0000",
 
                 color: "white",
@@ -451,68 +681,83 @@ const UpdateProducts = () => {
                 margin: "10px 0",
 
                 cursor: "pointer",
+
               }}
+
             >
+
               Close
+
             </button>
+
           </div>
+
         )}
+
       </Modal>
 
+      {/* Update Success Message */}
+
       {updateSuccessMessage && (
-        <div
-          className="success-message"
-          style={{
-            backgroundColor: "#28a745",
-            color: "white",
-            padding: "10px",
-            borderRadius: "5px",
-            marginTop: "10px",
-          }}
-        >
+
+        <div className="success-message" style={{ backgroundColor: "#28a745", color: "white", padding: "10px", borderRadius: "5px", marginTop: "10px" }}>
+
           {updateSuccessMessage}
+
         </div>
+
       )}
 
-      <div
-        className="pagination"
-        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-      >
-        {Array.from(
-          { length: Math.ceil(filteredProducts.length / productsPerPage) },
-          (_, index) => (
-            <button
-              key={index}
-              onClick={() => paginate(index + 1)}
-              className={`pagination-btn ${
-                currentPage === index + 1 ? "active" : ""
-              }`}
-              style={{
-                backgroundColor:
-                  currentPage === index + 1 ? "#0056b3" : "#007bff",
+      {/* Pagination */}
 
-                color: "#fff",
+      <div className="pagination" style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
 
-                border: "none",
+        {Array.from({ length: Math.ceil(filteredProducts.length / productsPerPage) }, (_, index) => (
 
-                padding: "10px 20px",
+          <button
 
-                margin: "0 5px",
+            key={index}
 
-                cursor: "pointer",
+            onClick={() => paginate(index + 1)}
 
-                borderRadius: "5px",
+            className={`pagination-btn ${currentPage === index + 1 ? "active" : ""}`}
 
-                transition: "background-color 0.3s ease",
-              }}
-            >
-              {index + 1}
-            </button>
-          )
-        )}
+            style={{
+
+              backgroundColor: currentPage === index + 1 ? "#0056b3" : "#007bff",
+
+              color: "#fff",
+
+              border: "none",
+
+              padding: "10px 20px",
+
+              margin: "0 5px",
+
+              cursor: "pointer",
+
+              borderRadius: "5px",
+
+              transition: "background-color 0.3s ease",
+
+            }}
+
+          >
+
+            {index + 1}
+
+          </button>
+
+        ))}
+
       </div>
+
     </div>
+
   );
+
 };
 
 export default UpdateProducts;
+
+ 

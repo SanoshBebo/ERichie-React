@@ -144,6 +144,7 @@ function ProductList() {
         );
         setProducts(updatedProducts);
         console.log("Product updated successfully:", editedProduct);
+        window.confirm ("Product updated successfully.")
 
         setEditMode(null);
         setEditedProduct({
@@ -179,6 +180,7 @@ function ProductList() {
           );
           setProducts(updatedProducts);
           console.log("Product deleted successfully:", productId);
+          window.confirm ("Product deleted successfully.")
         } else {
           console.error("Error deleting product. Response:", response);
         }
@@ -341,13 +343,13 @@ function ProductList() {
               <td className="py-2 px-4">
                 {editMode === product.id ? (
                   <div>
-                    <button
+                    <button style={{ fontWeight: 'bold' }}
                       className="admin_crud_button mr-2"
                       onClick={handleSaveClick}
                     >
                       Save
                     </button>
-                    <button
+                    <button style={{ fontWeight: 'bold' }}
                       className="admin_cancel_button"
                       onClick={handleCancelClick}
                     >
@@ -356,13 +358,13 @@ function ProductList() {
                   </div>
                 ) : (
                   <div>
-                    <button
+                    <button style={{ fontWeight: 'bold' }}
                       className="admin_crud_button mr-2"
                       onClick={() => handleEditClick(product)}
                     >
                       Edit
                     </button>
-                    <button
+                    <button style={{ fontWeight: 'bold' }}
                       className="admin_delete_button"
                       onClick={() => handleDeleteClick(product.id)}
                     >
