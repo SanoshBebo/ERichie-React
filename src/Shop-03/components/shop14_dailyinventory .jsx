@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const IndividualShopReport = () => {
+const IndividualShop14Report = () => {
   const [orders, setOrders] = useState([]);
   const [ordersByDate, setOrdersByDate] = useState([]);
   const [startDate, setStartDate] = useState();
@@ -226,4 +226,4 @@ const IndividualShopReport = () => {
   );
 };
 
-export default IndividualShopReport;
+export default IndividualShop14Report;

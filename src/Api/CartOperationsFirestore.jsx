@@ -20,7 +20,7 @@ const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const fetchCart = async (loggedInEmail) => {
-  const cartApiUrl = `${baseUrl}/Carts`; // Use a different URL for cart data
+  const cartApiUrl = `${baseUrl}/Carts?pageSize=100`; // Use a different URL for cart data
   let shopProducts = [];
   try {
     const cartResponse = await axios.get(cartApiUrl);
@@ -43,52 +43,52 @@ export const fetchCart = async (loggedInEmail) => {
                 documentNameParts[documentNameParts.length - 1];
               const { email, productid, quantity, shopid } = document.fields;
 
-              if (shopid.stringValue == "shop01") {
+              if (shopid.stringValue.toLowerCase() == "shop01") {
                 const res = await fetchShopOneProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop02") {
+              } else if (shopid.stringValue.toLowerCase() == "shop02") {
                 const res = await fetchShopTwoProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop03") {
+              } else if (shopid.stringValue.toLowerCase() == "shop03") {
                 const res = await fetchShopThreeProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop04") {
+              } else if (shopid.stringValue.toLowerCase() == "shop04") {
                 const res = await fetchShopFourProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop05") {
+              } else if (shopid.stringValue.toLowerCase() == "shop05") {
                 const res = await fetchShopFiveProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop06") {
+              } else if (shopid.stringValue.toLowerCase() == "shop06") {
                 const res = await fetchShopSixProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop07") {
+              } else if (shopid.stringValue.toLowerCase() == "shop07") {
                 const res = await fetchShopSevenProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop09") {
+              } else if (shopid.stringValue.toLowerCase() == "shop09") {
                 const res = await fetchShop09();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop10") {
+              } else if (shopid.stringValue.toLowerCase() == "shop10") {
                 const res = await fetchShop10();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop11") {
+              } else if (shopid.stringValue.toLowerCase() == "shop11") {
                 const res = await fetchShop11();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop12") {
+              } else if (shopid.stringValue.toLowerCase() == "shop12") {
                 const res = await fetchShop12();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop13") {
+              } else if (shopid.stringValue.toLowerCase() == "shop13") {
                 const res = await fetchShopThirteenProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop14") {
+              } else if (shopid.stringValue.toLowerCase() == "shop14") {
                 const res = await fetchShopFourteenProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop15") {
+              } else if (shopid.stringValue.toLowerCase() == "shop15") {
                 const res = await fetchShopFifteenProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop16") {
+              } else if (shopid.stringValue.toLowerCase() == "shop16") {
                 const res = await fetchShopSixteenProducts();
                 shopProducts = res;
-              } else if (shopid.stringValue == "shop17") {
+              } else if (shopid.stringValue.toLowerCase() == "shop17") {
                 const res = await fetchShopSeventeenProducts();
                 shopProducts = res;
               }

@@ -67,6 +67,7 @@ import LiveReport from "./Shop-02/pages/LiveReport";
 import ProductDetailPage from "./Shop-03/components/ProductDetail";
 import AddProductShop03 from "./Shop-03/components/adminpage";
 import UserPageShop03 from "./Shop-03/components/UserPage";
+import IndividualShop14Report from "./Shop-03/components/shop14_dailyinventory "
 //=========================================================Sundaris imports============================================================================//
 
 //=========================================================Abhirams imports============================================================================//
@@ -310,6 +311,7 @@ const App = () => {
             <Route path="/AdminAction/livereport" element={<LiveReport />} />
             <Route path="/shop14/admin" element={<AddProductShop03 />} />
             <Route path="/shop14" element={<UserPageShop03 />} />
+            <Route path="/shop14/admin/report" element={<IndividualShop14Report />} />
             <Route
               path="/shop14/products/:productId"
               element={<ProductDetailPage />}

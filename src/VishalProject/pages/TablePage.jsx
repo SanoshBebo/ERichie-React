@@ -15,6 +15,7 @@ const IndividualShopReport = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const ordersPerPage = 7;
   const pageCount = Math.ceil(orders.length / ordersPerPage);
+  const shopid = "shop03";
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -23,7 +24,6 @@ const IndividualShopReport = () => {
   const offset = currentPage * ordersPerPage;
   const currentPageData = orders.slice(offset, offset + ordersPerPage);
   useEffect(() => {
-    const shopid = "shop03";
     getOrderByDateFromFireStore(shopid)
       .then((todaysOrders) => {
         console.log(todaysOrders);
@@ -35,7 +35,7 @@ const IndividualShopReport = () => {
   }, []);
 
   const getOrdersByDate = () => {
-    getOrderByDateRangeFromFireStore(startDate, endDate)
+    getOrderByDateRangeFromFireStore(startDate, endDate,shopid)
       .then((order) => {
         console.log(order);
         setOrdersByDate(order);

@@ -102,7 +102,6 @@ const ProductDetails = () => {
       window.confirm("Added to Cart successfully!!");
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-      navigate("/erichie/cart");
 
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));

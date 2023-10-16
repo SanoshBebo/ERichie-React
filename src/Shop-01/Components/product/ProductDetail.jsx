@@ -104,6 +104,7 @@ function ProductDetail() {
         imageurl: product.imageurl,
         quantity: quantity,
       };
+      console.log(cartItem)
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
   

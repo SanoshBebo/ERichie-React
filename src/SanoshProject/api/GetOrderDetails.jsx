@@ -8,16 +8,16 @@ const baseUrl =
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);
   const allproducts = await fetchShopOneProducts();
-  const userApiUrl = `${baseUrl}/Users`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
-  let productInfo;
   try {
     // Make a GET request to fetch all orders
     const today = new Date().toISOString().split("T")[0];
     const ordersApiUrl = `${baseUrl}/Orders`;
 
     const allOrdersResponse = await axios.get(ordersApiUrl);
+
     const orders = [];
 
     // Iterate through all orders
@@ -42,6 +42,7 @@ export const getOrderByDateFromFireStore = async (shopid) => {
               ); // Compare with today's date
             })
             .map((document) => {
+              console.log(document);
               const documentNameParts = document.name.split("/");
               const documentId =
                 documentNameParts[documentNameParts.length - 1];
@@ -58,39 +59,34 @@ export const getOrderByDateFromFireStore = async (shopid) => {
                 console.log(
                   document.fields.email.stringValue,
                   email.stringValue
-                );
+                );  
                 return document.fields.email.stringValue == email.stringValue;
               });
 
               console.log(user);
               const userInfo = user.fields;
 
-              productInfo = allproducts.find((prod) => {
+              const productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
-              if(productInfo){
-
-                console.log(productInfo);
-                return {
-                  name: userInfo.name.stringValue,
-                  productname: productInfo.productname,
-                  productid: productid.stringValue,
-                  purchaseDate: purchasedate.timestampValue,
-                  quantity: quantity.integerValue,
-                  totalprice: totalprice.integerValue,
-                  shopid: shopid.stringValue,
-                  email: email.stringValue,
-                  orderid: documentId,
-                  currentstock: productInfo.stock,
-                };
-              }
-           
+              
+              console.log(productInfo);
+              return {
+                name: userInfo.name.stringValue,
+                productname: productInfo.productname,
+                productid: productid.stringValue,
+                purchaseDate: purchasedate.timestampValue,
+                quantity: quantity.integerValue,
+                totalprice: totalprice.integerValue,
+                shopid: shopid.stringValue,
+                email: email.stringValue,
+                orderid: documentId,
+                currentstock: productInfo.stock,
+              };
             });
-            if(productInfo){
 
-              orders.push(...orderData);
-            }
           console.log(orderData);
+          orders.push(...orderData);
           console.log(orders);
         }
       })
@@ -108,10 +104,9 @@ export const getOrderByDateRangeFromFireStore = async (
   shopid
 ) => {
   const allproducts = await fetchShopOneProducts();
-  const userApiUrl = `${baseUrl}/Users`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
-  let productInfo;
   try {
     // Make a GET request to fetch all orders
     const today = new Date().toISOString().split("T")[0];
@@ -172,33 +167,27 @@ export const getOrderByDateRangeFromFireStore = async (
               const userInfo = user.fields;
 
               console.log(userInfo);
-              productInfo = allproducts.find((prod) => {
+              const productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
               console.log(productInfo);
 
               console.log(document);
-              if(productInfo){
-
-                return {
-                  name: userInfo.name.stringValue,
-                  productname: productInfo.productname,
-                  productid: productid.stringValue,
-                  purchaseDate: purchasedate.timestampValue,
-                  quantity: quantity.integerValue,
-                  totalprice: totalprice.integerValue,
-                  shopid: shopid.stringValue,
-                  email: email.stringValue,
-                  orderid: documentId,
-                };
-              }
+              return {
+                name: userInfo.name.stringValue,
+                productname: productInfo.productname,
+                productid: productid.stringValue,
+                purchaseDate: purchasedate.timestampValue,
+                quantity: quantity.integerValue,
+                totalprice: totalprice.integerValue,
+                shopid: shopid.stringValue,
+                email: email.stringValue,
+                orderid: documentId,
+              };
             });
 
           console.log(orderData);
-          if(productInfo){
-            orders.push(...orderData);
-
-          }
+          orders.push(...orderData);
           console.log(orders);
         }
       })
