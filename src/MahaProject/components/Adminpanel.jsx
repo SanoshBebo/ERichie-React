@@ -4,6 +4,10 @@ import ProductDisplay from './ProductDisplay';
 import UpdateProduct from './UpdateProduct';
 import DeleteProduct from './DeleteProduct';
 import IndividualShopReport from '../DailyInventory';
+import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const AdminPanel = () => {
   const [showAddProduct, setShowAddProduct] = useState(false);
@@ -11,6 +15,11 @@ const AdminPanel = () => {
   const [showUpdateProduct, setShowUpdateProduct] = useState(false);
   const [showDeleteProduct, setShowDeleteProduct] = useState(false);
   const [showinventoryProduct, setshowinventoryProduct] = useState(false);
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
   // const [showsalesreportProduct, setshowsalesreportProduct] = useState(false);
 
   const handleAddProductClick = () => {
@@ -43,6 +52,24 @@ const AdminPanel = () => {
   const handleinventoryProductClick = () => {
     window.location.href  = '/shop12/daily-inventory';
   }
+
+
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "mahalaxmiadmin@gmail.com") {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
   // const handlesalesreportProductClick = () => {
     
   // }

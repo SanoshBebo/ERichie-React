@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductList = () => {
   const firestoreApiKey = "AIzaSyAMTkJfx4_ZowkhsFySraPbqI-ZoGOEt6U";
@@ -33,6 +35,28 @@ const ProductList = () => {
 
   const [updateImageFile, setUpdateImageFile] = useState(null);
 
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "sanoshadmin@gmail.com") {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
   useEffect(() => {
     // Fetch products from Firestore
 
