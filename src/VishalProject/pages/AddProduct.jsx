@@ -4,6 +4,19 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toast notifications
 import { User } from "lucide-react";
+import { Box, Modal, TextField, Typography } from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const AddProductForm = () => {
   const navigate = useNavigate();
@@ -22,6 +35,22 @@ const AddProductForm = () => {
   const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [displayImage, setDisplayImage] = useState(true);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    // Validate the input for both stock and price fields
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setProductData({
+        ...productData,
+        [name]: value,
+      });
+    }
+  };
 
   useEffect(() => {
     const userdata = JSON.parse(localStorage.getItem("user"));
@@ -68,14 +97,6 @@ const AddProductForm = () => {
       navigate("/admin/login");
     }
   }, []);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setProductData({
-      ...productData,
-      [name]: value,
-    });
-  };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -229,49 +250,63 @@ const AddProductForm = () => {
       setSelectedProductId(productId);
       setDisplayImage(true);
       window.scrollTo(0, 0);
+      toast.success("Product Edited", {
+        position: "top-right",
+        autoClose: 200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
   const handleDeleteProduct = async (productId) => {
-    const shouldDelete = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
+    try {
+      const baseUrl =
+        "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
+      const collectionName = "Products";
+      const apiUrl = `${baseUrl}/${collectionName}/${productId}`;
 
-    if (shouldDelete) {
-      try {
-        const baseUrl =
-          "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
-        const collectionName = "Products";
-        const apiUrl = `${baseUrl}/${collectionName}/${productId}`;
+      const response = await axios.delete(apiUrl);
 
-        const response = await axios.delete(apiUrl);
-
-        if (response.status === 200) {
-          console.log("Product deleted successfully:", response.data);
-          refreshProductList();
-          setProductData({
-            productname: "",
-            description: "",
-            stock: 0,
-            price: 0,
-            shopid: "shop03",
-            category: "media",
-            productid: "",
-            imageurl: "",
-          });
-          setSelectedProductId(null);
-          setDisplayImage(false);
-          toast.success("Product deleted successfully");
-        } else {
-          console.error("Error deleting product:", response.statusText);
-          console.error("Response data:", response.data);
-          toast.error("Error deleting product");
-        }
-      } catch (error) {
-        console.error("Error deleting product:", error);
+      if (response.status === 200) {
+        console.log("Product deleted successfully:", response.data);
+        refreshProductList();
+        setProductData({
+          productname: "",
+          description: "",
+          stock: 0,
+          price: 0,
+          shopid: "shop03",
+          category: "media",
+          productid: "",
+          imageurl: "",
+        });
+        setSelectedProductId(null);
+        setDisplayImage(false);
+        toast.success("Product Deleted", {
+          position: "top-right",
+          autoClose: 200,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        console.error("Error deleting product:", response.statusText);
+        console.error("Response data:", response.data);
         toast.error("Error deleting product");
       }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast.error("Error deleting product");
     }
+    handleClose();
   };
 
   const refreshProductList = async () => {
@@ -382,27 +417,26 @@ const AddProductForm = () => {
 
           <div className="mb-4">
             <label className="block text-gray-600">Stock:</label>
-
-            <input
+            <TextField
               type="number"
               name="stock"
               value={productData.stock}
-              onChange={handleInputChange}
+              onInput={handleInputChange}
               required
-              className="w-full border rounded-lg py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              className="w-full py-2 text-gray-700 focus:outline-none focus:border-blue-500"
             />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-600">Price:</label>
 
-            <input
+            <TextField
               type="number"
               name="price"
               value={productData.price}
-              onChange={handleInputChange}
+              onInput={handleInputChange}
               required
-              className="w-full border rounded-lg py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              className="w-full py-2 text-gray-700 focus:outline-none focus:border-blue-500"
             />
           </div>
 
@@ -504,10 +538,37 @@ const AddProductForm = () => {
 
                 <button
                   className="text-red-500 hover:text-red-700"
-                  onClick={() => handleDeleteProduct(product.id)}
+                  onClick={handleOpen}
                 >
                   Delete
                 </button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <Typography
+                      id="modal-modal-title"
+                      variant="h6"
+                      component="h2"
+                    >
+                      Confirm Delete Product?
+                    </Typography>
+                    <button
+                      className="p-2 "
+                      onClick={() => {
+                        handleDeleteProduct(product.id);
+                      }}
+                    >
+                      yes
+                    </button>
+                    <button className="p-2" onClick={handleClose}>
+                      no
+                    </button>
+                  </Box>
+                </Modal>
               </div>
             </li>
           ))}

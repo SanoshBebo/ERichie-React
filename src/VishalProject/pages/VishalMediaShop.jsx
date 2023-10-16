@@ -2,19 +2,44 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { setShopThreeProducts } from "../../SanoshProject/redux/shopThreeProductSlice";
-import SearchInput from "../components/SearchInput";
-import { fetchProducts } from "../API/ApiConnections";
+import ReactPaginate from "react-paginate";
 
 const VishalMediaShop = () => {
   const dispatch = useDispatch();
-  const shopthreeproducts = useSelector((state) => state.shopthreeproduct.shopthreeproducts);
-  const [filteredProducts, setFilteredProducts] = useState(shopthreeproducts);
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
-  
+  const shopthreeproducts = useSelector(
+    (state) => state.shopthreeproduct.shopthreeproducts
+  );
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0); // Page number starts from 0
+  const [itemsPerPage] = useState(12); // Number of items to display per page
+  const handleSearchInputChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setCurrentPage(0); // Reset to the first page when searching
+
+    // Filter products based on the search query
+    const filtered = shopthreeproducts.filter((product) =>
+      product.productname.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setFilteredProducts(filtered);
+  };
+
+  const currentProducts = searchQuery ? filteredProducts : shopthreeproducts;
+
+  // Calculate the index of the first and last item on the current page
+  const offset = currentPage * itemsPerPage;
+  const currentItems = currentProducts.slice(offset, offset + itemsPerPage);
+
+  const pageCount = Math.ceil(currentProducts.length / itemsPerPage);
+
+  const handlePageClick = (selectedPage) => {
+    setCurrentPage(selectedPage.selected);
+  };
+
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -63,39 +88,20 @@ const VishalMediaShop = () => {
     fetchProducts();
   }, [dispatch]);
 
-  const handleSelectProduct = (productName) => {
-    // Filter the products based on the selected product name
-    const filtered = shopthreeproducts.filter((shopthreeproduct) =>
-    shopthreeproduct.productname.toLowerCase().includes(productName.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  };
-
-  // Calculate the total number of pages based on the total number of products
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-  // Get the products to display on the current page
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-
-  // Function to handle pagination
-  const handlePagination = (action) => {
-    if (action === "next" && currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    } else if (action === "prev" && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
   return (
     <div className="flex-row h-screen">
-      <div className="header flex items-center justify-between p-10 px-20 " style={{background:'white'}}>
+      <div
+        className="header flex items-center justify-between p-10 px-20 "
+        style={{ background: "white" }}
+      >
         <h2 className="font-bold text-2xl">Our Products</h2>
-        <SearchInput shopthreeproducts={shopthreeproducts} onSelectProduct={handleSelectProduct}/>
+        <input
+          type="text"
+          placeholder="Search products"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          className="p-2 border rounded-md w-25"
+        />
       </div>
 
       <div className="ProductList pb-5">
@@ -112,34 +118,33 @@ const VishalMediaShop = () => {
                   className=" bg-slate-500 object-cover"
                 />
                 <h1 className="text-center">{shopthreeproduct.productname}</h1>
-                <p className="text-center">Price: Rs.{shopthreeproduct.price}</p>
+                <p className="text-center">
+                  Price: Rs.{shopthreeproduct.price}
+                </p>
                 <p className="text-center">Stock: {shopthreeproduct.stock}</p>
               </Link>
             </li>
           ))}
         </ul>
-      {/* Pagination */}
-      <div className="flex justify-center mt-4">
-          <Button
-            variant="primary"
-            onClick={() => handlePagination("prev")}
-            disabled={currentPage === 1}
-            style={{ backgroundColor: 'blue', color: 'white' }}
-          >
-            Prev
-          </Button>
-          <span className="mx-2" style={{ color: 'black' }}>
-            Page {currentPage} of {totalPages}
-          </span>
-          <Button
-            variant="primary"
-            onClick={() => handlePagination("next")}
-            disabled={currentPage === totalPages}
-            style={{ backgroundColor: 'blue', color: 'white' }}
-          >
-            Next
-          </Button>
-        </div>
+        {pageCount > 1 && (
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination p-10"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+            previousClassName={"pagination-button"}
+            nextClassName={"pagination-button"}
+            pageClassName={"pagination-button"}
+            pageLinkClassName={"pagination-link"}
+          />
+        )}
       </div>
     </div>
   );

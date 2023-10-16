@@ -9,7 +9,7 @@ const baseUrl =
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);
   const allproducts = await fetchShopThreeProducts();
-  const userApiUrl = `${baseUrl}/Users`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
   let productInfo;
@@ -69,8 +69,7 @@ export const getOrderByDateFromFireStore = async (shopid) => {
               productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
-              if(productInfo){
-
+              if (productInfo) {
                 console.log(productInfo);
                 return {
                   name: userInfo.name.stringValue,
@@ -85,12 +84,10 @@ export const getOrderByDateFromFireStore = async (shopid) => {
                   currentstock: productInfo.stock,
                 };
               }
-           
             });
-            if(productInfo){
-
-              orders.push(...orderData);
-            }
+          if (productInfo) {
+            orders.push(...orderData);
+          }
           console.log(orderData);
           console.log(orders);
         }
@@ -109,7 +106,7 @@ export const getOrderByDateRangeFromFireStore = async (
   shopid
 ) => {
   const allproducts = await fetchShopThreeProducts();
-  const userApiUrl = `${baseUrl}/Users`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
   let productInfo;
@@ -179,8 +176,7 @@ export const getOrderByDateRangeFromFireStore = async (
               console.log(productInfo);
 
               console.log(document);
-              if(productInfo){
-
+              if (productInfo) {
                 return {
                   name: userInfo.name.stringValue,
                   productname: productInfo.productname,
@@ -196,9 +192,8 @@ export const getOrderByDateRangeFromFireStore = async (
             });
 
           console.log(orderData);
-          if(productInfo){
+          if (productInfo) {
             orders.push(...orderData);
-
           }
           console.log(orders);
         }
@@ -210,4 +205,3 @@ export const getOrderByDateRangeFromFireStore = async (
     console.error("Error fetching orders:", error);
   }
 };
-

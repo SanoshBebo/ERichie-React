@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
+import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { itemsInCart } = FetchItemsInCart();
+
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -56,9 +59,12 @@ const Header = () => {
             <li>
               <Link
                 to="/erichie/cart"
-                className="flex flex-col items-center gap-2 hover:underline"
+                className="flex items-center gap-2 hover:underline"
               >
                 <ShoppingCart />
+                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
               </Link>
             </li>
             <li className="cursor-pointer hover:underline">
@@ -88,9 +94,12 @@ const Header = () => {
             <li>
               <Link
                 to="/cart"
-                className="flex flex-col items-center gap-2 hover:underline"
+                className="flex items-center gap-2 hover:underline"
               >
                 <ShoppingCart />
+                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
               </Link>
             </li>
             <li className="cursor-pointer hover:underline">

@@ -102,18 +102,36 @@ export const storePurchaseInFirestore = async (cartItems, loggedinEmail) => {
           console.log("updatedStock stock: ", updatedStock);
 
           console.log(productDocument);
+
+          let updateStockPayload;
           // Create a payload to update the product's stock
-          const updateStockPayload = {
-            fields: {
-              description: { stringValue: productDocument.description },
-              productname: { stringValue: productDocument.productname },
-              shopid: { stringValue: productDocument.shopid },
-              category: { stringValue: productDocument.category },
-              imageurl: { stringValue: productDocument.imageurl },
-              price: { integerValue: productDocument.price },
-              stock: { integerValue: updatedStock }, // Update stock field
-            },
-          };
+          if (productDocument.shopid.toLowerCase() == "shop10") {
+            console.log(productDocument);
+            updateStockPayload = {
+              fields: {
+                description: { stringValue: productDocument.description },
+                productname: { stringValue: productDocument.productname },
+                shopid: { stringValue: productDocument.shopid },
+                category: { stringValue: productDocument.category },
+                imageurl: { stringValue: productDocument.imageurl },
+                price: { integerValue: productDocument.price },
+                stock: { integerValue: updatedStock }, // Update stock field
+                type: { stringValue: productDocument.type },
+              },
+            };
+          } else {
+            updateStockPayload = {
+              fields: {
+                description: { stringValue: productDocument.description },
+                productname: { stringValue: productDocument.productname },
+                shopid: { stringValue: productDocument.shopid },
+                category: { stringValue: productDocument.category },
+                imageurl: { stringValue: productDocument.imageurl },
+                price: { integerValue: productDocument.price },
+                stock: { integerValue: updatedStock }, // Update stock field
+              },
+            };
+          }
           console.log("updateStockPayload: ", updateStockPayload);
 
           //To update the stock

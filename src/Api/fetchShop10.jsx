@@ -41,6 +41,8 @@ export const fetchShop10 = async () => {
 
           const category = fields.category.stringValue;
 
+          const type = fields.type.stringValue;
+
           const imageurl =
             fields.imageUrl?.stringValue || fields.imageurl?.stringValue;
 
@@ -52,6 +54,7 @@ export const fetchShop10 = async () => {
             shopid,
             category,
             imageurl,
+            type,
             productid: documentId,
           };
         });

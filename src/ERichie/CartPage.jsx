@@ -32,7 +32,7 @@ const CartComponent = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [isPurchaseCompleted,setIsPurchaseCompleted] = useState(false);
+  const [isPurchaseCompleted, setIsPurchaseCompleted] = useState(false);
   useEffect(() => {
     // Calculate the total price when cart items change
     const newTotalPrice = cartItems.reduce((total, item) => {
@@ -185,7 +185,7 @@ const CartComponent = () => {
           </Box>
         )}
       </div>
-      {cartItems.length > 0 && !isPurchaseCompleted &&(
+      {cartItems.length > 0 && !isPurchaseCompleted && (
         <div className="md:w-1/3 p-4">
           <div className="mb-4">
             <h3 className="font-semibold text-lg">Total Price:</h3>

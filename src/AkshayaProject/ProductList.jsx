@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { TextField } from "@mui/material";
 
 const ProductList = () => {
   const firestoreApiKey = "AIzaSyAMTkJfx4_ZowkhsFySraPbqI-ZoGOEt6U";
@@ -26,37 +25,15 @@ const ProductList = () => {
 
     stock: "",
 
-    category: "",
+    category: "media",
 
-    shopname: "",
+    shopname: "E-Nerd",
 
     imageurl: "",
   });
 
   const [updateImageFile, setUpdateImageFile] = useState(null);
 
-  const user = useSelector((state) => state.shoponeuser.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [isLoadingUser, setIsLoadingUser] = useState(true);
-
-  useEffect(() => {
-    if (!isLoadingUser && user.length === 0) {
-      navigate("/admin/login");
-    }
-  }, [isLoadingUser, user, navigate]);
-
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData && userData.email == "sanoshadmin@gmail.com") {
-      if (userData.role == "customer") {
-        navigate("/admin/login");
-      }
-      dispatch(setUser(userData));
-    }
-    setIsLoadingUser(false);
-  }, []);
   useEffect(() => {
     // Fetch products from Firestore
 
@@ -69,6 +46,7 @@ const ProductList = () => {
       .then((response) => {
         const fetchedProducts = response.data.documents.map((doc) => {
           const product = doc.fields;
+          console.log(product);
 
           return {
             id: doc.name.split("/").pop(),
@@ -118,13 +96,17 @@ const ProductList = () => {
 
         description: { stringValue: updateProductDetails.description },
 
-        price: { integerValue: parseFloat(updateProductDetails.price) },
+        price: { integerValue: parseInt(updateProductDetails.price) },
 
         stock: { integerValue: parseInt(updateProductDetails.stock) },
 
         category: { stringValue: updateProductDetails.category },
 
         imageurl: { stringValue: imageurl },
+
+        shopname: { stringValue: "E-Nerd" },
+
+        shopid: { stringValue: "shop02" },
       };
 
       // Update product in Firebase
@@ -160,9 +142,11 @@ const ProductList = () => {
 
         category: "",
 
-        shopname: "",
+        shopname: "E-Nerd",
 
         imageurl: "",
+
+        shopid: "shop02",
       });
 
       setUpdateImageFile(null);
@@ -266,11 +250,13 @@ const ProductList = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    setUpdateProductDetails((prevDetails) => ({
-      ...prevDetails,
-
-      [name]: value,
-    }));
+    // Validate the input for both stock and price fields
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setUpdateProductDetails({
+        ...productData,
+        [name]: value,
+      });
+    }
   };
 
   return (
@@ -281,8 +267,7 @@ const ProductList = () => {
             <div className="flex flex-col">
               <div className="flex items-center mb-2">
                 <strong>{product.name}</strong> - {product.description}, $
-                {product.price}, Stock: {product.stock}, Category:{" "}
-                {product.category}, Shop: {product.shopname}
+                {product.price}, Stock: {product.stock}
                 <button
                   className="ml-2 p-2 bg-blue-500 text-white"
                   onClick={() => handleDeleteProduct(product.name)}
@@ -342,14 +327,13 @@ const ProductList = () => {
                     <label htmlFor="price" className="block mb-1">
                       Price:
                     </label>
-
-                    <input
+                    <TextField
                       type="number"
                       name="price"
                       value={updateProductDetails.price}
-                      onChange={handleInputChange}
+                      onInput={handleInputChange}
                       required
-                      className="w-full p-2 border rounded"
+                      className="w-full p-2"
                     />
                   </div>
 
@@ -357,29 +341,13 @@ const ProductList = () => {
                     <label htmlFor="stock" className="block mb-1">
                       Stock:
                     </label>
-
-                    <input
+                    <TextField
                       type="number"
                       name="stock"
                       value={updateProductDetails.stock}
-                      onChange={handleInputChange}
+                      onInput={handleInputChange}
                       required
-                      className="w-full p-2 border rounded"
-                    />
-                  </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="category" className="block mb-1">
-                      Category:
-                    </label>
-
-                    <input
-                      type="text"
-                      name="category"
-                      value={updateProductDetails.category}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full p-2 border rounded"
+                      className="w-full p-2"
                     />
                   </div>
 

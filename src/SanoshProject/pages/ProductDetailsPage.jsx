@@ -7,9 +7,13 @@ import { fetchProducts } from "../api/ApiCalls";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import {
+  addItemToCart,
+  cartUpdated,
+} from "../../SanoshProject/redux/shopOneCartSlice";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
 import { setShopOneProducts } from "../../SanoshProject/redux/shopOneProductSlice";
+import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -17,15 +21,16 @@ const ProductDetailsPage = () => {
   const products = useSelector((state) => state.shoponeproduct.shoponeproducts);
   const product = products.find((product) => product.productid === id);
   const [dataLoaded, setDataLoaded] = useState(false); // Track whether data has been loaded
-  const cartItems = useSelector((state) => state.shoponecart.items);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
   const url = `/shop01/product/${id}`;
+
   let redirectUrl = {
     url: url,
   };
+  const { itemsInCart } = FetchItemsInCart();
 
   useEffect(() => {
     fetchProducts()
@@ -91,7 +96,6 @@ const ProductDetailsPage = () => {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-
       toast.success("added to cart", {
         position: "top-right",
         autoClose: 200,
@@ -102,7 +106,6 @@ const ProductDetailsPage = () => {
         progress: undefined,
         theme: "colored",
       });
-
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");

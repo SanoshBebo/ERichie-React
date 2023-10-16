@@ -1,53 +1,91 @@
 import React, { useState } from "react";
+
 import axios from "axios";
+
 import "./ProductForm.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { TextField } from "@mui/material";
 
 const ProductForm = () => {
   const firestoreApiKey = "AIzaSyAMTkJfx4_ZowkhsFySraPbqI-ZoGOEt6U";
+
   const firestoreProjectId = "e-ritchie";
+
   const firestoreCollection = "Products";
 
-  const [product, setProduct] = useState({
+  const initialProductState = {
     productname: "",
+
     description: "",
+
     price: "",
+
     stock: "",
-    imageUrl: "",
-    category: "",
+
+    imageurl: "",
+
+    category: "media",
+
     shopname: "E-nerd", // Set shopname to 'E-nerd'
+
     shopid: "shop02", // Set shopid to 'shop12'
-  });
+  };
 
   const [imageFile, setImageFile] = useState(null);
 
+  const [productAdded, setProductAdded] = useState(false);
+
+  const [product, setProduct] = useState(initialProductState);
+
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setProduct({ ...product, [name]: value });
+  };
+
+  const handleIntChange = (event) => {
+    const { name, value } = event.target;
+
+    // Validate the input for both stock and price fields
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      setProduct({
+        ...product,
+        [name]: value,
+      });
+    }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     setImageFile(file);
   };
 
   const uploadImageToFirebaseStorage = async () => {
     try {
       const apiKey = firestoreApiKey;
+
       const bucketName = "e-ritchie.appspot.com"; // Replace with your Firebase Storage bucket name
+
       const storagePath = `products/${imageFile.name}`;
 
       const formData = new FormData();
+
       formData.append("file", imageFile);
 
       const uploadResponse = await axios.post(
         `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o?name=${encodeURIComponent(
           storagePath
         )}`,
+
         formData,
+
         {
           headers: {
             Authorization: `Bearer ${apiKey}`,
+
             "Content-Type": "multipart/form-data",
           },
         }
@@ -57,13 +95,16 @@ const ProductForm = () => {
         const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(
           storagePath
         )}?alt=media`;
+
         return downloadUrl;
       } else {
         console.error("Error uploading image:", uploadResponse.statusText);
+
         return null;
       }
     } catch (error) {
       console.error("Error uploading image:", error);
+
       return null;
     }
   };
@@ -76,39 +117,46 @@ const ProductForm = () => {
 
       if (imageUrl) {
         // Add the shop ID to the product data
+
         const updatedProduct = {
           ...product,
+
           shopid: { stringValue: "shop02" }, // Replace with your desired shop ID
         };
 
         const firestoreResponse = await axios.post(
           `https://firestore.googleapis.com/v1/projects/${firestoreProjectId}/databases/(default)/documents/${firestoreCollection}?key=${firestoreApiKey}`,
+
           {
             fields: {
               productname: { stringValue: product.productname },
+
               description: { stringValue: product.description },
-              price: { doubleValue: parseFloat(product.price) },
+
+              price: { integerValue: parseInt(product.price) },
+
               stock: { integerValue: parseInt(product.stock) },
-              imageUrl: { stringValue: imageUrl },
+
+              imageurl: { stringValue: imageUrl },
+
               category: { stringValue: product.category },
+
               shopname: { stringValue: product.shopname },
+
               shopid: { stringValue: product.shopid }, // Add shop ID here
             },
           }
         );
 
         console.log("Product added:", firestoreResponse.data);
-        setProduct({
-          productname: "",
-          description: "",
-          price: "",
-          stock: "",
-          imageUrl: "",
-          category: "",
-          shopname: "",
-          shopid: "",
-        });
+
+        setProductAdded(true);
+
+        setProduct(initialProductState);
+
         setImageFile(null);
+
+        navigate("/shop02/admin");
       } else {
         console.error("Error uploading image or retrieving image URL.");
       }
@@ -119,9 +167,8 @@ const ProductForm = () => {
 
   return (
     <div className="product-form-container bg-gray-200">
-      <Link to= '/shop02/admin' button type="submit" className="p-2 bg-slate-400 border ">
-          Back to Admin Console</Link>
       <h2>Add Product</h2>
+
       <form onSubmit={handleSubmit}>
         <div className="form-fields">
           <label>
@@ -133,6 +180,7 @@ const ProductForm = () => {
               onChange={handleChange}
             />
           </label>
+
           <br />
 
           <label>
@@ -143,28 +191,35 @@ const ProductForm = () => {
               onChange={handleChange}
             />
           </label>
+
           <br />
 
           <label>
             Price:
-            <input
+            <TextField
               type="number"
               name="price"
-              value={product.Price}
-              onChange={handleChange}
+              value={product.price}
+              onInput={handleIntChange}
+              required
+              className="w-full bg-white"
             />
           </label>
+
           <br />
 
           <label>
             Stock:
-            <input
+            <TextField
               type="number"
               name="stock"
               value={product.stock}
-              onChange={handleChange}
+              onInput={handleIntChange}
+              required
+              className="w-full  bg-white"
             />
           </label>
+
           <br />
 
           <label>
@@ -174,8 +229,10 @@ const ProductForm = () => {
               name="category"
               value={product.category}
               onChange={handleChange}
+              readOnly // Make this field read-only
             />
           </label>
+
           <br />
 
           <label>
@@ -187,6 +244,7 @@ const ProductForm = () => {
               readOnly // Make this field read-only
             />
           </label>
+
           <br />
 
           <label>
@@ -198,6 +256,7 @@ const ProductForm = () => {
               readOnly // Make this field read-only
             />
           </label>
+
           <br />
 
           <label>
@@ -217,10 +276,27 @@ const ProductForm = () => {
         )}
 
         <br />
+
         <button type="submit" className="p-2 bg-slate-400 border ">
           Add Product
         </button>
       </form>
+
+      {productAdded ? (
+        <div>
+          <p>Product added successfully!</p>
+
+          <button onClick={() => setProductAdded(false)}></button>
+        </div>
+      ) : (
+        <div>
+          {/* <h2>Add a New Product</h2> */}
+
+          <form onSubmit={handleSubmit}>
+            {/* ... Rest of the form elements ... */}
+          </form>
+        </div>
+      )}
     </div>
   );
 };

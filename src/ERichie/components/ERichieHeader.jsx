@@ -3,16 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import axios from "axios";
+import FetchItemsInCart from "./FetchItemsInCart";
 
 const ERichieHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  const { itemsInCart } = FetchItemsInCart();
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  const baseUrl =
+    "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
@@ -66,12 +70,15 @@ const ERichieHeader = () => {
         </div>
         <div className="hidden md:block">
           <ul className="flex space-x-5">
-            <li>
+            <li className="relative">
               <Link
                 to="/erichie/cart"
-                className="flex flex-col items-center gap-2 hover:underline"
+                className="flex items-center gap-2 hover:underline"
               >
                 <ShoppingCart />
+                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
               </Link>
             </li>
             <li className="cursor-pointer hover:underline">
@@ -109,6 +116,9 @@ const ERichieHeader = () => {
                 className="flex flex-col items-center gap-2 hover:underline"
               >
                 <ShoppingCart />
+                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
               </Link>
             </li>
             <li className="cursor-pointer hover:underline">
