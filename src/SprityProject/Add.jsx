@@ -76,10 +76,11 @@ function AddProducts() {
 
   const handleAddProduct = async () => {
     // Validate required fields
-    if (!product.productname.trim() || !product.price.trim()) {
-      console.error("Please provide a valid product name and price.");
-      window.confirm ("Please provide a valid product name and price")
+    if (!product.productname.trim() || !product.price.trim() || !product.description.trim()) {
+      console.error("Please provide valid details.");
+      window.confirm ("Please provide valid details")
       return;
+
     }
     // Create the payload with all fields
     const payload = {

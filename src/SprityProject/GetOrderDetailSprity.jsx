@@ -11,13 +11,13 @@ export const getOrderByDateFromFireStore = async (shopid) => {
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
+  let productInfo;
   try {
     // Make a GET request to fetch all orders
     const today = new Date().toISOString().split("T")[0];
     const ordersApiUrl = `${baseUrl}/Orders`;
 
     const allOrdersResponse = await axios.get(ordersApiUrl);
-
     const orders = [];
 
     // Iterate through all orders
@@ -65,27 +65,32 @@ export const getOrderByDateFromFireStore = async (shopid) => {
               console.log(user);
               const userInfo = user.fields;
 
-              const productInfo = allproducts.find((prod) => {
+              productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
+              if(productInfo){
 
-              console.log(productInfo);
-              return {
-                name: userInfo.name.stringValue,
-                productname: productInfo.productname,
-                productid: productid.stringValue,
-                purchaseDate: purchasedate.timestampValue,
-                quantity: quantity.integerValue,
-                totalprice: totalprice.integerValue,
-                shopid: shopid.stringValue,
-                email: email.stringValue,
-                orderid: documentId,
-                currentstock: productInfo.stock,
-              };
+                console.log(productInfo);
+                return {
+                  name: userInfo.name.stringValue,
+                  productname: productInfo.productname,
+                  productid: productid.stringValue,
+                  purchaseDate: purchasedate.timestampValue,
+                  quantity: quantity.integerValue,
+                  totalprice: totalprice.integerValue,
+                  shopid: shopid.stringValue,
+                  email: email.stringValue,
+                  orderid: documentId,
+                  currentstock: productInfo.stock,
+                };
+              }
+           
             });
+            if(productInfo){
 
+              orders.push(...orderData);
+            }
           console.log(orderData);
-          orders.push(...orderData);
           console.log(orders);
         }
       })
@@ -106,6 +111,7 @@ export const getOrderByDateRangeFromFireStore = async (
   const userApiUrl = `${baseUrl}/Users`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
+  let productInfo;
   try {
     // Make a GET request to fetch all orders
     const today = new Date().toISOString().split("T")[0];
@@ -166,27 +172,33 @@ export const getOrderByDateRangeFromFireStore = async (
               const userInfo = user.fields;
 
               console.log(userInfo);
-              const productInfo = allproducts.find((prod) => {
+              productInfo = allproducts.find((prod) => {
                 return prod.productid == productid.stringValue;
               });
               console.log(productInfo);
 
               console.log(document);
-              return {
-                name: userInfo.name.stringValue,
-                productname: productInfo.productname,
-                productid: productid.stringValue,
-                purchaseDate: purchasedate.timestampValue,
-                quantity: quantity.integerValue,
-                totalprice: totalprice.integerValue,
-                shopid: shopid.stringValue,
-                email: email.stringValue,
-                orderid: documentId,
-              };
+              if(productInfo){
+
+                return {
+                  name: userInfo.name.stringValue,
+                  productname: productInfo.productname,
+                  productid: productid.stringValue,
+                  purchaseDate: purchasedate.timestampValue,
+                  quantity: quantity.integerValue,
+                  totalprice: totalprice.integerValue,
+                  shopid: shopid.stringValue,
+                  email: email.stringValue,
+                  orderid: documentId,
+                };
+              }
             });
 
           console.log(orderData);
-          orders.push(...orderData);
+          if(productInfo){
+            orders.push(...orderData);
+
+          }
           console.log(orders);
         }
       })
