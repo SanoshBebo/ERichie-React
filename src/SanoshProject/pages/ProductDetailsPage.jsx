@@ -102,6 +102,8 @@ const ProductDetailsPage = () => {
         progress: undefined,
         theme: "colored",
       });
+
+      navigate("/erichie/cart");
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");

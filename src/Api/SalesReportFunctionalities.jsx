@@ -81,15 +81,19 @@ export const getSalesByCategory = async () => {
                     shopid.stringValue
                   );
                   console.log(shopProducts);
-                  const productInfo = shopProducts.find(
-                    (prod) => prod.productid === productid.stringValue
-                  );
-                  console.log(productInfo);
-                  // If the product is not in the dictionary, add it
-                  mediaProducts[productid.stringValue] = {
-                    productInfo,
-                    totalsales: totalprice.integerValue,
-                  };
+        
+                    const productInfo = shopProducts.find(
+                      (prod) => prod?.productid === productid?.stringValue
+                    );
+                      if(productInfo){
+                                          console.log(productInfo);
+                                          // If the product is not in the dictionary, add it
+                                          mediaProducts[productid.stringValue] = {
+                                            productInfo,
+                                            totalsales: totalprice.integerValue,
+                                          };
+
+                      }
                   console.log(mediaProducts);
                 }
               })
@@ -122,12 +126,15 @@ export const getSalesByCategory = async () => {
                     (prod) => prod.productid === productid.stringValue
                   );
                   console.log(productInfo);
-                  // If the product is not in the dictionary, add it
-                  computerProducts[productid.stringValue] = {
-                    productInfo,
-                    totalsales: totalprice.integerValue,
-                  };
-                  console.log(computerProducts);
+                  if(productInfo){
+
+                    // If the product is not in the dictionary, add it
+                    computerProducts[productid.stringValue] = {
+                      productInfo,
+                      totalsales: totalprice.integerValue,
+                    };
+                    console.log(computerProducts);
+                  }
                 }
               })
           );
@@ -160,11 +167,14 @@ export const getSalesByCategory = async () => {
                   );
                   console.log(productInfo);
                   // If the product is not in the dictionary, add it
-                  mobileProducts[productid.stringValue] = {
-                    productInfo,
-                    totalsales: totalprice.integerValue,
-                  };
-                  console.log(mobileProducts);
+                  if(productInfo){
+
+                    mobileProducts[productid.stringValue] = {
+                      productInfo,
+                      totalsales: totalprice.integerValue,
+                    };
+                    console.log(mobileProducts);
+                  }
                 }
               })
           );
@@ -197,12 +207,15 @@ export const getSalesByCategory = async () => {
                     (prod) => prod.productid === productid.stringValue
                   );
                   console.log(productInfo);
-                  // If the product is not in the dictionary, add it
-                  gamingProducts[productid.stringValue] = {
-                    productInfo,
-                    totalsales: totalprice.integerValue,
-                  };
-                  console.log(gamingProducts);
+                  if(productInfo){
+
+                    // If the product is not in the dictionary, add it
+                    gamingProducts[productid.stringValue] = {
+                      productInfo,
+                      totalsales: totalprice.integerValue,
+                    };
+                    console.log(gamingProducts);
+                  }
                 }
               })
           );
