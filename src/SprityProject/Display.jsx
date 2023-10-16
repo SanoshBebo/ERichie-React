@@ -117,6 +117,15 @@ function ProductList() {
   };
 
   const handleSaveClick = async () => {
+    // Validate that editedProduct.stock is not negative
+  if (editedProduct.stock < 0) {
+    alert('Stock cannot be negative.');
+    return;
+  }
+  if (editedProduct.price < 0) {
+    alert('Price cannot be negative.');
+    return;
+  }
     const updatedProductData = {
       fields: {
         productname: { stringValue: editedProduct.productname },
@@ -128,6 +137,7 @@ function ProductList() {
         shopid: { stringValue: "shop10" },
         category: { stringValue: "mobile" },
       },
+      
     };
 
     try {
@@ -144,7 +154,7 @@ function ProductList() {
         );
         setProducts(updatedProducts);
         console.log("Product updated successfully:", editedProduct);
-        window.confirm ("Product updated successfully.")
+        window.confirm("Product updated successfully.")
 
         setEditMode(null);
         setEditedProduct({
@@ -180,7 +190,7 @@ function ProductList() {
           );
           setProducts(updatedProducts);
           console.log("Product deleted successfully:", productId);
-          window.confirm ("Product deleted successfully.")
+          window.confirm("Product deleted successfully.")
         } else {
           console.error("Error deleting product. Response:", response);
         }
@@ -213,6 +223,7 @@ function ProductList() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="p-2 mt-2 w-full border rounded focus:outline-none focus:border-blue-500"
+        style={{ width: 'auto' }}
       />
       <table className="w-full mt-4 border-collapse">
         <thead>
@@ -241,6 +252,7 @@ function ProductList() {
                       })
                     }
                     className="p-1 w-full border rounded focus:outline-none focus:border-blue-500"
+                    style={{ width: 'auto' }}
                   />
                 ) : (
                   product.productname
@@ -258,6 +270,7 @@ function ProductList() {
                       })
                     }
                     className="p-1 w-full border rounded focus:outline-none focus:border-blue-500"
+                    style={{ width: 'auto' }}
                   />
                 ) : (
                   product.description
@@ -301,6 +314,7 @@ function ProductList() {
                       })
                     }
                     className="p-1 w-full border rounded focus:outline-none focus:border-blue-500"
+                    style={{ width: 'auto' }}
                   />
                 ) : (
                   product.stock
@@ -318,6 +332,7 @@ function ProductList() {
                       })
                     }
                     className="p-1 w-full border rounded focus:outline-none focus:border-blue-500"
+                    style={{ width: 'auto' }}
                   />
                 ) : (
                   product.price
@@ -328,18 +343,25 @@ function ProductList() {
                   <input
                     type="text"
                     value={editedProduct.type}
-                    onChange={(e) =>
-                      setEditedProduct({
-                        ...editedProduct,
-                        type: e.target.value,
-                      })
-                    }
+                    onChange={(e) => {
+                      const inputValue = e.target.value;
+                      if (typeof inputValue === "string") {
+                        // Only update the editedProduct if the input is a string
+                        setEditedProduct({
+                          ...editedProduct,
+                          type: inputValue,
+                        });
+                      }
+                    }}
                     className="p-1 w-full border rounded focus:outline-none focus:border-blue-500"
+                    style={{ width: 'auto' }}
                   />
                 ) : (
                   product.type
+                  
                 )}
               </td>
+
               <td className="py-2 px-4">
                 {editMode === product.id ? (
                   <div>
