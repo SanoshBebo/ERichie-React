@@ -15,7 +15,7 @@ function ProductDisplay1() {
   useEffect(() => {
     const databaseUrls = [
      "https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products",
-      "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products",
+      "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/Products",
       "https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products",
     ];
 
@@ -107,7 +107,12 @@ function ProductDisplay1() {
                 <h3>{product.productname?.stringValue || ''}</h3>
                 <p>Description: {product.description?.stringValue || ''}</p>
                 <p>Price: Rs.{product.price?.doubleValue || product.price?.integerValue || 0}</p>
-                <Link to={`/${product.shopid?.stringValue || ''}/product/${product.id}`}>View Details</Link>
+                {product.stock.integerValue == 0 ? (
+            <p>Out of stock</p>
+          ) : (
+            <Link to={`/${product.shopid?.stringValue || ''}/product/${product.id}`}>View Details</Link>
+          )}
+
               </div>
             </div>
           ))

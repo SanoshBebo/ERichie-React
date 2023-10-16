@@ -1,6 +1,9 @@
 .shop14 .user-page_shop14 {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color:white;
   background-color: black;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -16,6 +19,7 @@
 }
 
 .shop14 .header_shop14 h1 {
+  color:white;  
   margin: 0;
 }
 .shop14 .product-list_shop14 {

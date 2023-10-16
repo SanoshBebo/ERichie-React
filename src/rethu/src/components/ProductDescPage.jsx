@@ -14,7 +14,6 @@ function ProductDescPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const navigate = useNavigate();
@@ -30,17 +29,13 @@ function ProductDescPage() {
       .then((response) => {
         const productData = response.data.fields;
         setProduct(productData);
-        calculateTotalPrice(productData.price.integerValue, quantity);
       })
       .catch((error) => {
         console.error("Error fetching product data: ", error);
       });
-  }, [productId, quantity]);
+  }, [productId]);
 
-  const calculateTotalPrice = (price, quantity) => {
-    const total = price * quantity;
-    setTotalPrice(total);
-  };
+
 
   useEffect(() => {
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
@@ -83,6 +78,17 @@ function ProductDescPage() {
     navigate("/shop05");
   };
 
+  const handleAddQuantity =()=> {
+    if(quantity < product.stock.integerValue){
+      setQuantity((prev)=> prev+ 1);
+    }
+  }
+  const handleMinusQuantity =()=> {
+    if(quantity > 1){
+
+      setQuantity((prev)=> prev - 1);
+    }
+  }
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -139,9 +145,7 @@ function ProductDescPage() {
           <div className="quantity-container">
             <button
               className="quantity-button"
-              onClick={() => {
-                setQuantity(quantity - 1 > 0 ? quantity - 1 : 1);
-              }}
+              onClick={handleMinusQuantity}
             >
               -
             </button>
@@ -154,16 +158,14 @@ function ProductDescPage() {
               }}
               className="quantity-input"
             />
+            {/* <p>{quantity}</p> */}
             <button
               className="quantity-button"
-              onClick={() => {
-                setQuantity(quantity + 1);
-              }}
+              onClick={handleAddQuantity}
             >
               +
             </button>
           </div>
-          <p>Total Price: ${totalPrice}</p>
           <button
             onClick={() => {
               addToCart();

@@ -252,7 +252,7 @@ function Navbar() {
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link
-                    to={"/cart"}
+                    to={"/erichie/cart"}
                     className="group -m-2 flex items-center p-2"
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >

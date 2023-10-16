@@ -22,7 +22,7 @@ const ProductDetail = () => {
   const apiUrl = `https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products/${productId}`;
 
   const user = useSelector((state) => state.shoponeuser.user);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch(); // You can use useDispatch here
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ const ProductDetail = () => {
         </div>
       </div>
     </nav>
-      <div className="product-detail-page_shop14">
+      <div className="product-detail-page_shop14 ">
         <h1>Digital Genie</h1>
 
         <div className="product-details_shop14">
@@ -134,13 +134,27 @@ const ProductDetail = () => {
           </div>
 
           <div className="spaced-buttons_shop14">
+            {product.stock.integerValue == 0 ? (
             <button
+            disabled
               onClick={() => {
                 addToCart();
               }}
             >
               Add to Cart
             </button>
+              
+            ):(
+            <button
+            
+              onClick={() => {
+                addToCart();
+              }}
+            >
+              Add to Cart
+            </button>
+
+            )}
 
             {/* <button className="spaced-buttons_shop14" onClick={buyNow}>
               Buy Now

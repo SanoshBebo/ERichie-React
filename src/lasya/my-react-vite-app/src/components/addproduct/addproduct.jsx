@@ -12,7 +12,7 @@ function AddProduct() {
     price: '',
     description: '',
     stock: '',
-    imageUrl: null,
+    imageurl: null,
   });
 
   const [products, setProducts] = useState([]);
@@ -20,7 +20,7 @@ function AddProduct() {
   const [editProductId, setEditProductId] = useState(null);
 
   const apiUrl =
-    "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products";
+    "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/Products";
 
   // Firebase Storage URL
   const storageUrl =
@@ -57,7 +57,7 @@ function AddProduct() {
 
       if (response.status === 200) {
         // Construct the image URL
-        const imageUrl = `${storageUrl}/images%2F${encodeURIComponent(imageFile.name)}?alt=media`;
+        const imageurl = `${storageUrl}/images%2F${encodeURIComponent(imageFile.name)}?alt=media`;
 
         // Create a new product document with the image URL and additional fields
         const payload = {
@@ -68,7 +68,7 @@ function AddProduct() {
             stock: { integerValue: parseInt(product.stock, 10) },
             shopid: { stringValue: "shop06" }, // Modify this as needed
             category: { stringValue: "gaming" }, // Modify this as needed
-            imageUrl: { stringValue: imageUrl },
+            imageurl: { stringValue: imageurl },
           },
         };
 
@@ -154,7 +154,7 @@ function AddProduct() {
     const editedProduct = products.find((product) => product.id === id);
     setProduct({
       productname: editedProduct.fields.productname.stringValue,
-      price: editedProduct.fields.price.doubleValue,
+      price: editedProduct.fields.price.integerValue,
       description: editedProduct.fields.description.stringValue,
       stock: editedProduct.fields.stock.integerValue,
       imageFile: null, // Clear the image file when editing
@@ -167,7 +167,7 @@ function AddProduct() {
     const payload = {
       fields: {
         productname: { stringValue: product.productname },
-        price: { doubleValue: parseInt(product.price) },
+        price: { integerValue: parseInt(product.price) },
         description: { stringValue: product.description },
         stock: { integerValue: parseInt(product.stock, 10) },
       },

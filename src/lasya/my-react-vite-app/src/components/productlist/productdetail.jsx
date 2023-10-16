@@ -22,7 +22,7 @@ function ProductDescPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const apiUrl = `https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products/${productId}`;
+    const apiUrl = `https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/Products/${productId}`;
 
     axios
       .get(apiUrl)
@@ -59,7 +59,7 @@ function ProductDescPage() {
         stock: product.stock.integerValue,
         shopid: product.shopid.stringValue,
         price: product.price.integerValue,
-        imageurl: product.imageUrl.stringValue,
+        imageurl: product.imageurl.stringValue,
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
@@ -114,7 +114,7 @@ function ProductDescPage() {
         <div className="product-card">
           <h1>{product.productname.stringValue}</h1>
           <img
-            src={product.imageUrl.stringValue}
+            src={product.imageurl.stringValue}
             alt={product.productname.stringValue}
             style={{ width: "70%" }} // Decrease image size to 40%
           />
@@ -127,7 +127,7 @@ function ProductDescPage() {
               onClick={() => {
                 const newQuantity = quantity - 1 > 0 ? quantity - 1 : 1;
                 setQuantity(newQuantity);
-                calculateTotalPrice(product.price.doubleValue, newQuantity);
+                calculateTotalPrice(product.price.integerValue, newQuantity);
               }}
             >
               -

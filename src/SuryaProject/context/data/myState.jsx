@@ -85,7 +85,7 @@ function myState(props) {
       toast.success("Add product successfully");
 
       setTimeout(() => {
-        window.location.href = "/dashboard";
+        window.location.href = "/shop04/admin/dashboard";
       }, 800);
 
       getProductData();
@@ -147,7 +147,7 @@ function myState(props) {
       toast.success("Product Updated successfully");
 
       setTimeout(() => {
-        window.location.href = "/dashboard";
+        window.location.href = "/shop04/admin/dashboard";
       }, 800);
 
       getProductData();

@@ -17,7 +17,7 @@ function ProductList({ isAdmin }) {
     // Replace 'YOUR_BACKEND_API_URL/products' with your actual backend API endpoint URL
     axios
       .get(
-        "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/products"
+        "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/Products"
       )
       .then((response) => {
         const productList = response.data.documents.map((doc) => ({

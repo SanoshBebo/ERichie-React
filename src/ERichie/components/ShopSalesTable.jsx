@@ -13,7 +13,7 @@ import Legend from "./Legend";
 
 const ShopSalesBarChart = (data) => {
   return (
-    <div className="max-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <Container maxWidth="md" className="mt-10 p-10">
         <Paper elevation={6}>
           <Typography variant="h5" className="p-3" align="center" gutterBottom>
