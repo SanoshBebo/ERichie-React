@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function ProductList() {
@@ -48,9 +51,11 @@ function ProductList() {
           console.log("Products fetched successfully:", productData);
         } else {
           console.error("Error fetching products. Response:", response);
+          toast.error('Error fetching products:contact concerned person', { position: toast.POSITION.TOP_RIGHT  });
         }
       } catch (error) {
         console.error("Error fetching products:", error);
+        toast.error('Error fetching products:contact concerned person', { position: toast.POSITION.TOP_RIGHT  });
       }
     };
 
@@ -109,9 +114,11 @@ function ProductList() {
           setEditedProduct({ ...editedProduct, imageurl: firebaseStorageUrl });
         } else {
           console.error("Error uploading image:", response.statusText);
+          toast.error('Error uploading image ', { position: toast.POSITION.TOP_RIGHT  });
         }
       } catch (error) {
         console.error("Error uploading image:", error);
+        toast.error("Error uploading image", { position: toast.POSITION.TOP_RIGHT  });
       }
     }
   };
@@ -119,11 +126,11 @@ function ProductList() {
   const handleSaveClick = async () => {
     // Validate that editedProduct.stock is not negative
   if (editedProduct.stock < 0) {
-    alert('Stock cannot be negative.');
+    toast.error('Stock cannot be negative ', { position: toast.POSITION.TOP_RIGHT  });
     return;
   }
   if (editedProduct.price < 0) {
-    alert('Price cannot be negative.');
+    toast.error('Price cannot be negative ', { position: toast.POSITION.TOP_RIGHT  });
     return;
   }
     const updatedProductData = {
@@ -154,7 +161,7 @@ function ProductList() {
         );
         setProducts(updatedProducts);
         console.log("Product updated successfully:", editedProduct);
-        window.confirm("Product updated successfully.")
+        toast.success('Product updated successfully ', { position: toast.POSITION.TOP_RIGHT  });
 
         setEditMode(null);
         setEditedProduct({
@@ -168,6 +175,8 @@ function ProductList() {
         });
       } else {
         console.error("Error updating product. Response:", response);
+        toast.error('Product  not updated  ', { position: toast.POSITION.TOP_RIGHT  });
+        
       }
     } catch (error) {
       console.error("Error updating product:", error);
@@ -190,12 +199,13 @@ function ProductList() {
           );
           setProducts(updatedProducts);
           console.log("Product deleted successfully:", productId);
-          window.confirm("Product deleted successfully.")
+          toast.success('Product deleted successfully ', { position: toast.POSITION.TOP_RIGHT  });
         } else {
           console.error("Error deleting product. Response:", response);
         }
       } catch (error) {
         console.error("Error deleting product:", error);
+        toast.error('Product deleted successfully ', { position: toast.POSITION.TOP_RIGHT  });
         console.error("Response data:", error.response.data);
       }
     }

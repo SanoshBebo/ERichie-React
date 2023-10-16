@@ -2,15 +2,20 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
+import { toast, ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
+import { setUser } from "../SanoshProject/redux/shopOneUserSlice"; 
 
 import { addItemToCart } from "../SanoshProject/redux/shopOneCartSlice";
 
 import { addCartToFirestore } from "../Api/CartOperationsFirestore";
 
 import { useDispatch, useSelector } from "react-redux";
+// import { Ecom } from './Commerce'
 
 function ProductDetail() {
   const [product, setProduct] = useState(null);
@@ -18,7 +23,6 @@ function ProductDetail() {
   const [confirmationDisplayed, setConfirmationDisplayed] = useState(false);
 
   const { productId } = useParams();
-
   const [stock, setStock] = useState(0);
 
   const [quantity, setQuantity] = useState(1);
@@ -36,7 +40,10 @@ function ProductDetail() {
 
     navigate("/shop10/home");
   };
-
+  const url = `/shop10/product/${productId}`;
+  let redirectUrl = { 
+    url: url,
+  }; 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -110,7 +117,7 @@ function ProductDetail() {
 
       addCartToFirestore(cartItem, userData.email);
 
-      window.confirm("Product added to cart successfully");
+      toast.success('Product added to cart  :', { position: toast.POSITION.TOP_RIGHT  });;
     } else {
       // localStorage.setItem("url", JSON.stringify('shop10/product/productId'));
 
@@ -207,7 +214,7 @@ function ProductDetail() {
               addToCart();}
             }}
             className={`${
-              stock == 0
+              stock == 0 
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-500 hover:bg-blue-700"
             } text-white py-2 px-4 rounded-full`}

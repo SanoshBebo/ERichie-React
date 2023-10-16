@@ -1,7 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect,useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function AdminHome() {
+
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => { 
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "sprityadmin@gmail.com") {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-2xl font-semibold mb-4 text-center">

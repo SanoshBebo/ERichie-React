@@ -60,7 +60,7 @@ const AdminPanel = () => {
     }
   }, [isLoadingUser, user, navigate]);
 
-  useEffect(() => {
+  useEffect(() => { 
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.email == "mahalaxmiadmin@gmail.com") {
       if (userData.role == "customer") {

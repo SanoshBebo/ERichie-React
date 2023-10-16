@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function ImageUpload({ onImageUpload }) {
   const [image, setImage] = useState(null);
@@ -22,11 +25,12 @@ function ImageUpload({ onImageUpload }) {
           },
         });
 
-        window.confirm("Image uploaded successfully!!");
+        toast.success('Image uploaded successfully', { position: toast.POSITION.TOP_RIGHT  });
         onImageUpload(storageUrl); // Pass the uploaded image URL to the parent component
       } catch (error) {
+        
         console.error("Error uploading image:", error);
-        window.confirm ("Error uploading Image")
+        toast.error('Error uploading image:', { position: toast.POSITION.TOP_RIGHT  });
       }
     }
   };
@@ -82,6 +86,14 @@ function AddProducts() {
       return;
 
     }
+    if (product.stock < 0) {
+      toast.error('Stock cannot be negative :', { position: toast.POSITION.TOP_RIGHT  });;
+      return;
+    }
+    if (product.price < 0) {
+      toast.error('Price cannot be negative :', { position: toast.POSITION.TOP_RIGHT  });;
+      return;
+    }
     // Create the payload with all fields
     const payload = {
       fields: {
@@ -101,12 +113,14 @@ function AddProducts() {
 
       if (response.status === 200) {
         console.log("Product added successfully.");
-        window.confirm ("Product added successfully.")
+        toast.success('Product added successfully', { position: toast.POSITION.TOP_RIGHT  });
       } else {
         console.error("Error adding product. Response:", response);
+        toast.error('Error adding product :', { position: toast.POSITION.TOP_RIGHT  });;
       }
     } catch (error) {
       console.error("Error adding product:", error);
+      toast.error('Error adding product :', { position: toast.POSITION.TOP_RIGHT  });;
     }
   };
 
