@@ -56,7 +56,7 @@ function AdminHome() {
         </Link>
         <Link
           to="/shop10/display"
-          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto" 
         >
           Delete Product
         </Link>
@@ -69,8 +69,14 @@ function AdminHome() {
         <Link
           to="/erichie/overall-report"
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
-        >
+        >        
           View E-Richie Reports
+        </Link>
+        <Link
+          to="/erichie/overall-report"
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
+        >        
+          Sign Out
         </Link>
       </div>
     </div>

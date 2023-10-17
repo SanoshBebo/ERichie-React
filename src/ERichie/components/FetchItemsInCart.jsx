@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { setNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 
 function FetchItemsInCart() {
   const [itemsInCart, setItemsInCart] = useState(0);
@@ -41,7 +42,8 @@ function FetchItemsInCart() {
               const totalQuantity = cartData.reduce((acc, item) => {
                 return acc + parseInt(item.quantity, 10);
               }, 0);
-              setItemsInCart((prev) => totalQuantity);
+              // setItemsInCart(totalQuantity);
+              dispatch(setNoOfItemsInCart(totalQuantity));
             } else {
               console.log("No cart documents found in the collection.");
             }
@@ -54,7 +56,7 @@ function FetchItemsInCart() {
       };
       fetchCartItems();
     }
-  }, [dispatch, reduxState, isCartUpdated]); // Added 'itemsInCart' as a dependency to refetch when items change
+  }, []); // Added 'itemsInCart' as a dependency to refetch when items change
 
   return { itemsInCart };
 }

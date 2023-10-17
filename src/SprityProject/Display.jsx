@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import DeleteProductModal from './Deletemodal';
 
 
 function ProductList() {
@@ -11,6 +12,7 @@ function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
   const [editMode, setEditMode] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
     id: "",
     productname: "",
@@ -184,35 +186,44 @@ function ProductList() {
     }
   };
 
-  const handleDeleteClick = async (productId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
+  const handleDeleteClick = (productId) => {
+    setProductIdToDelete(productId);
+    setShowDeleteModal(true);
+  };
+  
+ 
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
 
-    if (confirmDelete) {
-      try {
-        const response = await axios.delete(`${apiUrl}/${productId}`);
-
-        if (response.status === 200) {
-          const updatedProducts = products.filter(
-            (product) => product.id !== productId
-          );
-          setProducts(updatedProducts);
-          console.log("Product deleted successfully:", productId);
-          toast.success('Product deleted successfully ', { position: toast.POSITION.TOP_RIGHT  });
-        } else {
-          console.error("Error deleting product. Response:", response);
-        }
-      } catch (error) {
-        console.error("Error deleting product:", error);
-        toast.error('Product deleted successfully ', { position: toast.POSITION.TOP_RIGHT  });
-        console.error("Response data:", error.response.data);
+  
+  const handleConfirmDelete = async () => {
+    setShowDeleteModal(false);
+  
+    try {
+      const response = await axios.delete(`${apiUrl}/${productIdToDelete}`);
+  
+      if (response.status === 200) {
+        const updatedProducts = products.filter(
+          (product) => product.id !== productIdToDelete
+        );
+        setProducts(updatedProducts);
+        console.log("Product deleted successfully:", productIdToDelete);
+        toast.success("Product deleted successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        console.error("Error deleting product. Response:", response);
       }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast.error("Product deleted successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.error("Response data:", error.response.data);
     }
   };
-
+  
   const handleCancelClick = () => {
-    setEditMode(null);
+    setEditMode(null); 
     setEditedProduct({
       id: "",
       productname: "",
@@ -220,12 +231,14 @@ function ProductList() {
       imageurl: "",
       stock: 0,
       price: "",
-      type: "",
-    });
+      type: "", 
+    }); 
+    setShowDeleteModal(false);
   };
 
   return (
     <div className="mx-auto mt-8 max-w-4xl">
+      
       <h1 className="text-2xl font-semibold">Product List</h1>
       <input
         type="text"
@@ -426,8 +439,11 @@ function ProductList() {
           Next
         </button>
       </div>
+      {showDeleteModal && (
+        <DeleteProductModal onCancel={handleCancelClick} onConfirm={handleConfirmDelete} />
+      )}
     </div>
   );
 }
 
-export default ProductList;
+export default ProductList; 

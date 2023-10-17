@@ -2,6 +2,8 @@ import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from 'phosphor-react';
+import { useSelector } from 'react-redux';
+import FetchItemsInCart from '../../ERichie/components/FetchItemsInCart';
 
 const Header = ({ onSearchChange }) => {
   const handleSearchChange = (event) => {
@@ -9,6 +11,8 @@ const Header = ({ onSearchChange }) => {
     onSearchChange(searchQuery);
   };
 
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const items = FetchItemsInCart();
 
   return (
     <section >
@@ -28,6 +32,9 @@ const Header = ({ onSearchChange }) => {
         </Link>
         <Link to="/erichie/cart">
           <ShoppingCart size={32} />
+          <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
         </Link>
         <Link to='/homepage'><div>Contact-Us</div></Link>
         <li><Link to='/computer' className='link'>ComputerHome</Link></li>

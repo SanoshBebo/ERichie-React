@@ -1,84 +1,162 @@
 /* productlist.css */
 
+ 
+
 /* Pagination styles */
+
 .pagination-item {
-    display: inline-block;
-    margin: 0 5px;
-  }
-  
-  .pagination-link {
-    text-decoration: none; /* Remove underline */
-    color: #333;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .active-pagination-link {
-    background-color: #eee;
-  }
-  
-  /* Product box styles */
-  .product-list-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .product-list-container .product-box {
-    width: calc(33.33% - 14px); /* Set the width to create a 3-column layout with reduced spacing */
-    margin-bottom: 13px; /* Vertical margin between boxes */
-    margin-right: 25px; /* Horizontal margin between boxes */
-    border: 1px solid #ccc;
-    padding: 10px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    /* Increase the length of each box */
-    width: 300px;
-  }
-  
-  .product-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .product-content {
-    padding: 10px;
-  }
-  
-  /* Styling for text */
-  .product-box a {
-    text-decoration: none; /* Remove underline from text links */
-    color: #333; /* Set text color */
-  }
-  
-  .product-name {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .product-price {
-    font-size: 16px;
-    color: #007bff;
-  }
-  
-  .product-description {
-    font-size: 14px;
-    margin-top: 5px; /* Decreased margin between text elements */
-  }
-  
-  .product-stock {
-    font-size: 14px;
-    color: #28a745;
-  }
-  
-  .product-image {
-    max-width: 100%;
-    max-height: 100%;
-    height: auto;
-  }
-  
+
+  display: inline-block;
+
+  margin: 0 5px;
+
+}
+
+
+
+.pagination-link {
+
+  text-decoration: none; /* Remove underline */
+
+  color: #333;
+
+  padding: 5px 10px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 3px;
+
+  transition: background-color 0.2s ease-in-out;
+
+}
+
+
+
+.active-pagination-link {
+
+  background-color: #eee;
+
+}
+
+
+
+/* Product box styles */
+
+.product-list-container {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: space-between;
+
+}
+
+
+
+.product-list-container .product-box {
+
+  width: calc(33.33% - 14px); /* Set the width to create a 3-column layout with reduced spacing */
+
+  margin-bottom: 13px; /* Vertical margin between boxes */
+
+  margin-right: 25px; /* Horizontal margin between boxes */
+
+  border: 1px solid #ccc;
+
+  padding: 10px;
+
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  /* Increase the length of each box */
+
+  width: 300px;
+
+}
+
+
+
+.product-box:hover {
+
+  transform: scale(1.05);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+.product-content {
+
+  padding: 10px;
+
+}
+
+
+
+/* Styling for text */
+
+.product-box a {
+
+  text-decoration: none; /* Remove underline from text links */
+
+  color: #333; /* Set text color */
+
+}
+
+
+
+.product-name {
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  margin-bottom: 5px;
+
+}
+
+
+
+.product-price {
+
+  font-size: 16px;
+
+  color: #007bff;
+
+}
+
+
+
+.product-description {
+
+  font-size: 14px;
+
+  margin-top: 5px; /* Decreased margin between text elements */
+
+}
+
+
+
+.product-stock {
+
+  font-size: 14px;
+
+  color: #28a745;
+
+}
+
+
+
+.product-image {
+
+  max-width: 100%;
+
+  max-height: 100%;
+
+  height: auto;
+
+}
 
 
 
@@ -87,65 +165,135 @@
 
 
 
-  /* productlist.css */
+
+
+
+
+
+
+
+
+
+
+
+/* productlist.css */
+
+
 
 /* ... (existing styles) ... */
 
+
+
 /* Additional hover effects */
+
 .product-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #f8f8f8; /* Change background color on hover */
-  }
-  
-  .product-box:hover .product-image {
-    transform: scale(1.1); /* Scale the image on hover */
-  }
-  
-  /* Add a subtle gradient background */
-  .product-box {
-    /* ... (existing styles) ... */
-    background: linear-gradient(to bottom, #ffffff, #f2f2f2);
-  }
-  
-  /* Typography styles */
-  .product-name {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333; /* Text color */
-  }
-  
-  .product-price {
-    font-size: 16px;
-    color: #007bff; /* Price color */
-  }
-  
-  .product-description {
-    font-size: 14px;
-    margin-top: 5px;
-    color: #666; /* Description text color */
-  }
-  
-  .product-stock {
-    font-size: 14px;
-    color: #28a745; /* Stock text color */
-  }
-  
-  /* Additional transitions */
-  .product-image {
-    max-width: 100%;
-    max-height: 100%;
-    height: auto;
-    transition: transform 0.2s ease-in-out; /* Add image scale transition */
-  }
-/* productlist.css */
+
+  transform: scale(1.05);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  background-color: #f8f8f8; /* Change background color on hover */
+
+}
+
+
+
+.product-box:hover .product-image {
+
+  transform: scale(1.1); /* Scale the image on hover */
+
+}
+
+
+
+/* Add a subtle gradient background */
+
+.product-box {
+
+  /* ... (existing styles) ... */
+
+  background: linear-gradient(to bottom, #ffffff, #f2f2f2);
+
+}
+
+
 
 /* Typography styles */
+
 .product-name {
-    font-size: 40px; /* Increase font size to make product names longer */
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333; /* Text color */
-  }
-    
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  margin-bottom: 5px;
+
+  color: #333; /* Text color */
+
+}
+
+
+
+.product-price {
+
+  font-size: 16px;
+
+  color: #007bff; /* Price color */
+
+}
+
+
+
+.product-description {
+
+  font-size: 14px;
+
+  margin-top: 5px;
+
+  color: #666; /* Description text color */
+
+}
+
+
+
+.product-stock {
+
+  font-size: 14px;
+
+  color: #28a745; /* Stock text color */
+
+}
+
+
+
+/* Additional transitions */
+
+.product-image {
+
+  max-width: 100%;
+
+  max-height: 100%;
+
+  height: auto;
+
+  transition: transform 0.2s ease-in-out; /* Add image scale transition */
+
+}
+
+/* productlist.css */
+
+
+
+/* Typography styles */
+
+.product-name {
+
+  font-size: 40px; /* Increase font size to make product names longer */
+
+  font-weight: bold;
+
+  margin-bottom: 5px;
+
+  color: #333; /* Text color */
+
+}

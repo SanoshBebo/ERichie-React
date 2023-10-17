@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [], // Array to store cart items
+  itemsInCart: 0,
   isCartUpdated: false,
 };
 
@@ -34,10 +35,32 @@ const shopOneCartSlice = createSlice({
         existingItem.quantity = quantity;
       }
     },
+
     setCartItems: (state, action) => {
       state.items = action.payload;
     },
-    cartUpdated: (state) => {
+
+    setNoOfItemsInCart: (state,action) =>{
+      console.log(action.payload);
+       
+      state.itemsInCart = action.payload;
+    },
+    
+    addNoOfItemsInCart: (state,action) =>{
+      console.log(action.payload)
+      state.itemsInCart += action.payload;
+    },
+    
+    editNoOfItemsInCart: (state,action) =>{
+      state.itemsInCart -= action.payload;
+    },
+    
+    deleteItemInCart:(state,action)=>{
+      state.itemsInCart -= action.payload;
+
+    },
+
+    cartUpdated: (state,action) => {
       state.isCartUpdated = true;
     },
   },
@@ -49,6 +72,10 @@ export const {
   updateCartItemQuantity,
   setCartItems,
   cartUpdated,
+  setNoOfItemsInCart,
+  addNoOfItemsInCart,
+  editNoOfItemsInCart,
+  deleteItemInCart,
 } = shopOneCartSlice.actions;
 
 export default shopOneCartSlice.reducer;

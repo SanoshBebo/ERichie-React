@@ -10,13 +10,14 @@ const ERichieHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
-  const { itemsInCart } = FetchItemsInCart();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  console.log(itemsInCart);
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const baseUrl =
-    "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
@@ -24,6 +25,7 @@ const ERichieHeader = () => {
   const handleSignIn = () => {
     navigate("/customer/login");
   };
+  const items = FetchItemsInCart();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));

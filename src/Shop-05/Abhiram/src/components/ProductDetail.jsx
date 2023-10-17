@@ -5,11 +5,12 @@ import fetchItems from "./fetcher";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../styles/ProductDetails.css";
 import { setUser } from "../../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FetchItemsInCart from "../../../../ERichie/components/FetchItemsInCart";
 
 const ProductDetail = ({}) => {
   const [product, setproduct] = useState({});
@@ -20,6 +21,8 @@ const ProductDetail = ({}) => {
   const dispatch = useDispatch(); // You can use useDispatch here
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
+
+  const { itemsInCart } = FetchItemsInCart();
 
   useEffect(() => {
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
@@ -43,6 +46,8 @@ const ProductDetail = ({}) => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(parseInt(quantity,10)));
+
       addCartToFirestore(cartItem, userData.email);
   
       // Show a toast message

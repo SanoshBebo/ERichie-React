@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import ProductList from './ProductList';
 import CartIcon from './CartIcon';
@@ -67,49 +68,46 @@ const CustomerApp = () => {
     };
   }, []);
 
+
   return (
-    <div className="design">
-      <div>
-        <div className={`nav-container ${isMovingDisplayFixed ? 'fixed-header' : ''}`}>
-          <nav>
-            <ul className="flex space-x-4">
-              <li onClick={() => scrollTo('home')}>Home</li>
-              <li onClick={() => scrollTo('about')}>About Us</li>
-              <li onClick={() => scrollTo('contact')}>Contact Me</li>
-            </ul>
-          </nav>
-          <h2 id="home" className=" text-4xl font-bold text-center mt-8">
-            {welcomeWords.map((word, index) => (
-              <span key={index}>{word} </span>
-            ))}
-          </h2>
-          <CartIcon cart={cart} setCart={setCart} />
-        </div>
-
-        {/* <div id="image-cover">
-          <img src="image3.webp" alt="Image 1" className="w-full h-auto" />
-        </div> */}
-
-        <ProductList cart={cart} setCart={setCart} />
-        <div id="about" className="p-8 border border-gray-300 rounded-md">
-          {/* Your about us content */}
-          <p>
-            At Mobile World, we're not just a mobile shop; we're your one-stop destination for all things mobile. Our mission is to keep you connected, entertained, and ahead of the curve in the digital world.
-          </p>
-        </div>
-        <div id="contact" className="p-8 border border-gray-300 rounded-md">
-          {/* Your contact information */}
-          <p>Mobile World </p>
-          <p>📍 Address: 123 Main Street, Chennai, Tamilnadu, 60026</p>
-          <p>📞 Phone: +1 (123) 456-7890</p>
-          <p>📧 Email: info@mobileworldshop.com</p>
-        </div>
-        {isFooterVisible && (
-  <footer className="fade-in text-white p-4 text-center">
-    <p>"The great growling engine of change - technology." - Alvin Toffler</p>
-  </footer>
-)}
+    <div className=" font-semibold bg-purple-200 customer-app-container ">
+      <div className={`nav-container ${isMovingDisplayFixed ? 'fixed-header' : ''}`}>
+        <nav>
+          <ul className="flex space-x-4">
+            <li onClick={() => scrollTo('home')}>Home</li>
+            <li onClick={() => scrollTo('about')}>About Us</li>
+            <li onClick={() => scrollTo('contact')}>Contact Me</li>
+          </ul>
+        </nav>
       </div>
+
+      <h2 id="home" className="text-4xl font-bold text-center mt-2 mb-4">
+        {welcomeWords.map((word, index) => (
+          <span key={index}>{word} </span>
+        ))}
+      </h2>
+
+      <CartIcon cart={cart} setCart={setCart} />
+      <ProductList cart={cart} setCart={setCart} />
+
+      <div id="about" className="p-8 border border-gray-300 rounded-md mt-4">
+        <p>
+          At Mobile World, we're not just a mobile shop; we're your one-stop destination for all things mobile. Our mission is to keep you connected, entertained, and ahead of the curve in the digital world.
+        </p>
+      </div>
+
+      <div id="contact" className="p-8 border border-gray-300 rounded-md mt-4">
+        <p>Mobile World</p>
+        <p>📍 Address: 123 Main Street, Chennai, Tamilnadu, 60026</p>
+        <p>📞 Phone: +1 (123) 456-7890</p>
+        <p>📧 Email: info@mobileworldshop.com</p>
+      </div>
+
+      {isFooterVisible && (
+        <footer className="fade-in text-white p-4 text-center mt-4">
+          <p>"The great growling engine of change - technology." - Alvin Toffler</p>
+        </footer>
+      )}
     </div>
   );
 };

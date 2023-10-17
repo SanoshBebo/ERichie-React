@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {
   addItemToCart,
+  addNoOfItemsInCart,
   cartUpdated,
 } from "../../SanoshProject/redux/shopOneCartSlice";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
@@ -70,12 +71,14 @@ const ProductDetailsPage = () => {
   const addQuantity = () => {
     if (count < product.stock) {
       setCount((prevCount) => prevCount + 1);
+
     }
   };
 
   const minusQuantity = () => {
     if (count > 0) {
       setCount((prevCount) => prevCount - 1);
+
     }
   };
 
@@ -94,6 +97,8 @@ const ProductDetailsPage = () => {
         quantity: count,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(count));
+
       addCartToFirestore(cartItem, userData.email);
       toast.success("added to cart", {
         position: "top-right",

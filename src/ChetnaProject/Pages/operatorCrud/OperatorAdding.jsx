@@ -1,443 +1,371 @@
-
-
 import React, { useState, useRef } from "react";
 
 import axios from "axios";
 
 import Modal from "react-modal";
 
- 
-
 const OperatorAdding = () => {
+  const [newMobile, setNewMobile] = useState({
+    category: "Mobile",
 
-    const [newMobile, setNewMobile] = useState({
+    description: "",
 
-        category: "Mobile",
+    price: "",
 
-        description: "",
+    productname: "",
 
-        price: "",
+    shopid: "shop11",
 
-        productname: "",
+    stock: "",
 
-        shopid: "shop11",
+    imageurl: "",
+  });
 
-        stock: "",
+  const [imagePreview, setImagePreview] = useState(null);
 
-        imageurl: "",
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    });
+  const [successMessage, setSuccessMessage] = useState("");
 
-    const [imagePreview, setImagePreview] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const fileInputRef = useRef(null);
 
-    const [successMessage, setSuccessMessage] = useState("");
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
 
-    const fileInputRef = useRef(null);
+    const storageUrl = `https://firebasestorage.googleapis.com/v0/b/e-mobile-81b40.appspot.com/o/${encodeURIComponent(
+      "images/" + file.name
+    )}`;
 
- 
+    try {
+      const response = await axios.post(storageUrl, file, {
+        headers: {
+          "Content-Type": file.type,
+        },
+      });
 
-    const handleImageUpload = async (e) => {
+      if (response.status === 200) {
+        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/e-mobile-81b40.appspot.com/o/${encodeURIComponent(
+          "images/" + file.name
+        )}?alt=media`;
 
-        const file = e.target.files[0];
+        setNewMobile({ ...newMobile, imageurl: imageUrl });
 
-        const storageUrl = `https://firebasestorage.googleapis.com/v0/b/e-mobile-81b40.appspot.com/o/${encodeURIComponent(
+        const reader = new FileReader();
 
-            "images/" + file.name
+        reader.onloadend = () => {
+          setImagePreview(reader.result);
+        };
 
-        )}`;
+        reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setImagePreview(null);
+    }
 
-        try {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
-            const response = await axios.post(storageUrl, file, {
+  const addMobile = () => {
+    if (
+      !newMobile.productname ||
+      !newMobile.description ||
+      isNaN(newMobile.price) ||
+      isNaN(newMobile.stock) ||
+      newMobile.price <= 0 ||
+      newMobile.stock <= 0 ||
+      !newMobile.imageurl
+    ) {
+      setErrorMessage(
+        "All fields are mandatory, and price/stock should be a positive number."
+      );
 
-                headers: {
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
 
-                    "Content-Type": file.type,
+      return;
+    }
 
-                },
+    // Clear the error message if there are no validation issues
 
-            });
+    setErrorMessage(null);
 
-            if (response.status === 200) {
+    const apiUrl = `https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products`;
 
-                const imageUrl = `https://firebasestorage.googleapis.com/v0/b/e-mobile-81b40.appspot.com/o/${encodeURIComponent(
+    axios
 
-                    "images/" + file.name
+      .post(apiUrl, {
+        fields: {
+          category: { stringValue: newMobile.category },
 
-                )}?alt=media`;
+          description: { stringValue: newMobile.description },
 
-                setNewMobile({ ...newMobile, imageurl: imageUrl });
+          price: { integerValue: parseInt(newMobile.price, 10) },
 
- 
+          productname: { stringValue: newMobile.productname },
 
-                const reader = new FileReader();
+          shopid: { stringValue: newMobile.shopid },
 
-                reader.onloadend = () => {
+          stock: { integerValue: parseInt(newMobile.stock, 10) },
 
-                    setImagePreview(reader.result);
+          imageurl: { stringValue: newMobile.imageurl },
+        },
+      })
 
-                };
+      .then((response) => {
+        console.log("Mobile phone added successfully:", response.data);
 
-                reader.readAsDataURL(file);
+        setNewMobile({
+          category: "Mobile",
 
+          description: "",
+
+          price: "",
+
+          productname: "",
+
+          shopid: "shop11",
+
+          stock: "",
+
+          imageurl: "",
+        });
+
+        setImagePreview(null);
+
+        setSuccessMessage("Product added successfully");
+
+        setIsModalOpen(true);
+
+        setTimeout(() => {
+          setIsModalOpen(false);
+
+          setSuccessMessage("");
+        }, 3000);
+      })
+
+      .catch((error) => {
+        console.error("Error adding mobile phone:", error);
+      });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const inputStyle = {
+    width: "100%",
+
+    padding: "10px",
+
+    margin: "10px 0",
+
+    borderRadius: "5px",
+
+    border: "1px solid #ccc",
+
+    fontSize: "16px",
+
+    outline: "none",
+  };
+
+  const imagePreviewStyle = {
+    width: "100px",
+
+    height: "100px",
+
+    objectFit: "cover",
+
+    borderRadius: "5px",
+
+    margin: "10px 0",
+  };
+
+  return (
+    <div
+      className="add-container"
+      style={{ textAlign: "center", marginTop: "20px" }}
+    >
+      {errorMessage && (
+        <p
+          style={{
+            color: "white",
+
+            backgroundColor: "red",
+
+            border: "1px solid red",
+
+            padding: "10px",
+
+            borderRadius: "5px",
+          }}
+        >
+          {errorMessage}
+        </p>
+      )}
+
+      <div className="heading">
+        <h1 style={{ color: "red", fontSize: "24px", textAlign: "center" }}>
+          Add Product Details
+        </h1>
+
+        <div
+          className="inputfield-container"
+          style={{ maxWidth: "300px", margin: "0 auto" }}
+        >
+          <input
+            type="text"
+            placeholder="Product Name"
+            value={newMobile.productname}
+            onChange={(e) =>
+              setNewMobile({ ...newMobile, productname: e.target.value })
             }
-
-        } catch (error) {
-
-            console.error("Error uploading image:", error);
-
-        } finally {
-
- 
-
-            setImagePreview(null);
-
-        }
-
-        if (fileInputRef.current) {
-
-            fileInputRef.current.value = "";
-
-        }
-
-    };
-
- 
-
-    const addMobile = () => {
-
-        if (
-
-            !newMobile.productname ||
-
-            !newMobile.description ||
-
-            !newMobile.price ||
-
-            !newMobile.stock ||
-
-            !newMobile.imageurl
-
-        ) {
-
-            alert("All fields are mandatory.");
-
-            return;
-
-        }
-
- 
-
-        const apiUrl = `https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products`;
-
-        axios
-
-            .post(apiUrl, {
-
-                fields: {
-
-                    category: { stringValue: newMobile.category },
-
-                    description: { stringValue: newMobile.description },
-
-                    price: { integerValue: parseInt(newMobile.price, 10) },
-
-                    productname: { stringValue: newMobile.productname },
-
-                    shopid: { stringValue: newMobile.shopid },
-
-                    stock: { integerValue: parseInt(newMobile.stock, 10) },
-
-                    imageurl: { stringValue: newMobile.imageurl },
-
-                },
-
-            })
-
-            .then((response) => {
-
-                console.log("Mobile phone added successfully:", response.data);
-
-                setNewMobile({
-
-                    category: "Mobile",
-
-                    description: "",
-
-                    price: "",
-
-                    productname: "",
-
-                    shopid: "shop11",
-
-                    stock: "",
-
-                    imageurl: "",
-
-                });
-
-                setImagePreview(null);
-
-                setSuccessMessage("Product added successfully");
-
-                setIsModalOpen(true);
-
-                setTimeout(() => {
-
-                    setIsModalOpen(false);
-
-                    setSuccessMessage("");
-
-                }, 3000);
-
-            })
-
-            .catch((error) => {
-
-                console.error("Error adding mobile phone:", error);
-
-            });
-
-        if (fileInputRef.current) {
-
-            fileInputRef.current.value = "";
-
-        }
-
-    };
-
- 
-
-    const inputStyle = {
-
-        width: "100%",
-
-        padding: "10px",
-
-        margin: "10px 0",
-
-        borderRadius: "5px",
-
-        border: "1px solid #ccc",
-
-        fontSize: "16px",
-
-        outline: "none",
-
-    };
-
- 
-
-    const imagePreviewStyle = {
-
-        width: "100px",
-
-        height: "100px",
-
-        objectFit: "cover",
-
-        borderRadius: "5px",
-
-        margin: "10px 0",
-
-    };
-
- 
-
-    return (
-
-        <div className="add-container" style={{ textAlign: "center", marginTop: "20px" }}>
-
-            <div className="heading">
-
-                <h1 style={{ color: "red", fontSize: "24px", textAlign: "center" }}>Add Product Details</h1>
-
-                <div className="inputfield-container" style={{ maxWidth: "300px", margin: "0 auto" }}>
-
-                    <input
-
-                        type="text"
-
-                        placeholder="Product Name"
-
-                        value={newMobile.productname}
-
-                        onChange={(e) => setNewMobile({ ...newMobile, productname: e.target.value })}
-
-                        style={inputStyle}
-
-                    />
-
-                    <input
-
-                        type="text"
-
-                        placeholder="Description"
-
-                        value={newMobile.description}
-
-                        onChange={(e) => setNewMobile({ ...newMobile, description: e.target.value })}
-
-                        style={inputStyle}
-
-                    />
-
-                    <input
-
-                        type="number"
-
-                        placeholder="Price"
-
-                        min="1"
-
-                        value={newMobile.price}
-
-                        onChange={(e) => setNewMobile({ ...newMobile, price: e.target.value })}
-
-                        style={inputStyle}
-
-                    />
-
-                    <input
-
-                        type="number"
-
-                        placeholder="Stock"
-
-                        min="1"
-
-                        value={newMobile.stock}
-
-                        onChange={(e) => setNewMobile({ ...newMobile, stock: e.target.value })}
-
-                        style={inputStyle}
-
-                    />
-
-                    <input
-
-                        type="file"
-
-                        accept="image/*"
-
-                        onChange={handleImageUpload}
-
-                        style={inputStyle}
-
-                        ref={fileInputRef}
-
-                    />
-
-                    {imagePreview && <img src={imagePreview} alt="Preview" style={imagePreviewStyle} />}
-
-                </div>
-
-                <div className="addbtn" style={{ marginTop: "20px" }}>
-
-                    <button
-
-                        onClick={addMobile}
-
-                        style={{
-
-                            backgroundColor: "#007bff",
-
-                            color: "white",
-
-                            padding: "10px 20px",
-
-                            border: "none",
-
-                            borderRadius: "5px",
-
-                            fontSize: "16px",
-
-                            cursor: "pointer",
-
-                        }}
-
-                    >
-
-                        Submit
-
-                    </button>
-
-                </div>
-
-            </div>
-
-            <Modal
-
-                isOpen={isModalOpen}
-
-                onRequestClose={() => setIsModalOpen(false)}
-
-                contentLabel="Product Added Modal"
-
-                className="modal-content"
-
-                style={{
-
-                    content: {
-
-                        width: "200px",
-
-                        margin: "0 auto",
-
-                        borderRadius: "5px",
-
-                        padding: "20px",
-
-                    },
-
-                }}
-
-            >
-
-                <h2 style={{ textAlign: "center", marginBottom: "10px", color: "white", border: "2px solid green", background: "green" }}>{successMessage}</h2>
-
-                <button
-
-                    onClick={() => setIsModalOpen(false)}
-
-                    style={{
-
-                        backgroundColor: "#007bff",
-
-                        color: "white",
-
-                        padding: "10px 20px",
-
-                        border: "none",
-
-                        borderRadius: "5px",
-
-                        fontSize: "16px",
-
-                        cursor: "pointer",
-
-                        marginTop: "10px",
-
-                    }}
-
-                >
-
-                    Close
-
-                </button>
-
-            </Modal>
-
+            style={inputStyle}
+          />
+
+          <input
+            type="text"
+            placeholder="Description"
+            value={newMobile.description}
+            onChange={(e) =>
+              setNewMobile({ ...newMobile, description: e.target.value })
+            }
+            style={inputStyle}
+          />
+
+          <input
+            type="number"
+            placeholder="Price"
+            min="1"
+            value={newMobile.price}
+            onChange={(e) =>
+              setNewMobile({ ...newMobile, price: e.target.value })
+            }
+            style={inputStyle}
+          />
+
+          <input
+            type="number"
+            placeholder="Stock"
+            min="1"
+            value={newMobile.stock}
+            onChange={(e) =>
+              setNewMobile({ ...newMobile, stock: e.target.value })
+            }
+            style={inputStyle}
+          />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            style={inputStyle}
+            ref={fileInputRef}
+          />
+
+          {imagePreview && (
+            <img src={imagePreview} alt="Preview" style={imagePreviewStyle} />
+          )}
         </div>
 
-    );
+        <div className="addbtn" style={{ marginTop: "20px" }}>
+          <button
+            onClick={addMobile}
+            style={{
+              backgroundColor: "#007bff",
 
+              color: "white",
+
+              padding: "10px 20px",
+
+              border: "none",
+
+              borderRadius: "5px",
+
+              fontSize: "16px",
+
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        contentLabel="Product Added Modal"
+        className="modal-content"
+        style={{
+          content: {
+            width: "200px",
+
+            margin: "0 auto",
+
+            borderRadius: "5px",
+
+            padding: "20px",
+          },
+        }}
+      >
+        <h2
+          style={{
+            display: "flex",
+
+            justifyContent: "center",
+
+            alignItems: "center",
+
+            textAlign: "center",
+
+            marginBottom: "10px",
+
+            marginTop: "200px",
+
+            color: "white",
+
+            border: "2px solid green",
+
+            borderRadius: "10px",
+
+            background: "green",
+          }}
+        >
+          {successMessage}
+        </h2>
+
+        <button
+          onClick={() => setIsModalOpen(false)}
+          style={{
+            backgroundColor: "#007bff",
+
+            color: "white",
+
+            padding: "10px 20px",
+
+            border: "none",
+
+            borderRadius: "5px",
+
+            fontSize: "16px",
+
+            cursor: "pointer",
+
+            marginTop: "10px",
+          }}
+        >
+          Close
+        </button>
+      </Modal>
+    </div>
+  );
 };
 
- 
-
 export default OperatorAdding;
-
- 

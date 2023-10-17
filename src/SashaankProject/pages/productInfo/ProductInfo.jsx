@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { shankfire } from "../../fireabase/FirebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 
 function ProductInfo() {
@@ -72,6 +72,8 @@ function ProductInfo() {
         autoClose: 3000, // Automatically close after 3 seconds
       });
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(1));
+
       addCartToFirestore(cartItem, userData.email);
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -17,20 +18,45 @@ const ProductForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+  
+    if (name === 'stock' || name === 'price') {
+      // Check if the value is numeric and not negative
+      if (!isNaN(value) && parseFloat(value) >= 0) {
+        setProduct({ ...product, [name]: value });
+      } else {
+        // If the input is not a valid non-negative number, clear the input
+        setProduct({ ...product, [name]: '' });
+      }
+    } else {
+      // For other fields, update the state directly
+      setProduct({ ...product, [name]: value });
+    }
   };
+  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
-  };
-
-  const handleCancelImage = () => {
-    setImageFile(null);
+    
+    // Clear the image URL in the product state
     setProduct({
       ...product,
       imageurl: '',
     });
+  };
+
+  const clearFormFields = () => {
+    setProduct({
+      productname: '',
+      description: '',
+      price: '',
+      stock: '',
+      imageurl: '',
+      category: 'mobile',
+      shopid: 'shop12',
+      shopname: 'MobileWorld',
+    });
+    setImageFile(null);
   };
 
   const uploadImageToFirebaseStorage = async () => {
@@ -77,7 +103,7 @@ const ProductForm = () => {
       const imageurl = await uploadImageToFirebaseStorage();
 
       if (imageurl) {
-        const apiKey = 'YOUR_API_KEY';
+        const apiKey = 'AIzaSyBwbUvnEMEOs1aNMf_XOjGegX00uZD7M2g';
 
         const firestoreResponse = await axios.post(
           `https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products?key=${apiKey}`,
@@ -95,7 +121,11 @@ const ProductForm = () => {
           }
         );
 
-        console.log('Product added:', firestoreResponse.data);
+        
+        setTimeout(() => {
+          clearFormFields();
+        }, 1000); // Adjust the delay as needed
+      
         setProduct({
           productname: '',
           description: '',
@@ -107,6 +137,7 @@ const ProductForm = () => {
           shopname: 'MobileWorld',
         });
         setImageFile(null);
+        
       } else {
         console.error('Error uploading image or retrieving image URL.');
       }
