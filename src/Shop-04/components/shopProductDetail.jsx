@@ -65,7 +65,7 @@ function ProductDetails() {
         autoClose: 3000, // Time in milliseconds to keep the toast open
       });
     } else {
-      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      // localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

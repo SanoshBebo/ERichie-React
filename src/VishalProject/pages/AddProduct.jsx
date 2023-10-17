@@ -44,12 +44,18 @@ const AddProductForm = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+  
+    // Check if the input is "stock" or "price" and ensure it's not negative
+    if ((name === "stock" || name === "price") && parseInt(value) < 0) {
+      return; // Do not update state for negative values
+    }
+  
     setProductData({
       ...productData,
       [name]: value,
     });
   };
-
+  const isAddingNewProduct = !selectedProductId;
   useEffect(() => {
     const userdata = JSON.parse(localStorage.getItem("user"));
     if (
@@ -454,8 +460,8 @@ const AddProductForm = () => {
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
-              required
-              className="w-full py-2 text-gray-700 focus:outline-none"
+              required={isAddingNewProduct}
+    className="w-full py-2 text-gray-700 focus:outline-none"
             />
           </div>
 

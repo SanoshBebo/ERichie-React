@@ -258,6 +258,15 @@ const ProductList = () => {
       });
     }
   };
+  const handleTextInputChange = (event) => {
+    const { name, value } = event.target;
+
+    // Validate the input for both stock and price fields
+      setUpdateProductDetails({
+        ...updateProductDetails,
+        [name]: value,
+      });
+  };
 
   return (
     <div className="p-5">
@@ -303,7 +312,7 @@ const ProductList = () => {
                       type="text"
                       name="name"
                       value={updateProductDetails.name}
-                      onChange={handleInputChange}
+                      onChange={handleTextInputChange}
                       required
                       className="w-full p-2 border rounded"
                     />
@@ -317,7 +326,7 @@ const ProductList = () => {
                     <textarea
                       name="description"
                       value={updateProductDetails.description}
-                      onChange={handleInputChange}
+                      onChange={handleTextInputChange}
                       required
                       className="w-full p-2 border rounded"
                     />

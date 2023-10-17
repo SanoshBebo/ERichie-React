@@ -20,6 +20,7 @@ const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
 
 export const fetchShopProducts = async (shopid) => {
+  console.log(shopid)
   if (shopid == "shop01") {
     return await fetchShopOneProducts();
   } else if (shopid == "shop02") {
@@ -84,7 +85,7 @@ export const storePurchaseInFirestore = async (cartItems, loggedinEmail) => {
           fields: payload,
         });
 
-        const res = await fetchShopProducts(product.shopid);
+        const res = await fetchShopProducts(product.shopid.toLowerCase());
         shopProducts = res;
 
         console.log(shopProducts);
@@ -244,10 +245,11 @@ export const getOrderHistory = async (email) => {
                 console.log(document);
                 console.log(shopid.stringValue);
 
-                let productInfo = null;
+                let productInfo ;
                 try {
+                  console.log(shopid.stringValue.toLowerCase())
                   const shopProducts = await fetchShopProducts(
-                    shopid.stringValue
+                    shopid.stringValue.toLowerCase()
                   );
                   console.log(shopProducts);
                   productInfo = shopProducts.find(
@@ -257,29 +259,31 @@ export const getOrderHistory = async (email) => {
                 } catch (error) {
                   console.error("Error fetching shop products: ", error);
                 }
+                if(productInfo){
 
-                return {
-                  productname: productInfo.productname
-                    ? productInfo.productname
-                    : productInfo.name,
-                  imageurl: productInfo.imageUrl
-                    ? productInfo.imageUrl
-                    : productInfo.imageurl,
-                  productid: productid.stringValue
-                    ? productid.stringValue
-                    : id.stringValue,
-                  purchaseDate: purchasedate.timestampValue
-                    ? purchasedate.timestampValue
-                    : purchaseDate.timestampValue,
-                  quantity: quantity ? quantity.integerValue : 0,
-                  description: productInfo
-                    ? productInfo.description
-                    : "Unknown",
-                  totalprice: totalprice ? totalprice.integerValue : 0,
-                  shopid: shopid.stringValue,
-                  email: email.stringValue,
-                  orderid: orderId,
-                };
+                  return {
+                    productname: productInfo.productname
+                      ? productInfo.productname
+                      : productInfo.name,
+                    imageurl: productInfo.imageUrl
+                      ? productInfo.imageUrl
+                      : productInfo.imageurl,
+                    productid: productid.stringValue
+                      ? productid.stringValue
+                      : id.stringValue,
+                    purchaseDate: purchasedate.timestampValue
+                      ? purchasedate.timestampValue
+                      : purchaseDate.timestampValue,
+                    quantity: quantity ? quantity.integerValue : 0,
+                    description: productInfo
+                      ? productInfo.description
+                      : "Unknown",
+                    totalprice: totalprice ? totalprice.integerValue : 0,
+                    shopid: shopid.stringValue,
+                    email: email.stringValue,
+                    orderid: orderId,
+                  };
+                }
               })
           );
           console.log(orderData);

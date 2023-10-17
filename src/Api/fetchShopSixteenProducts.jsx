@@ -44,7 +44,7 @@ export const fetchShopSixteenProducts = async () => {
           const imageurl =
             fields.imageUrl?.stringValue || fields.imageurl?.stringValue;
 
-          return {
+          const res =  {
             description,
             stock,
             price,
@@ -54,6 +54,8 @@ export const fetchShopSixteenProducts = async () => {
             imageurl,
             productid: documentId,
           };
+          console.log(res);
+          return res;
         });
 
         return productData;

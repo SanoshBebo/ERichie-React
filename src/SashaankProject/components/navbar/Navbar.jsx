@@ -78,13 +78,6 @@ function Navbar() {
                   >
                     All Products
                   </Link>
-                  <Link
-                    to={"/customer/login"}
-                    className="text-sm font-medium text-black-700 p-2"
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Sign Out
-                  </Link>
 
                   {/* {user ? <div className="flow-root">
                     <Link to={'shop09/order'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
@@ -186,7 +179,7 @@ function Navbar() {
                   >
                     All Products
                   </Link>
-                  {user.role == "shopkeeper" && (
+                  {user.role == "shopkeeper" ? (
                     <div>
                       <Link
                         to={"/shop09/admin/order-details"}
@@ -209,28 +202,15 @@ function Navbar() {
                   >
                     Sign Out
                   </Link>
-                      
-                      {/* {user ?  <Link to={'/order'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Order
-                    </Link> :   <Link to={'/signup'}  className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Signup
-                    </Link>}
-
-                    {user?.user?.email === 'sashfiretest1@gmail.com' ? 
-                    <Link to={'/dashboard'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Admin
-                    </Link> : ""}
-                    
-                    {user?.user?.email === 'sashfiretest1@gmail.com' ? 
-                    <Link to={'/'} className="text-sm font-medium text-black-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Store Analytics
-                    </Link> : ""}
-                    
-                    
-                    {user ?  <a onClick={logout} className="text-sm font-medium text-black-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Logout
-                  </a> : ""} */}
                     </div>
+                  ):(
+                    <Link
+                    to={"/customer/login"}
+                    className="text-sm font-medium text-black-700 p-2"
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    Sign Out
+                  </Link>
                   )}
                 </div>
                 <div className="hidden lg:ml-8 lg:flex">

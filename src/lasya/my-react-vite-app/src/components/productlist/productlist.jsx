@@ -12,6 +12,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 import FetchItemsInCart from "../../../../../ERichie/components/FetchItemsInCart";
 import { useSelector } from "react-redux";
+import video from "./greetingspage.mp4"
 
 function ProductList({ isAdmin }) {
   const [products, setProducts] = useState([]);
@@ -87,6 +88,17 @@ function ProductList({ isAdmin }) {
       </div>
 
       <br></br>
+      <div className="video-container">
+
+        <video autoPlay loop muted className="fullscreen-video">
+
+          <source src={video} type="video/mp4" />
+
+          Your browser does not support the video tag.
+
+        </video>
+
+      </div>
 
       <div className="product-list-container">
         {error ? (

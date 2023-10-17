@@ -13,7 +13,7 @@ const VishalMediaShop = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage] = useState(12);
+  const [itemsPerPage] = useState(8);
 
   const handleSearchInputChange = (e) => {
     const query = e.target.value;
@@ -85,7 +85,7 @@ const VishalMediaShop = () => {
     <div className="flex-row h-screen">
       <div
         className="header flex items-center justify-between p-10 px-20"
-        style={{ background: "#f0f0f0", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)" }}
+       
       >
         <h2 className="font-bold text-2xl">Our Products</h2>
         <input

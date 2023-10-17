@@ -20,7 +20,7 @@ function ProductInfo() {
   const navigate = useNavigate();
   const [products, setProducts] = useState("");
   const params = useParams();
-  const url = `/shop09/product/${products}`;
+  const url = `/shop09/product/${params.id}`;
   let redirectUrl = {
     url: url,
   };

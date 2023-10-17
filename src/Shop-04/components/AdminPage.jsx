@@ -182,7 +182,7 @@ const handleSaveEdit = async () => {
       modelNo: { stringValue: product.modelNo },
       price: { integerValue: parseInt(product.price) },
       productname: { stringValue: product.productname },
-      shopid: { stringValue: 'Shop16' }, // Pre-defined shopid
+      shopid: { stringValue: 'shop16' }, // Pre-defined shopid
       stock: { integerValue: parseInt(product.stock, 10) },
       imageurl: { stringValue: imageRef },
     },
