@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ShoppingCart } from "lucide-react";
+import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
 
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
@@ -18,6 +20,9 @@ const ProductFetch = ({ cart, setCart }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const  items = FetchItemsInCart();
+
   const url = `/shop12/product/${id}`;
   let redirectUrl = { 
     url: url,
@@ -76,6 +81,8 @@ const ProductFetch = ({ cart, setCart }) => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
+
       addCartToFirestore(cartItem, userData.email);
   
       // Show a toast message
@@ -164,12 +171,15 @@ const ProductFetch = ({ cart, setCart }) => {
       </div>
       <div className="fixed top-4 right-4 flex items-center cursor-pointer">
       {/* Cart Icon */}
-      <Link to="/erichie/cart">
-        <div className="relative">
-          {/* Image */}
-          <i className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-20 text-base sm:text-lg md:text-xl lg:text-2xl cursor-pointer">🛒</i>
-        </div>
-      </Link>
+      <Link
+                to="/erichie/cart"
+                className="flex items-center gap-2 hover:underline"
+              >
+                <ShoppingCart />
+                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
+              </Link>
     </div>
     </div>
     
