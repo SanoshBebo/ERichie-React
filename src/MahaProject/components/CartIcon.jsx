@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ShoppingCart } from "lucide-react";
+import { useSelector } from 'react-redux';
 
 function CartIcon() {
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
+
   return (
     <div className="fixed top-4 right-4 flex items-center cursor-pointer">
       {/* Cart Icon */}
-      <Link to="/erichie/cart">
-        <div className="relative">
-          {/* Image */}
-          <i className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-20 text-base sm:text-lg md:text-xl lg:text-2xl cursor-pointer">🛒</i>
-        </div>
+      <Link to="/erichie/cart" className="flex items-center gap-2 hover:underline">
+        <ShoppingCart />
+        <p className=" text-black rounded-full h-6 w-6 text-center ">
+          {itemsInCart}
+        </p>
       </Link>
     </div>
   );

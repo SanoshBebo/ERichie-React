@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { Link, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import FetchItemsInCart from '../ERichie/components/FetchItemsInCart';
+import { ShoppingCart } from "lucide-react";
 
  
 
@@ -21,6 +24,8 @@ function ProductList() {
   const [cart, setCart] = useState([]);
 
   const [errorMessage] = useState('');
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const  items = FetchItemsInCart();
 
  
 
@@ -159,11 +164,12 @@ function ProductList() {
 
       <div className="container mx-auto p-8">
 
-      <Link to="/erichie/cart">
-
-        <button className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-10 text-lg sm:text-xl md:text-2xl lg:text-3xl cursor-pointer">🛒</button>
-
-      </Link> 
+      <Link to="/erichie/cart" className="flex items-center gap-2 hover:underline" style={{ position: 'absolute', top: '10px', right: '10px' }}>
+        <ShoppingCart />
+        <p className="bg-white text-black rounded-full h-6 w-6 text-center">
+          {itemsInCart}
+        </p>
+      </Link>
       <div className="flex justify-end space-x-4 mt-4">
       <Link to="/shop10/home">
 

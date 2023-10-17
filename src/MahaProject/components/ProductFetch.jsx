@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ShoppingCart } from "lucide-react";
 import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
 
+
+
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -81,8 +83,12 @@ const ProductFetch = ({ cart, setCart }) => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+
+
       dispatch(addNoOfItemsInCart(quantity));
 
+
+      
       addCartToFirestore(cartItem, userData.email);
   
       // Show a toast message
@@ -92,7 +98,7 @@ const ProductFetch = ({ cart, setCart }) => {
         autoClose: 3000, // Time in milliseconds to keep the toast open
       });
     } else {
-      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      //localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

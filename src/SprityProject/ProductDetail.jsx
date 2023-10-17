@@ -10,11 +10,15 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { setUser } from "../SanoshProject/redux/shopOneUserSlice"; 
 
-import { addItemToCart } from "../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../SanoshProject/redux/shopOneCartSlice";
 
 import { addCartToFirestore } from "../Api/CartOperationsFirestore";
 
 import { useDispatch, useSelector } from "react-redux";
+import { ShoppingCart } from "lucide-react";
+import FetchItemsInCart from "../ERichie/components/FetchItemsInCart";
+
+
 // import { Ecom } from './Commerce'
 
 function ProductDetail() {
@@ -34,8 +38,11 @@ function ProductDetail() {
   const user = useSelector((state) => state.shoponeuser.user);
 
   const navigate = useNavigate();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const  items = FetchItemsInCart();
 
   const handleVisitStore = () => {
+
     // Redirect to the "/mobiles" page
 
     navigate("/shop10/home");
@@ -92,6 +99,7 @@ function ProductDetail() {
 
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
+      // dispatch(addNoOfItemsInCart(quantity));
 
       console.log(product);
 
@@ -114,6 +122,7 @@ function ProductDetail() {
       };
 
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
 
       addCartToFirestore(cartItem, userData.email);
 
@@ -138,9 +147,9 @@ function ProductDetail() {
     if (newQuantity > stock) {
       const confirmMessage = `Unfortunately, we do not have ${newQuantity} in stock for ${productname}. Do you want to proceed anyway?`;
 
-      if (!confirmationDisplayed && window.confirm(confirmMessage)) {
-        setConfirmationDisplayed(true);
-      }
+      // if (!confirmationDisplayed && window.confirm(confirmMessage)) {
+      //   setConfirmationDisplayed(true);
+      // }
     } else {
       setQuantity(newQuantity);
     }
@@ -155,11 +164,12 @@ function ProductDetail() {
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
       <div className="max-w-lg p-4">
-        <Link to="/erichie/cart">
-          <button className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-20 text-lg sm:text-xl md:text-2xl lg:text-3xl cursor-pointer">
-            🛒
-          </button>
-        </Link>
+      <Link to="/erichie/cart" className="flex items-center gap-2 hover:underline" style={{ position: 'absolute', top: '10px', right: '10px' }}>
+        <ShoppingCart />
+        <p className="bg-white text-black rounded-full h-6 w-6 text-center">
+          {itemsInCart}
+        </p>
+      </Link>
 
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
