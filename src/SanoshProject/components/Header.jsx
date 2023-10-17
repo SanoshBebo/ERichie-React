@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { itemsInCart } = FetchItemsInCart();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
 
   // Function to toggle the mobile menu
   const toggleMenu = () => {
@@ -17,6 +18,7 @@ const Header = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
   };
+  const items = FetchItemsInCart();
 
   return (
     <div className="bg-black text-white p-4">
