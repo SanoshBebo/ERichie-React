@@ -20,7 +20,7 @@ const AdminPanel = () => {
   const dispatch = useDispatch();
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  // const [showsalesreportProduct, setshowsalesreportProduct] = useState(false);
+  const [showsalesreportProduct, setshowsalesreportProduct] = useState(false);
 
   const handleAddProductClick = () => {
     setShowAddProduct(true);
@@ -52,8 +52,6 @@ const AdminPanel = () => {
   const handleinventoryProductClick = () => {
     window.location.href  = '/shop12/daily-inventory';
   }
-
-
   useEffect(() => {
     if (!isLoadingUser && user.length === 0) {
       navigate("/admin/login");
@@ -63,16 +61,20 @@ const AdminPanel = () => {
   useEffect(() => { 
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.email == "mahalaxmiadmin@gmail.com") {
-      if (userData.role == "customer") {
+      if (userData.role == "admin") {
         navigate("/admin/login");
       }
       dispatch(setUser(userData));
     }
     setIsLoadingUser(false);
   }, []);
-  // const handlesalesreportProductClick = () => {
-    
-  // }
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/admin/login"); // Use navigate to redirect to the login page
+  };
+  const handlesalesreportProductClick = () => {
+    window.location.href  = '/erichie/overall-report';
+  }
 
   return (
     <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen flex flex-col items-center justify-center text-black">
@@ -84,14 +86,16 @@ const AdminPanel = () => {
           <button onClick={handleUpdateProductClick} className="btn">Update Products</button>
           <button onClick={handleDeleteProductClick} className="btn">Delete Products</button>
           <button onClick={handleinventoryProductClick} className="btn">Inventory Report</button>
-          {/* <button onClick={handlesalesreportProductClick} className="btn">Sales Report</button> */}
+          <button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button>
+          <button onClick={handlesalesreportProductClick} className="btn">Sales Report</button>
+
         </div>
         {showAddProduct && <ProductForm />}
         {showDisplayProduct && <ProductDisplay />}
         {showUpdateProduct && <UpdateProduct />}
         {showDeleteProduct && <DeleteProduct />}
         {showinventoryProduct && <IndividualShopReport />}
-        {/* {showsalesreportProduct && <SalesReport />} */}
+        {showsalesreportProduct && <SalesReport />}
       </div>
     </div>
   );

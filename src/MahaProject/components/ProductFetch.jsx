@@ -18,6 +18,10 @@ const ProductFetch = ({ cart, setCart }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
+  const url = `/shop12/product/${id}`;
+  let redirectUrl = { 
+    url: url,
+  }; 
   useEffect(() => {
     axios
       .get(
@@ -75,12 +79,13 @@ const ProductFetch = ({ cart, setCart }) => {
       addCartToFirestore(cartItem, userData.email);
   
       // Show a toast message
-      toast.success('Product added to cart!', {
+      toast.success('Product added to cart!', 
+      {
         position: 'top-right',
         autoClose: 3000, // Time in milliseconds to keep the toast open
       });
     } else {
-      // localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);

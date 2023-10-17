@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
  
 
@@ -143,6 +143,13 @@ function ProductList() {
     }
 
   };
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+
+    Navigate("/customer/login");
+
+  };
 
  
 
@@ -154,12 +161,24 @@ function ProductList() {
 
       <Link to="/erichie/cart">
 
-        <button className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-20 text-lg sm:text-xl md:text-2xl lg:text-3xl cursor-pointer">🛒</button>
+        <button className="absolute top-4 sm:top-8 md:top-16 lg:top-20 right-4 sm:right-8 md:right-16 lg:right-10 text-lg sm:text-xl md:text-2xl lg:text-3xl cursor-pointer">🛒</button>
+
+      </Link> 
+      <div className="flex justify-end space-x-4 mt-4">
+      <Link to="/shop10/home">
+
+        <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center flex space-x-4 abolute top-0 right-0 mt-4 mr-4">Go Home</button>
 
       </Link>
-
+      <button
+          to="/shop10/admin/report"
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center flex space-x-4 abolute top-0 right-0 mt-4 mr-4"
+          onClick={handleSignOut}
+        >
+          Sign Out
+        </button>
+        </div>
         <h1 className="text-3xl font-bold mb-4">SHOP YOUR WALLET OUT</h1>
-        
 
         <input
 
