@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
 
 export const storeUserInFirestore = async (userdata) => {
   const apiUrl = `${baseUrl}/Users`;
@@ -24,7 +24,7 @@ export const storeUserInFirestore = async (userdata) => {
 };
 
 export const checkUserRole = async (user) => {
-  const apiUrl = `${baseUrl}/Users?pageSize=50`;
+  const apiUrl = `${baseUrl}/Users?pageSize=100`;
   const response = await axios.get(apiUrl);
   console.log(response);
   if (response.status === 200) {

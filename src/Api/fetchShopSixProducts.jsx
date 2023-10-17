@@ -4,7 +4,7 @@ const baseUrl =
   "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents";
 
 export const fetchShopSixProducts = async () => {
-  const apiUrl = `${baseUrl}/products`;
+  const apiUrl = `${baseUrl}/Products`;
 
   try {
     const response = await axios.get(apiUrl);

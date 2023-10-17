@@ -17,11 +17,12 @@ import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
 import { fetchShopFourProducts } from "./fetchShopFourProducts";
 
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
 
 export const fetchCart = async (loggedInEmail) => {
-  const cartApiUrl = `${baseUrl}/Carts?pageSize=100`; // Use a different URL for cart data
+  const cartApiUrl = `${baseUrl}/Carts`; // Use a different URL for cart data
   let shopProducts = [];
+  let product;
   try {
     const cartResponse = await axios.get(cartApiUrl);
 
@@ -95,26 +96,30 @@ export const fetchCart = async (loggedInEmail) => {
 
               // Find the corresponding product data based on product ID
               console.log(shopProducts);
-              const product = shopProducts.find(
+              product = shopProducts.find(
                 (product) => product.productid === productid.stringValue
               );
               console.log(product);
               console.log(document);
+                if(product){
 
-              return {
-                email: email.stringValue,
-                quantity: quantity.integerValue,
-                description: product.description,
-                stock: product.stock,
-                price: product.price,
-                shopid: product.shopid,
-                productname: product.productname,
-                category: product.category,
-                imageurl: product.imageurl,
-                productid: product.productid,
-                cartid: documentId,
-              };
-            })
+                  return {
+                    email: email.stringValue,
+                    quantity: quantity.integerValue,
+                    description: product.description,
+                    stock: product.stock,
+                    price: product.price,
+                    shopid: product.shopid,
+                    productname: product.productname,
+                    category: product.category,
+                    imageurl: product.imageurl,
+                    productid: product.productid,
+                    cartid: documentId,
+                  };
+                }else{
+                  return []
+                }
+                })
         );
 
         console.log(cartData);

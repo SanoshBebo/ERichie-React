@@ -11,7 +11,7 @@ function FetchItemsInCart() {
   const dispatch = useDispatch();
 
   const baseUrl =
-    "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
+    "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {

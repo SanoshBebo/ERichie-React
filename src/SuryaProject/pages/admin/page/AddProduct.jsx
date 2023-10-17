@@ -20,19 +20,6 @@ function AddProduct() {
           <div>
             <input
               type="text"
-              value={products.shopid}
-              onChange={(e) =>
-                setProducts({ ...products, shopid: e.target.value })
-              }
-              name="shopid"
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Shopid"
-            />
-          </div>
-
-          <div>
-            <input
-              type="text"
               value={products.productname}
               onChange={(e) =>
                 setProducts({ ...products, productname: e.target.value })
@@ -45,10 +32,18 @@ function AddProduct() {
 
           <div>
             <input
-              type="text"
+              type="number"
               value={products.price}
-              onChange={(e) =>
-                setProducts({ ...products, price: e.target.value })
+              onChange={(e) =>{
+
+                if(e.target.value < 0){
+                  setProducts({...products,price: 0})
+                }
+                else{
+
+                  setProducts({ ...products, price: e.target.value })
+                }
+              }
               }
               name="price"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
@@ -69,25 +64,22 @@ function AddProduct() {
             />
           </div>
 
-          <div>
-            <input
-              type="text"
-              value={products.category}
-              onChange={(e) =>
-                setProducts({ ...products, category: e.target.value })
-              }
-              name="category"
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Product category"
-            />
-          </div>
 
           <div>
             <input
-              type="text"
+              type="number"
               value={products.stock}
               onChange={(e) =>
-                setProducts({ ...products, stock: e.target.value })
+                {
+
+                  if(e.target.value < 0){
+                    setProducts({...products,stock: 0})
+                  }
+                  else{
+                    
+                    setProducts({ ...products, stock: e.target.value })
+                  }
+                }
               }
               name="stock"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"

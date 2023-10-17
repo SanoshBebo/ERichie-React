@@ -1,16 +1,29 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import myContext from "../../context/data/myContext";
 import { BsFillCloudSunFill } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
 
 function Navbar() {
   const context = useContext(myContext);
   const { mode, toggleMode } = context;
-
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  const [userData,setUserData]=useState({});
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const userinfo = JSON.parse(localStorage.getItem("user"));
+    console.log(userinfo)
+    if (userinfo) {
+      setIsUserSignedIn(true);
+      setUserData(userinfo);
+    }
+  }, []);
+
+  
 
   return (
     <div className="bg-white sticky top-0 z-50">
@@ -63,13 +76,14 @@ function Navbar() {
                   >
                     Home
                   </Link>
-                  <Link
-                    to={"shop04/admin/shopreport"}
-                    className="text-sm font-medium text-gray-900 "
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Shop Report
-                  </Link>
+                  { isUserSignedIn && userData.role=="shopkeeper"  && (
+
+                    <button className="text-sm font-medium text-gray-900 " style={{ color: mode === "dark" ? "white" : "" }} onClick={(e)=>{
+                      navigate("/shop04/admin/")
+                    
+                  }}>Shop Report </button>
+    
+                  )}
 
                   {/* {user ? <div className="flow-root">
                     <Link to={'/order'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
@@ -106,22 +120,6 @@ function Navbar() {
                   </div>
                 </div>
 
-                <div className="border-t border-gray-200 px-4 py-6">
-                  <a href="#" className="-m-2 flex items-center p-2">
-                    <img
-                      src="img/indiaflag.png"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span
-                      className="ml-3 block text-base font-medium text-gray-900"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      INDIA
-                    </span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -167,7 +165,7 @@ function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <Link to={"/"} className="flex">
+                <Link to={"/shop04"} className="flex">
                   <div className="flex ">
                     <h1
                       className=" text-2xl font-bold text-black  px-2 py-1 rounded"
@@ -186,15 +184,16 @@ function Navbar() {
                     className="text-sm font-medium text-gray-700 "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
-                    Home
+                    All Products
                   </Link>
-                  <Link
-                    to={"/shop04/admin/shopreport"}
-                    className="text-sm font-medium text-gray-700 "
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Report
-                  </Link>
+                  { isUserSignedIn && userData.role=="shopkeeper"  && (
+
+<button className="text-sm font-medium text-gray-900 " style={{ color: mode === "dark" ? "white" : "" }} onClick={(e)=>{
+  navigate("/shop04/admin/shopreport")
+
+}}>Shop Report </button>
+
+)}
                   {/* {user ?  <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Orders
                   </Link> :   <Link to={'/signup'}  className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
@@ -212,30 +211,6 @@ function Navbar() {
                   </a> : ""} */}
                 </div>
 
-                <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 ">
-                    <img
-                      src="https://ecommerce-sk.vercel.app/img/indiaflag.png"
-                      alt="INDIA"
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span
-                      className="ml-3 block text-sm font-medium"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      INDIA
-                    </span>
-                  </a>
-                </div>
-                <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 ">
-                    <img
-                      className="inline-block w-10 h-10 rounded-full"
-                      src="https://t3.ftcdn.net/jpg/05/79/55/26/360_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg"
-                      alt="Supreme-mart"
-                    />
-                  </a>
-                </div>
 
                 <div className="flex lg:ml-6">
                   <button className="" onClick={toggleMode}>

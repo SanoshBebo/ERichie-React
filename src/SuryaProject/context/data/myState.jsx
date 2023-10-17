@@ -43,12 +43,14 @@ function myState(props) {
 
     imageUrl: null,
 
-    category: null,
+    category: "media",
 
     stock: null,
 
     description: null,
 
+    shopid: "shop04",
+    
     time: Timestamp.now(),
 
     date: new Date().toLocaleString(

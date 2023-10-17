@@ -45,7 +45,6 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
-      console.log(hallalujah);
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
