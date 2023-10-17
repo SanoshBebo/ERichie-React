@@ -34,6 +34,11 @@ const ProductDetailsPage = () => {
   const user = useSelector((state) => state.shoponeuser.user);
 
   const navigate = useNavigate();
+  const url = `/shop11/product/${id}`;
+  
+  let redirectUrl = {
+    url: url,
+  };
 
   useEffect(() => {
     // Fetch product details based on the id parameter
@@ -81,6 +86,7 @@ const ProductDetailsPage = () => {
 
   const addToCart = () => {
     // Check if the selected quantity exceeds the available stock or if stock is 0
+    const userData = JSON.parse(localStorage.getItem("user"));
 
     if (quantity > product.stock) {
       setIsAvailable(false);
@@ -92,7 +98,6 @@ const ProductDetailsPage = () => {
       return;
     }
 
-    const userData = JSON.parse(localStorage.getItem("user"));
 
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
@@ -204,7 +209,7 @@ const ProductDetailsPage = () => {
         )}
 
         <div className="bars">
-          <button onClick={addToCart}>Add to Cart</button>
+          <button onClick={addToCart} disable={product.stock===0}>Add to Cart</button>
 
           <Link to="/shop11/protectlist">
             <button>Back to Product List</button>

@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
 
 import {
+  addNoOfItemsInCart,
+  deleteItemInCart,
+  editNoOfItemsInCart,
   removeItemFromCart,
   setCartItems,
   updateCartItemQuantity,
@@ -33,6 +36,8 @@ const CartComponent = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [isPurchaseCompleted, setIsPurchaseCompleted] = useState(false);
+
+
   useEffect(() => {
     // Calculate the total price when cart items change
     const newTotalPrice = cartItems.reduce((total, item) => {
@@ -67,9 +72,12 @@ const CartComponent = () => {
     fetchCartAndProducts();
   }, []);
 
-  const handleDelete = (id) => {
-    dispatch(removeItemFromCart(id));
-    removeItemFromCartFirestore(user.email, id);
+  const handleDelete = (product) => {
+    console.log(product)
+    dispatch(removeItemFromCart(product.productid));
+    dispatch(deleteItemInCart(product.quantity));
+    
+    removeItemFromCartFirestore(user.email, product.productid);
   };
 
   const addQuantity = (id) => {
@@ -80,16 +88,18 @@ const CartComponent = () => {
     if (item && quantity < stock) {
       const newQuantity = quantity + 1;
       dispatch(updateCartItemQuantity({ id, quantity: newQuantity }));
+      dispatch(addNoOfItemsInCart(1));
       updateCartFirestore(user.email, id, newQuantity);
     }
   };
-
+  
   const minusQuantity = (id) => {
     const item = cartItems.find((item) => item.productid === id);
     const quantity = parseInt(item.quantity, 10);
     if (item && quantity > 1) {
       const newQuantity = quantity - 1;
       dispatch(updateCartItemQuantity({ id, quantity: newQuantity }));
+      dispatch(editNoOfItemsInCart(1));
       updateCartFirestore(user.email, id, newQuantity);
     }
   };
@@ -169,7 +179,7 @@ const CartComponent = () => {
                     <Trash2
                       className="cursor-pointer ml-4"
                       onClick={() => {
-                        handleDelete(product.productid);
+                        handleDelete(product);
                       }}
                     />
                   </div>
