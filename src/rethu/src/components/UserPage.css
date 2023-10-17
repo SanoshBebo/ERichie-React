@@ -1,213 +1,573 @@
+
+
 .navbar {
+
   background-color: #333;
+
   color: #dce1e6;
+
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
-  padding: 10px 20px;
-  position: fixed;
+
+  padding: 10px 250px;
+
+  position: static;
+
   top: 0;
+
+  margin-bottom: 20px;
+
   left: 0;
+
   right: 0;
+
   z-index: 1000;
+
 }
 
 .navbar a {
+
   color: #dce1e6;
+
   text-decoration: none;
+
   margin-right: 20px;
+
 }
+
+ 
 
 .navbar a:hover {
+
   text-decoration: underline;
+
 }
+
+ 
 
 .navbar .fa-shopping-cart {
+
   font-size: 24px;
+
   position: relative;
+
   cursor: pointer;
+
+  color:#dce1e6;
+
 }
 
+ 
+
 .cart-count {
+
   position: absolute;
+
   top: -8px;
+
   right: -8px;
+
   background-color: red;
+
   color: white;
+
   border-radius: 50%;
+
   padding: 5px 8px;
+
   font-size: 12px;
+
 }
 
 .search-bar {
+
   display: flex;
+
   align-items: center;
+
+  color: #000000;
+
 }
 
-.search-input {
+ 
+
+.search-inputss {
+
   padding: 8px;
+
   border: 1px solid #777;
+
   border-radius: 4px;
+
   margin-right: 10px;
+
 }
+
+ 
 
 .search-input:focus {
+
   outline: none;
-  border-color: #007bff;
+
+  border-color: #000000;
+
 }
+
+ 
 
 /* Other navigation links */
+
 .navbar ul {
+
   list-style: none;
+
   margin: 0;
+
   padding: 0;
+
   display: flex;
+
   align-items: center;
+
 }
+
+ 
 
 .navbar ul li {
+
   margin-right: 20px;
+
   font-weight: 600;
+
 }
+
+ 
 
 /* Store name styling */
+
 .store-name {
-  padding: 40px 0;
+
+  padding: 50px 0 0px 10px;
+
   font-size: 1.5rem;
+
   text-align: center;
+
+  font-weight: bold;
+
 }
+
+ 
+
+body {
+
+  width: 100%;
+
+  background-repeat: no-repeat;
+
+  background-color: #000000;
+
+  background-image: linear-gradient(0deg, #000000 0%, #151515 50%, #000000 100%);
+
+  color:black
+
+}
+
+.title-container {
+
+  display: flex;
+
+  justify-content: center;
+
+  padding-top:5%;
+
+  padding-bottom: 10px;
+
+ 
+
+}
+
+/* Style the title and the image appearing behind the words */
+
+h1.title {
+
+ 
+
+  font-size: 5vw;
+
+  font-family:Segoe UI, "Rockwell Extra Bold";
+
+  letter-spacing: 8px;
+
+  background-image: url("https://usagif.com/wp-content/uploads/gifs/fire-51.gif");
+
+  background-position-y: 74%;
+
+  background-position-x: 80%;
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  -webkit-font-smoothing: antialiased;
+
+  background-repeat: repeat;
+
+  font-weight: 800;
+
+  display: flex;
+
+  flex-shrink: inherit;
+
+  text-transform: uppercase;
+
+}
+
+ 
+
+.title {
+
+  width: 92%;
+
+  margin-top: 3%;
+
+  margin-bottom: 3%;
+
+  display: flex;
+
+  padding: 10px;
+
+ 
+
+  background-image: linear-gradient(0deg, #000000 0%, #080808 50%, #000000 100%);
+
+  background-color: #000000;
+
+}
+
+ 
+
+.rethu-search {
+
+  background-color: #f05d23 !important;
+
+  color: black !important; /* Add !important */
+
+  border: none;
+
+  padding: 10px 20px;
+
+  cursor: pointer;
+
+}
+
+.rethu-search:hover {
+
+  background-color: #1d1716;
+
+}
+
+/* the image that appears in the background of block */
+
+.title-words{
+
+  border: 6px solid rgb(7, 7, 7);
+
+  width: 60%;
+
+  display: flex;
+
+  justify-content: center;
+
+  background-image: url("https://usagif.com/wp-content/uploads/gifs/fire-51.gif");
+
+  background-size: cover;
+
+  background-position-y: 75%;
+
+}
+
+ 
 
 /* Product list styles */
+
 .product-list {
+
   display: flex;
+
   flex-wrap: wrap;
+
   justify-content: space-between;
+
   min-width: 300px;
+
   min-height: 500px;
+
   padding: 20px;
+
+ 
+
 }
+
+ 
 
 .product-item {
+
   width: calc(33.33% - 20px);
+
   margin-bottom: 20px;
-  background-color: #fff;
+
+  background-color: #f3bc77;
+
   padding: 20px;
+
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+ 
+
   text-align: center;
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: space-between;
+
+  border-radius: 10%;
+
+ 
+
+ 
+
+  /* Add transition for smoother hover effect */
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
 }
+
+ 
+
+.product-item:hover {
+
+  /* Scale and add a shadow on hover */
+
+  transform: scale(1.05);
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}
+
+ 
 
 .product-image2 {
+
   max-width: 40%;
+
   margin: 0 auto;
+
 }
+
+ 
 
 .product-item h4 {
+
   margin: 10px 0;
+
   font-size: 1.2rem;
+
 }
+
+ 
 
 .product-item button {
-  background-color: #007bff;
+
+  background-color: #f05d23;
+
   color: white;
+
   border: none;
+
   padding: 10px 20px;
+
   cursor: pointer;
+
   margin-top: auto;
+
 }
 
-/* Product Modal styles */
-.product-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+ 
+
+.product-item button:hover{
+
+  background-color: #1d1716;
+
 }
 
-.product-modal {
-  background-color: white;
-  padding: 20px;
-  max-width: 80%;
-  max-height: 80%;
-  overflow: auto;
-  position: relative;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.product-modal-image {
-  max-width: 100%;
-}
-
-.product-modal h2 {
-  margin: 10px 0;
-  font-size: 1.5rem;
-}
-
-.product-modal p {
-  margin: 10px 0;
-}
-
-.product-modal button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
+ 
 
 /* Order Confirmation Popup styles */
+
 .order-confirmation-popup {
+
   position: fixed;
+
   top: 50%;
+
   left: 50%;
+
   transform: translate(-50%, -50%);
+
   background-color: #fff;
+
   padding: 20px;
+
   text-align: center;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
 }
+
+ 
 
 .order-confirmation-popup p {
+
   margin: 10px 0;
+
   font-size: 1.2rem;
+
 }
+
+ 
 
 .order-confirmation-popup button {
+
   background-color: #007bff;
+
   color: white;
+
   border: none;
+
   padding: 10px 20px;
+
   cursor: pointer;
+
 }
+
+ 
 
 /* Pagination styles */
+
 .pagination {
+
   display: flex;
+
   justify-content: center;
+
   margin-top: 20px;
+
 }
 
+ 
+
 .pagination button {
-  background-color: #007bff;
+
+  background-color: #1d1716;
+
   color: white;
+
   border: none;
+
   padding: 10px 20px;
+
   cursor: pointer;
+
   margin: 0 5px;
+
+}
+
+.footer {
+
+  background-color: #333; /* Background color for the footer */
+
+  color: #fff; /* Text color */
+
+  padding: 20px 0; /* Padding at the top and bottom */
+
+  text-align: center; /* Center-align the text */
+
+ 
+
+  /* Add a shadow for a subtle lift */
+
+  box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+ 
+
+.footer-content {
+
+  max-width: 1200px; /* Limit the content width */
+
+  margin: 0 auto; /* Center the content horizontally */
+
+  padding: 0 20px; /* Add some padding to the sides */
+
+}
+
+ 
+
+.footer p {
+
+  margin: 10px 0; /* Spacing between paragraphs */
+
+  font-size: 14px; /* Font size */
+
+}
+
+ 
+
+/* Style the links in the footer if needed */
+
+.footer a {
+
+  color: #fff; /* Link color */
+
+  text-decoration: none; /* Remove underlines from links */
+
+  transition: color 0.3s; /* Smooth color transition on hover */
+
+ 
+
+  /* Add a hover effect */
+
+}
+
+ 
+
+.footer a:hover {
+
+  color: #e44d26; /* Change link color on hover */
+
+}
+
+ 
+
+ 
+
+.out-of-stock-message {
+
+  color: red;
+
+  font-weight: bold;
+
+}
+
+.out-of-stock-image {
+
+  filter: grayscale(100%); /* Convert the image to grayscale */
+
+  opacity: 0.5; /* Reduce the opacity to make it look faded */
+
 }

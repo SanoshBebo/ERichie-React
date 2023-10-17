@@ -1,0 +1,202 @@
+/* ProductList.css */
+
+/* Common Styles */
+.add-product-pages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.add-product-containers {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.add-product-heading {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0 0 20px;
+    color: black;
+}
+
+.toggle-form-button {
+    margin: 10px auto;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Product Forms */
+.product-forms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-forms > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-forms label {
+    font-weight: bold;
+}
+
+.product-forms input[type="text"],
+.product-forms input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-forms input[type="file"] {
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* Additional Form Styles */
+label {
+    color: black;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+}
+
+.imageurl-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    color: black;
+}
+
+/* Add Product Button */
+.add-product-button,
+.save-edit-button,
+.cancel-edit-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-product-button:hover,
+.save-edit-button:hover,
+.cancel-edit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Cancel Edit Button */
+.cancel-edit-button {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Product List Styles */
+.ProductListName {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.product-searches {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product-searches input {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 60%;
+}
+
+.search-button {
+    background-color: #007BFF;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.product-cards {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.product-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-images img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.product-details-1 {
+    text-align: center;
+    margin-top: 10px;
+    color: black;
+}
+
+.product-name {
+    font-weight: bold;
+    color: black;
+}
+
+.product-details-2 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.product-price,
+.product-stock {
+    font-weight: bold;
+}
+
+.product-buttons-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}

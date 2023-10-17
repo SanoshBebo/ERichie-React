@@ -1,5 +1,7 @@
 /* UserPage.css */
-
+.button{
+  color:blue;
+}
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -55,10 +57,12 @@
   justify-content: center;
   margin-top: 20px;
 }
+.product-details-1 p1 {
+  font-size: 0.9rem;
+  margin: 5px 0;
+  color: red; /* Set the color to red, you can change it to your preferred color */
+}
 
-/* Styling for product card */
-/* Styling for product card */
-/* Styling for product card */
 .product-card {
   background-color: white;
   border: 1px solid #ccc;
@@ -147,7 +151,7 @@
 
 .product-card {
 
-  background-color: #fff;
+  background-color:black;
 
   padding: 10px;
 
@@ -243,7 +247,7 @@
 .navbar-button {
   margin-right: 10px; /* Add spacing between buttons */
   padding: 10px 20px; /* Adjust padding for buttons */
-  background-color: #0074D9; /* Button background color */
+  background-color: #F806CC; /* Button background color */
   color: #FFF; /* Text color */
   border: none;
   border-radius: 5px; /* Add rounded corners */
@@ -261,3 +265,183 @@
   color: #000; /* Black text color */
 }
 
+/* Style for Circular Buttons */
+.circle-button {
+  background-color: #3498db; /* Background color for the circular buttons */
+  color: white; /* Text color */
+  border-radius: 50%; /* Makes it circular */
+  width: 150px; /* Adjust width to your preference */
+  height: 150px; /* Adjust height to your preference */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px; /* Adjust margin to create space between buttons */
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+.sorting-buttons{
+  color:white;
+}
+.circle-button:hover {
+  background-color: #2980b9; /* Background color when hovering over the button */
+}
+
+/* Style for Circular Button Text */
+.circle-button h2 {
+  margin: 0;
+}
+
+/* You can add additional CSS properties as needed to customize the buttons further */
+/* Styles for the main container */
+.product-display-container {
+  background-color: #000; /* Background color */
+  color: #fff; /* Text color */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles for the video container */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.fullscreen-video {
+  width: 100%;
+  height: auto;
+}
+
+/* Styles for the video overlay */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for circular buttons */
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Spacing between circular buttons */
+}
+
+.circle-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  background-color: #3498db; /* Background color of the buttons */
+  color: #fff; /* Text color */
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none; /* Remove underlines from links */
+  padding: 50px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.circle-button:hover {
+  background-color: #2980b9; /* Background color on hover */
+}
+/* Add styling for the video container */
+.video-container {
+  position: relative;
+}
+
+.fullscreen-video {
+  width: 100%;
+  max-height: 100%;
+}
+
+/* Style the video overlay */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Style the button container */
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0.5); /* Background color with transparency */
+  padding: 20px;
+}
+
+/* Style the circular buttons */
+.circle-button {
+  text-align: center;
+  border: 2px solid #fff; /* White border */
+  border-radius: 50%; /* Rounded shape for a circular button */
+  background-color: transparent; /* Transparent background */
+  padding: 10px 20px;
+  color: black; /* Text color */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.circle-button:hover {
+  background-color: #fff; /* White background on hover */
+  color: black; /* Black text on hover */
+  text-decoration: none;
+}
+
+/* Additional styling for the h2 text inside the buttons */
+.circle-button h2 {
+  margin: 0;
+  font-size: 16px;
+  color:white;
+   background-color: #000; 
+  
+}
+
+/* Add any additional styling as needed */
+/* Style the sorting dropdown */
+/* Style the sorting buttons */
+.sorting-buttons {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.sorting-buttons label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.sorting-buttons button {
+  background-color:  #F806CC; /* Button background color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Button padding */
+  margin-right: 10px; /* Margin between buttons */
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Style for the selected (active) button */
+.sorting-buttons button.active {
+  background-color: #0056b3; /* Updated background color */
+}

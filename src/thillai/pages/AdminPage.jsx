@@ -11,7 +11,7 @@ const AdminPage = () => {
     const handleLogout = async () => {
         try {
          // Use Firebase's signOut method
-          navigate('/'); 
+          navigate('admin/login'); 
         } catch (error) {
           // Handle error
           console.error('Logout failed:', error);

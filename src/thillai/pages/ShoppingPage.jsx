@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
+import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
 import ProductImg from "../components/shared/ProductImg";
-import "./ShoppingPage.css";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
 
-//import { useHistory } from 'react-router-dom';
-import { FaShoppingCart } from "react-icons/fa";
+import NavBar from "./Navbar"; // Import your NavBar component
+import './ShoppingPage.css';
 
 class ShoppingPage extends Component {
   constructor(props) {
@@ -18,141 +15,50 @@ class ShoppingPage extends Component {
       showProductModal: false,
       selectedProduct: null,
       selectedCategory: "All",
-      products: [], // Initialize products as an empty array
-      cartCount: 0, // Initialize cart count
-      quantity: 1, // Initialize quantity to 1
-      totalPrice: 0, // Initialize total price to 0
+      products: [],
+      cartCount: 0,
+      quantity: 0,
+      totalPrice: 0,
       showSuccessModal: false,
       currentPage: 1,
-      itemsPerPage: 6, // Number of items to display per page
+      itemsPerPage: 6,
+      banners: [
+        { gameName: "Game 1", imageUrl: "assassinscreed.PNG" },
+        { gameName: "Game 2", imageUrl: "lordsfallen.PNG" },
+        { gameName: "Game 3", imageUrl: "ghostrunner.PNG" },
+      ],
+      currentBannerIndex: 0, // Initialize currentBannerIndex
     };
   }
+  
 
-  categories = ["All", "Gaming"];
-
-  handleCloseProductModal = () => this.setState({ showProductModal: false });
-
-  openProductPage = (product) => (
-    <Link
-      to={{
-        pathname: `/shop07/product/${product.id}`,
-        state: { product },
-      }}
-    >
-      <button className="btn btn-buy-now">View Details</button>
-    </Link>
-  );
-
-  showSuccessModal = () => {
-    this.setState({ showSuccessModal: true });
-  };
 
   openProductModal = (product) => {
-    const initialQuantity = 1; // Initial quantity is 1
-    const initialTotalPrice =
-      (product.price?.integerValue || 0) * initialQuantity; // Calculate initial total price
+    if (product.stock?.integerValue === 0) {
+      // If stock is 0, do nothing
+      return;
+    }
+
+    const initialQuantity = 0;
+    const initialTotalPrice = (product.price?.integerValue || 0) * initialQuantity;
 
     this.setState({
       selectedProduct: product,
       showProductModal: true,
-      quantity: initialQuantity, // Set quantity to 1 initially
-      totalPrice: initialTotalPrice, // Set initial total price
+      quantity: initialQuantity,
+      totalPrice: initialTotalPrice,
     });
   };
 
-  openQuantityInputModal = () => {
-    const { selectedProduct, quantity } = this.state;
+  
 
-    const newQuantity = window.prompt("Enter quantity:", this.state.quantity);
-    if (newQuantity !== null) {
-      const parsedQuantity = parseInt(newQuantity, 10);
-
-      if (!isNaN(parsedQuantity) && parsedQuantity > 0) {
-        // Calculate the new total price
-        const newTotalPrice =
-          selectedProduct.price?.integerValue * parsedQuantity;
-
-        this.setState({
-          quantity: parsedQuantity,
-          totalPrice: newTotalPrice,
-        });
-      } else {
-        alert("Invalid quantity. Please enter a valid quantity.");
-      }
-    }
-  };
-
-  handlePurchase = async () => {
-    const { selectedProduct, quantity, totalPrice } = this.state;
-
-    if (!selectedProduct) {
-      console.error("No product selected for purchase.");
-      return;
-    }
-
-    // Fetch the existing product data
-    try {
-      const response = await axios.get(
-        `https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${selectedProduct.id}`
-      );
-      const existingProductData = response.data.fields;
-
-      // Calculate the updated stock quantity
-      const updatedQuantity = selectedProduct.stock?.integerValue - quantity;
-
-      if (updatedQuantity < 0) {
-        console.error("Invalid quantity. Product quantity cannot be negative.");
-        return;
-      }
-
-      // Create an object with the updated data including existing fields
-      const updatedData = {
-        ...existingProductData,
-        stock: { integerValue: updatedQuantity },
-      };
-
-      // Make a PATCH request to update the product document
-      await axios.patch(
-        `https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${selectedProduct.id}`,
-        {
-          fields: updatedData,
-        }
-      );
-
-      // Make a POST request to Firestore to create a new order
-      await axios.post(
-        "https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Orders",
-        {
-          fields: {
-            Date: { stringValue: new Date().toISOString() },
-            ProductID: { stringValue: selectedProduct.id },
-            Quantity: { integerValue: quantity },
-            ShopID: { stringValue: "shop07" },
-            TotalPrice: { doubleValue: totalPrice },
-            UserID: { stringValue: "yourUserID" },
-          },
-        }
-      );
-
-      // If the requests succeed, you can reset the selectedProduct, quantity, and totalPrice
-      this.setState({
-        selectedProduct: null,
-        quantity: 1,
-        totalPrice: 0,
-        showSuccessModal: true, // Show the success modal
-      });
-    } catch (error) {
-      console.error("Error sending order:", error);
-    }
-  };
-
+  
   handleFilter() {
     let filteredProducts = [];
     if (this.state.selectedCategory !== "All") {
       filteredProducts = [
         ...this.state.products.filter(
-          (product) =>
-            product.category?.stringValue === this.state.selectedCategory
+          (product) => product.category?.stringValue === this.state.selectedCategory
         ),
       ];
     } else {
@@ -164,12 +70,10 @@ class ShoppingPage extends Component {
 
   async componentDidMount() {
     try {
-      // Fetch products from Firestore using Axios
       const response = await axios.get(
         "https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products"
       );
 
-      // Extract the data field from the Firestore response
       const products = response.data.documents.map((doc) => ({
         id: doc.name.split("/").pop(),
         ...doc.fields,
@@ -179,147 +83,94 @@ class ShoppingPage extends Component {
     } catch (error) {
       console.error("Error fetching products:", error);
     }
+
+    // Initialize the banner transition
+    this.bannerTransitionInterval = setInterval(this.transitionBanner, 5000);
   }
+
+  componentWillUnmount() {
+    // Clear the banner transition interval to avoid memory leaks
+    clearInterval(this.bannerTransitionInterval);
+  }
+
+  // Function to transition to the next banner
+  transitionBanner = () => {
+    this.setState((prevState) => ({
+      currentBannerIndex: (prevState.currentBannerIndex + 1) % prevState.banners.length,
+    }));
+  };
 
   handlePagination = (pageNumber) => {
     this.setState({ currentPage: pageNumber });
   };
 
   render() {
-    const { currentPage, itemsPerPage } = this.state;
+    const {
+      currentPage,
+      itemsPerPage,
+      banners,
+      currentBannerIndex,
+    } = this.state;
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const filteredProducts = this.handleFilter();
-    const currentProducts = filteredProducts.slice(
-      indexOfFirstItem,
-      indexOfLastItem
-    );
+    const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Calculate page numbers
     const pageNumbers = [];
-    for (
-      let i = 1;
-      i <= Math.ceil(filteredProducts.length / itemsPerPage);
-      i++
-    ) {
+    for (let i = 1; i <= Math.ceil(filteredProducts.length / itemsPerPage); i++) {
       pageNumbers.push(i);
     }
 
     return (
-      <div>
-        <div className="navbar">
-          <Link to="/erichie">Home Page</Link>
-          <Link to="/gaming">Go back</Link>
-          <Link to="/erichie/cart" className="navbar-button">
-            <i className="fa fa-shopping-cart"></i> My Cart
-          </Link>
-          <a href="/customer/login" className="navbar-button">
-            Signout
-          </a>
+      <div className="shopping-page">
+        {/* Include the NavBar component here */}
+        <NavBar />
+        <div className="banners-container">
+          <Carousel interval={5000} controls={false} activeIndex={currentBannerIndex}>
+            {banners.map((banner, index) => (
+              <Carousel.Item key={index}>
+                <img className="d-block w-100" src={banner.imageUrl} alt={banner.gameName} />
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </div>
 
-        <div className="container d-flex justify-content-between border rounded p-2 shadow-sm align-items-center">
-          <small className="text-muted d-none d-md-block"></small>
-          <div className="d-flex justify-content-between">
-            <Dropdown
-              onSelect={(value) => this.setState({ selectedCategory: value })}
-              className="mx-1"
-            >
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                {this.state.selectedCategory}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {this.categories.map((category) => (
-                  <Dropdown.Item key={category} eventKey={category}>
-                    {category}
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        </div>
-
-        {this.state.showProductModal && this.state.selectedProduct && (
-          <div className="modal fade show" style={{ display: "block" }}>
-            <div className="modal-dialog modal-dialog-centered modal-lg">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">
-                    {this.state.selectedProduct.productname?.stringValue}
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    aria-label="Close"
-                    onClick={this.handleCloseProductModal}
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-6">
-                        <ProductImg
-                          src={this.state.selectedProduct.imageurl?.stringValue}
-                          alt="Product"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <p>
-                          Description:{" "}
-                          {this.state.selectedProduct.description?.stringValue}
-                        </p>
-                        <p>
-                          Price: Rs.
-                          {this.state.selectedProduct.price?.integerValue}
-                        </p>
-                        <p>Quantity: {this.state.quantity}</p>
-                        <p>Total Price: Rs.{this.state.totalPrice}</p>
-                        <button
-                          className="btn btn-primary"
-                          onClick={this.openQuantityInputModal}
-                        >
-                          Change Quantity
-                        </button>
-                        <button
-                          className="btn btn-success"
-                          onClick={this.handlePurchase}
-                        >
-                          Purchase
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="container border rounded mt-2 px-0 px-sm-2 shadow-sm">
+        <div className="products-container">
           <div className="product-list">
             {currentProducts.map((product, index) => {
               if (product) {
                 const category = product.category?.stringValue;
                 const description =
                   product.description?.stringValue ||
-                  product.descriprion?.stringValue; // Handle the typo
+                  product.descriprion?.stringValue;
                 const imageUrl = product.imageurl?.stringValue;
                 const price = product.price?.integerValue;
                 const productName = product.productname?.stringValue;
                 const stock = product.stock?.integerValue;
 
+                const stockMessage =
+                  stock === 0
+                    ? "Out of stock"
+                    : stock < 5
+                    ? `Less than 5 left (${stock} remaining)`
+                    : "";
+                    const productURL = `/shop07/product/${product.id}`; // Define the product URL
                 return (
-                  <div className="product-card" key={index}>
-                    <ProductImg src={imageUrl} alt="Product" />
-                    <p className="product-name">{productName}</p>
-                    <p className="product-description">{description}</p>
-                    <p className="product-price">Price: Rs.{price}</p>
-                    {this.openProductPage(product)}
-                  </div>
+                  stock === 0 ? null : (
+                    <Link to={productURL} key={index}>
+                      <div className="product-card">
+                        <ProductImg src={imageUrl} alt="Product" onClick={() => this.openProductModal(product)} />
+                        <p className="product-name">{productName}</p>
+                        <p className="product-description">{description}</p>
+                        <p className="product-price">Price: Rs.{price}</p>
+                        {stockMessage && <p className="product-stock-message">{stockMessage}</p>}
+                      </div>
+                    </Link>
+                  )
                 );
               } else {
-                return null; // Skip rendering if product is undefined
+                return null;
               }
             })}
           </div>
@@ -337,23 +188,7 @@ class ShoppingPage extends Component {
           ))}
         </div>
 
-        <Modal
-          show={this.state.showSuccessModal}
-          onHide={() => this.setState({ showSuccessModal: false })}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Order Placed Successfully</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Your order has been successfully placed!</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="success"
-              onClick={() => this.setState({ showSuccessModal: false })}
-            >
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
+      
       </div>
     );
   }
