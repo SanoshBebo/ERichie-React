@@ -1,48 +1,27 @@
 import React, { useState, useEffect } from "react";
-
-import { useParams, Link   } from "react-router-dom";
-
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-
 import Modal from "react-bootstrap/Modal";
-
 import { useNavigate } from "react-router-dom";
-
 import Button from "react-bootstrap/Button";
-
 import Card from "react-bootstrap/Card";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { toast, ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-
 import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
-
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 
 function ProductDescriptionPage() {
   const navigate = useNavigate();
-
   const { productId } = useParams();
-
   const [productData, setProductData] = useState(null);
-
-  const [quantity, setQuantity] = useState(1);
-
+  const [quantity, setQuantity] = useState(0); // Set the initial quantity to 0
   const [showOrderModal, setShowOrderModal] = useState(false);
-
   const [isOutOfStock, setIsOutOfStock] = useState(false);
-
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-
   const [addedToCart, setAddedToCart] = useState(false);
-
   const user = useSelector((state) => state.shoponeuser.user);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,57 +48,13 @@ function ProductDescriptionPage() {
 
   const handleQuantityChange = (newQuantity) => {
     if (
-      newQuantity >= 1 &&
+      newQuantity >= 0 && // Allow quantities from 0 upwards
       newQuantity <= productData.fields.stock.integerValue
     ) {
       setQuantity(newQuantity);
-
       setIsOutOfStock(false);
     } else {
       setIsOutOfStock(true);
-    }
-  };
-
-  const handlePurchase = async () => {
-    if (!productData || isOutOfStock) {
-      console.error("No product selected for purchase or out of stock.");
-
-      return;
-    }
-
-    const currentQuantity = productData.fields.quantity.integerValue;
-
-    const newQuantity = currentQuantity - quantity;
-
-    if (newQuantity < 0) {
-      console.error("Not enough stock available.");
-
-      return;
-    }
-
-    const updatedStock = newQuantity; // Update the 'stock' field
-
-    try {
-      // Create an update object to only change the 'stock' field
-
-      const updateObject = {
-        fields: {
-          stock: {
-            integerValue: updatedStock,
-          },
-        },
-      };
-
-      // Send a PATCH request with the modified data to update the 'stock' field
-
-      await axios.patch(
-        `https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products/${productId}`,
-        updateObject
-      );
-
-      setShowOrderModal(true);
-    } catch (error) {
-      console.error("Error sending order or updating stock:", error);
     }
   };
 
@@ -135,37 +70,28 @@ function ProductDescriptionPage() {
     if (userData && userData.role === "customer") {
       dispatch(setUser(userData));
 
-      console.log(productData);
+      if (productData.fields.stock.integerValue > 0) {
+        const cartItem = {
+          id: productId,
+          name: productData.fields.productname.stringValue,
+          description: productData.fields.description.stringValue,
+          stock: productData.fields.stock.integerValue,
+          shopid: productData.fields.shopid.stringValue,
+          price: productData.fields.price.integerValue,
+          imageurl: productData.fields.imageurl.stringValue,
+          quantity: quantity,
+        };
 
-      const cartItem = {
-        id: productId,
+        dispatch(addItemToCart(cartItem));
+        addCartToFirestore(cartItem, userData.email);
+        setAddedToCart(true);
 
-        name: productData.fields.productname.stringValue,
-
-        description: productData.fields.description.stringValue,
-
-        stock: productData.fields.stock.integerValue,
-
-        shopid: productData.fields.shopid.stringValue,
-
-        price: productData.fields.price.integerValue,
-
-        imageurl: productData.fields.imageurl.stringValue,
-
-        quantity: quantity,
-      };
-
-      dispatch(addItemToCart(cartItem));
-
-      addCartToFirestore(cartItem, userData.email);
-
-      setAddedToCart(true);
-
-      toast.success("Product added successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+        toast.success("Product added successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
     } else {
-      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      //localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
 
@@ -174,7 +100,6 @@ function ProductDescriptionPage() {
 
   const handleCloseOrderModal = () => {
     setShowOrderModal(false);
-
     navigate("/shop07");
   };
 
@@ -183,22 +108,15 @@ function ProductDescriptionPage() {
   }
 
   const imageUrl = productData.fields.imageurl.stringValue;
-
   const description = productData.fields.description.stringValue;
-
   const price = productData.fields.price.integerValue;
 
   return (
     <div>
-      <div className="navbar">
-          <Link to="/erichie">Home Page</Link>
-          <Link to="/gaming">Go back</Link>
-          <Link to="/erichie/cart" className="navbar-button">
-            <i className="fa fa-shopping-cart"></i> My Cart
-          </Link>
-          <a href="/customer/login" className="navbar-button">
-            Signout
-          </a>
+    <div className="navbar">
+      <Link to="/erichie">E-Richie</Link>
+      <Link to="/gaming">Go back</Link>
+      <Link to="/erichie/cart">🛒 Cart</Link> {/* Unicode character for cart (🛒) */}
           
     </div>
 
@@ -216,7 +134,6 @@ function ProductDescriptionPage() {
               borderRadius: "8px",
             }}
           >
-            {" "}
             {/* Add background color */}
             <Card.Img
               src={imageUrl}
@@ -224,9 +141,7 @@ function ProductDescriptionPage() {
               className="img-fluid"
               style={{
                 maxWidth: "30%", // Set the maximum width
-
                 maxHeight: "30%", // Set the maximum height
-
                 margin: "0 auto",
               }}
             />
@@ -237,13 +152,25 @@ function ProductDescriptionPage() {
           <Card.Text>Price: Rs.{price}</Card.Text>
 
           <div className="quantity-control">
-            <button onClick={() => handleQuantityChange(quantity - 1)}>
+            <button
+              onClick={() => handleQuantityChange(quantity - 1)}
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+              }}
+            >
               -
             </button>
 
             <span>{quantity}</span>
 
-            <button onClick={() => handleQuantityChange(quantity + 1)}>
+            <button
+              onClick={() => handleQuantityChange(quantity + 1)}
+              style={{
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
               +
             </button>
           </div>
@@ -252,26 +179,37 @@ function ProductDescriptionPage() {
             Total Price: Rs.{productData.fields.price.integerValue * quantity}
           </Card.Text>
 
-          {isOutOfStock ? <p className="text-danger">Out of Stock</p> : null}
+          {isOutOfStock ? (
+            <p className="text-danger">Out of Stock</p>
+          ) : null}
+
+          {productData.fields.stock.integerValue > 0 ? (
+            <button
+              onClick={() => {
+                if (quantity > 0) {
+                  addToCart();
+                }
+              }}
+              style={{
+                backgroundColor: addedToCart ? "green" : "blue",
+                color: "white",
+              }}
+            >
+              {addedToCart ? "Added to Cart" : "Add to Cart"}
+            </button>
+          ) : (
+            <button
+              disabled
+              style={{ backgroundColor: "gray", color: "white" }}
+            >
+              Out of Stock
+            </button>
+          )}
 
           <button
-            onClick={() => {
-              addToCart();
-            }}
+            onClick={() => navigate("/shop07")}
             style={{
-              backgroundColor: addedToCart ? "green" : "blue",
-
-              color: "white",
-            }}
-          >
-            {addedToCart ? "Added to Cart" : "Add to Cart"}
-          </button>
-
-          <button
-            onClick={() => navigate("/shop07/")}
-            style={{
-              backgroundColor: "purple", // Set the color for the "Back to Home" button
-
+              backgroundColor: "purple",
               color: "white",
             }}
           >
@@ -304,8 +242,8 @@ function ProductDescriptionPage() {
         </Modal.Footer>
       </Modal>
     </div>
-    </div>
-  );
+  </div>
+);
 }
 
 export default ProductDescriptionPage;
