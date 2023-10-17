@@ -1,95 +1,235 @@
+/* Color Palette */
+
+:root {
+
+    --primary-color: #3a9cdb; /* Blue */
+
+    --secondary-color: #2baf4b; /* Green */
+
+    --tertiary-color: #d93f3f; /* Red */
+
+    --text-color: #333; /* Dark Gray */
+
+}
+
+ 
 
 /* Page Container */
+
 .shop15style .shop15checkout {
+
     max-width: 800px;
-    margin: 50px;
-    background-color: #ffffff;
-    margin: 0px auto 0;
+
+    margin: 50px auto;
+
+    background-color: #fff;
+
     font-family: 'Arial', sans-serif;
+
+    padding: 20px;
+
+    border: 1px solid var(--primary-color);
+
+    border-radius: 8px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
+
+ 
 
 /* Heading */
+
 .shop15style .shop15checkout h1 {
-    font-size: 42px; /* Increased font size */
+
+    font-size: 32px; /* Slightly reduced font size */
+
     margin-bottom: 20px;
-align-content: center;
+
     font-weight: bold;
-    color: #3a9cdb; /* Blue color for the heading */
+
+    color: var(--primary-color);
+
+    text-align: center;
+
 }
+
+ 
 
 /* Product Details Container */
+
 .shop15style .shop15checkout .shop15productsdetails {
+
     display: flex;
-    font-size: 15px;
+
+    font-size: 16px;
+
     flex-direction: column;
+
     align-items: center;
+
     margin-bottom: 20px;
+
 }
+
+ 
 
 /* Product Image */
-.shop15style 
-.shop15checkout .shop15productsdetails img {
-    max-width: 350px;
-    height: 350px;
+
+.shop15style .shop15checkout .shop15productsdetails img {
+
+    max-width: 100%;
+
+    height: auto;
+
     margin-bottom: 10px;
-    border: 2px solid #d93f3f; /* Red border for the image */
+
+    border: 2px solid var(--tertiary-color);
+
     border-radius: 8px;
+
 }
+
+ 
 
 /* Product Name */
+
 .shop15style .shop15checkout .shop15productsdetails strong {
+
     font-weight: bold;
-    font-size: 15px;
+
+    font-size: 18px;
+
     font-style: italic;
-    color: #2baf4b; /* Green color for the product name */
+
+    color: var(--secondary-color);
+
 }
+
+ 
 
 /* Quantity Selector */
+
 .shop15style .shop15checkout label {
+
     font-weight: bold;
-    font-size: 15px;
+
+    font-size: 16px; /* Adjusted font size */
+
     margin-bottom: 10px;
+
 }
+
+ 
+
+/* Buttons */
 
 .shop15style .shop15checkout button {
-    background-color: #3a9cdb; /* Blue background color for buttons */
-    color: #ffffff; /* White text color for buttons */
+
+    background-color: var(--primary-color);
+
+    color: #fff;
+
     border: none;
+
     border-radius: 4px;
-    padding: 14px 28px; /* Increased padding and font size for buttons */
+
+    padding: 14px 28px;
+
     cursor: pointer;
+
+    font-size: 16px; /* Adjusted font size */
+
     margin: 0 5px;
-    font-size: 24px; /* Increased font size */
+
 }
 
+ 
+
 .shop15style .shop15checkout span {
+
     font-weight: bold;
-    font-size: 24px; /* Increased font size */
+
+    font-size: 18px;
+
     margin: 0 10px;
+
 }
+
+ 
 
 /* Confirmation Modal */
 
-
 .shop15style .shop15checkout .confirmation-modal button {
-    background-color: #3a9cdb; /* Blue background color for buttons */
-    color: #ffffff; /* White text color for buttons */
+
+    background-color: var(--primary-color);
+
+    color: #fff;
+
     border: none;
+
     border-radius: 4px;
-    padding: 16px 32px; /* Increased padding and font size for buttons */
+
+    padding: 16px 32px;
+
     cursor: pointer;
+
+    font-size: 18px; /* Adjusted font size */
+
     margin: 0 10px;
-    font-size: 20px; /* Increased font size for buttons */
+
 }
+
+ 
 
 /* Success Message */
+
 .shop15style .shop15checkout .confirmation-modal a {
+
     text-decoration: none;
-    color: #3a9cdb; /* Blue color for links */
+
+    color: var(--primary-color);
+
     font-weight: bold;
-    font-size: 28px; /* Increased font size for links */
+
+    font-size: 20px; /* Adjusted font size */
+
 }
 
-.shop15style h1{
-        margin-left: 270px;
+ 
+
+/* Add media queries for responsive design */
+
+@media (max-width: 768px) {
+
+    .shop15style .shop15checkout {
+
+        padding: 10px; /* Reduce padding on smaller screens */
+
+    }
+
+ 
+
+    .shop15style .shop15checkout h1 {
+
+        font-size: 28px; /* Adjust heading font size */
+
+    }
+
+ 
+
+    .shop15style .shop15checkout label {
+
+        font-size: 14px; /* Adjust label font size */
+
+    }
+
+ 
+
+    .shop15style .shop15checkout button {
+
+        font-size: 14px; /* Adjust button font size */
+
+    }
+
 }

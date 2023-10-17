@@ -21,7 +21,10 @@ function ProductDetail() {
 
   const apiUrl = `https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products/${productId}`;
 
- 
+  const url = `/checkout/${productId}`;
+  let redirectUrl = { 
+    url: url,
+  }; 
   useEffect(() => {
 
     axios
@@ -92,10 +95,19 @@ function ProductDetail() {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
+
       addCartToFirestore(cartItem, userData.email);
     } else {
+      const url = `/checkout/${productId}`;
+      let redirectUrl = {
+        url: url,
+      };
+
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
+
     }
     setIsLoadingUser(false);
 

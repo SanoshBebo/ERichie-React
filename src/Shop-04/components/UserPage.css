@@ -24,51 +24,54 @@
   background-color: #95A5A6;
   /* Change the background color to your preference */
 }
+/* UserPage.css */
 .dhanu .navbar {
   background-color: #333;
-  color: #2C3E50;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-.dhanu .navbar nav {
+  color: white;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
-.dhanu .list-elements {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: 0;
+
+.dhanu .navbar h1 {
   margin: 0;
+  font-size: 24px;
 }
 
-.dhanu .list-elements li {
-  margin-right: 20px;
-  color: #2C3E50;
-}
-.dhanu .navbar ul li {
-  margin: 10px 20px; /* Adjust margin as needed */
+.dhanu .navbar-list {
+  list-style: none;
+  display: flex;
 }
 
-.dhanu .logo {
-  width: 50px; /* Adjust the logo width as needed */
+.dhanu .navbar-list li {
+  margin: 0 10px;
 }
-.dhanu .navbar button {
-  background-color: #2C3E50;
+
+.dhanu .navbar-list li:last-child {
+  margin-right: 0;
+}
+
+.dhanu .navbar-list li a,
+.dhanu .navbar-list li button {
+  text-decoration: none;
   color: white;
+  /* background-color: #0f3960; */
   border: none;
-  padding: 5px 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.dhanu .navbar-list li a:hover,
+.dhanu .navbar-list li button:hover {
+  background-color: #2169c6;
+}
+.dhanu #avail_products_name{
+  font-size: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 .dhanu .cart {
   position: relative;
   cursor: pointer;
@@ -130,58 +133,6 @@
   padding: 10px 20px;
   cursor: pointer;
   margin-top: auto; /* Push the button to the bottom */
-}
-
-/* Product Modal styles */
-.dhanu .product-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 50%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dhanu .product-modal {
-  background-color: white;
-  padding: 20px;
-  max-width: 50%;
-  max-height: 50%;
-  overflow: auto;
-  position: relative;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.dhanu .close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.dhanu .product-modal-image {
-  max-width: 50%;
-}
-
-.dhanu .product-modal h2 {
-  margin: 10px 0;
-}
-
-.dhanu .product-modal p {
-  margin: 10px 0;
-}
-
-.dhanu .product-modal button {
-  background-color: #f296e1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
 }
 
 /* Order Confirmation Popup styles */
@@ -254,12 +205,278 @@
 
 }
 
- 
-
 .dhanu .page-item {
 
   margin: 5px;
 
 color:#95A5A6
 
+}
+/* UserPage.css */
+.dhanu .search_options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.dhanu .search-bar {
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+
+.dhanu .search-input {
+  padding: 10px 30px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 200px;
+}
+
+.dhanu .search-input::placeholder {
+  color: #ccc;
+}
+
+
+.dhanu .category-dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style for dropdown arrow */
+.dhanu .category-dropdown::after {
+  content: '\f0d7'; /* FontAwesome caret-down icon */
+  font-family: FontAwesome;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+
+}
+.dhanu #search-button {
+  padding: 10px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: background-color 0.3s ease; 
+}
+
+
+/* UserPage.css */
+
+.dhanu .footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.dhanu .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ProductDetails.css */
+
+/* Styles for the Add To Cart button */
+.dhanu .add-to-cart-button {
+ 
+  color: white; /* White text color */
+  padding: 12px 20px; /* Padding inside the button */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 4px; /* Optional: Rounded corners */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Hover effect */
+.dhanu .add-to-cart-button:hover {
+  background-color: #2169c6; /* Darker green on hover */
+}
+
+/* Disable button when quantity is 0 or exceeds available stock */
+.dhanu .add-to-cart-button:disabled {
+  background-color: #cccccc; /* Light grey for disabled state */
+  cursor: not-allowed; /* No interaction in disabled state */
+}
+
+/* Optional: Style for the disabled state */
+.dhanu .add-to-cart-button:disabled:hover {
+  background-color: #cccccc; /* Keep the same color on hover for disabled state */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* CSS styles for product container and buttons */
+.product-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-container h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-container img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.product-container p {
+  margin-bottom: 10px;
+}
+
+.quantity-input {
+  margin-bottom: 15px;
+}
+
+.quantity-input label {
+  font-weight: bold;
+}
+
+.quantity-input input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.product-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-buttons button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.product-buttons button:hover {
+  background-color: #45a049;
+}
+
+.back-button {
+  background-color: #007bff;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.icon {
+  margin-top: 10px;
+}
+
+.icon .btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 15px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.icon .btn:hover {
+  background-color: #0056b3;
+}
+#prodname{
+  font-size: 30px;
+}
+.prod-display {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #D6DBDF;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+#prodname {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.prod-display img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+p {
+  font-size: 16px;
+}
+
+.quantity-input {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.quantity-input label {
+  margin-right: 10px;
+}
+
+.quantity-input input {
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+#addcart{
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 18px;
 }

@@ -1,74 +1,66 @@
-/* styles.css */
+/* insertdata.css */
 
 /* Body styles */
-.insertdata
- body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Vertically center the content */
-  }
-  
-  /* Container styles */
-  .insertdata
-  .insert-data-container {
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 80%; /* Adjust container width as needed */
-    max-width: 400px; /* Limit container width for readability */
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-  }
-  
-  /* Form styles */
-  .insertdata
-  .insert-data-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Form labels */
-  .insertdata
-  .insert-data-label {
-    margin: 10px 0;
-    font-weight: bold;
-    font-size: 16px; /* Increase font size for labels */
-  }
-  
-  /* Input field styles */
-  .insertdata
-  .insert-data-input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px; /* Adjust font size for input fields */
-  }
-  
-  /* Submit button styles */
-  .insertdata
-  .insert-data-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 20px;
-    cursor: pointer;
-    font-size: 16px; /* Increase font size for button */
-    transition: background-color 0.3s ease; /* Add a smooth hover effect */
-  }
-  
-  /* Button hover effect */
-  .insertdata
-.insert-data-button:hover {
-    background-color: #0056b3;
-  }
-  
+.insertdata-container {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Vertically center the content */
+}
+
+/* Container styles */
+.data-container {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%; /* Adjust container width as needed */
+  max-width: 400px; /* Limit container width for readability */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+/* Form styles */
+.data-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form labels */
+.data-label {
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 16px; /* Increase font size for labels */
+}
+
+/* Input field styles */
+.data-input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px; /* Adjust font size for input fields */
+}
+
+/* Submit button styles */
+.abhbutton .data-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px; /* Increase font size for the button */
+  transition: background-color 0.3s ease; /* Add a smooth hover effect */
+}
+
+/* Button hover effect */
+.abhbutton .data-button:hover {
+  background-color: #0056b3;
+}

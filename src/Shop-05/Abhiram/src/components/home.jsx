@@ -11,6 +11,7 @@ const Home = (addtocart) => {
 
   const [items, setItems] = useState([]);
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       const itemList = await fetchItems();
       setItems(itemList);

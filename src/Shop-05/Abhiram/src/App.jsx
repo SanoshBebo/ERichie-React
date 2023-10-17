@@ -11,6 +11,9 @@ import Home from './components/home';
 import Cart from './components/cart';
 import Shop from './components/shop';
 import ProductDetail from './components/ProductDetail';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import "./index.css"
 
 
@@ -43,9 +46,12 @@ const App =() =>{
   }
 
   const searchproduct = () => {
-
     if (!search || search.trim() === '') {
-          alert('Please enter a search term');
+          // alert('Please enter a search term');
+          toast.warning('Please enter a search term!', {
+            position: 'top-right',
+            autoClose: 3000, // Time in milliseconds to keep the toast open
+          });
           setShop(items);
           return;
         }
@@ -67,6 +73,8 @@ const App =() =>{
     }
 
     setShop(filtered);
+
+    
 
   };
   const defaultshop =()=>{

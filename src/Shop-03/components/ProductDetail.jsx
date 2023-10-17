@@ -6,7 +6,7 @@ import { AiOutlineSearch,AiOutlineShoppingCart } from 'react-icons/ai';
 
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
@@ -14,7 +14,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
 
+  const url = `/shop14/products/${productId}`;
+  let redirectUrl = { 
+    url: url,
+  };
   
 
   const [product, setProduct] = useState(null);
@@ -49,14 +54,23 @@ const ProductDetail = () => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
+
       addCartToFirestore(cartItem, userData.email);
       toast.success('Product added to cart!', {
         position: 'top-right',
         autoClose: 3000, // Time in milliseconds to keep the toast open
       });
     } else {
+      const url = `/shop14/products/${productId}`;
+      let redirectUrl = {
+        url: url,
+      };
+
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
+
     }
     setIsLoadingUser(false);
 
@@ -86,6 +100,14 @@ const ProductDetail = () => {
   }
   
 
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+
+    navigate("/customer/login");
+
+  };
+
   return (
     <section className="shop_14">
       {/* Add a Back button to navigate back to the user page */}
@@ -95,17 +117,24 @@ const ProductDetail = () => {
           Back
         </button>
         <div className="icon">
-          <Link to="/erichie/cart" className="btn btn-primary">
+          <Link to="/erichie/cart" className="btn btn-primary back-button">
             <AiOutlineShoppingCart /> 
+            <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
           </Link>
+          <button className='buttonheader' onClick={handleSignOut}>Signout</button>
         </div>
+        <h1><p><b>Digital Genie</b></p></h1>
+          <h2>Product Details</h2>
+       
       </div>
     </nav>
       <div className="product-detail-page_shop14 ">
-        <h1>Digital Genie</h1>
+       
 
         <div className="product-details_shop14">
-          <h2>Product Details</h2>
+          
           <img
             src={product.imageurl?.stringValue}
             alt={product.productname?.stringValue}
@@ -120,6 +149,9 @@ const ProductDetail = () => {
           <p>Price: ₹{product.price?.integerValue}</p>
 
           <p>Stock: {product.stock?.integerValue}</p>
+
+          <strong>Total Price:₹ {quantity * product.price?.integerValue}</strong>
+
           <div className="quantity-input">
             <label htmlFor="quantity">Quantity:</label>
             <input
@@ -134,27 +166,16 @@ const ProductDetail = () => {
           </div>
 
           <div className="spaced-buttons_shop14">
-            {product.stock.integerValue == 0 ? (
-            <button
-            disabled
-              onClick={() => {
-                addToCart();
-              }}
-            >
-              Add to Cart
-            </button>
-              
-            ):(
-            <button
-            
-              onClick={() => {
-                addToCart();
-              }}
-            >
-              Add to Cart
-            </button>
+  {quantity === 0 ? (
+    <button disabled>
+      Add to Cart
+    </button>
+  ) : (
+    <button onClick={() => addToCart()}>
+      Add to Cart
+    </button>
+  )}
 
-            )}
 
             {/* <button className="spaced-buttons_shop14" onClick={buyNow}>
               Buy Now

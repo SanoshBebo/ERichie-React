@@ -38,7 +38,7 @@ function shankState(props) {
     imageUrl: null,
     category: "mobile",
     description: null,
-    stock: 0,
+    stock: null,
     description: null,
     time: Timestamp.now(),
     date: new Date().toLocaleString("en-US", {
@@ -54,7 +54,8 @@ function shankState(props) {
       products.price == null ||
       products.imageUrl == null ||
       products.category == null ||
-      products.description == null
+      products.description == null ||
+      products.stock == null
     ) {
       return toast.error("all fields are required");
     }

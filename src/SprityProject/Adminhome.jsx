@@ -27,11 +27,18 @@ function AdminHome() {
     }
     setIsLoadingUser(false);
   }, []);
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+
+    navigate("/admin/login");
+
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-2xl font-semibold mb-4 text-center">
         Welcome, Admin
-      </h1>
+      </h1> 
       <p className="text-base text-gray-600 mb-8 text-center">
         Let's keep a check on everything.
       </p>
@@ -72,12 +79,12 @@ function AdminHome() {
         >        
           View E-Richie Reports
         </Link>
-        <Link
-          to="/erichie/overall-report"
+        <button
+         onClick={handleSignOut}
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center text-lg w-48 mx-auto"
         >        
           Sign Out
-        </Link>
+        </button>
       </div>
     </div>
   );

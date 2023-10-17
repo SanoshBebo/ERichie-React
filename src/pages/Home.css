@@ -1,3 +1,20 @@
+.computer-home{
+  background-color: #F5F5F5;
+  /* background-image: url('./laptop-3214756_1920.png');
+  background-size: cover;
+  background-repeat: no-repeat; */
+
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This makes the container take the full viewport height */
+}
+
+
+
+
 .computer-search-bar {
 
     display: flex;
@@ -7,9 +24,11 @@
     align-items: center;
 
     margin-top: 100px;
+    margin-left: 50%;
     background-color: aquamarine;
 
   }
+  
 
  
 
@@ -25,15 +44,16 @@
 
     font-size: 16px;
 
-    width: 700px;
+    width: 20rem;
+    height: 2.5rem;
+    margin-left: 500px;
 
   }
 
  
-
   .computer-search-button {
 
-    background-color: #ff4500;
+    background-color: rgb(50, 47, 100);
 
     color: #fff;
 
@@ -62,7 +82,7 @@
  
   .computer-button {
 
-    background-color: #688ebb;
+    background-color: #F99417;
 display: inline;
     color: #fff;
 
@@ -81,7 +101,7 @@ display: inline;
   }
   .computer-button1 {
 
-    background-color: #688ebb;
+    background-color: #F99417;
 display: inline;
     color: #fff;
 
@@ -100,7 +120,7 @@ display: inline;
   }
   .computer-button2 {
 
-    background-color: #5cb0b1;
+    background-color:  #F99417;
 display: inline;
     color: #fff;
 
@@ -119,7 +139,7 @@ display: inline;
   }
   .computer-button3 {
 
-    background-color: #53b486;
+    background-color: #F99417;
 display: inline;
     color: #fff;
 
@@ -138,7 +158,7 @@ display: inline;
   }
   .computer-button4 {
 
-    background-color: #46c093;
+    background-color: #F99417;
 display: inline;
     color: #fff;
 
@@ -157,7 +177,7 @@ display: inline;
   }
   .computer-button5 {
 
-    background-color: #5d7ba1;
+    background-color:  #F99417;
 display: inline;
     color: #fff;
 
@@ -174,3 +194,18 @@ display: inline;
     transition: background-color 0.3s ease;
 
   }
+  .individual-shop-header{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px;
+  }
+  
+  .pagination{
+    margin: 20px;
+  }
+  .productpage .shop .container {
+   background-color: #62666754;
+  }
+  
+ 
+  

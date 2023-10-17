@@ -8,15 +8,14 @@ import Header from './Header';
 
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
-import FetchItemsInCart from '../../ERichie/components/FetchItemsInCart';
 
 
 const CheckoutPage = () => {
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
   const user = useSelector((state) => state.shoponeuser.user);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -25,8 +24,6 @@ const CheckoutPage = () => {
   useEffect(() => {
     fetchProduct(productId);
   }, [productId]);
-  const { itemsInCart } = FetchItemsInCart();
-
 
   const fetchProduct = async (id) => {
     try {
@@ -108,16 +105,21 @@ const CheckoutPage = () => {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
-      dispatch(addNoOfItemsInCart(quantity));
-
       setIsAddedToCart(true);
 
     // For example, you can use the useContext hook or a Redux store to manage the cart state.
       toast.success('Product added to the cart', { autoClose: 2000 });
 
     } else {
+      const url = `/checkout/${productId}`;
+      let redirectUrl = {
+        url: url,
+      };
+
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
+
     }
     setIsLoadingUser(false);
 
@@ -129,8 +131,9 @@ const CheckoutPage = () => {
   return (
     <>
     <section className='shop15style'>
-      <Header />
+      <Header disabled={true}/>
       <div className="shop15checkout">
+      <h1 style={{ color: 'red' }}>Sanjay Computers</h1>
         <h1>Checkout</h1>
         {product && (
           <div className="shop15productsdetails">
@@ -138,16 +141,34 @@ const CheckoutPage = () => {
             <strong>Product Name:</strong> {product.productname}<br />
             <strong>Price:</strong> Rs. {product.price}<br />
             <p>{product.description}</p>
+            <strong>Stock Left:</strong> Rs. {product.stock}<br />
             <strong>Quantity:</strong> 
             <button onClick={handleDecreaseQuantity}>-</button>
             {quantity}
             <button onClick={handleIncreaseQuantity}>+</button><br />
-            <br>
-            </br>
-            <button onClick={() => {
-              addToCart();
-            }}disabled={isAddedToCart}
-            >{isAddedToCart ? 'Added' : 'Add to Cart'}</button>
+            <strong>Total Price: {quantity * product.price}</strong>
+
+            <button
+
+className="purchase-button"
+
+onClick={() => {
+
+  if (!isAddedToCart && product.stock > 0) {
+
+    addToCart();
+
+  }
+
+}}
+
+disabled={isAddedToCart || product.stock <= 0}
+
+>
+
+{isAddedToCart ? 'Added' : product.stock <= 0 ? 'Out of Stock' : 'Add to Cart'}
+
+</button>
           </div>
         )}
         

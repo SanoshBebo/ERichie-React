@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import '../styles/insertdata.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 // import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -72,6 +76,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
         setDescription('');
         setStock('');
         setUrl('');
+
+        toast.success('Data Inserted!!', {
+          position: 'top-right',
+          autoClose: 3000, // Time in milliseconds to keep the toast open
+        });
       }
     }
     } catch (error) {
@@ -80,93 +89,101 @@ import { useAuthState } from 'react-firebase-hooks/auth';
   };
 
 
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  
+
 
 
   return (
-    <section className='insertdata'>
-    <div className="container mt-5">
-      <h2 className="mb-4">Insert Data into Firestore</h2>
-      <form onSubmit={handleSubmit}>
-        {/* <div className="mb-3">
-          <label htmlFor="modelno" className="form-label">
-            Model No:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="modelno"
-            placeholder='Start with B-motherboard/D-Desktop/.... eg: D001'
-            value={modelno}
-            onChange={(e) => setModelno(e.target.value)}
-          />
-        </div> */}
+    <section className='insertdata-container'> {/* Use the updated class name */}
+    <div className="data-container"> {/* Use the updated class name */}
+      <h2 className="mb-4">Insert Data into Store</h2>
+      <form onSubmit={handleSubmit} className="data-form"> {/* Use the updated class name */}
         <div className="mb-3">
-          <label htmlFor="productname" className="form-label">
+          <label htmlFor="productname" className="data-label"> {/* Use the updated class name */}
             Product Name:
           </label>
           <input
             type="text"
-            className="form-control"
+            className="data-input" 
             id="productname"
             value={productname}
             onChange={(e) => setProductname(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="price" className="form-label">
+          <label htmlFor="price" className="data-label"> 
             Price:
           </label>
           <input
             type="number"
-            className="form-control"
+            className="data-input" 
             id="price"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => {
+              const newValue = e.target.value;
+              if (newValue >= 0){
+                setPrice(newValue);
+              }
+            }}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="description" className="form-label">
-            Description:
+          <label htmlFor="description" className="data-label">
+            Description: 
           </label>
           <input
             type="text"
-            className="form-control"
+            className="data-input" 
             id="description"
             value={description}
+            min={0}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="stock" className="form-label">
+          <label htmlFor="stock" className="data-label"> 
             Stock:
           </label>
           <input
             type="number"
-            className="form-control"
+            className="data-input" 
             id="stock"
             value={stock}
-            onChange={(e) => setStock(e.target.value)}
+            min={0}
+            onChange={(e) => {
+              const newValue = e.target.value;
+              if (newValue >= 0) {
+                setStock(newValue);
+              }
+            }}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="image" className="form-label">
+          <label htmlFor="image" className="data-label"> 
             Upload Image:
           </label>
           <input
             type="file"
             accept="image/*"
-            className="form-control"
+            className="data-input" 
             id="image"
             onChange={handleImageChange}
           />
         </div>
-        
-        <button type="submit" className="btn btn-primary">
+        <div className='abhbutton'>
+        <button type="submit" className="data-button"> 
           Insert Data
         </button>
+        </div>
+        
       </form>
     </div>
-    </section>
+  </section>
   );
 }
 

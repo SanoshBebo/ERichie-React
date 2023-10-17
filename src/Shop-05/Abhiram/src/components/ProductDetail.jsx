@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FetchItemsInCart from "../../../../ERichie/components/FetchItemsInCart";
 
+
 const ProductDetail = ({}) => {
   const [product, setproduct] = useState({});
   const { id } = useParams();
@@ -21,17 +22,34 @@ const ProductDetail = ({}) => {
   const dispatch = useDispatch(); // You can use useDispatch here
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const  items = FetchItemsInCart();
 
-  const { itemsInCart } = FetchItemsInCart();
 
+
+  const url = `/shop13/shop/${id}`;
+  let redirectUrl = {
+    url: url,
+  };
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
     }
   }, [isLoadingUser, user, navigate]);
 
 
   const addToCart = () => {
+    if (isAddingToCart) {
+      return; // Do nothing if the button is already clicked
+    }
+    setIsAddingToCart(true);// Disable the button
+
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role === "customer") {
       dispatch(setUser(userData));
@@ -46,8 +64,7 @@ const ProductDetail = ({}) => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
-      dispatch(addNoOfItemsInCart(parseInt(quantity,10)));
-
+      dispatch(addNoOfItemsInCart(quantity));
       addCartToFirestore(cartItem, userData.email);
   
       // Show a toast message
@@ -108,25 +125,33 @@ const ProductDetail = ({}) => {
               name="quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
+              onBlur={(e) => {
+                const enteredValue = parseInt(e.target.value, 10);
+                if (enteredValue > product.stock) {
+                  setQuantity(product.stock);
+                }
+                else if (enteredValue <= 0) {
+                  setQuantity(1); // Set to 0 for negative values
+                }
+              }}
               min="1" // Set a minimum value
               max={product.stock}
             />
           </div>
+          
           <div>
             {viewcart ? (
                 <>
                 <button
-                  onClick={() => {
-              addToCart();
-            }}
-          >
-            Add To Cart
+                  onClick={() => {addToCart();} } disabled={isAddingToCart}>
+            {isAddingToCart ? "Added to Cart" : "Add To Cart"}
           </button>
                 </>
               ) : (
                 <p>No stock</p>
               )}
-            </div>          
+            </div> 
+            <h3 className="totalprice-abh">Total Price: Rs. {quantity * product.price}</h3>         
         </div>
       </div>
     </div>

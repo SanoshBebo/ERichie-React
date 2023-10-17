@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
-
+import { Link, useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
 
 function ImageUpload({ onImageUpload }) {
   const [image, setImage] = useState(null);
@@ -10,6 +12,13 @@ function ImageUpload({ onImageUpload }) {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
+  };
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+
+    navigate("/admin/login");
+
   };
 
   const handleImageUpload = async () => {
@@ -36,7 +45,20 @@ function ImageUpload({ onImageUpload }) {
   };
 
   return (
+    
     <div className="image-upload-container mb-8">
+       <div className="absolute top-0 right-0 mt-4 mr-4 space-x-4">
+  <Link to="/shop10/adminhome">
+    <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center">Go Home</button>
+  </Link>
+  <button
+    to="/shop10/admin/report"
+    className="bg-blue-500 hover-bg-blue-700 text-white py-2 px-4 rounded-lg text-center"
+    onClick={handleSignOut}
+  >
+    Sign Out
+  </button>
+</div>
       <label className="block text-gray-700 font-bold mb-2">Upload Image</label>
       <input
         type="file"
@@ -64,6 +86,28 @@ function ImageUpload({ onImageUpload }) {
 }
 
 function AddProducts() {
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => { 
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "sprityadmin@gmail.com") {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
+
   const [product, setProduct] = useState({
     productname: "",
     description: "",

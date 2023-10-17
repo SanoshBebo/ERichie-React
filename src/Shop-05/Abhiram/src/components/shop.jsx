@@ -12,6 +12,9 @@ const Shop = ({shop, Filter,allcatefilter, addtocart, defaultshop}) => {
     
     const [showDetails, setShowDetails] = useState(false)
     const [detail, setDetail] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(6); // Change the number of products per page as needed
+
     const detailpage = (product)=>
     {
         const detaildata = ([{product}])
@@ -25,8 +28,19 @@ const Shop = ({shop, Filter,allcatefilter, addtocart, defaultshop}) => {
         setShowDetails(false)
     }
     useEffect(()=>{
+        window.scrollTo(0, 0);
+
         defaultshop;
     })
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = shop.slice(indexOfFirstProduct, indexOfLastProduct);
+  
+    // Change page
+    const paginate = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
 
 
 
@@ -94,7 +108,7 @@ const Shop = ({shop, Filter,allcatefilter, addtocart, defaultshop}) => {
                         <h2>Shop product</h2>
                         <div className='product_container'>
                             {
-                                shop.map((curElm)=>
+                                currentProducts.map((curElm)=>
                                 {
                                     return(
                                         <>
@@ -120,11 +134,14 @@ const Shop = ({shop, Filter,allcatefilter, addtocart, defaultshop}) => {
                                     )
                                 })
                             }
-                            
                         </div>
-
-                        
-
+                        <div className='pagination'>
+                            {Array.from({ length: Math.ceil(shop.length / productsPerPage) }).map((_, index) => (
+                            <button key={index} onClick={() => paginate(index + 1)}>
+                                {index + 1}
+                            </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

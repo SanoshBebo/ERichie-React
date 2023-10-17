@@ -1,18 +1,29 @@
 // ProductList.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import '../styles/updatedetailscard.css'
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
+import { Button } from 'primereact/button';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [newStock, setNewStock] = useState('');
+  const [newPrice, setNewPrice] = useState(''); // State for the new price
+
   const [updateProductId, setUpdateProductId] = useState(null);
 
   const [confirmDelete, setConfirmDelete] = useState(false); // Add confirmation state
   const [productToDelete, setProductToDelete] = useState(null); // Track the product to delete
 
+  const [visible, setVisible] = useState(false);
+  const toast = useRef(null);
 
+ 
 
   useEffect(() => {
 
@@ -49,8 +60,8 @@ const ProductList = () => {
   };
 
   const handleConfirmUpdate = async (productId) => {
-    if (!newStock) {
-      alert('Please enter a valid stock value.');
+    if (!newStock && !newPrice) {
+      alert('Please enter a valid stock value.and price values.');
       return;
     }
   
@@ -74,11 +85,11 @@ const ProductList = () => {
         fields: {
           
           productname: matchingDocument.fields.productname, // Keep other fields unchanged
-          price: matchingDocument.fields.price,
+          price: {integerValue: newPrice || matchingDocument.fields.price.integerValue},
           imageurl: matchingDocument.fields.imageurl,
           category: matchingDocument.fields.category,
           description: matchingDocument.fields.description,
-          stock: {integerValue: newStock},
+          stock: {integerValue: newStock || matchingDocument.fields.stock.integerValue},
           shopid: matchingDocument.fields.shopid
         },
       };
@@ -104,7 +115,14 @@ const ProductList = () => {
   
       setProducts(updatedProducts);
       setNewStock('');
+      setNewPrice(''); // Reset price state
+
       setUpdateProductId(null);
+
+      toast.success('Data Updated!!', {
+        position: 'top-right',
+        autoClose: 3000, // Time in milliseconds to keep the toast open
+      });
 
 
       
@@ -115,29 +133,44 @@ const ProductList = () => {
   
 
   const handleDelete = async (productId) => {
-
-    const shouldDelete = window.confirm("Are you sure you want to delete this product?");
-    if (!shouldDelete) {
-      return; // User canceled the deletion
-    }
-
-    try {
-      
-
-      await axios.delete(
-        `https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products/${productId}`,
-      );
-
-      // Remove the product from the local state after successful deletion
-      const updatedProducts = products.filter((product) => product.id !== productId);
-      setProducts(updatedProducts);
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }finally {
-      // Reset confirmation state after delete operation
-      setConfirmDelete(false);
-      setProductToDelete(null);
-    }
+    // Define the function to handle the delete action
+    const handleConfirmDelete = async () => {
+      try {
+        await axios.delete(
+          `https://firestore.googleapis.com/v1/projects/abhiram-store2/databases/(default)/documents/Products/${productId}`,
+        );
+        toast.success('Data Deleted!!', {
+          position: 'top-right',
+          autoClose: 3000, // Time in milliseconds to keep the toast open
+        });
+  
+        // Remove the product from the local state after successful deletion
+        const updatedProducts = products.filter((product) => product.id !== productId);
+        setProducts(updatedProducts);
+  
+        toast.success('Data Deleted!!', {
+          position: 'top-right',
+          autoClose: 3000, // Time in milliseconds to keep the toast open
+        });
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    };
+  
+    confirmAlert({
+      title: 'Confirm Deletion',
+      message: 'Are you sure you want to delete this product?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: handleConfirmDelete, // Call the delete function when "Yes" is clicked
+        },
+        {
+          label: 'No',
+          onClick: () => {}, // Do nothing if "No" is clicked
+        },
+      ],
+    });
   };
 
   return (
@@ -151,6 +184,7 @@ const ProductList = () => {
                 <div className="card-body">
                   <h5 className="card-title">{product.productname.stringValue}</h5>
                   <p className="card-text">Stock: {product.stock.integerValue}</p>
+                  <p className="card-text">Price: {product.price.integerValue}</p>
                   {updateProductId === product.id ? (
                     <>
                       <input
@@ -159,6 +193,13 @@ const ProductList = () => {
                         placeholder="New Stock"
                         value={newStock}
                         onChange={(e) => setNewStock(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="New Price"
+                        value={newPrice}
+                        onChange={(e) => setNewPrice(e.target.value)}
                       />
                       <button
                         className="btn btn-primary mt-2"
@@ -175,6 +216,9 @@ const ProductList = () => {
                   <button className="btn btn-danger ml-2" onClick={() => handleDelete(product.id)}>
                     Delete
                   </button>
+
+                  
+                  
                 </div>
               </div>
             </div>
