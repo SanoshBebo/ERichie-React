@@ -44,7 +44,7 @@ const AdminPage = () => {
 
     border: "none",
 
-    padding: "1px 4px",
+    padding: "20px",
 
     margin: "0 5px",
 

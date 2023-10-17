@@ -160,11 +160,11 @@
 
 }
 
-h2 {
+.h2text h2 {
 
     text-decoration: none;
 
-    color: #333;
+    color: #fff;
 
 }
 
@@ -222,4 +222,8 @@ h2 {
 
     font-weight: 1000;
 
+}
+.ptext{
+    color: #fff;
+    font-weight: 500;
 }
