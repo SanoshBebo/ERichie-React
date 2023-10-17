@@ -253,7 +253,7 @@ const ProductList = () => {
     // Validate the input for both stock and price fields
     if (/^\d*\.?\d*$/.test(value) || value === "") {
       setUpdateProductDetails({
-        ...productData,
+        ...updateProductDetails,
         [name]: value,
       });
     }
