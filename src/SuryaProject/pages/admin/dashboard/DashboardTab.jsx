@@ -83,7 +83,7 @@ function DashboardTab() {
                                                     Category
                                                 </th>
                                                 <th scope="col" className="px-6 py-3">
-                                                    Date
+                                                    Stock
                                                 </th>
                                                 <th scope="col" className="px-6 py-3">
                                                     Action
@@ -91,7 +91,7 @@ function DashboardTab() {
                                             </tr>
                                         </thead>
                                         {product.map((item, index) => {
-                                            const { productname, price, imageUrl, category, description, date } = item;
+                                            const { productname, price, imageUrl, category, description, date,stock } = item;
                                             return (
                                                 <tbody className=''>
                                                     <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
@@ -111,7 +111,7 @@ function DashboardTab() {
                                                             {category}
                                                         </td>
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                            {date}
+                                                            {stock}
                                                         </td>
                                                         <td className="px-6 py-4">
                                                             <div className=" flex gap-2">
