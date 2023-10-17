@@ -8,7 +8,10 @@ import { toast } from "react-toastify";
 import { shankfire } from "../../fireabase/FirebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart, addNoOfItemsInCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import {
+  addItemToCart,
+  addNoOfItemsInCart,
+} from "../../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 
 function ProductInfo() {
@@ -19,6 +22,7 @@ function ProductInfo() {
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
   const [products, setProducts] = useState("");
+  const [isOutOfStock, setIsOutOfStock] = useState(false);
   const params = useParams();
   const url = `/shop09/product/${params.id}`;
   let redirectUrl = {
@@ -30,9 +34,14 @@ function ProductInfo() {
     setLoading(true);
     try {
       const productTemp = await getDoc(doc(shankfire, "Products", params.id));
+      const productData = productTemp.data();
       // console.log(productTemp)
-      setProducts(productTemp.data());
-      // console.log(productTemp.data())
+      setProducts(productData);
+      console.log(productData);
+      // Check if the product is out of stock
+      if (productData.stock === 0) {
+        setIsOutOfStock(true);
+      }
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -208,14 +217,28 @@ function ProductInfo() {
                   <span className="title-font font-medium text-2xl text-gray-900">
                     ₹{products.price}
                   </span>
-                  <button
-                    onClick={() => {
-                      addToCart();
-                    }}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                  >
-                    Add to Cart
-                  </button>
+                  {isOutOfStock ? (
+                    <div className="flex items-center">
+                      <p className="text-red-500 font-medium mr-2">
+                        Product is out of stock
+                      </p>
+                      <button
+                        className="bg-red-500 text-white font-bold py-2 px-4 rounded-full cursor-not-allowed opacity-50 focus:outline-none focus:shadow-outline"
+                        disabled
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        addToCart();
+                      }}
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                    >
+                      Add to Cart
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
