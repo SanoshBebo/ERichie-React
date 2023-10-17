@@ -1,194 +1,335 @@
-/* ProductDetail.css */
-
-
-/* productdetail.css */
+/* Container styles */
 
 /* Container styles */
 
+.product-detail-container {
 
-.product-image {
-    max-width: 100%; /* Ensure the image scales within its container */
-    height: auto; /* Maintain aspect ratio */
+  max-width: 600px; /* Increase the max-width to your desired value */
+
+  margin: 0 auto;
+
+  padding: 16px;
+
+  border: 1px solid #e0e0e0;
+
+  border-radius: 8px;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  background-color: #fff;
+
 }
 
-/* productdetail.css */
+ 
 
-/* Container styles */
-.product-detail-container {
-    max-width: 400px; /* Adjust the width as needed */
-    margin: 0 auto;
-    padding: 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  /* Image styles */
-  .product-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 16px; /* Add spacing between image and description */
-  }
-  
-  /* Heading styles */
-  h2 {
-    font-size: 24px;
-    margin: 16px 0;
-    color: #333;
-  }
-  
-  /* Description styles */
-  p {
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: #555;
-  }
-  
-  /* Price and stock styles */
-  .price-stock {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-  }
-  
-  .price {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .stock {
-    font-size: 18px;
-    color: #28a745;
-  }
-  
-  /* Quantity control styles */
-  .quantity-control {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center horizontally and vertically */
-    margin-top: 12px; /* Adjust the margin as needed */
-    
-  }
-  
-  .quantity-control span {
-    font-size: 18px;
-    margin: 0 12px; /* Adjust the margin as needed */
-  }
-  
-  .quantity-control button {
-    background-color: #a90f33;
-    color: #fff;
-    border: none;
-    border-radius: 20px; /* Custom border radius for a pill-shaped button */
-    padding: 8px 16px; /* Reduce padding for a smaller button */
-    font-size: 16px; /* Reduce font size for a smaller button */
-    cursor: pointer;
-    margin-right: 12px; /* Adjust the margin as needed */
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  }
-  
-  .quantity-control button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); /* Add a scale effect on hover */
-  }
-  .quantity-text {
-    color: red; /* Change this to your desired color */
-  }
-  
-  /* Add to Cart and Buy Now buttons */
-  .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 24px;
-  }
-  
-  .action-buttons button {
-    background-color: #c5bf20;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 12px 24px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .action-buttons button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Back to Product List link */
-  .back-link {
-    display: block;
-    margin-top: 16px;
-    text-align: center;
-    font-size: 16px;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .back-link:hover {
-    color: #0056b3;
-  }
-  
+ 
 
-  /* productdetail.css */
+/* Image styles */
 
-/* ... (previous styles) */
+.product-image {
 
-/* Action buttons styles */
+  max-width: 100%;
+
+  height: auto;
+
+  margin-top: 16px; /* Add spacing between image and description */
+
+}
+
+ 
+
+/* Heading styles */
+
+h2 {
+
+  font-size: 24px;
+
+  margin: 16px 0;
+
+  color: #333;
+
+}
+
+ 
+
+/* Description styles */
+
+p {
+
+  font-size: 16px;
+
+  margin-bottom: 8px;
+
+  color: #555;
+
+}
+
+ 
+
+/* Price and stock styles */
+
+.price-stock {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 16px;
+
+}
+
+ 
+
+.price {
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  color: #007bff;
+
+}
+
+ 
+
+.stock {
+
+  font-size: 18px;
+
+  color: #28a745;
+
+}
+
+ 
+
+/* Quantity control styles */
+
+/* Quantity control container */
+
+/* Quantity control styles */
+
+/* Quantity control styles */
+
+.quantity-control {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-top: 12px;
+
+}
+
+ 
+
+.quantity-control p {
+
+  font-size: 18px;
+
+  color: #333;
+
+  margin-bottom: 4px;
+
+}
+
+ 
+
+.quantity-buttons {
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+ 
+
+.quantity-button {
+
+  background-color: #a90f33;
+
+  color: #fff;
+
+  border: none;
+
+  border-radius: 20px;
+
+  padding: 8px 16px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  margin: 0 6px;
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+ 
+
+.quantity-button:hover {
+
+  background-color: #b32700;
+
+  transform: scale(1.05);
+
+}
+
+ 
+
+/* Adjust the width of the quantity input */
+
+.quantity-input {
+
+  width: 30px;
+
+  text-align: center;
+
+  font-size: 16px;
+
+  padding: 8px;
+
+}
+
+ 
+
+.quantity-text {
+
+  color: red;
+
+}
+
+ 
+
+/* Rest of your CSS styles... */
+
+ 
+
+/* Rest of your CSS styles... */
+
+ 
+
+ 
+
+.quantity-text {
+
+  color: red; /* Change this to your desired color */
+
+}
+
+ 
+
+/* Add to Cart and Buy Now buttons */
+
+/* Add to Cart and Buy Now buttons */
+
+/* Add to Cart and Buy Now buttons */
+
 .action-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 24px;
-  }
-  
-  /* Shared styles for Add to Cart and Buy Now buttons */
-  .action-buttons button {
-    background-color: #b05f13d8; /* Golden color for both buttons */
-    color: #fff;
-    border: none;
-    border-radius: 30px; /* Use a larger border radius for a more rounded shape */
-    padding: 10px 20px; /* Decrease padding for a smaller button */
-    font-size: 16px; /* Decrease font size for a smaller button */
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-  }
-  
-  /* Style for Add to Cart button */
-  .add-to-cart-button:hover {
-    background-color: #1a821e; /* Darker golden color on hover */
-  }
-  
-  /* Style for Buy Now button */
-  .buy-now-button:hover {
-    background-color: #db3038; /* Darker golden color on hover */
-  }
 
-  .buy-button{
-    color:#fff;
-    font-size: 16px;
-    text-align: center;
-    background-color: #fff;
-  }
-  
-  /* Back to Product List link styles */
-  .back-link {
-    display: block;
-    text-align: center;
-    font-size: 16px;
-    color: hsla(323, 89%, 36%, 0.443); /* Golden color for the link */
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .back-link:hover {
-    color: #0056b3;
-  }
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-top: 24px;
+
+}
+
+ 
+
+/* Style for Add to Cart button */
+
+.add-to-cart-button {
+
+  background-color: #c5bf20; /* Gold color for Add to Cart button */
+
+  color: #fff;
+
+  border: none;
+
+  border-radius: 4px;
+
+  padding: 12px 24px;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease-in-out;
+
+}
+
+ 
+
+.add-to-cart-button:hover {
+
+  background-color: #b32700; /* Darker gold color on hover */
+
+}
+
+ 
+
+/* Style for Buy Now button */
+
+.buy-now-button {
+
+  background-color: #c5bf20; /* Gold color for Buy Now button */
+
+  color: #fff;
+
+  border: none;
+
+  border-radius: 4px;
+
+  padding: 12px 24px;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease-in-out;
+
+}
+
+ 
+
+.buy-now-button:hover {
+
+  background-color: #b32700; /* Darker gold color on hover */
+
+}
+
+ 
+
+/* Back to Product List link styles */
+
+.back-link {
+
+  display: block;
+
+  text-align: center;
+
+  font-size: 16px;
+
+  color: #fff200; /* Gold color for the link */
+
+  text-decoration: none;
+
+  transition: color 0.2s ease-in-out;
+
+}
+
+ 
+
+.back-link:hover {
+
+  color: #b30000; /* Darker gold color on hover */
+
+}

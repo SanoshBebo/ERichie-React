@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { doc, getDoc } from "firebase/firestore";
 import { fireDB } from "../../fireabase/FirebaseConfig";
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../../SanoshProject/redux/shopOneCartSlice";
 import { useDispatch } from "react-redux";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +55,8 @@ function ProductInfo() {
         quantity: 1,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(1));
+
       addCartToFirestore(cartItem, userData.email);
 
       toast.success("added to cart", {

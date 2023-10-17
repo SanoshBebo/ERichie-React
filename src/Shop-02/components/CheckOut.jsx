@@ -8,9 +8,10 @@ import Header from './Header';
 
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
+import FetchItemsInCart from '../../ERichie/components/FetchItemsInCart';
 
 
 const CheckoutPage = () => {
@@ -24,6 +25,8 @@ const CheckoutPage = () => {
   useEffect(() => {
     fetchProduct(productId);
   }, [productId]);
+  const { itemsInCart } = FetchItemsInCart();
+
 
   const fetchProduct = async (id) => {
     try {
@@ -105,6 +108,8 @@ const CheckoutPage = () => {
       };
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
+      dispatch(addNoOfItemsInCart(quantity));
+
       setIsAddedToCart(true);
 
     // For example, you can use the useContext hook or a Redux store to manage the cart state.

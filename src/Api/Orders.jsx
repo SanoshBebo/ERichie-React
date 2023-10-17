@@ -160,7 +160,7 @@ const updateStock = async (shopid, updateStockPayload, productDocument) => {
     shop03:
       "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents/Products",
     shop04:
-      "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents/products",
+      "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents/Products",
     shop05:
       "https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products",
     shop06:

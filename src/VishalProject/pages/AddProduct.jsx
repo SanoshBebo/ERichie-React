@@ -35,6 +35,8 @@ const AddProductForm = () => {
   const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [displayImage, setDisplayImage] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,14 +44,10 @@ const AddProductForm = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
-    // Validate the input for both stock and price fields
-    if (/^\d*\.?\d*$/.test(value) || value === "") {
-      setProductData({
-        ...productData,
-        [name]: value,
-      });
-    }
+    setProductData({
+      ...productData,
+      [name]: value,
+    });
   };
 
   useEffect(() => {
@@ -84,6 +82,7 @@ const AddProductForm = () => {
               };
             });
             setProducts(productsData);
+            setFilteredProducts(productsData); 
           } else {
             console.error("Error fetching products:", response.statusText);
             console.error("Response data:", response.data);
@@ -96,7 +95,8 @@ const AddProductForm = () => {
     } else {
       navigate("/admin/login");
     }
-  }, []);
+  }, [navigate])
+  
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -232,7 +232,13 @@ const AddProductForm = () => {
       );
     }
   };
-
+  useEffect(() => {
+    // When the search term changes, filter the products
+    const filtered = products.filter((product) =>
+      product.productname.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchTerm, products]);
   const handleEditProduct = (productId) => {
     const productToEdit = products.find((product) => product.id === productId);
     console.log(productToEdit);
@@ -250,9 +256,9 @@ const AddProductForm = () => {
       setSelectedProductId(productId);
       setDisplayImage(true);
       window.scrollTo(0, 0);
-      toast.success("Product Edited", {
+      toast.success("Product can be edited now", {
         position: "top-right",
-        autoClose: 200,
+        autoClose: 400,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -349,32 +355,33 @@ const AddProductForm = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 rounded-lg">
-      <div className="header bg-pink-400 text-black py-4 flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          Vishal Media Shop
-        </h1>
-
+    <div className="bg-gray-100 p-4 rounded-lg">
+    <div className="bg-pink-400 text-black py-4 flex justify-between items-center">
+      <h1 className="text-4xl font-bold text-center mb-8">
+        Vishal Media Shop
+      </h1>
+      <div className="flex space-x-2">
         <Link
           to="/shop03/tablepage"
-          className="bg-blue-500 text-white p-2 ml-2 rounded-full hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
         >
           Report Analysis
         </Link>
         <Link
           to="/shop03/admin/overall-report"
-          className="bg-blue-500 text-white p-2 ml-2 rounded-full hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
         >
           E-Richie Analysis
         </Link>
         <Link
           to="/admin/login"
-          className="bg-blue-500 text-white p-2 ml-2 rounded-full hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
         >
           Sign Out
         </Link>
       </div>
-
+    </div>
+    
       <div className="form-container bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold mb-4">
           {selectedProductId ? "Update Product" : "Add a New Product"}
@@ -499,9 +506,18 @@ const AddProductForm = () => {
 
       <div className="mt-4">
         <h2 className="text-xl font-semibold mb-4">Product List:</h2>
-
+{/* Search bar */}
+<div className="mb-4">
+          <input
+            type="text"
+            placeholder="Search products"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full border rounded-lg py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+          />
+        </div>
         <ul className="flex flex-wrap">
-          {products.map((product) => (
+        {filteredProducts.map((product) => (
             <li
               key={product.id}
               className="flex-shrink-0 w-1/4 bg-white p-3 rounded-lg shadow-md m-2"

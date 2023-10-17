@@ -8,9 +8,10 @@ import { setShopThreeProducts } from "../../SanoshProject/redux/shopThreeProduct
 
 import axios from "axios";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { toast } from "react-toastify";
+import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const ProductPage = () => {
   const products = useSelector(
     (state) => state.shopthreeproduct.shopthreeproducts
   );
+  const { itemsInCart } = FetchItemsInCart();
 
   const product = products.find((product) => product.productid === id);
 
@@ -149,6 +151,8 @@ const ProductPage = () => {
         quantity: count,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(count));
+
       addCartToFirestore(cartItem, userData.email);
 
       toast.success("added to cart", {

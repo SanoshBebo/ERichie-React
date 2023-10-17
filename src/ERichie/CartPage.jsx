@@ -112,6 +112,7 @@ const CartComponent = () => {
 
     await Promise.all(
       cartItems.map(async (item) => {
+        console.log(item)
         await removeItemFromCartFirestore(user.email, item.productid);
       })
     );

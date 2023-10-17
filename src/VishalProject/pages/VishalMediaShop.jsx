@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { setShopThreeProducts } from "../../SanoshProject/redux/shopThreeProductSlice";
 import ReactPaginate from "react-paginate";
@@ -13,14 +12,14 @@ const VishalMediaShop = () => {
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0); // Page number starts from 0
-  const [itemsPerPage] = useState(12); // Number of items to display per page
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage] = useState(12);
+
   const handleSearchInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    setCurrentPage(0); // Reset to the first page when searching
+    setCurrentPage(0);
 
-    // Filter products based on the search query
     const filtered = shopthreeproducts.filter((product) =>
       product.productname.toLowerCase().includes(query.toLowerCase())
     );
@@ -30,7 +29,6 @@ const VishalMediaShop = () => {
 
   const currentProducts = searchQuery ? filteredProducts : shopthreeproducts;
 
-  // Calculate the index of the first and last item on the current page
   const offset = currentPage * itemsPerPage;
   const currentItems = currentProducts.slice(offset, offset + itemsPerPage);
 
@@ -43,8 +41,7 @@ const VishalMediaShop = () => {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const baseUrl =
-          "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
+        const baseUrl = "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
         const collectionName = "Products";
         const apiUrl = `${baseUrl}/${collectionName}`;
         const response = await axios.get(apiUrl);
@@ -53,7 +50,7 @@ const VishalMediaShop = () => {
           throw new Error("Network response was not ok");
         }
 
-        const responseData = response.data; // Use response.data to access the JSON data
+        const responseData = response.data;
 
         if (responseData.documents) {
           const productDocuments = responseData.documents;
@@ -71,10 +68,7 @@ const VishalMediaShop = () => {
             };
           });
 
-          // Dispatch the action to set products in the Redux store
           dispatch(setShopThreeProducts(productsData));
-
-          // Set filteredProducts using useState
           setFilteredProducts(productsData);
         } else {
           console.log("No documents found in the collection.");
@@ -84,15 +78,14 @@ const VishalMediaShop = () => {
       }
     }
 
-    // Call the fetchProducts function when the component mounts
     fetchProducts();
   }, [dispatch]);
 
   return (
     <div className="flex-row h-screen">
       <div
-        className="header flex items-center justify-between p-10 px-20 "
-        style={{ background: "white" }}
+        className="header flex items-center justify-between p-10 px-20"
+        style={{ background: "#f0f0f0", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)" }}
       >
         <h2 className="font-bold text-2xl">Our Products</h2>
         <input
@@ -104,29 +97,22 @@ const VishalMediaShop = () => {
         />
       </div>
 
-      <div className="ProductList pb-5">
+      <div className="ProductList pb-5 px-10">
         <ul className="grid grid-cols-4 gap-6 place-items-center">
-          {currentProducts.map((shopthreeproduct, index) => (
-            <li key={index} className="w-full  p-2">
-              <Link
-                to={`/shop03/product/${shopthreeproduct.productid}`}
-                className="flex flex-col items-center gap-2"
-              >
-                <img
-                  src={shopthreeproduct.imageurl} // Use the image URL from Firestore
-                  alt={shopthreeproduct.productname}
-                  className=" bg-slate-500 object-cover"
-                />
-                <h1 className="text-center">{shopthreeproduct.productname}</h1>
-                <p className="text-center">
-                  Price: Rs.{shopthreeproduct.price}
-                </p>
+          {currentItems.map((shopthreeproduct, index) => (
+            <li key={index} className="w-full  p-2 transform hover:scale-105 transition duration-300">
+              <Link to={`/shop03/product/${shopthreeproduct.productid}`} className="flex flex-col items-center gap-2">
+                <img src={shopthreeproduct.imageurl} alt={shopthreeproduct.productname} className="bg-slate-500 object-cover rounded-lg" />
+                <h1 className="text-center text-xl font-semibold">{shopthreeproduct.productname}</h1>
+                <p className="text-center">Price: Rs.{shopthreeproduct.price}</p>
                 <p className="text-center">Stock: {shopthreeproduct.stock}</p>
               </Link>
             </li>
           ))}
         </ul>
-        {pageCount > 1 && (
+      </div>
+      {pageCount > 1 && (
+        <div className="pagination-container">
           <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}
@@ -136,16 +122,12 @@ const VishalMediaShop = () => {
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={handlePageClick}
-            containerClassName={"pagination p-10"}
+            containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
-            previousClassName={"pagination-button"}
-            nextClassName={"pagination-button"}
-            pageClassName={"pagination-button"}
-            pageLinkClassName={"pagination-link"}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
