@@ -1,9 +1,15 @@
 
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './styles.css'; // Updated stylesheet reference
+import { toast } from 'react-toastify';
+import { useSelector , useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../../SanoshProject/redux/shopOneUserSlice';
+
+
+
 
 function ProductComponent() {
   const [products, setProducts] = useState([]);
@@ -20,11 +26,42 @@ function ProductComponent() {
   const [editedProduct, setEditedProduct] = useState(null); // Track the edited product
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const navigate = useNavigate();
   const apiUrl =
     'https://firestore.googleapis.com/v1/projects/crud-550f3/databases/(default)/documents/Products';
 
   // Function to fetch products from Firestore
+  const user = useSelector((state) => state.shoponeuser.user);
+ 
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);  
+
+
+useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+
+    navigate("/admin/login");
+
+  };
+
+  useEffect(() => { 
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "hariniadmin@gmail.com") {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
   const fetchProducts = async () => {
     try {
       const response = await axios.get(apiUrl);
@@ -38,7 +75,7 @@ function ProductComponent() {
             description: fields.description?.stringValue || '',
             shopid: fields.shopid?.stringValue || '',
             stock: fields.stock?.integerValue || 0, // Use 0 as the default value for integer fields
-            price: fields.price?.integerValue || 0, // Use 0.0 as the default value for double fields
+            price: fields.price?.integerValue || 0, 
             imageurl: fields.imageurl?.stringValue || '',
           };
         });
@@ -50,6 +87,7 @@ function ProductComponent() {
     } catch (error) {
       console.error('Error reading products:', error);
     }
+  
   };
 
   useEffect(() => {
@@ -68,18 +106,39 @@ function ProductComponent() {
     setImageFile(file);
   };
 
-  // Function to handle adding a new product
+  
+
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
       if (imageFile) {
         // Your Firebase API Key
-        //const apiKey = 'YOUR_FIREBASE_API_KEY'; // Replace with your Firebase API Key
+        const apiKey = 'YOUR_FIREBASE_API_KEY'; 
+  
+        // Validate the stock value
+        const stockValue = parseInt(newProduct.stock);
+        if (isNaN(stockValue) || stockValue < 0) {
+          toast.error('Stock should be a non-negative number.');
+          return;
+        }
+  
+        // Validate the price value
+        const priceValue = parseFloat(newProduct.price);
+        if (isNaN(priceValue) || priceValue < 0) {
+          toast.error('Price should be a non-negative number.');
+          return;
+        }
 
+  
+        if (!isNaN(newProduct.category)) {
+          toast.error('Category cannot be a numeric value');
+          return;
+        }
+  
         // Create a Firestore document with the product data including the image URL
         const formData = new FormData();
         formData.append('file', imageFile);
-
+  
         // Upload the image to Firebase Storage
         const uploadResponse = await axios.post(
           `https://firebasestorage.googleapis.com/v0/b/crud-550f3.appspot.com/o?name=products%2F${imageFile.name}`,
@@ -91,12 +150,12 @@ function ProductComponent() {
             },
           }
         );
-
+  
         if (uploadResponse.status === 200) {
           const imageurl = `https://firebasestorage.googleapis.com/v0/b/crud-550f3.appspot.com/o/products%2F${encodeURIComponent(
             imageFile.name
           )}?alt=media`;
-
+  
           // Create a Firestore document for the new product
           const firestoreResponse = await axios.post(
             `https://firestore.googleapis.com/v1/projects/crud-550f3/databases/(default)/documents/Products?key=${apiKey}`,
@@ -106,13 +165,13 @@ function ProductComponent() {
                 productname: { stringValue: newProduct.productname },
                 description: { stringValue: newProduct.description },
                 shopid: { stringValue: 'shop17' },
-                stock: { integerValue: parseInt(newProduct.stock) },
-                price: { integerValue: parseInt(newProduct.price) },
+                stock: { integerValue: stockValue }, // Use the validated stock value
+                price: { integerValue: priceValue }, // Use the validated price value
                 imageurl: { stringValue: imageurl },
               },
             }
           );
-
+  
           console.log('Product added:', firestoreResponse.data);
           fetchProducts(); // Fetch products again to update the list
           setNewProduct({
@@ -123,17 +182,19 @@ function ProductComponent() {
             price: '',
             shopid: 'shop17',
           });
+
+          toast.success('Product added successfully');
         } else {
           console.error('Error uploading image:', uploadResponse.statusText);
         }
       } else {
-        console.error('No image selected.');
+        toast.error('No image selected.');
       }
     } catch (error) {
-      console.error('Error adding product:', error);
+      toast.error('Error adding product:', error);
     }
   };
-
+  
   // Function to handle clicking the "Edit" button for a product
   const handleEditClick = (product) => {
     // Set the edited product when clicking the Edit button
@@ -197,12 +258,13 @@ function ProductComponent() {
     <div className='shop17-admin'> {/* Updated class name */}
       <div className="shop17-header"> {/* Updated class name */}
         <div className="shop17-left"> {/* Updated class name */}
-          <Link to="/ericthe-statistics">
+          <Link to="/erichie/overall-report">
             <button className="shop17-header-button">E riche Statistics</button> {/* Updated class name */}
           </Link>
         </div>
         <div className="shop17-center"> {/* Updated class name */}
-          <h1><span style={{color:'orangered'}}>Mr.Computer Wizz </span>Admin Page</h1>
+          <h1 style={{fontSize:'3rem'}}><span style={{color:'orangered',fontSize:'3rem'}}>Mr.Computer Wizz </span>Admin Page</h1>
+          <button className="btn btn-danger mt-2" onClick={handleSignOut}>Sign Out</button>
         </div>
         <div className="shop17-right"> {/* Updated class name */}
           <Link to="/shop17/admin/report">

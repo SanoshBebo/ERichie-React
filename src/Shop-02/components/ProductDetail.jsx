@@ -94,8 +94,15 @@ function ProductDetail() {
       dispatch(addItemToCart(cartItem));
       addCartToFirestore(cartItem, userData.email);
     } else {
+      const url = `/checkout/${productId}`;
+      let redirectUrl = {
+        url: url,
+      };
+
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+
       navigate("/customer/login");
+
     }
     setIsLoadingUser(false);
 

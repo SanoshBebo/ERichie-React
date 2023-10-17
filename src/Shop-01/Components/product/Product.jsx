@@ -227,7 +227,7 @@ function ProductCard({ product }) {
     <div className="shop17-product-card" style={{ backgroundColor: "white" }}>
       <h2>{product.productname}</h2>
       <p>{product.description}</p>
-      <p>Rs:{product.price}</p>
+      <p>Rs:{product.price }</p>
       <img src={product.imageUrl} alt={product.productname} />
       <div className="shop17-product-buttons">
         <button className={`shop17-product-button ${styles.productButton}`}>

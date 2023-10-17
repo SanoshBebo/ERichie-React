@@ -11,8 +11,11 @@ import InsertData from './insertdata';
 import ProductList from './updatedetailscards';
 import Dailyinventory from './dailyinventory';
 import Dailysales from './dailysales';
+import { setUser } from '../../../../SanoshProject/redux/shopOneUserSlice';
+
 
 import '../styles/nav.css'
+import { useDispatch, useSelector } from "react-redux";
 
 
 const nav = () => {
@@ -51,9 +54,37 @@ const nav = () => {
     setIsDailyInventoryVisible(false);
     setIsDailySalesVisible(!isDailySalesVisible);
   };
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
 
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "abhiramadmin@gmail.com") {
+      if (userData.role == "customer") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
 
+  
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/admin/login");
+    toast.success('Signed Out!!', {
+      position: 'top-right',
+      autoClose: 3000, // Time in milliseconds to keep the toast open
+    });
+  };
 
 
 
@@ -75,13 +106,7 @@ const nav = () => {
             <div className='search_box'>
 
             </div>
-            <div className='user'>
-              <div className='icon'>
-                <AiOutlineShoppingCart/>
-              </div>
-              <div className='btn'>
-              </div>
-            </div>
+           
 
           </div>
           
@@ -105,10 +130,16 @@ const nav = () => {
                   Today's Inventory
                 </button>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <button className="btn btn-secondary" onClick={toggleDailySales}>
                   Todays sales
                 </button>
+              </li> */}
+              <li className="nav-item">
+              <button className="btn btn-secondary" onClick={() => navigate('/erichie/overall-report')}>e-Richie Report</button> 
+              </li>
+              <li className="nav-item">
+              <button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button> 
               </li>
               
 
@@ -120,7 +151,7 @@ const nav = () => {
             {isInsertDataVisible && <InsertData />} {/* Render InsertData if visible */}
             {isUpdateDataVisible &&  <ProductList  />} {/* Render InsertData if visible */}
             {isDailyInventoryVisible && <Dailyinventory/>}
-            {isDailySalesVisible && <Dailysales />}
+            {/* {isDailySalesVisible && <Dailysales />} */}
 
     </div>
     

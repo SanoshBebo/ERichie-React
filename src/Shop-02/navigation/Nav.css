@@ -1,38 +1,70 @@
-/* nav.css */
-
-/* Style for the navigation bar */
 .NAV {
+
   background-color: #333; /* Background color */
+
   color: #fff; /* Text color */
-  display: flex;
+  position: static ;
+
   justify-content: space-around;
+
   padding: 25px 0; /* Add padding to top and bottom */
+
   position: absolute; /* Fixed position at the top */
-  top: 0; /* Position at the top of the viewport */
+
+  top: 0;
+
+  left: 0;
+
   width: 100%; /* F.shop15ull width */
+
 }
+
+ 
 
 /* Style for the navigation list */
+
 .NAV .shop15ul {
+
   list-style: none;
+
   display: flex;
+
   justify-content: space-around;
+
 }
+
+ 
 
 /* Style for the navigation list items */
+
 .NAV .shop15li {
+
   margin: 0 10px; /* Add margin between list items */
+
 }
+
+ 
 
 /* Style for the navigation links */
+
 .NAV a {
+
   text-decoration: none;
+
   color: #fff; /* Link text color */
+
   font-weight: bold; /* Make the text bold */
+
   font-size: 16px; /* Font size */
+
 }
 
+ 
+
 /* Style for the navigation links on hover */
+
 .NAV a:hover {
+
   text-decoration: none; /* Underline on hover */
+
 }

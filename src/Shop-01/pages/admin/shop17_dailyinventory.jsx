@@ -6,6 +6,8 @@ import {
 import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
+
 
 const IndividualShopReport = () => {
   const [orders, setOrders] = useState([]);
@@ -44,7 +46,13 @@ const IndividualShopReport = () => {
         console.error("error fetching Data:", err);
       });
   };
+  const handleSignOut = () => {
 
+    localStorage.removeItem("user");
+
+    navigate("/admin/login");
+
+  };
   const handleStartDateChange = (date) => {
     setStartDate(date);
   };
@@ -54,6 +62,15 @@ const IndividualShopReport = () => {
   };
 
   return (
+    <div>
+    <div className="shop17-header"> {/* Updated class name */}
+        
+        <div className="shop17-center"> {/* Updated class name */}
+          <h1 style={{fontSize:'3rem'}}><span style={{color:'orangered' , fontSize:'3rem'} }>Mr.Computer Wizz </span>Admin Page</h1>
+          <button className="btn btn-danger mt-2" onClick={handleSignOut}>Sign Out</button>
+        </div>
+        
+      </div>
     <div className="min-h-screen p-10">
       <div className="min-h-[500px]">
         <h2 className="font-bold text-2xl mb-4">Today's Orders</h2>
@@ -222,6 +239,7 @@ const IndividualShopReport = () => {
           </table>
         </div>
       </div>
+    </div>
     </div>
   );
 };

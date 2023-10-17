@@ -123,7 +123,7 @@ shop.css
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space;
+    justify-content: center;
 
 }
 .shop .container .right_box .product_box .product_container .box
@@ -133,8 +133,10 @@ shop.css
     height: 410px;
     overflow: hidden;
     border: 3px solid #f6f6f6;
+    border-radius: 10px;
     margin-left: 15px;
     margin-top: 20px;
+    background-color: #ffffff85;
 }
 .shop .container .right_box .product_box .product_container .box .img_box
 {

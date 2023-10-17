@@ -1,43 +1,138 @@
-.shop_14 .product-detail-page_shop14 {
-
+.shop_14 {
+  background-color: #f2f2f2;
   padding: 20px;
-
-  font-family: Arial, sans-serif;
-
-  text-align: left;
-  background-color: black;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.shop_14 .product-details_shop14 
-{
-  width: 100%;
+.shop_14 .product-detail-page_shop14 {
   max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.shop_14 .product-image_shop14
-{
-
-  width: 250px;
-  height: 250px;
-
-}
-
-.shop_14 .product-details_shop14 strong 
-{
-  font-size: 24px;
+/* Header styles */
+.shop_14 nav {
+  background-color: #4e0e44c5;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
 }
 
-.shop_14 .product-details_shop14 p 
-{
+.shop_14 .back-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #4e0e44c5;
+}
+
+.shop_14 .back-button:hover {
+  text-decoration: underline;
+}
+
+.shop_14 .icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.shop_14 h1 {
+  font-size: 48px;
+  margin: 0;
+  color: black;
+}
+
+.shop_14 h2 {
   font-size: 18px;
-  margin: 10px 0;
-  color: white;
+  margin: 0;
 }
 
-.shop_14 .spaced-buttons_shop14 
-{
-  margin-right: 30px;
-  color: blue;
+/* Product details styles */
+.shop_14 .product-details_shop14 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop_14 .product-image_shop14 {
+  width: 200px;
+  height: 200px;
+}
+
+.shop_14 strong {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.shop_14 p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.shop_14 .quantity-input {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop_14 label {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.shop_14 input {
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.shop_14 .spaced-buttons_shop14 {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: #4e0e44c5;
+}
+
+button {
+  background-color: #4e0e44c5;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+.shop_14 .buttonheader{
+  color: black;
 }

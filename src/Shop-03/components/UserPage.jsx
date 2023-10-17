@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPage.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingCart } from 'phosphor-react';
 
 function UserPage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 10;
   const apiUrl = 'https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products';
 
   useEffect(() => {
@@ -38,13 +39,45 @@ function UserPage() {
     setCart([...cart, { ...productToAdd, quantity: 1 }]);
   };
 
-  return (
-    <section className='shop14'>
-    <div className="user-page_shop14">
-      <h1>Digital Genie</h1>
-      <div className="product-list_shop14">
-      <li><Link to='/computer' className='link'><button>ComputerHome </button></Link></li>
+  const navigate = useNavigate();
 
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+
+    navigate("/customer/login");
+
+  };
+
+  return (
+    <section className="shop14">
+    <div className="user-page_shop14">
+      <div className="navbar_shop14">
+        <h1 className="title_shop14">Digital Genie</h1>
+        <nav className="nav-links_shop14">
+          <ul>
+          <li>
+        <Link to="/erichie/cart" className="link">
+        <ShoppingCart size={32} /> {/* You can use an appropriate icon class or component */}
+        </Link>
+      </li>
+            <li>
+              <Link to="/computer" className="link">
+                Computer-Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/erichie/" className="link">
+                e-Richie
+              </Link>
+            </li>
+            <button className='buttonheader'onClick={handleSignOut}>Signout</button>
+
+            {/* Add more navigation links as needed */}
+          </ul>
+        </nav>
+      </div>
+      <div className="product-list_shop14">
         <ul>
           {currentProducts.map((product) => (
             <div className="product-item_shop14" key={product.id}>
@@ -54,14 +87,17 @@ function UserPage() {
                   alt={product.fields.productname?.stringValue}
                   className="product-image_shop14"
                 />
-                <strong><br></br>{product.fields.productname?.stringValue}</strong>
+                <strong>
+                  <br></br>
+                  {product.fields.productname?.stringValue}
+                </strong>
                 <p>Price: ₹{product.fields.price?.integerValue}</p>
                 <div className="product-buttons_shop14">
-                  {/* <button onClick={() => addToCart(product.id)}>Add to Cart</button> */}
                   <Link to={`/shop14/products/${product.id}`}>
-                    <button className="view-details-button_shop14">View Details</button>
+                    <button className="view-details-button_shop14">
+                      View Details
+                    </button>
                   </Link>
-                  {/* <button className="buy-now-button_shop14" >Buy Now</button> */}
                 </div>
               </div>
             </div>
@@ -69,14 +105,18 @@ function UserPage() {
         </ul>
       </div>
       <div className="pagination_shop14">
-        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, i) => (
-          <button key={i} onClick={() => paginate(i + 1)}>
-            {i + 1}
-          </button>
-        ))}
+        {Array.from(
+          { length: Math.ceil(products.length / productsPerPage) },
+          (_, i) => (
+            <button key={i} onClick={() => paginate(i + 1)}>
+              {i + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
-    </section>
+  </section>
+  
   );
 }
 export default UserPage;

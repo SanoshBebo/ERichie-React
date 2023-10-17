@@ -5,6 +5,7 @@ import axios from "axios";
 import "./chat2.css"; // Import your CSS file
 import { Link } from "react-router-dom";
 
+
 const Chatbot = () => {
   const [minimized, setMinimized] = useState(false);
 
@@ -15,6 +16,9 @@ const Chatbot = () => {
   const [chatVisible, setChatVisible] = useState(false);
 
   const [productData, setProductData] = useState([]);
+
+  const [loading, setLoading] = useState(false); // State to track loading
+
   // Define linkToRender as a state variable
 
   const databaseURLs = [
@@ -30,7 +34,7 @@ const Chatbot = () => {
     "https://firestore.googleapis.com/v1/projects/e-mobile-81b40/databases/(default)/documents/Products",
     "https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Products",
     "https://firestore.googleapis.com/v1/projects/dead-eye-game-store/databases/(default)/documents/Products",
-    // "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents/Products",
+    "https://firestore.googleapis.com/v1/projects/supreme-mart/databases/(default)/documents/Products",
     //surya link
     "https://firestore.googleapis.com/v1/projects/cosmicmediastore-438f7/databases/(default)/documents/Products",
     "https://firestore.googleapis.com/v1/projects/myapp-5dc30/databases/(default)/documents/Products",
@@ -46,6 +50,8 @@ const Chatbot = () => {
     // Fetch data from all databases and store it in productData
 
     const fetchData = async () => {
+      setLoading(true); // Set loading to true while fetching data
+
       const allData = [];
 
       for (const databaseURL of databaseURLs) {
@@ -55,6 +61,8 @@ const Chatbot = () => {
       }
 
       setProductData(allData);
+      setLoading(false); // Set loading to false after fetching data
+
     };
 
     fetchData();
@@ -71,42 +79,75 @@ const Chatbot = () => {
       setChatVisible(!chatVisible);
     }
   };
+  let linkToRender, shopname;
 
   const LinkCheck = (product) => {
     console.log(product);
 
     if (product.fields.shopid.stringValue === "shop15")
-      return `checkout/${product.name.split("/").pop()}`;
+      {linkToRender =  `/checkout/${product.name.split("/").pop()}`;
+        shopname = " || Shop: Sanjay Shop";
+    }
     else if (product.fields.shopid.stringValue === "shop13")
-      return `/shop13/shop/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop13/shop/${product.name.split("/").pop()}`;
+      shopname = " || Shop: Abhiram Store";
+    }
     else if (product.fields.shopid.stringValue === "shop14")
-      return `/shop14/products/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop14/products/${product.name.split("/").pop()}`;
+      shopname = " || Shop: Digital Genie";
+    }
     else if (product.fields.shopid.stringValue === "shop16")
-      return `/shop4products/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop4products/${product.name.split("/").pop()}`;
+      shopname = " || Shop: Dhanu Computers";
+    }
     else if (product.fields.shopid.stringValue === "shop17")
-      return `/products/${product.name.split("/").pop()}`;
+      {linkToRender = `/products/${product.name.split("/").pop()}`;
+      shopname = " || Shop: Mr.Computer Wizz";
+    }
     else if (product.fields.shopid.stringValue === "shop10")
-      return `/shop10/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop10/product/${product.name.split("/").pop()}`;
+      shopname = " || Shop: Lemontech";
+    }
     else if (product.fields.shopid.stringValue === "shop09")
-      return `/productinfo/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop09/product/${product.name.split("/").pop()}`;
+      shopname = " Shop: Shank Mobiles";
+    }
     else if (product.fields.shopid.stringValue === "shop11")
-      return `/shop11/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop11/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: E-Mobile";
+    }
     else if (product.fields.shopid.stringValue === "shop12")
-      return `/shop12/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop12/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: MobileWorld";
+    }
     else if (product.fields.shopid.stringValue === "shop05")
-      return `/shop05/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop05/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: Dead Eye Game Store";
+    }
     else if (product.fields.shopid.stringValue === "shop04")
-      return `shop04/product/${product.name.split("/").pop()}`;
+      {linkToRender = `shop04/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: Supreme-Mart";
+    }
     else if (product.fields.shopid.stringValue === "shop01")
-      return `/shop01/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop01/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: Cosmic media store";
+    }
     else if (product.fields.shopid.stringValue === "shop07")
-      return `/shop07/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop07/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: Gamer's Gold Mine";
+    }
     else if (product.fields.shopid.stringValue === "shop06")
-      return `/shop06/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop06/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: Game Store";
+    }
     else if (product.fields.shopid.stringValue === "shop03")
-      return `/shop03/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop03/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: Vishal Media Shop";
+    }
     else if (product.fields.shopid.stringValue === "shop02")
-      return `/shop02/product/${product.name.split("/").pop()}`;
+      {linkToRender = `/shop02/product/${product.name.split("/").pop()}`;
+      shopname = "Shop: E-Nerd";
+    }
   };
   const searchProducts = () => {
     const normalizedUserInput = userInput.toLowerCase();
@@ -121,7 +162,7 @@ const Chatbot = () => {
 
     if (matchingProducts.length > 0) {
       matchingProducts.forEach((product) => {
-        const linkToRender = LinkCheck(product);
+         LinkCheck(product);
 
         messages.push({
           role: "system",
@@ -132,6 +173,7 @@ const Chatbot = () => {
             product.fields.price.stringValue
           }`,
           link: linkToRender,
+          name: shopname,
         });
       });
     } else {
@@ -158,6 +200,8 @@ const Chatbot = () => {
   };
 
   return (
+
+
     <div>
       {chatVisible || minimized ? (
         <div className={`chatbot-container ${minimized ? "minimized" : ""}`}>
@@ -185,12 +229,23 @@ const Chatbot = () => {
                       <button className="chat-button">
                         {message.content1}
                         {message.content2}{" "}
+                        {message.name}{" "}
                       </button>{" "}
                     </a>
                   </div>
                 ))}
               </div>
-              <div className="chat-input-container">
+              {loading?(
+                <div className="chat-input-container">
+                <input
+                  className="chat-input"
+                  type="text"
+                  placeholder="LOADING...."
+                  value={userInput}
+                />
+              </div>
+              ):(
+                <div className="chat-input-container">
                 <input
                   className="chat-input"
                   type="text"
@@ -202,6 +257,8 @@ const Chatbot = () => {
                   <button onClick={handleUserMessage}>Send</button>
                 </div>
               </div>
+              )
+              }
             </>
           )}
         </div>
@@ -213,6 +270,7 @@ const Chatbot = () => {
         </div>
       )}
     </div>
+      
   );
 };
 

@@ -14,7 +14,7 @@ const HomePage = () => {
     return (
         <>
             <div className='headershop15'>
-                <Header onSearchChange={handleSearchChange} />
+                <Header onSearchChange={handleSearchChange} disabled={true} />
 
                 
 

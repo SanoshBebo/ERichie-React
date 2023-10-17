@@ -27,6 +27,9 @@
     margin-left: 10px;
     color: #580000;
   }
+
+
+  
   
   .headerab .mid_headerab {
     display: flex;
@@ -139,7 +142,7 @@
     font-weight: 600;
     transition: 0.5s;
   }
-  
+
   @media (max-width: 1300px) {
     .headerab .last_headerab {
         flex-direction: column;
@@ -209,7 +212,7 @@
       align-items: center;
     }
   
-    .headerab .last_header .nav ul li .link {
+    .headerab .last_headerab .nav ul li .link {
       margin: 10px 0;
     }
   }

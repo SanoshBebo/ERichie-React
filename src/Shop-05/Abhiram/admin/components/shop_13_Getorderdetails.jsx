@@ -1,12 +1,12 @@
 import axios from "axios";
 import { fetchProducts } from "./shop13_apicalls";
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
+"https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
 
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);
   const allproducts = await fetchProducts();
-  const userApiUrl = `${baseUrl}/Users`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
   try {
@@ -97,7 +97,7 @@ export const getOrderByDateFromFireStore = async (shopid) => {
 
 export const getOrderByDateRangeFromFireStore = async (startDate, endDate) => {
   const allproducts = await fetchProducts();
-  const userApiUrl = `${baseUrl}/Users`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
   try {

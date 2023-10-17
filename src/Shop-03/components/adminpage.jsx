@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminPage.css';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
 function AddProduct() {
   const [product, setProduct] = useState({
     category: 'computer',
@@ -11,6 +13,15 @@ function AddProduct() {
     shopid: 'shop14', // Pre-defined shopname
     stock: '',
   });
+
+  const handleSignOut = () => {
+
+    localStorage.removeItem("user");
+    
+    navigate("/admin/login");
+    
+    };
+    
   const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editProductId, setEditProductId] = useState(null);
@@ -21,6 +32,32 @@ function AddProduct() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const firebaseStorageUrl =
     'https://firebasestorage.googleapis.com/v0/b/digig-57d5f.appspot.com/o';
+
+    const user = useSelector((state) => state.shoponeuser.user);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+
+    useEffect(() => {
+      if (!isLoadingUser && user.length === 0) {
+        navigate("/admin/login");
+      }
+    }, [isLoadingUser, user, navigate]);
+  
+    useEffect(() => { 
+      const userData = JSON.parse(localStorage.getItem("user"));
+      if (userData && userData.email == "sundariadmin@gmail.com") {
+        if (userData.role == "customer") {
+          navigate("/admin/login");
+        }
+        dispatch(setUser(userData));
+      }
+      setIsLoadingUser(false);
+    }, []);
+    
+    
+
   useEffect(() => {
     axios
       .get(apiUrl)
@@ -227,16 +264,20 @@ function AddProduct() {
     <section className='sundarishop14'>
     <div className="add-product-pages_shop14">
       <div className="add-product-containers_shop14">
-        <h1>{'Digital Genie'}</h1>
+        <h1><b>{'Digital Genie'}</b></h1>
         
         {/* Button to toggle the "Add Product" form */}
         <button onClick={() => setShowAddProductForm(!showAddProductForm)}>
           {showAddProductForm ? 'Close Form' : 'Add Product'}
         </button>
         {/* Add the "Statistics" button */}
-        <button className="statistics-button" onClick={()=>Navigate('/')}>
-            Statistics
-          </button>
+        <button className="statistics-button" onClick={() => navigate('/shop14/admin/report')}>
+  Statistics
+</button>
+<button className="statistics-button" onClick={() => navigate('/erichie/overall-report')}>
+  e-Richie Report
+</button>
+<button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button>
         {/* "Add Product" form */}
         {showAddProductForm && (
           <div className="product-forms_shop14">
@@ -347,10 +388,12 @@ function AddProduct() {
                     <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
                     <button onClick={() => handleEditProduct(product.id)}>Edit</button>
                   </div>
+                 
                 </div>
               </div>
             </div>
           ))}
+           
         </ul>
       </div>
     </div>

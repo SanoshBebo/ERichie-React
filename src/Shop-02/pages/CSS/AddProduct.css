@@ -1,80 +1,153 @@
-/* CSS for the Add a New Product Form */
-
 .addproducts {
-    width: 100%;
-    padding: 20px;
-    margin-top: 80px;
-    margin-left: 150px;
-    box-sizing: border-box;
-  }
-  
-  .addproducts .add {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .addproducts .add h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .addproducts label {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .addproducts input[type="text"],
-  .addproducts input[type="number"],
-  .addproducts textarea,
-  .addproducts input[type="file"] {
-    width: 97%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .addproducts textarea {
-    height: 100px;
-    width: 800px;
-  }
-  
-  /* Add hover and focus styles for input fields */
-  .addproducts input[type="text"]:hover,
-  .addproducts input[type="number"]:hover,
-  .addproducts textarea:hover,
-  .addproducts input[type="file"]:hover,
-  .addproducts input[type="text"]:focus,
-  .addproducts input[type="number"]:focus,
-  .addproducts textarea:focus,
-  .addproducts input[type="file"]:focus {
-    border-color: #007bff;
-    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
-  }
-  
-  .addproducts button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    width: 150px;
-    font-size: 18px;
-    border: none;
-    border-radius: 15px;
-    margin-left: calc(50% - 75px); /* Center horizontally */
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Add hover style for the submit button */
-  .addproducts button[type="submit"]:hover {
-    background-color: #0056b3;
-    transition: background-color 0.3s ease;
-  }
-  
+
+  width: 60%;
+
+  padding: 20px;
+
+  margin-top: 80px;
+
+  margin-left: 150px;
+
+  box-sizing: border-box;
+
+}
+
+
+
+.addproducts .add {
+
+  padding: 20px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 5px;
+
+  background-color: #fff;
+
+  box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.addproducts .add h2 {
+
+  font-size: 24px;
+
+  margin-bottom: 20px;
+
+  text-align: center;
+
+}
+
+
+
+.addproducts label {
+
+  font-size: 16px;
+
+  margin-bottom: 10px;
+
+}
+
+
+
+.addproducts input[type="text"],
+
+.addproducts input[type="number"],
+
+.addproducts textarea,
+
+.addproducts input[type="file"] {
+
+  width: 97%;
+
+  padding: 10px;
+
+  font-size: 16px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 5px;
+
+  margin-bottom: 15px;
+
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+
+
+.addproducts textarea {
+
+  height: 100px;
+
+  width: 400px;
+
+}
+
+
+
+/* Add hover and focus styles for input fields */
+
+.addproducts input[type="text"]:hover,
+
+.addproducts input[type="number"]:hover,
+
+.addproducts textarea:hover,
+
+.addproducts input[type="file"]:hover,
+
+.addproducts input[type="text"]:focus,
+
+.addproducts input[type="number"]:focus,
+
+.addproducts textarea:focus,
+
+.addproducts input[type="file"]:focus {
+
+  border-color: #007bff;
+
+  box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+
+}
+
+
+
+.addproducts button[type="submit"] {
+
+  background-color: #007bff;
+
+  color: #fff;
+
+  width: 150px;
+
+  font-size: 18px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  margin-left: calc(50% - 75px); /* Center horizontally */
+
+  padding: 10px 20px;
+
+  cursor: pointer;
+
+  margin-top: 10px;
+
+  transition: background-color 0.3s ease;
+
+}
+
+
+
+/* Add hover style for the submit button */
+
+.addproducts button[type="submit"]:hover {
+
+  background-color: #0056b3;
+
+  transition: background-color 0.3s ease;
+
+}
