@@ -148,10 +148,27 @@ const CheckoutPage = () => {
             <button onClick={handleIncreaseQuantity}>+</button><br />
             <strong>Total Price: {quantity * product.price}</strong>
 
-            <button onClick={() => {
-              addToCart();
-            }}disabled={isAddedToCart}
-            >{isAddedToCart ? 'Added' : 'Add to Cart'}</button>
+            <button
+
+className="purchase-button"
+
+onClick={() => {
+
+  if (!isAddedToCart && product.stock > 0) {
+
+    addToCart();
+
+  }
+
+}}
+
+disabled={isAddedToCart || product.stock <= 0}
+
+>
+
+{isAddedToCart ? 'Added' : product.stock <= 0 ? 'Out of Stock' : 'Add to Cart'}
+
+</button>
           </div>
         )}
         

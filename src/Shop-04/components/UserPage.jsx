@@ -6,6 +6,7 @@ import './UserPage.css';
 import './shopProductDetail';
 import { AiOutlineSearch,AiOutlineShoppingCart } from 'react-icons/ai';
 import { CenterFocusStrong } from "@mui/icons-material";
+import { useSelector } from 'react-redux';
 
 function UserPage() {
   const [products, setProducts] = useState([]);
@@ -15,6 +16,8 @@ function UserPage() {
     const [currentCategory, setCurrentCategory] = useState('All'); // Default category is All
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 4;
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+
 
   const apiUrl = 'https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products';
 
@@ -89,6 +92,9 @@ function UserPage() {
    
     <li><Link to="/erichie/cart" className="btn btn-link">
             <AiOutlineShoppingCart style={{ fontSize: '24px' }}/> 
+            <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
           </Link></li>
     <li><button >Signout</button></li>
   </ul>

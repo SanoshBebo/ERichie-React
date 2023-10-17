@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import '../styles/nav.css'
+import { useSelector } from 'react-redux';
 
 
 const nav = ({search, setSearch, searchproduct}) => {
@@ -19,6 +20,7 @@ const nav = ({search, setSearch, searchproduct}) => {
     return null;
   }
   const navigate = useNavigate();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
 
   const handleSignOut = () => {
     localStorage.removeItem("user");
@@ -71,7 +73,9 @@ const nav = ({search, setSearch, searchproduct}) => {
                 <ul>
                   <li><Link to='/shop13' className='link'>Home</Link></li>
                   <li><Link to='/shop13/shop' className='link'>Shop</Link></li>
-                  <li><Link to="/erichie/cart" className='link'><AiOutlineShoppingCart/></Link></li>
+                  <li><Link to="/erichie/cart" className='link'><AiOutlineShoppingCart size={32}/><p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p></Link></li>
                   <li><Link to='/computer' className='link'>ComputerHome</Link></li>
                   <li><Link to='/erichie' className='link'>E-Richie</Link></li>
                   

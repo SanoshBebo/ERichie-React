@@ -3,12 +3,15 @@ import axios from 'axios';
 import './UserPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart } from 'phosphor-react';
+import { useSelector } from 'react-redux';
 
 function UserPage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+
   const apiUrl = 'https://firestore.googleapis.com/v1/projects/digig-57d5f/databases/(default)/documents/Products';
 
   useEffect(() => {
@@ -58,7 +61,10 @@ function UserPage() {
           <ul>
           <li>
         <Link to="/erichie/cart" className="link">
-        <ShoppingCart size={32} /> {/* You can use an appropriate icon class or component */}
+        <ShoppingCart size={32} />
+        <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p> {/* You can use an appropriate icon class or component */}
         </Link>
       </li>
             <li>

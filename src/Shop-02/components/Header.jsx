@@ -5,6 +5,8 @@ import './Header.css';
 import { Link,useNavigate} from 'react-router-dom';
 
 import { ShoppingCart } from 'phosphor-react';
+import { useSelector } from 'react-redux';
+import FetchItemsInCart from '../../ERichie/components/FetchItemsInCart';
 
  
 
@@ -17,6 +19,9 @@ const Header = ({ onSearchChange ,disabled}) => {
     onSearchChange(searchQuery);
 
   };
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const  items = FetchItemsInCart();
+
 
  
 
@@ -83,6 +88,9 @@ const Header = ({ onSearchChange ,disabled}) => {
         <Link to="/erichie/cart">
 
           <ShoppingCart size={32} />
+          <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
 
         </Link>
 

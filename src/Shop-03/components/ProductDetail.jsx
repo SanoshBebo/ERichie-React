@@ -6,7 +6,7 @@ import { AiOutlineSearch,AiOutlineShoppingCart } from 'react-icons/ai';
 
 
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
@@ -14,7 +14,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
 
+  const url = `/shop14/products/${productId}`;
+  let redirectUrl = { 
+    url: url,
+  };
   
 
   const [product, setProduct] = useState(null);
@@ -49,6 +54,8 @@ const ProductDetail = () => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
+
       addCartToFirestore(cartItem, userData.email);
       toast.success('Product added to cart!', {
         position: 'top-right',
@@ -112,6 +119,9 @@ const ProductDetail = () => {
         <div className="icon">
           <Link to="/erichie/cart" className="btn btn-primary back-button">
             <AiOutlineShoppingCart /> 
+            <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
           </Link>
           <button className='buttonheader' onClick={handleSignOut}>Signout</button>
         </div>

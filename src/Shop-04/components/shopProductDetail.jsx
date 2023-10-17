@@ -4,7 +4,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import "./UserPage.css";
 import "./UserPage.jsx";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
@@ -18,6 +18,13 @@ function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const user = useSelector((state) => state.shoponeuser.user);
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+
+
+  const url = `/shop4product/${productId}`;
+  let redirectUrl = { 
+    url: url,
+  };
 
   const apiUrl = `https://firestore.googleapis.com/v1/projects/d-richie-computers/databases/(default)/documents/Products/${productId}`;
 
@@ -60,7 +67,10 @@ function ProductDetails() {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
+
       addCartToFirestore(cartItem, userData.email);
+
        // Show a toast message
        toast.success('Product added to cart!', {
         position: 'top-right',
@@ -93,6 +103,9 @@ function ProductDetails() {
     <li><Link to='/erichie/' className='link'>Back to Categories</Link></li>
     <li><Link to="/erichie/cart" className="btn btn-link">
             <AiOutlineShoppingCart style={{ fontSize: '24px' }}/> 
+            <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                  {itemsInCart}
+                </p>
           </Link></li>
     <li><button >Signout</button></li>
   </ul>
@@ -125,6 +138,7 @@ function ProductDetails() {
                 max={product.stock.integerValue}// Set a minimum value
               />
             </div>
+
 
             <button id ="addcart" onClick={() => {addToCart();}}> Add To Cart</button>
             <br />

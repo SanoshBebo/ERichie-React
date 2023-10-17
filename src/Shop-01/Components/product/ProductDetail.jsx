@@ -4,10 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import './ProductDetail.css'; // Import the CSS file
-import Header from "../../components/header/Header";
+import Header from "../header/Header";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FetchItemsInCart from "../../../ERichie/components/FetchItemsInCart";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBV81LLXLpCtn-8rGdcrLyrIg4mwhCvkZA",
@@ -21,7 +23,7 @@ const firebaseConfig = {
 
 
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import { addItemToCart, addNoOfItemsInCart } from "../../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -150,6 +152,14 @@ function ProductDetail() {
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigate();
 
+  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const  items = FetchItemsInCart();
+
+  const url = `/Products/${documentId}`;
+  let redirectUrl = { 
+    url: url,
+  };
+
   useEffect(() => {
     if ((!isLoadingUser && user.length === 0) || user.role == "shopkeeper") {
       navigate("/customer/login");
@@ -173,6 +183,8 @@ function ProductDetail() {
       };
       console.log(cartItem)
       dispatch(addItemToCart(cartItem));
+      dispatch(addNoOfItemsInCart(quantity));
+
       addCartToFirestore(cartItem, userData.email);
   
       // Show a toast message
