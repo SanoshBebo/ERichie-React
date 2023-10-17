@@ -11,8 +11,10 @@ import ReactPaginate from "react-js-pagination";
 import { FaShoppingCart } from "react-icons/fa";
 
 import FetchItemsInCart from "../../../../../ERichie/components/FetchItemsInCart";
+
 import { useSelector } from "react-redux";
-import video from "./greetingspage.mp4"
+
+import video from "./greetingspage.mp4";
 
 function ProductList({ isAdmin }) {
   const [products, setProducts] = useState([]);
@@ -22,7 +24,8 @@ function ProductList({ isAdmin }) {
   const [currentPage, setCurrentPage] = useState(1); // Initialize current page to 1
 
   const productsPerPage = 6; // Number of products per page
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
 
   useEffect(() => {
     // Replace 'YOUR_BACKEND_API_URL/products' with your actual backend API endpoint URL
@@ -47,8 +50,8 @@ function ProductList({ isAdmin }) {
         setError("Error fetching products: " + error.message);
       });
   }, []);
-  const items = FetchItemsInCart();
 
+  const items = FetchItemsInCart();
 
   // Calculate the start and end index of products to display on the current page
 
@@ -74,11 +77,12 @@ function ProductList({ isAdmin }) {
         <Link to="/gaming">Go Back</Link>
 
         <li>
-          <Link to="/erichie/cart">🛒 
-          <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
-                  {itemsInCart}
-                </p>
-                </Link>{" "}
+          <Link to="/erichie/cart">
+            🛒
+            <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+              {itemsInCart}
+            </p>
+          </Link>{" "}
           {/* Unicode character for cart (🛒) */}
         </li>
 
@@ -88,16 +92,12 @@ function ProductList({ isAdmin }) {
       </div>
 
       <br></br>
+
       <div className="video-container">
-
         <video autoPlay loop muted className="fullscreen-video">
-
           <source src={video} type="video/mp4" />
-
           Your browser does not support the video tag.
-
         </video>
-
       </div>
 
       <div className="product-list-container">

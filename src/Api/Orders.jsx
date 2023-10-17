@@ -20,7 +20,7 @@ const baseUrl =
   "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
 
 export const fetchShopProducts = async (shopid) => {
-  console.log(shopid)
+  console.log(shopid);
   if (shopid == "shop01") {
     return await fetchShopOneProducts();
   } else if (shopid == "shop02") {
@@ -137,7 +137,7 @@ export const storePurchaseInFirestore = async (cartItems, loggedinEmail) => {
 
           //To update the stock
           updateStock(
-            productDocument.shopid,
+            productDocument.shopid.toLowerCase(),
             updateStockPayload,
             productDocument
           );
@@ -245,9 +245,9 @@ export const getOrderHistory = async (email) => {
                 console.log(document);
                 console.log(shopid.stringValue);
 
-                let productInfo ;
+                let productInfo;
                 try {
-                  console.log(shopid.stringValue.toLowerCase())
+                  console.log(shopid.stringValue.toLowerCase());
                   const shopProducts = await fetchShopProducts(
                     shopid.stringValue.toLowerCase()
                   );
@@ -259,8 +259,7 @@ export const getOrderHistory = async (email) => {
                 } catch (error) {
                   console.error("Error fetching shop products: ", error);
                 }
-                if(productInfo){
-
+                if (productInfo) {
                   return {
                     productname: productInfo.productname
                       ? productInfo.productname

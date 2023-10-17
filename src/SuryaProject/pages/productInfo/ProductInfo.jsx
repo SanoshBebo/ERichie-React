@@ -5,7 +5,10 @@ import { useParams } from "react-router";
 import { doc, getDoc } from "firebase/firestore";
 import { fireDB } from "../../fireabase/FirebaseConfig";
 import { setUser } from "../../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart, addNoOfItemsInCart } from "../../../SanoshProject/redux/shopOneCartSlice";
+import {
+  addItemToCart,
+  addNoOfItemsInCart,
+} from "../../../SanoshProject/redux/shopOneCartSlice";
 import { useDispatch } from "react-redux";
 import { addCartToFirestore } from "../../../Api/CartOperationsFirestore";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +22,11 @@ function ProductInfo() {
 
   const [products, setProducts] = useState("");
   const params = useParams();
+  const url = `/shop04/product/${params.id}`;
+
+  let redirectUrl = {
+    url: url,
+  };
   // console.log(products.title)
 
   const getProductData = async () => {
@@ -43,7 +51,7 @@ function ProductInfo() {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
-      console.log(product)
+      console.log(product);
       const cartItem = {
         id: params.id,
         name: product.productname,
@@ -54,6 +62,7 @@ function ProductInfo() {
         imageurl: product.imageUrl,
         quantity: 1,
       };
+
       dispatch(addItemToCart(cartItem));
       dispatch(addNoOfItemsInCart(1));
 
@@ -69,7 +78,6 @@ function ProductInfo() {
         progress: undefined,
         theme: "colored",
       });
-
     } else {
       localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
@@ -90,7 +98,7 @@ function ProductInfo() {
               <img
                 alt="ecommerce"
                 className="lg:w-1/3 w-full lg:h-auto  object-contain object-center rounded"
-                src={products.imageUrl}
+                src={products.imageUrl || products.imageurl}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -99,7 +107,7 @@ function ProductInfo() {
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                   {products.productname}
                 </h1>
-                
+
                 <p className="leading-relaxed border-b-2 mb-5 pb-5">
                   {products.description}
                 </p>
@@ -111,11 +119,10 @@ function ProductInfo() {
                   <button
                     onClick={() => addCart(products)}
                     className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-                    disabled={ products.stock == 0}
+                    disabled={products.stock == 0}
                   >
                     Add To Cart
                   </button>
-               
                 </div>
               </div>
             </div>

@@ -159,7 +159,7 @@ const AdminPage = () => {
         const updatedProducts = allProducts.filter(
           (product) => product.productid !== editedProduct.productid
         );
-        dispatch(setProducts(updatedProducts));
+        dispatch(setShopOneProducts(updatedProducts));
       } else {
         console.error("Error deleting product:", response.statusText);
         console.error("Response data:", response.data);
@@ -473,7 +473,10 @@ const AdminPage = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={deleteProduct}
+              onClick={() => {
+                deleteProduct();
+                closeModal();
+              }}
               className="m-2"
             >
               Yes

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShopOneProducts } from "../redux/shopOneProductSlice";
 import { fetchProducts } from "../api/ApiCalls";
 import ReactPaginate from "react-paginate";
-
+import heroBG from "../assets/heroBG.jpg";
+import "./CMG.css";
 const CosmicMediaGadgets = () => {
   const products = useSelector((state) => state.shoponeproduct.shoponeproducts);
   const dispatch = useDispatch();
@@ -50,6 +51,16 @@ const CosmicMediaGadgets = () => {
 
   return (
     <div className="flex-row min-h-screen">
+      <div className="h-screen relative">
+        <img
+          src={heroBG}
+          className="w-full h-full object-fill shop01animate-fade-in"
+          alt=""
+        />
+        <div className="absolute top-[35%] left-[60%]  shop01animated-slide-in text-white text-5xl font-serif font-extralight">
+          CosmicMediaGadgets
+        </div>
+      </div>
       <div className="header flex items-center justify-between p-10 px-20">
         <h2 className="font-bold text-2xl">Products</h2>
         <input

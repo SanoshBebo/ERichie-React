@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShopThreeProducts } from "../../SanoshProject/redux/shopThreeProductSlice";
 import axios from "axios";
 import { setUser } from "../../SanoshProject/redux/shopOneUserSlice";
-import { addItemToCart, addNoOfItemsInCart } from "../../SanoshProject/redux/shopOneCartSlice";
+import {
+  addItemToCart,
+  addNoOfItemsInCart,
+} from "../../SanoshProject/redux/shopOneCartSlice";
 import { addCartToFirestore } from "../../Api/CartOperationsFirestore";
 import { toast } from "react-toastify";
 import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
@@ -18,15 +21,22 @@ const ProductPage = () => {
   const { id } = useParams();
 
   const [count, setCount] = useState(1); // Start with 1 item
-  const products = useSelector((state) => state.shopthreeproduct.shopthreeproducts);
+  const products = useSelector(
+    (state) => state.shopthreeproduct.shopthreeproducts
+  );
   const { itemsInCart } = FetchItemsInCart();
   const product = products.find((product) => product.productid === id);
   const [manualQuantity, setManualQuantity] = useState("1"); // For manual quantity input
+  const url = `/shop03/product/${id}`;
 
+  let redirectUrl = {
+    url: url,
+  };
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const baseUrl = "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
+        const baseUrl =
+          "https://firestore.googleapis.com/v1/projects/about-me-bf7ef/databases/(default)/documents";
         const collectionName = "Products";
         const apiUrl = `${baseUrl}/${collectionName}`;
         const response = await axios.get(apiUrl);
@@ -42,7 +52,8 @@ const ProductPage = () => {
           const productsData = productDocuments.map((document) => {
             const documentNameParts = document.name.split("/");
             const documentId = documentNameParts[documentNameParts.length - 1];
-            const { description, stock, price, productname, shopid } = document.fields;
+            const { description, stock, price, productname, shopid } =
+              document.fields;
 
             return {
               description: description.stringValue,
@@ -150,20 +161,20 @@ const ProductPage = () => {
           alt={product.name}
           className="h-40 w-40 object-cover rounded-lg"
         />
-  
+
         <div className="flex flex-col">
           <h2 className="text-2xl font-semibold">{product.productname}</h2>
-  
+
           <p className="text-gray-600 mb-4">{product.description}</p>
-  
+
           <p className="text-lg font-semibold text-green-500">
             Rs.{product.price}
           </p>
-  
+
           <p className="text-lg font-semibold text-blue-500">
             Total Price: Rs.{count * product.price}
           </p>
-  
+
           <div className="flex items-center gap-2 mt-4">
             <button
               className="bg-green-500 text-white p-2 rounded-full hover-bg-green-600 transition"
@@ -172,14 +183,14 @@ const ProductPage = () => {
             >
               -
             </button>
-  
+
             <input
               type="text"
               value={manualQuantity}
               onChange={handleManualQuantityChange}
               className="w-12 text-center border border-gray-300 rounded"
             />
-  
+
             <button
               className="bg-green-500 text-white p-2 rounded-full hover-bg-green-600 transition"
               onClick={addQuantity}
@@ -188,7 +199,7 @@ const ProductPage = () => {
               +
             </button>
           </div>
-  
+
           <div className="flex gap-5">
             <button
               className="bg-black text-white p-2 mt-4 rounded-lg hover-bg-gray-900 transition"

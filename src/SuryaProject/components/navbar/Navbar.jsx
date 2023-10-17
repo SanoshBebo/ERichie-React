@@ -12,14 +12,14 @@ function Navbar() {
   const context = useContext(myContext);
   const { mode, toggleMode } = context;
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
-  const [userData,setUserData]=useState({});
-  const navigate = useNavigate()
+  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
 
   useEffect(() => {
     const userinfo = JSON.parse(localStorage.getItem("user"));
-    console.log(userinfo)
+    console.log(userinfo);
     if (userinfo) {
       setIsUserSignedIn(true);
       setUserData(userinfo);
@@ -27,7 +27,6 @@ function Navbar() {
   }, []);
 
   const items = FetchItemsInCart();
-  
 
   return (
     <div className="bg-white sticky top-0 z-50">
@@ -80,13 +79,27 @@ function Navbar() {
                   >
                     Home
                   </Link>
-                  { isUserSignedIn && userData.role=="shopkeeper"  && (
-
-                    <button className="text-sm font-medium text-gray-900 " style={{ color: mode === "dark" ? "white" : "" }} onClick={(e)=>{
-                      navigate("/shop04/admin/")
-                    
-                  }}>Shop Report </button>
-    
+                  {isUserSignedIn && userData.role == "shopkeeper" && (
+                    <div>
+                      <button
+                        className="text-sm font-medium text-gray-900 "
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                        onClick={(e) => {
+                          navigate("/shop04/admin/");
+                        }}
+                      >
+                        Shop Report{" "}
+                      </button>
+                      <button
+                        className="text-sm font-medium text-gray-900 "
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                        onClick={(e) => {
+                          navigate("/erichie/overall-report");
+                        }}
+                      >
+                        ERichie Report{" "}
+                      </button>
+                    </div>
                   )}
 
                   {/* {user ? <div className="flow-root">
@@ -123,7 +136,6 @@ function Navbar() {
                     </Link>
                   </div>
                 </div>
-
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -184,20 +196,49 @@ function Navbar() {
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link
+                    to={"/erichie"}
+                    className="text-sm font-medium text-gray-700 "
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to={"/MediaCategories"}
+                    className="text-sm font-medium text-gray-700 "
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    Media
+                  </Link>
+                  <Link
                     to={"/shop04/allproducts"}
                     className="text-sm font-medium text-gray-700 "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
                     All Products
                   </Link>
-                  { isUserSignedIn && userData.role=="shopkeeper"  && (
 
-<button className="text-sm font-medium text-gray-900 " style={{ color: mode === "dark" ? "white" : "" }} onClick={(e)=>{
-  navigate("/shop04/admin/shopreport")
-
-}}>Shop Report </button>
-
-)}
+                  {isUserSignedIn && userData.role == "shopkeeper" && (
+                    <div>
+                      <button
+                        className="text-sm font-medium text-gray-900 p-2"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                        onClick={(e) => {
+                          navigate("/shop04/admin/");
+                        }}
+                      >
+                        Shop Report{" "}
+                      </button>
+                      <button
+                        className="text-sm font-medium text-gray-900 "
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                        onClick={(e) => {
+                          navigate("/erichie/overall-report");
+                        }}
+                      >
+                        ERichie Report{" "}
+                      </button>
+                    </div>
+                  )}
                   {/* {user ?  <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Orders
                   </Link> :   <Link to={'/signup'}  className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
@@ -214,7 +255,6 @@ function Navbar() {
                     Logout
                   </a> : ""} */}
                 </div>
-
 
                 <div className="flex lg:ml-6">
                   <button className="" onClick={toggleMode}>
@@ -250,8 +290,8 @@ function Navbar() {
                       />
                     </svg>
                     <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
-                  {itemsInCart}
-                </p>
+                      {itemsInCart}
+                    </p>
 
                     {/* <span className="ml-2 text-sm font-medium text-gray-700 group-" style={{ color: mode === 'dark' ? 'white' : '', }}>{cartItems.length}</span> */}
                     <span className="sr-only">items in cart, view bag</span>

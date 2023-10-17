@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
 
   // Function to toggle the mobile menu
   const toggleMenu = () => {
@@ -64,9 +64,11 @@ const Header = () => {
                 className="flex items-center gap-2 hover:underline"
               >
                 <ShoppingCart />
-                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
-                  {itemsInCart}
-                </p>
+                {itemsInCart > 0 && (
+                  <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                    {itemsInCart}
+                  </p>
+                )}
               </Link>
             </li>
             <li className="cursor-pointer hover:underline">

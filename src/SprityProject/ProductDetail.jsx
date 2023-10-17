@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { setUser } from "../SanoshProject/redux/shopOneUserSlice"; 
+import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
 
-import { addItemToCart, addNoOfItemsInCart } from "../SanoshProject/redux/shopOneCartSlice";
+import {
+  addItemToCart,
+  addNoOfItemsInCart,
+} from "../SanoshProject/redux/shopOneCartSlice";
 
 import { addCartToFirestore } from "../Api/CartOperationsFirestore";
 
@@ -18,11 +21,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCart } from "lucide-react";
 import FetchItemsInCart from "../ERichie/components/FetchItemsInCart";
 
-
 // import { Ecom } from './Commerce'
 
 function ProductDetail() {
   const [product, setProduct] = useState(null);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   const [confirmationDisplayed, setConfirmationDisplayed] = useState(false);
 
@@ -38,19 +41,20 @@ function ProductDetail() {
   const user = useSelector((state) => state.shoponeuser.user);
 
   const navigate = useNavigate();
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
-  const  items = FetchItemsInCart();
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
+  const items = FetchItemsInCart();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [ispurchasedone, setispurchasedone] = useState(false);
 
   const handleVisitStore = () => {
-
     // Redirect to the "/mobiles" page
 
     navigate("/shop10/home");
   };
   const url = `/shop10/product/${productId}`;
-  let redirectUrl = { 
+  let redirectUrl = {
     url: url,
-  }; 
+  };
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -83,7 +87,7 @@ function ProductDetail() {
   }, [isLoadingUser, user, navigate]);
 
   if (!product) {
-    return <div className="text-center">Loading...</div>;
+    return <div className="text-center">Loading Products.....</div>;
   }
 
   const productname = product.fields.productname.stringValue;
@@ -100,6 +104,7 @@ function ProductDetail() {
     if (userData && userData.role == "customer") {
       dispatch(setUser(userData));
       // dispatch(addNoOfItemsInCart(quantity));
+      setispurchasedone(true);
 
       console.log(product);
 
@@ -126,7 +131,9 @@ function ProductDetail() {
 
       addCartToFirestore(cartItem, userData.email);
 
-      toast.success('Product added to cart  :', { position: toast.POSITION.TOP_RIGHT  });;
+      toast.success("Product added to cart  :", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } else {
       // localStorage.setItem("url", JSON.stringify('shop10/product/productId'));
 
@@ -145,7 +152,12 @@ function ProductDetail() {
     }
 
     if (newQuantity > stock) {
-      const confirmMessage = `Unfortunately, we do not have ${newQuantity} in stock for ${productname}. Do you want to proceed anyway?`;
+      // const confirmMessage = `Unfortunately, we do not have ${newQuantity} in stock for ${productname}. Do you want to proceed anyway?`;
+      console.log("no stock");
+      toast.error(
+        `Unfortunately, we do not have ${newQuantity} in stock for ${productname}`,
+        { position: toast.POSITION.TOP_RIGHT }
+      );
 
       // if (!confirmationDisplayed && window.confirm(confirmMessage)) {
       //   setConfirmationDisplayed(true);
@@ -164,12 +176,16 @@ function ProductDetail() {
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
       <div className="max-w-lg p-4">
-      <Link to="/erichie/cart" className="flex items-center gap-2 hover:underline" style={{ position: 'absolute', top: '10px', right: '10px' }}>
-        <ShoppingCart />
-        <p className="bg-white text-black rounded-full h-6 w-6 text-center">
-          {itemsInCart}
-        </p>
-      </Link>
+        <Link
+          to="/erichie/cart"
+          className="flex items-center gap-2 hover:underline"
+          style={{ position: "absolute", top: "10px", right: "10px" }}
+        >
+          <ShoppingCart />
+          <p className="bg-white text-black rounded-full h-6 w-6 text-center">
+            {itemsInCart}
+          </p>
+        </Link>
 
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
@@ -219,18 +235,18 @@ function ProductDetail() {
         <div className="mt-4">
           <button
             onClick={() => {
-              if (stock > 0)
-              {
-              addToCart();}
+              if (stock > 0) {
+                addToCart();
+              }
             }}
             className={`${
-              stock == 0 
+              stock == 0
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-500 hover:bg-blue-700"
             } text-white py-2 px-4 rounded-full`}
-            disabled={stock === 0}
+            disabled={stock === 0 || ispurchasedone}
           >
-            Add to cart
+            Add to Cart
           </button>
         </div>
       </div>

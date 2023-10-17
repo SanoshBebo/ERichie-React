@@ -10,14 +10,14 @@ const ERichieHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
   console.log(itemsInCart);
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
+    "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/customer/login");
@@ -78,9 +78,11 @@ const ERichieHeader = () => {
                 className="flex items-center gap-2 hover:underline"
               >
                 <ShoppingCart />
-                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
-                  {itemsInCart}
-                </p>
+                {itemsInCart > 0 && (
+                  <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+                    {itemsInCart}
+                  </p>
+                )}
               </Link>
             </li>
             <li className="cursor-pointer hover:underline">

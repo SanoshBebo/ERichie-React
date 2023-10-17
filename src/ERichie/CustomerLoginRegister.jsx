@@ -95,7 +95,7 @@ const CustomerLoginRegister = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
+    <div className="min-h-screen bg-gray-400 flex flex-col justify-center items-center">
       <div className="bg-white p-8 rounded shadow-md w-96 transition-transform transform hover:scale-105">
         <h2 className="text-2xl font-semibold mb-4 text-center ">
           {isRegistering ? "Customer Register" : "Customer Login"}

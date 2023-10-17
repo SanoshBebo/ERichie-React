@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 
 import {
   addNoOfItemsInCart,
+  clearItemsInCart,
   deleteItemInCart,
   editNoOfItemsInCart,
   removeItemFromCart,
@@ -36,7 +37,6 @@ const CartComponent = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [isPurchaseCompleted, setIsPurchaseCompleted] = useState(false);
-
 
   useEffect(() => {
     // Calculate the total price when cart items change
@@ -73,10 +73,10 @@ const CartComponent = () => {
   }, []);
 
   const handleDelete = (product) => {
-    console.log(product)
+    console.log(product);
     dispatch(removeItemFromCart(product.productid));
     dispatch(deleteItemInCart(product.quantity));
-    
+
     removeItemFromCartFirestore(user.email, product.productid);
   };
 
@@ -92,7 +92,7 @@ const CartComponent = () => {
       updateCartFirestore(user.email, id, newQuantity);
     }
   };
-  
+
   const minusQuantity = (id) => {
     const item = cartItems.find((item) => item.productid === id);
     const quantity = parseInt(item.quantity, 10);
@@ -112,7 +112,7 @@ const CartComponent = () => {
 
     await Promise.all(
       cartItems.map(async (item) => {
-        console.log(item)
+        console.log(item);
         await removeItemFromCartFirestore(user.email, item.productid);
       })
     );
@@ -131,6 +131,8 @@ const CartComponent = () => {
     fetchCart(user.useruid).then((response) => {
       dispatch(setCartItems(response));
     });
+
+    dispatch(clearItemsInCart());
 
     navigate("/order-history");
   };

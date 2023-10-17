@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import "./productdetail.css";
-
 import { useParams, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { addItemToCart, addNoOfItemsInCart } from "../../../../../SanoshProject/redux/shopOneCartSlice";
+import {
+  addItemToCart,
+  addNoOfItemsInCart,
+} from "../../../../../SanoshProject/redux/shopOneCartSlice";
 
 import { addCartToFirestore } from "../../../../../Api/CartOperationsFirestore";
 
@@ -19,6 +20,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+
 import FetchItemsInCart from "../../../../../ERichie/components/FetchItemsInCart";
 
 function ProductDescPage() {
@@ -39,9 +41,11 @@ function ProductDescPage() {
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   const dispatch = useDispatch();
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
+
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
 
   const [totalPrice, setTotalPrice] = useState(0);
+
   const { items } = FetchItemsInCart();
 
   useEffect(() => {
@@ -55,8 +59,6 @@ function ProductDescPage() {
         const productData = response.data.fields;
 
         setProduct(productData);
-
-        // Check product availability based on stock
 
         if (productData.stock.integerValue === 0) {
           setProductAvailability(false);
@@ -77,8 +79,6 @@ function ProductDescPage() {
   }, [isLoadingUser, user, navigate]);
 
   useEffect(() => {
-    // Calculate and update the total price whenever the quantity or product price changes
-
     if (product) {
       setTotalPrice(product.price.integerValue * quantity);
     }
@@ -109,17 +109,15 @@ function ProductDescPage() {
           quantity: quantity,
         };
 
-        // Check if quantity exceeds stock, limit it to stock
-
         if (quantity > product.stock.integerValue) {
           cartItem.quantity = product.stock.integerValue;
         }
-        
+
         dispatch(addNoOfItemsInCart(quantity));
+
         dispatch(addItemToCart(cartItem));
 
         addCartToFirestore(cartItem, userData.email);
-
 
         toast.success("Product added to cart successfully", {
           position: toast.POSITION.TOP_RIGHT,
@@ -139,16 +137,10 @@ function ProductDescPage() {
   };
 
   const handleBuyNow = () => {
-    // You can customize this part as per your requirements
-
-    // For simplicity, it sets the orderPlaced state to true.
-
     setOrderPlaced(true);
   };
 
   const handleClose = () => {
-    // Navigate to "/shop05" when the "Close" button is clicked
-
     navigate("/shop06");
   };
 
@@ -157,158 +149,148 @@ function ProductDescPage() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
+    <div>
+      {/* Navbar */}
 
-        justifyContent: "center",
+      <div className="bg-gray-800 text-white p-4">
+        <div className="flex justify-between items-center">
+          <Link to="/erichie">Home Page</Link>
 
-        alignItems: "center",
+          <div className="flex items-center">
+            <Link to="/erichie/cart" className="mr-4">
+              🛒
+            </Link>
 
-        height: "100vh",
-      }}
-    >
-      <div className="navbar">
-        <Link to="/erichie">Home Page</Link>
-
-        <Link to="/gaming">Go back</Link>
-
-        <li>
-          <Link to="/erichie/cart">🛒 </Link>{" "}
-          <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
-                  {itemsInCart}
-                </p>
-        </li>
-
-        <a href="/customer/login" className="navbar-button">
-          Signout
-        </a>
+            <a href="/customer/login" className="navbar-button">
+              Signout
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div style={{ textAlign: "center" }}>
-        <div className="product-card">
-          <h1>{product.productname.stringValue}</h1>
+      {/* Product Description */}
 
-          <img
-            src={product.imageurl.stringValue}
-            alt={product.productname.stringValue}
-            style={{ width: "70%" }}
-          />
+      <div className="container mx-auto p-4">
+        <div className="text-center">
+          <div className="product-card">
+            <h1 className="text-2xl font-bold my-2">
+              {product.productname.stringValue}
+            </h1>
 
-          <p>Description: {product.description.stringValue}</p>
+            <img
+              src={product.imageurl.stringValue}
+              alt={product.productname.stringValue}
+              className="w-72 mx-auto my-4"
+            />
 
-          <p>Price: Rs.{product.price.integerValue}</p>
+            <p className="text-lg my-2">
+              Description: {product.description.stringValue}
+            </p>
 
-          <div className="quantity-control">
-            <p>Quantity:</p>
+            <p className="text-lg my-2">
+              Price: Rs.{product.price.integerValue}
+            </p>
 
-            <div className="quantity-buttons">
-              <button
-                className="quantity-button"
-                onClick={() => {
-                  const newQuantity = quantity - 1 > 0 ? quantity - 1 : 1;
+            <div className="quantity-control my-4">
+              <p className="text-xl font-semibold mb-2">Quantity:</p>
 
-                  setQuantity(newQuantity);
-                }}
-              >
-                -
-              </button>
+              <div className="flex items-center justify-center">
+                <button
+                  className="quantity-button bg-red-500 text-white py-2 px-4 rounded-full mr-2"
+                  onClick={() => {
+                    const newQuantity = quantity - 1 > 0 ? quantity - 1 : 1;
 
-              <input
-                type="number"
-                value={quantity}
-                onChange={(e) => {
-                  const newQuantity = parseInt(e.target.value, 10) || 1;
-
-                  // Ensure the new quantity doesn't exceed the stock
-
-                  if (newQuantity > product.stock.integerValue) {
-                    setQuantity(product.stock.integerValue);
-                  } else {
                     setQuantity(newQuantity);
-                  }
-                }}
-                max={product.stock.integerValue} // Add max attribute
-                style={{ width: "30px" }} // Adjust the width as needed
-              />
+                  }}
+                >
+                  -
+                </button>
 
-              <button
-                className="quantity-button"
-                onClick={() => {
-                  // Check if quantity exceeds stock, limit it to stock
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => {
+                    const newQuantity = parseInt(e.target.value, 10) || 1;
 
-                  if (quantity + 1 <= product.stock.integerValue) {
-                    setQuantity(quantity + 1);
-                  }
-                }}
-              >
-                +
-              </button>
-            </div>
-          </div>
-{product.stock === 0 ?(
-  <button
-  className="buy-button"
-  style={{ backgroundColor: "#c5bf20", color: "#fff200" }}
-  onClick={() => {
-    addToCart();
-  }}
-  disabled
+                    if (newQuantity > product.stock.integerValue) {
+                      setQuantity(product.stock.integerValue);
+                    } else {
+                      setQuantity(newQuantity);
+                    }
+                  }}
+                  max={product.stock.integerValue}
+                  className="w-16 text-xl text-center"
+                />
 
->
-  Add To Cart
-  <Link to="/erichie/cart"></Link>
-</button>
-):(
-  
-          <button
-            className="buy-button"
-            style={{ backgroundColor: "#c5bf20", color: "#fff200" }}
-            onClick={() => {
-              addToCart();
-            }}
-      
-          >
-            Add To Cart
-            <Link to="/erichie/cart"></Link>
-          </button>
-)}
-
-          <div className="total-price">
-            <p>Total Price: Rs.{totalPrice}</p>
-          </div>
-
-          {productAvailability ? (
-            <span style={{ color: "white" }}>Add to Cart</span>
-          ) : (
-            <span style={{ color: "red" }}>
-              Product is currently unavailable
-            </span>
-          )}
-
-          <button
-            className="back-button"
-            style={{ backgroundColor: "#c5bf20", color: "#fff200" }}
-            onClick={() => {
-              navigate("/shop06");
-            }}
-          >
-            <span style={{ color: "white" }}>Back to Home</span>
-          </button>
-
-          {orderPlaced && (
-            <div>
-              <div className="overlay" />
-
-              <div className="popup">
-                <p>Order Successfully Placed</p>
-
-                <button className="close-button" onClick={handleClose}>
-                  Close
+                <button
+                  className="quantity-button bg-green-500 text-white py-2 px-4 rounded-full ml-2"
+                  onClick={() => {
+                    if (quantity + 1 <= product.stock.integerValue) {
+                      setQuantity(quantity + 1);
+                    }
+                  }}
+                >
+                  +
                 </button>
               </div>
             </div>
-          )}
+
+            {product.stock === 0 ? (
+              <button
+                className="buy-button bg-yellow-500 text-yellow-900 py-2 px-4 rounded-full"
+                onClick={addToCart}
+                disabled
+              >
+                Add To Cart
+              </button>
+            ) : (
+              <button
+                className="buy-button bg-yellow-500 text-yellow-900 py-2 px-4 rounded-full"
+                onClick={addToCart}
+              >
+                Add To Cart
+              </button>
+            )}
+
+            <div className="total-price mt-4">
+              <p className="text-lg">Total Price: Rs.{totalPrice}</p>
+            </div>
+
+            {productAvailability ? (
+              <span className="text-white">Add to Cart</span>
+            ) : (
+              <span className="text-red-500">
+                Product is currently unavailable
+              </span>
+            )}
+
+            <div className="text-center mt-4">
+              <div className="text-center mt-0">
+                <button
+                  className="back-button bg-yellow-500 text-yellow-900 py-2 px-4 rounded-full"
+                  onClick={() => {
+                    navigate("/shop06");
+                  }}
+                >
+                  Back to Home
+                </button>
+              </div>
+            </div>
+
+            {orderPlaced && (
+              <div>
+                <div className="overlay" />
+
+                <div className="popup">
+                  <p>Order Successfully Placed</p>
+
+                  <button className="close-button" onClick={handleClose}>
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -32,11 +32,18 @@ function Allproducts() {
           <div className="flex flex-wrap -m-4">
             {product
               .filter((obj) =>
-                obj.productname.toLowerCase().includes(searchkey))
+                obj.productname.toLowerCase().includes(searchkey)
+              )
               .filter((obj) => obj.category.toLowerCase().includes(filterType))
-              .filter((obj) => obj.price.includes(filterPrice))
               .map((item, index) => {
-                const { productname, price, description, imageUrl, id } = item;
+                const {
+                  productname,
+                  price,
+                  description,
+                  imageUrl,
+                  id,
+                  imageurl,
+                } = item;
                 return (
                   <div
                     onClick={() =>
@@ -55,7 +62,7 @@ function Allproducts() {
                       <div className="flex justify-center cursor-pointer">
                         <img
                           className=" rounded-2xl w-full h-80 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
-                          src={imageUrl}
+                          src={imageUrl || imageurl}
                           alt="blog"
                         />
                       </div>

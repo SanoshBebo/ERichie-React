@@ -20,43 +20,6 @@ function ProductCard() {
     setFilterPrice,
   } = context;
 
-  const dispatch = useDispatch(); // You can use useDispatch here
-
-  const addCart = (product) => {
-    console.log(product);
-    const userData = JSON.parse(localStorage.getItem("user"));
-    if (userData && userData.role === "customer") {
-      dispatch(setUser(userData)); // Dispatch the setUser action
-      const cartItem = {
-        id: product.id,
-        name: product.productname,
-        shopid: product.shopid,
-        description: product.description,
-        stock: product.stock,
-        price: product.price,
-        imageurl: product.imageUrl,
-        quantity: 1,
-      };
-      dispatch(addItemToCart(cartItem)); // Dispatch the addItemToCart action
-      addCartToFirestore(cartItem, userData.email);
-
-      toast.success("added to cart", {
-        position: "top-right",
-        autoClose: 200,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    } else {
-      const navigate = useNavigate();
-      navigate("/customer/login");
-    }
-    setIsLoadingUser(false);
-  };
-
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-8 md:py-16 mx-auto">
@@ -76,7 +39,14 @@ function ProductCard() {
             .filter((obj) => obj.category.toLowerCase().includes(filterType))
             .slice(0, 8)
             .map((item, index) => {
-              const { productname, price, description, imageUrl, id } = item;
+              const {
+                productname,
+                price,
+                description,
+                imageUrl,
+                id,
+                imageurl,
+              } = item;
               return (
                 <div key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
                   <div
@@ -94,7 +64,7 @@ function ProductCard() {
                     >
                       <img
                         className=" rounded-2xl w-full h-80 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
-                        src={imageUrl}
+                        src={imageUrl || imageurl}
                         alt="blog"
                       />
                     </div>

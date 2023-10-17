@@ -67,7 +67,7 @@ import LiveReport from "./Shop-02/pages/LiveReport";
 import ProductDetailPage from "./Shop-03/components/ProductDetail";
 import AddProductShop03 from "./Shop-03/components/adminpage";
 import UserPageShop03 from "./Shop-03/components/UserPage";
-import IndividualShop14Report from "./Shop-03/components/shop14_dailyinventory "
+import IndividualShop14Report from "./Shop-03/components/shop14_dailyinventory ";
 //=========================================================Sundaris imports============================================================================//
 
 //=========================================================Abhirams imports============================================================================//
@@ -160,6 +160,7 @@ import UserView from "./AkshayaProject/UserView";
 import ReportPage from "./ChetnaProject/Pages/HomePage/ReportPage";
 import SprityAdminReport from "./SprityProject/SprityAdminReport";
 import SuryaAdminReport from "./SuryaProject/pages/admin/SuryaAdminReport";
+import LoginOptionPage from "./ERichie/LoginOptionPage";
 
 const App = () => {
   return (
@@ -175,6 +176,7 @@ const App = () => {
                 </ERichieLayout>
               }
             />
+            <Route path="/login" element={<LoginOptionPage />} />
             <Route
               path="/erichie"
               element={
@@ -266,7 +268,10 @@ const App = () => {
               }
             />
             <Route path="/shop03/admin" element={<AddProductForm />} />
-            <Route path="/shop03/admin/overall-report" element={<OverallReport />} />
+            <Route
+              path="/shop03/admin/overall-report"
+              element={<OverallReport />}
+            />
             <Route path="/shop03/tablepage" element={<TablePage />} />
             {/* // =========================================================askshayas code============================================================================// */}
             <Route path="/shop02" element={<UserView />} />
@@ -311,7 +316,10 @@ const App = () => {
             <Route path="/AdminAction/livereport" element={<LiveReport />} />
             <Route path="/shop14/admin" element={<AddProductShop03 />} />
             <Route path="/shop14" element={<UserPageShop03 />} />
-            <Route path="/shop14/admin/report" element={<IndividualShop14Report />} />
+            <Route
+              path="/shop14/admin/report"
+              element={<IndividualShop14Report />}
+            />
             <Route
               path="/shop14/products/:productId"
               element={<ProductDetailPage />}
@@ -344,7 +352,10 @@ const App = () => {
             <Route path="/gaming" element={<ProductDisplay1 />} />
             <Route path="/shop05" element={<UserPage1 />} />
             <Route path="/shop05/admin" element={<RethuAddProduct />} />
-            <Route path="/shop05/admin/overall-report" element={<OverallReport />} />
+            <Route
+              path="/shop05/admin/overall-report"
+              element={<OverallReport />}
+            />
             <Route
               path="/shop05/admin/Dead_eye_Inventory"
               element={<DeadEyeShopReport />}
@@ -396,7 +407,10 @@ const App = () => {
               element={<ChetnaProductDetailsPage />}
             />
             <Route path="/shop11/protectlist" element={<TrandingPages />} />
-            <Route path="/shop11/admin/overall-report" element={<OverallReport />} />
+            <Route
+              path="/shop11/admin/overall-report"
+              element={<OverallReport />}
+            />
             {/* ===============================================================MAHACODE===================================================================           */}
             <Route path="/shop12/admin" element={<MahaAdminLayout />} />
             <Route path="/shop12/customer" element={<CustomerApp />} />

@@ -40,28 +40,30 @@ const shopOneCartSlice = createSlice({
       state.items = action.payload;
     },
 
-    setNoOfItemsInCart: (state,action) =>{
+    setNoOfItemsInCart: (state, action) => {
       console.log(action.payload);
-       
+
       state.itemsInCart = action.payload;
     },
-    
-    addNoOfItemsInCart: (state,action) =>{
-      console.log(action.payload)
+
+    addNoOfItemsInCart: (state, action) => {
+      console.log(action.payload);
       state.itemsInCart += action.payload;
     },
-    
-    editNoOfItemsInCart: (state,action) =>{
+
+    editNoOfItemsInCart: (state, action) => {
       state.itemsInCart -= action.payload;
     },
-    
-    deleteItemInCart:(state,action)=>{
-      state.itemsInCart -= action.payload;
 
+    deleteItemInCart: (state, action) => {
+      state.itemsInCart -= action.payload;
     },
 
-    cartUpdated: (state,action) => {
+    cartUpdated: (state, action) => {
       state.isCartUpdated = true;
+    },
+    clearItemsInCart: (state) => {
+      state.itemsInCart = 0;
     },
   },
 });
@@ -76,6 +78,7 @@ export const {
   addNoOfItemsInCart,
   editNoOfItemsInCart,
   deleteItemInCart,
+  clearItemsInCart,
 } = shopOneCartSlice.actions;
 
 export default shopOneCartSlice.reducer;
