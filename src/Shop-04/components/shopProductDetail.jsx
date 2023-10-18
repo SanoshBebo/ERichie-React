@@ -21,7 +21,7 @@ function ProductDetails() {
   const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
 
 
-  const url = `/shop4product/${productId}`;
+  const url = `/shop4products/${productId}`;
   let redirectUrl = { 
     url: url,
   };
@@ -91,7 +91,7 @@ function ProductDetails() {
 
 
   return (
-    <section className="dhanu">
+    <section className="dc_user">
      
       <div className="product-details">
       <nav className="navbar">

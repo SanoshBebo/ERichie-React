@@ -10,8 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ShoppingCart } from "lucide-react";
 import FetchItemsInCart from "../../ERichie/components/FetchItemsInCart";
 
-
-
 const ProductFetch = ({ cart, setCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -19,16 +17,20 @@ const ProductFetch = ({ cart, setCart }) => {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [shopName, setShopName] = useState("Mobile World");
+  
   const dispatch = useDispatch();
   const user = useSelector((state) => state.shoponeuser.user);
   const navigate = useNavigate();
-  const itemsInCart = useSelector((state)=>state.shoponecart.itemsInCart)
-  const  items = FetchItemsInCart();
+  const itemsInCart = useSelector((state) => state.shoponecart.itemsInCart);
+  const items = FetchItemsInCart();
 
   const url = `/shop12/product/${id}`;
-  let redirectUrl = { 
+  let redirectUrl = {
     url: url,
-  }; 
+  };
+
+  // Fetch the product details and shop name from Firestore
   useEffect(() => {
     axios
       .get(
@@ -39,7 +41,6 @@ const ProductFetch = ({ cart, setCart }) => {
         const productData = firestoreData && firestoreData.fields;
 
         if (productData) {
-          console.log(productData);
           setProduct({
             productname: productData.productname.stringValue || "",
             description: productData.description.stringValue || "",
@@ -56,6 +57,20 @@ const ProductFetch = ({ cart, setCart }) => {
             setPrice(parseInt(productData.price.integerValue, 10)); // Assuming the price is stored as an integer
           }
         }
+
+        // Fetch the shop name using the shopid
+        axios
+          .get(
+            `https://firestore.googleapis.com/v1/projects/mobileworld-160ce/databases/(default)/documents/Shops/${productData.shopid.stringValue}`
+          )
+          .then((shopResponse) => {
+            const shopData = shopResponse.data;
+            const shopNameData = shopData && shopData.fields;
+
+            if (shopNameData && shopNameData.shopname) {
+              setShopName(shopNameData.shopname.stringValue);
+            }
+          });
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
@@ -83,36 +98,26 @@ const ProductFetch = ({ cart, setCart }) => {
         quantity: quantity,
       };
       dispatch(addItemToCart(cartItem));
-
-
       dispatch(addNoOfItemsInCart(quantity));
-
-
-      
       addCartToFirestore(cartItem, userData.email);
-  
+
       // Show a toast message
-      toast.success('Product added to cart!', 
+      toast.success('Product added to cart!',
       {
         position: 'top-right',
         autoClose: 3000, // Time in milliseconds to keep the toast open
       });
     } else {
-      //localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
+      localStorage.setItem("redirectUrl", JSON.stringify(redirectUrl));
       navigate("/customer/login");
     }
     setIsLoadingUser(false);
   };
 
-
   const increaseQuantity = () => {
-
     if (quantity < product.stock) { // Check if quantity is less than product's stock
-
       setQuantity(quantity + 1);
-
     }
-
   };
 
   const decreaseQuantity = () => {
@@ -141,7 +146,9 @@ const ProductFetch = ({ cart, setCart }) => {
       </Link>
       <h2 className="text-3xl font-semibold mb-2 text-center">{product.productname}</h2>
       <p className="text-gray-700 mb-4 text-center">{product.description}</p>
-      
+      <p className="text-lg font-semibold text-center text-purple-500">
+        Shop: {shopName}
+      </p>
       {imageurl && (
         <img
           src={imageurl}
@@ -174,21 +181,21 @@ const ProductFetch = ({ cart, setCart }) => {
         >
           Add to Cart
         </button>
+        <strong>Total Price: {quantity * product.price}</strong>
       </div>
       <div className="fixed top-4 right-4 flex items-center cursor-pointer">
-      {/* Cart Icon */}
-      <Link
-                to="/erichie/cart"
-                className="flex items-center gap-2 hover:underline"
-              >
-                <ShoppingCart />
-                <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
-                  {itemsInCart}
-                </p>
-              </Link>
+        {/* Cart Icon */}
+        <Link
+          to="/erichie/cart"
+          className="flex items-center gap-2 hover:underline"
+        >
+          <ShoppingCart />
+          <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+            {itemsInCart}
+          </p>
+        </Link>
+      </div>
     </div>
-    </div>
-    
   );
 };
 

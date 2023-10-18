@@ -1,336 +1,665 @@
 .dhanushiya {
+
   background-color:#95A5A6;
+
   font-style: normal;
-}
-.dhanushiya .h3{
-  padding-right: 20%;
-  border-radius: 10%;
+
 }
 
-.dhanushiya p{
+ 
+
+/* .dhanushiya p{
+
   font-size: large;
+
   color: #2C3E50;
-}
+
+} */
+
 .dhanushiya h1{
+
   color: #F2F4F6;
+
   font-size: 30px;
+
 }
+
 .dhanushiya .navbar {
+
   background-color: #333;
+
   color: white;
+
   padding: 10px 0;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
 }
+
+ 
 
 .dhanushiya .navbar h1 {
+
   margin: 0;
+
   font-size: 24px;
+
   color: #F2F4F6;
+
 }
+
+ 
 
 .dhanushiya .navbar-list {
+
   list-style: none;
+
   display: flex;
+
 }
+
+ 
 
 .dhanushiya .navbar-list li {
+
   margin: 0 10px;
+
 }
+
+ 
 
 .dhanushiya .navbar-list li:last-child {
+
   margin-right: 0;
+
 }
+
+ 
 
 .dhanushiya .navbar-list li a,
+
 .dhanushiya .navbar-list li button {
+
   text-decoration: none;
+
   color: white;
+
   background-color: #0f3960;
+
   border: none;
+
   padding: 10px 15px;
+
   border-radius: 5px;
+
   cursor: pointer;
+
   transition: background-color 0.3s ease;
+
 }
+
+ 
 
 .dhanushiya .navbar-list li a:hover,
+
 .dhanushiya .navbar-list li button:hover {
+
   background-color: #454ca0;
+
 }
+
 .dhanushiya .add-product-pages {
+
     display: flex;
+
     flex-direction: column; /* Change to column layout */
+
     align-items: center; /* Center content horizontally */
+
     padding: 20px;
-  }
-  
-  .dhanushiya .add-product-containers {
-    background-color: #95A5A6;
-    padding: 20px;
-    border-radius: 10px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    width: 80%;
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px; /* Add margin to separate from product list */
-    margin-left:70px;
-}
-  
-.dhanushiya .product-lists {
-    width: 80%; /* Adjust the width */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-    align-items: flex-start; /* Align products to the top */
-  }
-  
-  .dhanushiya .product-items {
-    background-color: #F2F4F6;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    flex: calc(25% - 10px);
-    padding: 20px; /* Add padding to the product boxes */
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    position: relative; /* Position relative for button placement */
-  }
-  
-  .dhanushiya  .product-details-1 {
-    text-align: left; /* Align text to the left */
-    color: #2C3E50;
-    font-size: large;
+
   }
 
-  
-  .dhanushiya .product-cards {
-   display: flex;
+ 
+
+  .dhanushiya .add-product-containers {
+
+    background-color: #95A5A6;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+
+    width: 80%;
+
+    max-width: 1200px;
+
+    display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
+    margin-bottom: 30px; /* Add margin to separate from product list */
+
+    margin-left:70px;
+
+}
+
+ 
+
+.dhanushiya .product-lists {
+
+    width: 80%; /* Adjust the width */
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    align-items: flex-start; /* Align products to the top */
+
+  }
+
+ 
+
+  .dhanushiya .product-items {
+
+    background-color: #F2F4F6;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: calc(25% - 10px);
+
+    padding: 20px; /* Add padding to the product boxes */
+
+    box-sizing: border-box;
+
+    margin-bottom: 20px;
+
+    position: relative; /* Position relative for button placement */
+
+  }
+
+ 
+
+  .dhanushiya  .product-details-1 {
+
+    text-align: left; /* Align text to the left */
+
+    color: #2C3E50;
+
+    font-size: large;
+
+  }
+
+ 
+
+ 
+
+  .dhanushiya .product-cards {
+
+   display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
     text-align: center;
 
+ 
+
   }
-  
+
+ 
+
   .dhanushiya  .product-images img {
+
     max-width: 100%;
+
     height: auto;
+
     max-height: 120px;
+
     margin-right: 20px;
+
   }
-  
+
+ 
+
   .dhanushiya .product-buttons-2 {
+
     display: flex;
+
     justify-content: space-between; /* Align buttons to the right */
+
     margin-top: auto;
+
     margin-left: auto;
+
   }
-  
-  
+
+ 
+
+ 
+
   /* Add media query for responsiveness */
+
   @media (max-width: 768px) {
+
     .dhanushiya .product-lists {
+
       flex-direction: column;
+
       align-items: center;
+
     }
-  
+
+ 
+
     .dhanushiya .product-items {
+
       width: 100%;
+
       margin-bottom: 20px;
+
       flex: none; /* Reset flex property for mobile view */
+
     }
+
   }
-  
+
+ 
+
   .dhanushiya .ProductListName {
+
     padding-left: 80px;
+
     padding-bottom: 20px;
+
     padding-top: 100px;
+
     margin-left: 20%;
+
     color:#2C3E50;
+
    
+
   }
+
   .dhanushiya .product-searches{
+
     padding-top: 115px;
+
     margin-left: 50px
 
+ 
+
   }
+
   /* CSS for the AddProduct component */
-  
-  
+
+ 
+
+ 
+
   .dhanushiya .search_options {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     margin-bottom: 20px;
+
     z-index: 1;
+
   }
-  
+
+ 
+
   .dhanushiya .search-bar {
+
     display: flex;
+
     align-items: center;
+
     width: 300px;
+
   }
-  
+
+ 
+
   .dhanushiya .search-input {
+
     padding: 10px 30px;
+
     font-size: 16px;
+
     border: 1px solid #ccc;
+
     border-radius: 5px;
+
     margin-right: 10px;
+
     width: 200px;
+
   }
-  
+
+ 
+
   .dhanushiya .search-input::placeholder {
+
     color: #ccc;
+
   }
-  
-  
+
+ 
+
+ 
+
   .dhanushiya .category-dropdown {
+
     padding: 10px;
+
     font-size: 16px;
+
     border: 1px solid #ccc;
+
     border-radius: 5px;
+
     cursor: pointer;
+
   }
-  
+
+ 
+
   /* Style for dropdown arrow */
+
   .dhanushiya .category-dropdown::after {
+
     content: '\f0d7'; /* FontAwesome caret-down icon */
+
     font-family: FontAwesome;
+
     position: absolute;
+
     top: 50%;
+
     right: 10px;
+
     transform: translateY(-50%);
+
     pointer-events: none;
-  
+
+ 
+
   }
+
   .dhanushiya #search-button {
+
     padding: 10px 10px;
+
     font-size: 16px;
+
     border: none;
+
     border-radius: 5px;
+
     cursor: pointer;
+
     margin-right: 20px;
-    transition: background-color 0.3s ease; 
+
+    transition: background-color 0.3s ease;
+
   }
-  
+
+ 
+
   /* CSS styles for buttons */
+
   .dhanushiya .button {
+
   display: inline-block;
+
   margin-right: 10px;
+
   padding: 10px 20px;
+
   font-size: 16px;
+
   cursor: pointer;
+
   border: none;
+
   border-radius: 5px;
+
   background-color: #4caf50; /* Green background color */
+
   color: white; /* White text color */
+
   text-align: center;
+
   text-decoration: none;
+
   transition: background-color 0.3s ease;
+
 }
+
+ 
 
 .dhanushiya .button:hover {
+
   background-color: #45a049; /* Darker green color on hover */
+
 }
+
+ 
 
 /* Styles for the Save Edit button */
+
 .dhanushiya .save-button {
+
   background-color: #6cf5b1; /* Blue background color */
+
 }
+
 .dhanushiya #opencloseform{
+
   background-color: #2169c6;
+
   padding: 15px 20px;
+
   border-radius: 20px;
+
   margin-right: 10px;
+
 }
+
 .dhanushiya .save-button:hover {
+
   background-color: #005f6b; /* Darker blue color on hover */
+
 }
+
+ 
 
 /* Styles for the Cancel Edit button */
+
 .dhanushiya .cancel-button {
+
   background-color: #f44336; /* Red background color */
+
 }
+
+ 
 
 .dhanushiya .cancel-button:hover {
+
   background-color: #d32f2f; /* Darker red color on hover */
+
 }
+
+ 
 
 /* CSS styles for product forms */
-.product-forms {
+
+.dhanushiya .product-forms {
+
   max-width: 400px;
+
   margin: 0 auto;
+
   padding: 20px;
+
   border: 1px solid #ccc;
+
   border-radius: 10px;
+
   background-color: #fcfafa;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
-.product-forms div {
+ 
+
+.dhanushiya .product-forms div {
+
   margin-bottom: 10px;
+
 }
 
-.product-forms label {
+ 
+
+.dhanushiya .product-forms label {
+
   font-weight: bold;
+
   display: block;
+
   margin-bottom: 5px;
+
 }
 
-.product-forms input[type="text"],
-.product-forms input[type="number"],
-.product-forms input[type="file"] {
+ 
+
+.dhanushiya .product-forms input[type="text"],
+
+.dhanushiya .product-forms input[type="number"],
+
+.dhanushiya .product-forms input[type="file"] {
+
   width: 100%;
+
   padding: 8px;
+
   border: 1px solid #ccc;
+
   border-radius: 5px;
+
   font-size: 16px;
+
 }
 
-.product-forms button {
+ 
+
+.dhanushiya .product-forms button {
+
   background-color: #4caf50;
+
   color: white;
+
   border: none;
+
   border-radius: 5px;
+
   padding: 10px 20px;
+
   cursor: pointer;
+
   font-size: 16px;
+
 }
 
+ 
 
-.product-forms button:hover {
+ 
+
+.dhanushiya .product-forms button:hover {
+
   background-color: #45a049;
+
 }
 
-.product-forms .description-input {
+ 
+
+.dhanushiya .product-forms .description-input {
+
   margin-bottom: 10px;
+
 }
 
-.product-forms .product-buttons {
+ 
+
+.dhanushiya .product-forms .product-buttons {
+
   display: flex;
+
   justify-content: space-between;
+
 }
+
+ 
 
 /* Responsive design for product forms */
+
 @media (max-width: 480px) {
+
   .product-forms {
+
     width: 90%;
+
   }
-}
-.dhanushiya .footer {
-  background-color: #333;
-  color: rgb(255, 255, 255);
-  padding: 20px 0;
-  text-align: center;
+
 }
 
+.dhanushiya .footer {
+
+  background-color: #333;
+
+  color: white;
+
+  padding: 20px 0;
+
+  text-align: center;
+
+}
+
+ 
+
 .dhanushiya .footer-content {
+
+  color: white;
+
   max-width: 1200px;
+
   margin: 0 auto;
+
 }

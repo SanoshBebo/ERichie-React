@@ -87,20 +87,20 @@ const AdminPage = () => {
 
         border: "1px solid #ccc",
 
-        borderRadius: "10px",
+        // borderRadius: "10px",
 
-        backgroundColor: "#f9f9f9",
+        // backgroundColor: "#f9f9f9",
 
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 
         backgroundColor: "rgba(0, 0, 0, 0.5)",
 
-        backgroundImage:
-          'url("../../pictures/pexels-mudassir-ali-2680270.jpg")',
+        // backgroundImage:
+        //   'url("../../pictures/pexels-mudassir-ali-2680270.jpg")',
 
         backgroundPosition: "fixed",
 
-        padding: "20px",
+        // padding: "20px",
 
         color: "black",
       }}

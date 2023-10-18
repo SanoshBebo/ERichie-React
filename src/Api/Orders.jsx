@@ -17,7 +17,7 @@ import { fetchShopFiveProducts } from "./fetchShopFiveProducts";
 import { fetchShopFourProducts } from "./fetchShopFourProducts";
 
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const fetchShopProducts = async (shopid) => {
   console.log(shopid);

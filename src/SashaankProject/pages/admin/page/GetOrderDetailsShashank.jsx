@@ -8,7 +8,7 @@ const baseUrl =
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);
   const allproducts = await fetchShop09();
-  const userApiUrl = `${baseUrl}/Users?pageSize=50`;
+  const userApiUrl = `${baseUrl}/Users?pageSize=100`;
   const userResponse = await axios.get(userApiUrl);
   const userDocuments = userResponse.data.documents;
   try {

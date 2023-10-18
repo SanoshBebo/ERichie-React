@@ -48,6 +48,12 @@ function ProductDescPage() {
 
   const { items } = FetchItemsInCart();
 
+  const url = `/shop06/product/${productId}`;
+  
+  let redirectUrl = {
+    url: url,
+  };
+
   useEffect(() => {
     const apiUrl = `https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/Products/${productId}`;
 
@@ -157,9 +163,12 @@ function ProductDescPage() {
           <Link to="/erichie">Home Page</Link>
 
           <div className="flex items-center">
-            <Link to="/erichie/cart" className="mr-4">
-              🛒
-            </Link>
+            <Link to="/erichie/cart">
+            🛒
+            <p className="bg-white text-black rounded-full h-6 w-6 text-center ">
+              {itemsInCart}
+            </p>
+          </Link>{" "}
 
             <a href="/customer/login" className="navbar-button">
               Signout

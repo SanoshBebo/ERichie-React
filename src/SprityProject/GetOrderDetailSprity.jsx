@@ -3,7 +3,7 @@ import axios from "axios";
 import { fetchShop10 } from "../Api/fetchShop10";
 
 const baseUrl =
-  "https://firestore.googleapis.com/v1/projects/erichiewebsite/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/erichieplatform/databases/(default)/documents";
 
 export const getOrderByDateFromFireStore = async (shopid) => {
   console.log(shopid);

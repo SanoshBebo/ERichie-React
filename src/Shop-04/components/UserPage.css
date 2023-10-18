@@ -1,482 +1,801 @@
+.dc_user{
 
-.dhanu{
   background-color: #95A5A6;
-  
+
+}
+
  
-}
-.dhanu .product-details{
-  /* justify-content: inherit; */
+
+/* .dc_user .product-details{
+
+   justify-content: inherit;
+
   display: flex;
+
   width: 500px;
+
   font-size: large;
+
   align-items: center;
+
   margin-left: 400px;
+
   flex-direction: column;
 
-}
+ 
 
-.dhanu .user-page {
+} */
+
+ 
+
+.dc_user .user-page {
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
   min-height: 100vh;
+
   background-color: #95A5A6;
-  /* Change the background color to your preference */
+
+ 
+
 }
-/* UserPage.css */
-.dhanu .navbar {
+
+ 
+
+.dc_user .navbar {
+
   background-color: #333;
+
   color: white;
+
   padding: 10px 0;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
 }
 
-.dhanu .navbar h1 {
-  margin: 0;
+ 
+
+.dc_user .navbar h1 {
+
+  margin-left: 10;
+
   font-size: 24px;
+
 }
 
-.dhanu .navbar-list {
+ 
+
+.dc_user .navbar-list {
+
   list-style: none;
+
   display: flex;
+
 }
 
-.dhanu .navbar-list li {
+ 
+
+.dc_user .navbar-list li {
+
   margin: 0 10px;
+
 }
 
-.dhanu .navbar-list li:last-child {
-  margin-right: 0;
+ 
+
+.dc_user .navbar-list li:last-child {
+
+  margin-right: 10;
+
 }
 
-.dhanu .navbar-list li a,
-.dhanu .navbar-list li button {
+ 
+
+.dc_user .navbar-list li a,
+
+.dc_user .navbar-list li button {
+
   text-decoration: none;
+
   color: white;
+
   /* background-color: #0f3960; */
+
   border: none;
+
   padding: 10px 15px;
+
   border-radius: 5px;
+
   cursor: pointer;
+
   transition: background-color 0.3s ease;
+
 }
 
-.dhanu .navbar-list li a:hover,
-.dhanu .navbar-list li button:hover {
+ 
+
+.dc_user .navbar-list li a:hover,
+
+.dc_user .navbar-list li button:hover {
+
   background-color: #2169c6;
-}
-.dhanu #avail_products_name{
-  font-size: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.dhanu .cart {
-  position: relative;
-  cursor: pointer;
-  font-size: 30px;
+
 }
 
-.dhanu .cart-count {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: rgb(14, 10, 10);
-  color: rgb(228, 82, 82);
-  border-radius: 50%;
-  padding: 5px 10px;
-  font-size: 14px;
+ 
+
+.dc_user #avail_products_name{
+
+  font-size: 50px;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
 }
+
+.dc_user .cart {
+
+  position: relative;
+
+  cursor: pointer;
+
+  font-size: 30px;
+
+}
+
+ 
+
+.dc_user .cart-count {
+
+  position: absolute;
+
+  top: -10px;
+
+  right: -10px;
+
+  background-color: rgb(14, 10, 10);
+
+  color: rgb(228, 82, 82);
+
+  border-radius: 50%;
+
+  padding: 5px 10px;
+
+  font-size: 14px;
+
+}
+
+ 
 
 /* Product list styles */
-.dhanu .product-list {
+
+.dc_user .product-list {
+
+ 
 
   display: flex;
+
   flex-wrap: wrap; /* Allow products to wrap to the next line */
+
   justify-content: space-between; /* Distribute space between products */
+
   min-width: 100px; /* Set a minimum width for the product list container */
+
   min-height: 100px;
 
+ 
+
 }
 
-.dhanu .product-item {
+ 
+
+.dc_user .product-item {
+
   width: 20%; /* Set a fixed width for product items (adjust as needed) */
+
   margin-bottom: 20px;
+
   background-color: #D6DBDF;
+
   padding: 10px;
+
   border-radius: 32px 64px;
+
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
   text-align: center;
+
   display: flex;
+
   flex-direction: column; /* Stack children elements vertically */
+
   justify-content: space-between; /* Push children elements to the top and bottom */
-}
-.dhanu .product-image {
-  width: 50%; /* Ensure that the image takes up 100% of the width */
-  height: 50%; /* Ensure that the image takes up 100% of the height */
-  max-width: 50%;
-  max-height: 50%;
-  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
-}
-.dhanu h5{
-  align-items: right;
-}
-.dhanu .product-item h4 {
-  margin: 10px 0;
+
 }
 
-.dhanu .product-item button {
-  background-color: #f296e1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+.dc_user .product-image {
+
+  width: 50%; /* Ensure that the image takes up 100% of the width */
+
+  height: 50%; /* Ensure that the image takes up 100% of the height */
+
+  max-width: 50%;
+
+  max-height: 50%;
+
   cursor: pointer;
-  margin-top: auto; /* Push the button to the bottom */
+
+  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+
 }
+
+.dc_user .product-item h4 {
+
+  margin: 10px 0;
+
+}
+
+ 
+
+.dc_user .product-item button {
+
+  background-color: #ded3dc;
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  cursor: pointer;
+
+  margin-top: auto; /* Push the button to the bottom */
+
+}
+
+ 
 
 /* Order Confirmation Popup styles */
-.dhanu .order-confirmation-popup {
+
+.dc_user .order-confirmation-popup {
+
   position: fixed;
+
   top: 50%;
+
   left: 50%;
+
   transform: translate(-50%, -50%);
+
   background-color: #fff;
+
   padding: 20px;
+
   text-align: center;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
 }
 
-.dhanu .order-confirmation-popup p {
+ 
+
+.dc_user .order-confirmation-popup p {
+
   margin: 10px 0;
+
 }
+
 /* UserPage.css */
 
+ 
+
 /* Product card container */
-.dhanu .product-card {
+
+.dc_user .product-card {
+
   max-width: 540px;
+
   margin: 20px; /* Add margin between product cards */
+
   background-color: #fff; /* Background color for the card */
+
   border-radius: 10px; /* Add rounded corners to the card */
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow to the card */
+
 }
+
+ 
 
 /* Product card image */
-.dhanu .product-card-img {
+
+.dc_user .product-card-img {
+
   max-width: 100%;
+
   height: auto;
+
   border-top-left-radius: 10px; /* Rounded corners for the image */
+
   border-bottom-left-radius: 10px;
+
 }
+
+ 
 
 /* Product card body */
-.dhanu .product-card-body {
+
+.dc_user .product-card-body {
+
   padding: 20px;
+
 }
 
-.dhanu .product-card-title {
+ 
+
+.dc_user .product-card-title {
+
   font-size: 1.25rem; /* Adjust the title font size */
+
   font-weight: bold;
+
 }
 
-.dhanu .product-card-text {
+ 
+
+.dc_user .product-card-text {
+
   font-size: 1rem; /* Adjust the text font size */
+
 }
 
-.dhanu .product-card-meta {
+ 
+
+.dc_user .product-card-meta {
+
   font-size: 0.875rem; /* Adjust the meta text font size */
+
   color: #888; /* Meta text color */
-}
-.dhanu .store-name{
-  padding-top:80px
+
 }
 
+ 
 
+.dc_user .pagination {
 
-.dhanu .pagination {
+ 
 
   display: flex;  
 
+ 
+
   flex-direction: row;
+
+ 
 
   align-items: center;
 
+ 
+
   margin-top: 20px;
+
+ 
 
 }
 
-.dhanu .page-item {
+ 
+
+.dc_user .page-item {
+
+ 
 
   margin: 5px;
 
+ 
+
 color:#95A5A6
 
+ 
+
 }
+
 /* UserPage.css */
-.dhanu .search_options {
+
+.dc_user .search_options {
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   margin-bottom: 20px;
+
   z-index: 1;
+
 }
 
-.dhanu .search-bar {
+ 
+
+.dc_user .search-bar {
+
   display: flex;
+
   align-items: center;
+
   width: 300px;
+
 }
 
-.dhanu .search-input {
+ 
+
+.dc_user .search-input {
+
   padding: 10px 30px;
+
   font-size: 16px;
+
   border: 1px solid #ccc;
+
   border-radius: 5px;
+
   margin-right: 10px;
+
   width: 200px;
+
 }
 
-.dhanu .search-input::placeholder {
+ 
+
+.dc_user .search-input::placeholder {
+
   color: #ccc;
+
 }
 
+ 
 
-.dhanu .category-dropdown {
+ 
+
+.dc_user .category-dropdown {
+
   padding: 10px;
+
   font-size: 16px;
+
   border: 1px solid #ccc;
+
   border-radius: 5px;
+
   cursor: pointer;
+
 }
+
+ 
 
 /* Style for dropdown arrow */
-.dhanu .category-dropdown::after {
+
+.dc_user .category-dropdown::after {
+
   content: '\f0d7'; /* FontAwesome caret-down icon */
+
   font-family: FontAwesome;
+
   position: absolute;
+
   top: 50%;
+
   right: 10px;
+
   transform: translateY(-50%);
+
   pointer-events: none;
 
-}
-.dhanu #search-button {
-  padding: 10px 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 20px;
-  transition: background-color 0.3s ease; 
+ 
+
 }
 
+.dc_user #search-button {
+
+  padding: 10px 10px;
+
+  font-size: 16px;
+
+  border: none;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  margin-right: 20px;
+
+  transition: background-color 0.3s ease;
+
+}
+
+ 
+
+ 
 
 /* UserPage.css */
 
-.dhanu .footer {
+ 
+
+.dc_user .footer {
+
   background-color: #333;
+
   color: white;
+
   padding: 20px 0;
+
   text-align: center;
+
 }
 
-.dhanu .footer-content {
+ 
+
+.dc_user .footer-content {
+
+  color: white;
+
   max-width: 1200px;
+
   margin: 0 auto;
+
 }
+
+ 
 
 /* ProductDetails.css */
 
-/* Styles for the Add To Cart button */
-.dhanu .add-to-cart-button {
  
+
+.dc_user .add-to-cart-button {
+
+ 
+
   color: white; /* White text color */
+
   padding: 12px 20px; /* Padding inside the button */
+
   border: none; /* No border */
+
   cursor: pointer; /* Cursor on hover */
+
   border-radius: 4px; /* Optional: Rounded corners */
+
   font-size: 16px; /* Font size */
+
   transition: background-color 0.3s ease; /* Smooth background color transition */
+
 }
+
+ 
 
 /* Hover effect */
-.dhanu .add-to-cart-button:hover {
+
+.dc_user .add-to-cart-button:hover {
+
   background-color: #2169c6; /* Darker green on hover */
+
 }
+
+ 
 
 /* Disable button when quantity is 0 or exceeds available stock */
-.dhanu .add-to-cart-button:disabled {
+
+.dc_user .add-to-cart-button:disabled {
+
   background-color: #cccccc; /* Light grey for disabled state */
+
   cursor: not-allowed; /* No interaction in disabled state */
+
 }
+
+ 
 
 /* Optional: Style for the disabled state */
-.dhanu .add-to-cart-button:disabled:hover {
+
+.dc_user .add-to-cart-button:disabled:hover {
+
   background-color: #cccccc; /* Keep the same color on hover for disabled state */
+
 }
 
+ 
 
+ 
 
-
-
-
-
-
-
-
-
+ 
 
 /* CSS styles for product container and buttons */
-.product-container {
+
+.dc_user .product-container {
+
   max-width: 600px;
+
   margin: 0 auto;
+
   padding: 20px;
+
   border: 1px solid #ccc;
+
   border-radius: 10px;
+
   background-color: #fff;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
-.product-container h1 {
+ 
+
+.dc_user .product-container h1 {
+
   font-size: 24px;
+
   margin-bottom: 10px;
+
 }
 
-.product-container img {
+ 
+
+.dc_user .product-container img {
+
   max-width: 100%;
+
   height: auto;
+
   margin-bottom: 10px;
+
 }
 
-.product-container p {
+ 
+
+.dc_user .product-container p {
+
   margin-bottom: 10px;
+
 }
 
-.quantity-input {
+ 
+
+.dc_user .quantity-input {
+
   margin-bottom: 15px;
+
 }
 
-.quantity-input label {
+ 
+
+.dc_user .quantity-input label {
+
   font-weight: bold;
+
 }
 
-.quantity-input input[type="number"] {
+ 
+
+.dc_user .quantity-input input[type="number"] {
+
   width: 60px;
+
   padding: 5px;
+
   border: 1px solid #ccc;
+
   border-radius: 5px;
+
   font-size: 16px;
+
 }
 
-.product-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+ 
 
-.product-buttons button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
+.dc_user #prodname{
 
-.product-buttons button:hover {
-  background-color: #45a049;
-}
-
-.back-button {
-  background-color: #007bff;
-}
-
-.back-button:hover {
-  background-color: #0056b3;
-}
-
-.icon {
-  margin-top: 10px;
-}
-
-.icon .btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 10px 15px;
-  font-size: 20px;
-  text-decoration: none;
-}
-
-.icon .btn:hover {
-  background-color: #0056b3;
-}
-#prodname{
   font-size: 30px;
+
 }
-.prod-display {
+
+.dc_user .prod-display {
+
   max-width: 400px;
+
   margin: 0 auto;
+
   padding: 20px;
+
   border: 1px solid #ccc;
+
   border-radius: 8px;
+
   background-color: #D6DBDF;
+
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+
 }
 
-#prodname {
+ 
+
+.dc_user #prodname {
+
   font-size: 24px;
+
   margin-bottom: 10px;
+
 }
 
-.prod-display img {
+ 
+
+.dc_user .prod-display img {
+
   max-width: 100%;
+
   height: auto;
+
   display: block;
+
   margin: 0 auto;
+
 }
 
-p {
-  font-size: 16px;
-}
+ 
 
-.quantity-input {
+.dc_user .quantity-input {
+
   margin-top: 20px;
+
   display: flex;
+
   align-items: center;
+
 }
 
-.quantity-input label {
+ 
+
+.dc_user .quantity-input label {
+
   margin-right: 10px;
+
 }
 
-.quantity-input input {
+ 
+
+.dc_user .quantity-input input {
+
   width: 60px;
+
   padding: 8px;
+
   border: 1px solid #ccc;
+
   border-radius: 4px;
+
 }
 
-button {
-  margin-top: 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
+ 
 
-button:hover {
-  background-color: #45a049;
-}
-#addcart{
+ 
+
+.dc_user #addcart{
+
   background-color: #007bff;
+
   padding: 10px 20px;
+
   border-radius: 18px;
+
 }

@@ -141,7 +141,7 @@ const CheckoutPage = () => {
             <strong>Product Name:</strong> {product.productname}<br />
             <strong>Price:</strong> Rs. {product.price}<br />
             <p>{product.description}</p>
-            <strong>Stock Left:</strong> Rs. {product.stock}<br />
+            <strong>Stock Left:</strong>{product.stock}<br />
             <strong>Quantity:</strong> 
             <button onClick={handleDecreaseQuantity}>-</button>
             {quantity}

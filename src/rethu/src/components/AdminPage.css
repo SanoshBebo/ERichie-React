@@ -1,0 +1,701 @@
+/* AdminPage.css */
+
+.add-product-pagess {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 20px;
+
+}
+
+ 
+
+.add-product-containerss {
+
+  background: #f9f9f9;
+
+  border: 1px solid #ddd;
+
+  padding: 20px;
+
+  width: 80%;
+
+  text-align: center;
+
+  border-radius: 5px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+ 
+
+.inventory-buttonss {
+
+   background-color: #f05d23;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  margin-bottom: 20px;
+
+  cursor: pointer;
+
+  border-radius: 5px;
+
+  font-size: 16px;
+
+  margin-right: 20px;
+
+}
+
+ 
+
+.inventory-buttonss:hover {
+
+  background-color: #e0a362;
+
+}
+
+ 
+
+.add-product-headingss {
+
+  font-size: 24px;
+
+  margin-bottom: 20px;
+
+}
+
+ 
+
+.toggle-form-buttonss {
+
+  background: black;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  margin-bottom: 20px;
+
+  cursor: pointer;
+
+  border-radius: 5px;
+
+  font-size: 16px;
+
+}
+
+ 
+
+.toggle-form-buttonss:hover{
+
+background-color: darkgrey;
+
+}
+
+ 
+
+.product-formss {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+}
+
+ 
+
+.form-group {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  margin-top: 10px;
+
+}
+
+ 
+
+.form-group div {
+
+  width: calc(33.33% - 20px);
+
+  margin: 10px;
+
+}
+
+ 
+
+.product-boxess {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: space-between;
+
+  margin-top: 80px;
+
+}
+
+ 
+
+.product-boxss {
+
+  background: #fff;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+
+  width: calc(33.33% - 20px);
+
+  min-width: 300px; /* Minimum width */
+
+  min-height: 500px; /* Minimum height */
+
+  padding: 20px; /* Padding */
+
+  margin: 10px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+}
+
+.product-formss {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+ 
+
+.product-formss div {
+
+  margin: 10px 0;
+
+}
+
+ 
+
+.product-formss label {
+
+  font-weight: bold;
+
+  margin-bottom: 5px;
+
+}
+
+ 
+
+.product-formss input[type="text"],
+
+.product-formss input[type="number"],
+
+.product-formss input[type="file"] {
+
+  width: 100%;
+
+  padding: 8px;
+
+  margin: 5px 0;
+
+  border: 1px solid #ccc;
+
+  border-radius: 4px;
+
+}
+
+ 
+
+.product-formss .edit-product-buttons {
+
+  display: flex;
+
+  justify-content: space-between;
+
+}
+
+ 
+
+.product-formss .add-product-button,
+
+.product-formss .save-edit-button,
+
+.product-formss .cancel-edit-button {
+
+  padding: 10px 20px;
+
+  background-color: #007bff;
+
+  color: #fff;
+
+  border: none;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  transition: background-color 0.3s;
+
+}
+
+ 
+
+.product-formss .add-product-button:hover,
+
+.product-formss .save-edit-button:hover,
+
+.product-formss .cancel-edit-button:hover {
+
+  background-color: #0056b3;
+
+}
+
+ 
+
+ 
+
+.product-image img {
+
+  max-width: 100%;
+
+  height: auto;
+
+}
+
+ 
+
+.product-details {
+
+ 
+
+  text-align: left;
+
+}
+
+ 
+
+.product-name {
+
+  font-size: 18px;
+
+  margin: 5px 0;
+
+}
+
+ 
+
+.product-description {
+
+  margin: 5px 0;
+
+}
+
+ 
+
+.product-price, .product-stock {
+
+  margin: 5px 0;
+
+  font-size: 14px;
+
+}
+
+ 
+
+.product-buttons {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 10px;
+
+}
+
+ 
+
+.delete-product-button, .edit-product-button {
+
+  background: #e74c3c;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 5px 10px;
+
+  cursor: pointer;
+
+  border-radius: 5px;
+
+}
+
+ 
+
+.edit-product-button {
+
+  background: #3498db;
+
+  margin-left: 10px;
+
+}
+
+ 
+
+.pagination {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin-top: 20px;
+
+}
+
+ 
+
+.page {
+
+  background: #f9f9f9;
+
+  color: #333;
+
+  padding: 5px 10px;
+
+  margin: 0 5px;
+
+  cursor: pointer;
+
+  border-radius: 5px;
+
+}
+
+ 
+
+.active {
+
+  background: #3498db;
+
+  color: #fff;
+
+  padding: 5px 10px;
+
+  margin: 0 5px;
+
+  cursor: pointer;
+
+  border-radius: 5px;
+
+}
+
+ 
+
+.custom-button {
+
+  background-color: #f05d23;
+
+  color: white;
+
+  padding: 10px 20px;
+
+  border: none;
+
+  border-radius: 5px;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+ 
+
+}
+
+ 
+
+.custom-button:hover {
+
+  background-color: #e0a362;
+
+}
+
+ 
+
+.custom-button a {
+
+  color: inherit;
+
+  text-decoration: none;
+
+}
+
+ 
+
+.product-lists {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+ 
+
+.product-lists-container {
+
+  text-align: center;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  margin: 20px 0; /* Add spacing between h2 and search input/button */
+
+}
+
+ 
+
+.ProductListName {
+
+  font-size: 24px;
+
+  font-weight: bold; /* Apply bold font */
+
+  margin-right: 20px; /* Reset margin to remove default margin */
+
+  color: white;
+
+}
+
+ 
+
+.product-searches {
+
+  display: flex;
+
+  align-items: center;
+
+  padding-left: 50px;
+
+  width: 70px;
+
+}
+
+ 
+
+.search-button {
+
+  background-color: #f05d23; /* Apply the specified color */
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  margin-left: 10px; /* Add spacing between input and button */
+
+}
+
+.delete-modal {
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+
+}
+
+ 
+
+.delete-modal-content {
+
+  background-color: #fff;
+
+  border-radius: 5px;
+
+  padding: 20px;
+
+  text-align: center;
+
+}
+
+ 
+
+/* Modal Container */
+
+.delete-confirmation {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  z-index: 999;
+
+}
+
+ 
+
+/* Modal Content */
+
+.confirmation-content {
+
+  background: #fff;
+
+  border-radius: 5px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  padding: 20px;
+
+  text-align: center;
+
+}
+
+ 
+
+/* Modal Text */
+
+.confirmation-content p {
+
+  margin: 0;
+
+  padding: 0;
+
+}
+
+ 
+
+/* Modal Buttons */
+
+.confirmation-content button {
+
+  margin: 10px;
+
+  padding: 10px 20px;
+
+  border: none;
+
+  background: #007BFF;
+
+  color: #fff;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+}
+
+ 
+
+.confirmation-content button:hover {
+
+  background: #0056b3;
+
+}
+
+.out-of-stock {
+
+  opacity: 0.5; /* Reduce opacity for out-of-stock products */
+
+  pointer-events: none; /* Disable click events for out-of-stock products */
+
+  /* You can also add other styling to indicate that the product is out of stock */
+
+}
+
+ 
+
+.out-of-stock-message {
+
+  color: red;
+
+  font-weight: bold;
+
+}
+
+.out-of-stock-image {
+
+  filter: grayscale(100%); /* Apply grayscale effect to the image */
+
+  opacity: 0.5; /* Reduce image opacity to indicate it's out of stock */
+
+}

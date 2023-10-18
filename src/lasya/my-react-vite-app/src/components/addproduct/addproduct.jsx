@@ -8,7 +8,9 @@ import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../../../SanoshProject/redux/shopOneUserSlice";
 
 function AddProduct() {
   const [product, setProduct] = useState({
@@ -28,6 +30,12 @@ function AddProduct() {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editProductId, setEditProductId] = useState(null);
+
+
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   const apiUrl =
     "https://firestore.googleapis.com/v1/projects/gamestore-1b041/databases/(default)/documents/Products";
@@ -356,6 +364,24 @@ function AddProduct() {
       imageFile: null,
     });
   };
+
+
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => { 
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "lasyaadmin@gmail.com") {
+      if (userData.role == "admin") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
 
   return (
     <div>

@@ -71,7 +71,7 @@ function ProductList({ isAdmin }) {
 
   return (
     <div>
-      <div className="navbar">
+      <div className="navbar bg-gray-600">
         <Link to="/erichie">Home Page</Link>
 
         <Link to="/gaming">Go Back</Link>
@@ -107,7 +107,7 @@ function ProductList({ isAdmin }) {
           displayedProducts.map((product) => (
             <div className="product-box" key={product.id}>
               <Link to={`product/${product.id}`}>
-                <strong>{product.fields.productname?.stringValue}</strong> - $
+                <strong>{product.fields.productname?.stringValue}</strong> - Rs.
                 {product.fields.price?.integerValue}
                 <p>{product.fields.description?.stringValue}</p>
                 {isAdmin ? (

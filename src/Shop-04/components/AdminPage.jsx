@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminPage.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineSearch,AiOutlineShoppingCart } from 'react-icons/ai';
 import { CenterFocusStrong } from "@mui/icons-material";
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../SanoshProject/redux/shopOneUserSlice';
 
 function AddProduct() {
   const [product, setProduct] = useState({
@@ -33,7 +35,10 @@ function AddProduct() {
 
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const user = useSelector((state) => state.shoponeuser.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
   const firebaseStorageUrl = 'https://firebasestorage.googleapis.com/v0/b/d-richie-computers.appspot.com/o';
 
   
@@ -69,6 +74,22 @@ function AddProduct() {
   }, [searchInput, products, currentCategory]);
   
   
+  useEffect(() => {
+    if (!isLoadingUser && user.length === 0) {
+      navigate("/admin/login");
+    }
+  }, [isLoadingUser, user, navigate]);
+
+  useEffect(() => { 
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.email == "dhanuadmin@gmail.com") {
+      if (userData.role == "admin") {
+        navigate("/admin/login");
+      }
+      dispatch(setUser(userData));
+    }
+    setIsLoadingUser(false);
+  }, []);
   
     const handleSearch = () => {
       const searchTerm = searchInput.toLowerCase();
@@ -139,21 +160,7 @@ function AddProduct() {
   };
 
   const handleDeleteProduct = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
-    if (confirmDelete) {
-      try {
-        const response = await axios.delete(`${apiUrl}/${id}`);
-        if (response.status === 200) {
-          const updatedProducts = products.filter((product) => product.id !== id);
-          setProducts(updatedProducts);
-          setFilteredProducts(updatedProducts);
-        } else {
-          console.log('Error: Product deletion failed');
-        }
-      } catch (error) {
-        console.error('Error: ', error);
-      }
-    }
+    
     const response = await axios.delete(`${apiUrl}/${id}`);
         if (response.status === 200) {
           const updatedProducts = products.filter((product) => product.id !== id);

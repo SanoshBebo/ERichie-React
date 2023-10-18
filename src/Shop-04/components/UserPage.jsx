@@ -79,7 +79,7 @@ function UserPage() {
   };
 
   return (
-    <section className="dhanu">
+    <section className="dc_user">
     <div className="user-page">
     <nav className="navbar">
   <h1>Dhanu Computers!</h1>

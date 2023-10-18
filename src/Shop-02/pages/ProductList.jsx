@@ -346,7 +346,7 @@ const ProductForm = () => {
 
     try {
 
-      const apiKey = "YOUR_FIREBASE_API_KEY";
+      const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ";
 
       const response = await axios.get(
 
@@ -420,7 +420,7 @@ const ProductForm = () => {
 
     try {
 
-      const apiKey = "YOUR_FIREBASE_API_KEY";
+      const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ";
 
       const documentID = updatedProduct.documentID;
 
@@ -482,7 +482,7 @@ const ProductForm = () => {
 
     try {
 
-      const apiKey = "YOUR_FIREBASE_API_KEY";
+      const apiKey = "AIzaSyCYi91lSnCgGpmOm-5fBjayL_npM65bZcQ";
 
       const documentID = productToDelete.documentID;
 

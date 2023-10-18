@@ -5,7 +5,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { checkUserRole, storeUserInFirestore } from "./auth";
 import { setUser } from "../SanoshProject/redux/shopOneUserSlice";
@@ -219,6 +219,9 @@ const AdminLoginRegister = () => {
           </a>
         </p>
       </div>
+      <Link to="/login">
+      <div className="p-2">Back to login</div>
+      </Link>
     </div>
   );
 };

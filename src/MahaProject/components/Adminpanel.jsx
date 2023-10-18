@@ -69,13 +69,14 @@ const AdminPanel = () => {
     }
     setIsLoadingUser(false);
   }, []);
+  const handlesalesreportProductClick = () => {
+    window.location.href  = '/erichie/overall-report';
+  }
   const handleSignOut = () => {
     localStorage.removeItem("user");
     navigate("/admin/login"); // Use navigate to redirect to the login page
   };
-  const handlesalesreportProductClick = () => {
-    window.location.href  = '/erichie/overall-report';
-  }
+  
 
   return (
     <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen flex flex-col items-center justify-center text-black">
@@ -87,10 +88,11 @@ const AdminPanel = () => {
           <button onClick={handleUpdateProductClick} className="btn">Update Products</button>
           <button onClick={handleDeleteProductClick} className="btn">Delete Products</button>
           <button onClick={handleinventoryProductClick} className="btn">Inventory Report</button>
-          <button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button>
+          
           <Link to="/erichie/overall-report">
           <button  className="btn">Sales Report</button>
           </Link>
+          <button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button>
 
         </div>
         {showAddProduct && <ProductForm />}

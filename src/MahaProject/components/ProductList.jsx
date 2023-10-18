@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const ProductList = () => {
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    navigate("/customer/login"); // Use navigate to redirect to the login page
+  };
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -103,7 +109,13 @@ const ProductList = () => {
           </div>
         )}
       </div>
+      
+
+      <div className="absolute top-4 right-4 mr-14">
+      <button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button>
     </div>
+    </div>
+    
   );
 };
 

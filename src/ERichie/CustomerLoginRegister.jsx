@@ -176,6 +176,9 @@ const CustomerLoginRegister = () => {
           </a>
         </p>
       </div>
+      <Link to="/login">
+      <div className="p-2 text-white font-bold">Back to login</div>
+      </Link>
       <p className="mt-4 text-center text-[15px]">
         Continue without signing in
         <Link to="/erichie">

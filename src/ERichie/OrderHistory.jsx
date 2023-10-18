@@ -83,6 +83,7 @@ const OrderHistory = () => {
                       <div className="flex-row">
                         <p className="text-lg font-semibold">Order Placed </p>
                         <p> {product.purchaseDate.split("T")[0]}</p>
+                        <p> {product.purchaseDate.split("T")[1].split(".")[0]}</p>
                       </div>
                       <div className="flex-row">
                         <p className="text-lg font-semibold">TOTAL </p>

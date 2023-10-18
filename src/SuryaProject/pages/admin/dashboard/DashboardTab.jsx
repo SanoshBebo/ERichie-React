@@ -107,6 +107,7 @@ function DashboardTab() {
                         price,
                         imageUrl,
                         category,
+                        imageurl,
                         description,
                         date,
                         stock,
@@ -131,7 +132,7 @@ function DashboardTab() {
                               scope="row"
                               className="px-6 py-4 font-medium text-black whitespace-nowrap"
                             >
-                              <img className="w-16" src={imageUrl} alt="img" />
+                              <img className="w-16" src={imageUrl || imageurl} alt="img" />
                             </th>
                             <td
                               className="px-6 py-4 text-black "
